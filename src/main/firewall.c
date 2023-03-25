@@ -35,6 +35,7 @@ STATIC void get_interface_list(const char *iflist,
     cmd_args->n_iflist ++;
 }
 
+/* Parse command line arguments. */
 STATIC int parse_command_args(int argc, char **argv,
                               struct firewall_context *fw_ctx)
 {
@@ -54,6 +55,7 @@ STATIC int parse_command_args(int argc, char **argv,
     return 0;
 }
 
+/* Process received packet. */
 STATIC void * fw_process_packet(void *usr_ptr)
 {
     struct firewall_interface_context *fw_if_ptr = usr_ptr;
@@ -68,7 +70,10 @@ STATIC void * fw_process_packet(void *usr_ptr)
                 break;
             }
 
-            printf("==== read pkt %d\n", pkt->total_len);
+            fw_event_type_t type;
+            type = parse_protocol(pkt);
+            (void)type;
+
             free(pkt);
         }
         os_mutex_unlock(&fw_if_ptr->pkt_rx_evt_lock);
@@ -98,8 +103,6 @@ STATIC void * fw_recv_packet(void *usr_ptr)
 
         pkt->off = 0;
         pkt->total_len = ret;
-
-        printf("rx pkt %d\n", ret);
 
         fw_packet_queue_entry_add(fw_if_ptr->pkt_q, pkt);
 
@@ -187,7 +190,7 @@ int main(int argc, char **argv)
 
     ret = parse_command_args(argc, argv, fw_ctx);
     if (ret < 0) {
-        return -1;
+        goto free_fw_ctx;
     }
 
     ret = fw_init_all_interfaces(fw_ctx);
@@ -203,6 +206,9 @@ int main(int argc, char **argv)
 
 deinit_fw:
     fw_deinit_all_interfaces(fw_ctx);
+
+free_fw_ctx:
+    free(fw_ctx);
 
     return -1;
 }
