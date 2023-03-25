@@ -13,7 +13,9 @@ set(SRC
 	${DRV_SRC}
 	${MAIN_SRC})
 
-set(CMAKE_C_FLAGS "-Wall -Wno-unused-parameter -Wextra -Werror")
+set(FW_FLAGS "-DCONFIG_DRIVER_RAW_SOCKET")
+
+set(CMAKE_C_FLAGS "-Wall -Wno-unused-parameter -Wextra -Werror ${FW_FLAGS}")
 
 include_directories(./src/
 					./src/drivers/
