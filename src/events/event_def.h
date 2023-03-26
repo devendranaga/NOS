@@ -4,6 +4,8 @@
 enum fw_event_type {
     FW_EVEN_DENY,
     FW_EVENT_ALLOW,
+    FW_EVENT_SRC_DST_ARE_BROADCAST,
+    FW_EVENT_SRC_DST_ARE_ZERO,
 };
 
 typedef enum fw_event_type fw_event_type_t;

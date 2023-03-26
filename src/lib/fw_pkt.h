@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <os_thread.h>
 #include <ethernet.h>
+#include <arp.h>
 
 #define FW_PACKET_LEN_MAX 8192
 
@@ -17,6 +18,7 @@ struct fw_packet {
     struct os_mutex lock;
 
     struct ethernet_header eh;
+    struct arp_header arp_h;
     struct fw_packet *next;
 };
 

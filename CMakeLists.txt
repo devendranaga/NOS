@@ -24,6 +24,7 @@ set(PROTOCOL_SRC
 
 set(LIB_SRC
 	./src/lib/fw_pkt.c
+	./src/lib/pcap/pcap_ops.c
 	${PROTOCOL_SRC})
 
 set(DEBUG_SRC
@@ -65,6 +66,7 @@ include_directories(./src/
 					./src/lib/protocols/l3/
 					./src/events/
 					./src/debug/
+					./src/lib/pcap/
 					./tools/packet_gen/)
 
 add_executable(fwd ${SRC})

@@ -38,5 +38,21 @@ void fw_copy_macaddr(fw_packet_t *pkt, uint8_t *mac)
 void fw_copy_2_bytes(fw_packet_t *pkt, uint16_t *val)
 {
     *val = (pkt->msg[pkt->off] << 8) | (pkt->msg[pkt->off + 1]);
+    pkt->off += 2;
+}
+
+void fw_copy_byte(fw_packet_t *pkt, uint8_t *val)
+{
+    *val = pkt->msg[pkt->off];
+    pkt->off ++;
+}
+
+void fw_copy_4_bytes(fw_packet_t *pkt, uint32_t *val)
+{
+    *val = (pkt->msg[pkt->off]      << 24) |
+           (pkt->msg[pkt->off + 1]  << 16) |
+           (pkt->msg[pkt->off + 2] << 8)   |
+           (pkt->msg[pkt->off + 3]);
+    pkt->off += 4;
 }
 
