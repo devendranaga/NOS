@@ -72,7 +72,7 @@ STATIC void * fw_process_packet(void *usr_ptr)
 
             fw_debug(FW_DEBUG_LEVEL_VERBOSE, "parse rx msg of len [%d]\n",
                                                     pkt->total_len);
-            fw_event_type_t type;
+            fw_event_details_t type;
             type = parse_protocol(pkt);
             (void)type;
 
