@@ -8,6 +8,7 @@
 #include <firewall_common.h>
 #include <os_thread.h>
 
+/* Thread context structure. */
 struct os_thread_context {
     pthread_t tid;
     int priority;
@@ -15,6 +16,7 @@ struct os_thread_context {
     bool detachable;
 };
 
+/* Set default attribute as detached. */
 STATIC void os_thread_attr_default_detached(pthread_attr_t *attr)
 {
     pthread_attr_init(attr);

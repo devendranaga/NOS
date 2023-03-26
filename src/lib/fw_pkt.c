@@ -61,3 +61,20 @@ struct fw_packet *fw_packet_queue_first(void *q)
     return entry;
 }
 
+void fw_hexdump(const char *msg, uint8_t *pkt, uint32_t pkt_len)
+{
+    uint32_t i;
+
+    fprintf(stderr, "%s: \n", msg);
+    for (i = 0; i < pkt_len; i ++) {
+        if ((i != 0) && (i % 8) == 0) {
+            fprintf(stderr, "  ");
+        }
+        if ((i != 0) && (i % 16) == 0) {
+            fprintf(stderr, "\n");
+        }
+        fprintf(stderr, "%02x ", pkt[i]);
+    }
+    fprintf(stderr, "\n");
+}
+
