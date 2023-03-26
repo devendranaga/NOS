@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements Ethernet parsing.
+ *
+ * @author - Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright - 2023-present All rights reserved.
+ */
 #include <stdio.h>
 #include <protocol_generic.h>
 #include <fw_pkt.h>

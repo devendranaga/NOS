@@ -203,7 +203,7 @@ int main(int argc, char **argv)
     }
 
     while (1) {
-        sleep(1);
+        os_wait_for_timeout(1000);
     }
 
     return 0;

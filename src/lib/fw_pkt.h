@@ -1,6 +1,7 @@
 #ifndef __FW_PKT_H__
 #define __FW_PKT_H__
 
+#include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <os_thread.h>

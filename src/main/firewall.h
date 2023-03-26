@@ -1,3 +1,6 @@
+#ifndef __FIREWALL_H__
+#define __FIREWALL_H__
+
 #include <stdio.h>
 #include <stdint.h>
 #include <getopt.h>
@@ -12,6 +15,7 @@
 #include <fw_pkt.h>
 #include <protocol_generic.h>
 #include <debug.h>
+#include <os.h>
 
 #define MAX_IFS 10
 #define MAX_IFNAME_SIZE 15
@@ -42,9 +46,14 @@ struct firewall_interface_context {
     struct os_cond pkt_rx_evt_cond;
 };
 
+/* Firewall context. */
 struct firewall_context {
+    /* Command line arguments. */
     struct firewall_command_args args;
     struct nw_driver_callbacks nw_drv;
     int n_intf;
     struct firewall_interface_context if_list[MAX_IFS];
 };
+
+#endif
+
