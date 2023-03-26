@@ -11,6 +11,7 @@
 #include <os_thread.h>
 #include <fw_pkt.h>
 #include <protocol_generic.h>
+#include <debug.h>
 
 #define MAX_IFS 10
 #define MAX_IFNAME_SIZE 15

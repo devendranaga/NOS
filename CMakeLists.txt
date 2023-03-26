@@ -25,6 +25,9 @@ set(LIB_SRC
 	./src/lib/fw_pkt.c
 	${PROTOCOL_SRC})
 
+set(DEBUG_SRC
+	./src/debug/debug.c)
+
 set(MAIN_SRC
 	./src/main/firewall.c)
 
@@ -32,7 +35,8 @@ set(SRC
 	${DRV_SRC}
 	${MAIN_SRC}
 	${OS_SRC}
-	${LIB_SRC})
+	${LIB_SRC}
+	${DEBUG_SRC})
 
 set(FW_FLAGS "-DCONFIG_DRIVER_RAW_SOCKET")
 
@@ -43,13 +47,14 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wformat-security")
 include_directories(./src/
 					./src/drivers/
 					./src/drivers/linux_raw/
-					./src/main
+					./src/main/
 					./src/lib/
 					./src/lib/os/
 					./src/lib/protocols/
 					./src/lib/protocols/l2/
 					./src/lib/protocols/l3/
-					./src/events/)
+					./src/events/
+					./src/debug/)
 
 add_executable(fwd ${SRC})
 target_link_libraries(fwd pthread)

@@ -70,6 +70,8 @@ STATIC void * fw_process_packet(void *usr_ptr)
                 break;
             }
 
+            fw_debug(FW_DEBUG_LEVEL_VERBOSE, "parse rx msg of len [%d]\n",
+                                                    pkt->total_len);
             fw_event_type_t type;
             type = parse_protocol(pkt);
             (void)type;
@@ -182,6 +184,8 @@ int main(int argc, char **argv)
 {
     struct firewall_context *fw_ctx;
     int ret;
+
+    fw_debug(FW_DEBUG_LEVEL_INFO, "starting Firewall Daemon\n");
 
     fw_ctx = calloc(1, sizeof(struct firewall_context));
     if (!fw_ctx) {

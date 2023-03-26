@@ -4,12 +4,13 @@
 #include <fw_pkt.h>
 #include <firewall_common.h>
 
+/* Callbacks for Ethertype. */
 STATIC const struct ethertype_callback_def {
     uint16_t ethertype;
     fw_event_type_t (*l2_deserialize)(fw_packet_t *hdr);
 } ethertype_callbacks[] = {
-    {0x0806, arp_deserialize},
-    {0x0800, ipv4_deserialize},
+    {FW_ETHERTYPE_ARP, arp_deserialize},
+    {FW_ETHERTYPE_IPV4, ipv4_deserialize},
 };
 
 fw_event_type_t parse_protocol(struct fw_packet *pkt)
