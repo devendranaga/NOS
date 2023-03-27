@@ -7,6 +7,8 @@
 #ifndef __FW_EVENT_DEF_H__
 #define __FW_EVENT_DEF_H__
 
+#include <stdint.h>
+
 enum fw_event_details {
     FW_EVEN_DENY,
     FW_EVENT_ALLOW,

@@ -7,10 +7,12 @@
 #ifndef __FW_EVENTS_H__
 #define __FW_EVENTS_H__
 
+#include <stdint.h>
+#include <os_thread.h>
 #include <event_def.h>
 
 void *fw_events_init();
-void fw_event_add();
+void fw_event_add(void *, fw_event_t *evt);
 void fw_events_deinit(void *);
 
 #endif

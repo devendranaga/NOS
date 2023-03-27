@@ -20,10 +20,31 @@
 #define MAX_IFS 10
 #define MAX_IFNAME_SIZE 15
 
-struct firewall_command_args {
+/* Type of the event transport. */
+enum fw_event_transport_type {
+    FW_EVENT_TRANSPORT_TCP,
+    FW_EVENT_TRANSPORT_UDP,
+    FW_EVENT_TRANSPORT_MQTT,
+    FW_EVENT_TRANSPORT_INVAL,
+};
+
+typedef enum fw_event_transport_type fw_event_transport_type_t;
+
+struct fw_event_config {
+    fw_event_transport_type_t evt_transport_type;
+    char tcp_ip[20];
+    int tcp_port;
+};
+
+typedef struct fw_event_config fw_event_config_t;
+
+struct fw_command_args {
     char if_list[MAX_IFS][MAX_IFNAME_SIZE];
     uint32_t n_iflist;
+    fw_event_config_t event_config;
 };
+
+typedef struct fw_command_args fw_command_args_t;
 
 /* Firewall interface context. */
 struct firewall_interface_context {
@@ -49,7 +70,7 @@ struct firewall_interface_context {
 /* Firewall context. */
 struct firewall_context {
     /* Command line arguments. */
-    struct firewall_command_args args;
+    fw_command_args_t args;
     struct nw_driver_callbacks nw_drv;
     int n_intf;
     struct firewall_interface_context if_list[MAX_IFS];

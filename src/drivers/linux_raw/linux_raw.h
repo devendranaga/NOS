@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements Raw socket interface.
+ *
+ * @author - Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright - 2023-present All rights reserved.
+*/
 #ifndef __FIREWALL_LINUX_RAW_H__
 #define __FIREWALL_LINUX_RAW_H__
 
@@ -9,4 +15,3 @@ int linux_raw_read(void *ctx, uint8_t *msg, uint32_t len);
 int linux_raw_write(void *ctx, uint8_t *msg, uint32_t len);
 
 #endif
-
