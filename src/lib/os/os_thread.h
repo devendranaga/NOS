@@ -18,6 +18,8 @@ typedef struct os_cond os_cond_t;
 
 void *os_thread_create(int priority, int cpu_core, void *usrdata,
                        bool detachable, void * (*start_func)(void *data));
+void os_thread_destroy(void *ptr);
+
 void os_mutex_create(struct os_mutex *mutex);
 void os_mutex_lock(struct os_mutex *mutex);
 void os_mutex_unlock(struct os_mutex *mutex);

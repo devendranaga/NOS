@@ -49,6 +49,9 @@ set(SRC
 set(TOOL_SRC
     ./tools/packet_gen/packet_gen.c)
 
+set(EVENT_SERVER_SRC
+    ./server/event_server/event_server.c)
+
 set(FW_FLAGS "-DCONFIG_DRIVER_RAW_SOCKET")
 
 set(CMAKE_C_FLAGS "-Wall -Wno-unused-parameter -Wextra -Werror ${FW_FLAGS} ")
@@ -73,11 +76,15 @@ include_directories(./src/
                     ./src/events/
                     ./src/debug/
                     ./src/lib/pcap/
-                    ./tools/packet_gen/)
+                    ./tools/packet_gen/
+                    ./server/event_server/)
 
 add_executable(fwd ${SRC})
 target_link_libraries(fwd pthread rt)
 
 add_executable(packet_gen ${TOOL_SRC})
 target_link_libraries(packet_gen pthread rt)
+
+add_executable(event_serverd ${EVENT_SERVER_SRC})
+target_link_libraries(event_serverd pthread rt)
 

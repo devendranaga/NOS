@@ -16,6 +16,7 @@
 #include <protocol_generic.h>
 #include <debug.h>
 #include <os.h>
+#include <os_signal.h>
 
 /* Firewall interface context. */
 struct firewall_interface_context {
