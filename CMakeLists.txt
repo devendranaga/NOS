@@ -47,7 +47,10 @@ set(SRC
     ${EVENT_SRC})
 
 set(TOOL_SRC
-    ./tools/packet_gen/packet_gen.c)
+    ./tools/packet_gen/packet_gen.c
+    ./tools/packet_gen/pcap_replay.c
+    ./src/lib/pcap/pcap_ops.c
+    ./src/drivers/linux_raw/linux_raw.c)
 
 set(EVENT_SERVER_SRC
     ./server/event_server/event_server.c)

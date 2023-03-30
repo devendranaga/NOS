@@ -18,7 +18,7 @@ int fw_pcap_ops_write_packet(void *pcap_ctx, uint8_t *pkt, uint32_t pkt_len);
 void *fw_pcap_ops_pcap_reader_init(const char *filename);
 void fw_pcap_ops_pcap_reader_deinit(void *pcap_ctx);
 int fw_pcap_ops_read_packet(void *pcap_ctx, fw_pcaprec_hdr_t *rec_hdr,
-                            uint8_t *buf, size_t buflen);
+                            uint8_t *buf, uint32_t buflen);
 
 #endif
 
