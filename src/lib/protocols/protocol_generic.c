@@ -7,15 +7,15 @@
 /* Callbacks for Ethertype. */
 STATIC const struct ethertype_callback_def {
     uint16_t ethertype;
-    fw_event_type_t (*l2_deserialize)(fw_packet_t *hdr);
+    fw_event_details_t (*l2_deserialize)(fw_packet_t *hdr);
 } ethertype_callbacks[] = {
     {FW_ETHERTYPE_ARP, arp_deserialize},
     {FW_ETHERTYPE_IPV4, ipv4_deserialize},
 };
 
-fw_event_type_t parse_protocol(struct fw_packet *pkt)
+fw_event_details_t parse_protocol(struct fw_packet *pkt)
 {
-    fw_event_type_t type;
+    fw_event_details_t type;
     uint32_t i;
 
     type = ethernet_deserialize(pkt);

@@ -1,59 +1,12 @@
+/**
+ * @brief - Implements Firewall daemon.
+ *
+ * @author - Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright - 2023-present All rights reserved.
+ */
 #include <firewall.h>
 
-#define CMD_ARGS_LIST "i:"
-
 #define MAX_THR_PRIO 1
-
-STATIC void usage(const char *progname)
-{
-    fprintf(stderr, "<%s> -i <interface list separated by comma>",
-                    progname);
-}
-
-/* Get all interfaces passed via command line. */
-STATIC void get_interface_list(const char *iflist,
-                               struct firewall_command_args *cmd_args)
-{
-    uint32_t len = strlen(iflist);
-    uint32_t count = 0;
-    uint32_t i = 0;
-
-    /* Read all interfaces. */
-    while (i < len) {
-        if (iflist[i] == ',') {
-            cmd_args->if_list[cmd_args->n_iflist][count] = '\0';
-            cmd_args->n_iflist ++;
-            count = 0;
-        } else {
-            cmd_args->if_list[cmd_args->n_iflist][count] = iflist[i];
-            count ++;
-        }
-        i ++;
-    }
-    /* Last one does not end with ',' and stops with \0. */
-    cmd_args->if_list[cmd_args->n_iflist][count] = '\0';
-    cmd_args->n_iflist ++;
-}
-
-/* Parse command line arguments. */
-STATIC int parse_command_args(int argc, char **argv,
-                              struct firewall_context *fw_ctx)
-{
-    int ret;
-
-    while ((ret = getopt(argc, argv, CMD_ARGS_LIST)) != -1) {
-        switch (ret) {
-            case 'i':
-                get_interface_list(optarg, &fw_ctx->args);
-            break;
-            default:
-                usage(argv[0]);
-            return -1;
-        }
-    }
-
-    return 0;
-}
 
 /* Process received packet. */
 STATIC void * fw_process_packet(void *usr_ptr)
@@ -72,7 +25,7 @@ STATIC void * fw_process_packet(void *usr_ptr)
 
             fw_debug(FW_DEBUG_LEVEL_VERBOSE, "parse rx msg of len [%d]\n",
                                                     pkt->total_len);
-            fw_event_type_t type;
+            fw_event_details_t type;
             type = parse_protocol(pkt);
             (void)type;
 
@@ -192,7 +145,7 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    ret = parse_command_args(argc, argv, fw_ctx);
+    ret = fw_parse_command_args(argc, argv, &fw_ctx->args);
     if (ret < 0) {
         goto free_fw_ctx;
     }

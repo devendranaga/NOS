@@ -2,9 +2,9 @@
 #include <fw_pkt.h>
 #include <arp.h>
 
-fw_event_type_t arp_deserialize(fw_packet_t *hdr)
+fw_event_details_t arp_deserialize(fw_packet_t *hdr)
 {
-    fw_event_type_t type = FW_EVENT_ALLOW;
+    fw_event_details_t type = FW_EVENT_ALLOW;
 
     fw_copy_2_bytes(hdr, &hdr->arp_h.hwtype);
     fw_copy_2_bytes(hdr, &hdr->arp_h.proto_type);

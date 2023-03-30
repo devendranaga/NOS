@@ -34,9 +34,9 @@ STATIC bool mac_broadcast(uint8_t *src, uint8_t *dst)
     return false;
 }
 
-fw_event_type_t ethernet_deserialize(fw_packet_t *hdr)
+fw_event_details_t ethernet_deserialize(fw_packet_t *hdr)
 {
-    fw_event_type_t type = FW_EVENT_ALLOW;
+    fw_event_details_t type = FW_EVENT_ALLOW;
 
     fw_copy_macaddr(hdr, hdr->eh.dst);
     fw_copy_macaddr(hdr, hdr->eh.src);
