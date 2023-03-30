@@ -9,6 +9,7 @@
 
 #include <stdint.h>
 
+/* Details of the Firewall Events. */
 enum fw_event_details {
     FW_EVEN_DENY,
     FW_EVENT_ALLOW,
@@ -38,6 +39,7 @@ enum fw_event_protocol {
 
 typedef enum fw_event_protocol fw_event_protocol_t;
 
+/* Event definition per protocol description. */
 struct fw_protocol_event {
     uint16_t                ethertype;
     uint16_t                vid;

@@ -3,45 +3,51 @@ cmake_minimum_required(VERSION 3.8)
 project(Firewall)
 
 if(CONFIG_USE_CLANG)
-	set(CMAKE_C_COMPILER "/usr/bin/clang")
+    set(CMAKE_C_COMPILER "/usr/bin/clang")
 elseif(CONFIG_USE_GCC)
-	set(CMAKE_C_COMPILER "/usr/bin/gcc")
+    set(CMAKE_C_COMPILER "/usr/bin/gcc")
 endif()
 
 set(DRV_SRC
-	./src/drivers/driver_generic.c
-	./src/drivers/linux_raw/linux_raw.c)
+    ./src/drivers/driver_generic.c
+    ./src/drivers/linux_raw/linux_raw.c)
 
 set(OS_SRC
-	./src/lib/os/os_thread.c
-	./src/lib/os/os.c)
+    ./src/lib/os/os_thread.c
+    ./src/lib/os/os.c
+    ./src/lib/os/os_signal.c)
 
 set(PROTOCOL_SRC
-	./src/lib/protocols/protocol_generic.c
-	./src/lib/protocols/l2/ethernet.c
-	./src/lib/protocols/l2/arp.c
-	./src/lib/protocols/l3/ipv4.c)
+    ./src/lib/protocols/protocol_generic.c
+    ./src/lib/protocols/l2/ethernet.c
+    ./src/lib/protocols/l2/arp.c
+    ./src/lib/protocols/l3/ipv4.c)
 
 set(LIB_SRC
-	./src/lib/fw_pkt.c
-	./src/lib/pcap/pcap_ops.c
-	${PROTOCOL_SRC})
+    ./src/lib/fw_pkt.c
+    ./src/lib/pcap/pcap_ops.c
+    ${PROTOCOL_SRC})
 
 set(DEBUG_SRC
-	./src/debug/debug.c)
+    ./src/debug/debug.c)
 
 set(MAIN_SRC
-	./src/main/firewall.c)
+    ./src/main/firewall.c
+    ./src/main/firewall_config.c)
+
+set(EVENT_SRC
+    ./src/events/events.c)
 
 set(SRC
-	${DRV_SRC}
-	${MAIN_SRC}
-	${OS_SRC}
-	${LIB_SRC}
-	${DEBUG_SRC})
+    ${DRV_SRC}
+    ${MAIN_SRC}
+    ${OS_SRC}
+    ${LIB_SRC}
+    ${DEBUG_SRC}
+    ${EVENT_SRC})
 
 set(TOOL_SRC
-	./tools/packet_gen/packet_gen.c)
+    ./tools/packet_gen/packet_gen.c)
 
 set(FW_FLAGS "-DCONFIG_DRIVER_RAW_SOCKET")
 
@@ -56,18 +62,18 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wstack-usage=8192 -fstack-usage ")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -ggdb ")
 
 include_directories(./src/
-					./src/drivers/
-					./src/drivers/linux_raw/
-					./src/main/
-					./src/lib/
-					./src/lib/os/
-					./src/lib/protocols/
-					./src/lib/protocols/l2/
-					./src/lib/protocols/l3/
-					./src/events/
-					./src/debug/
-					./src/lib/pcap/
-					./tools/packet_gen/)
+                    ./src/drivers/
+                    ./src/drivers/linux_raw/
+                    ./src/main/
+                    ./src/lib/
+                    ./src/lib/os/
+                    ./src/lib/protocols/
+                    ./src/lib/protocols/l2/
+                    ./src/lib/protocols/l3/
+                    ./src/events/
+                    ./src/debug/
+                    ./src/lib/pcap/
+                    ./tools/packet_gen/)
 
 add_executable(fwd ${SRC})
 target_link_libraries(fwd pthread rt)

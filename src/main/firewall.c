@@ -1,120 +1,12 @@
+/**
+ * @brief - Implements Firewall daemon.
+ *
+ * @author - Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright - 2023-present All rights reserved.
+ */
 #include <firewall.h>
 
-#define CMD_ARGS_LIST "i:e:t:u:q"
-
 #define MAX_THR_PRIO 1
-
-STATIC void usage(const char *progname)
-{
-    fprintf(stderr, "<%s> -i <interface list separated by comma>"
-                    " -e <event transport type : tcp, udp, mqtt>"
-                    " -t <tcp ip port of the event server in ip:port format>"
-                    " -u <udp ip port of the event server in ip:port format>"
-                    " -q <mqtt ip port of the event serveer in ip:port format>",
-                    progname);
-}
-
-/* Get all interfaces passed via command line. */
-STATIC void fw_get_interface_list(const char *iflist,
-                               fw_command_args_t *cmd_args)
-{
-    uint32_t len = strlen(iflist);
-    uint32_t count = 0;
-    uint32_t i = 0;
-
-    /* Read all interfaces. */
-    while (i < len) {
-        if (iflist[i] == ',') {
-            cmd_args->if_list[cmd_args->n_iflist][count] = '\0';
-            cmd_args->n_iflist ++;
-            count = 0;
-        } else {
-            cmd_args->if_list[cmd_args->n_iflist][count] = iflist[i];
-            count ++;
-        }
-        i ++;
-    }
-    /* Last one does not end with ',' and stops with \0. */
-    cmd_args->if_list[cmd_args->n_iflist][count] = '\0';
-    cmd_args->n_iflist ++;
-}
-
-/* Get the Event Transport Type. */
-STATIC int fw_get_event_transport_type(const char *optarg,
-                                       fw_command_args_t *cmd_args)
-{
-    if (!strcasecmp(optarg, "tcp")) {
-        cmd_args->event_config.evt_transport_type = FW_EVENT_TRANSPORT_TCP;
-    } else if (!strcasecmp(optarg, "udp")) {
-        cmd_args->event_config.evt_transport_type = FW_EVENT_TRANSPORT_UDP;
-    } else if (!strcasecmp(optarg, "mqtt")) {
-        cmd_args->event_config.evt_transport_type = FW_EVENT_TRANSPORT_MQTT;
-    } else {
-        return -1;
-    }
-
-    return 0;
-}
-
-STATIC int fw_get_event_transport_tcp(const char *optarg,
-                                      fw_command_args_t *cmd_args)
-{
-    char *err_ptr = NULL;
-    char tcp_port[20] = {0};
-    int i = 0;
-    int j = 0;
-
-    while (optarg[i] != ':') {
-        cmd_args->event_config.tcp_ip[i] = optarg[i];
-        i ++;
-    }
-    cmd_args->event_config.tcp_ip[i] = '\0';
-
-    while (optarg[i] != '\0') {
-        tcp_port[j] = optarg[i];
-        i ++;
-    }
-    cmd_args->event_config.tcp_port = strtoul(tcp_port, &err_ptr, 10);
-    if (err_ptr && (*err_ptr != '\0')) {
-        return -1;
-    }
-
-    return 0;
-}
-
-/* Parse command line arguments. */
-STATIC int fw_parse_command_args(int argc, char **argv,
-                                 struct firewall_context *fw_ctx)
-{
-    int ret;
-
-    while ((ret = getopt(argc, argv, CMD_ARGS_LIST)) != -1) {
-        switch (ret) {
-            case 'i':
-                fw_get_interface_list(optarg, &fw_ctx->args);
-            break;
-            case 'e':
-                ret = fw_get_event_transport_type(optarg, &fw_ctx->args);
-                if (ret < 0) {
-                    usage(argv[0]);
-                    return -1;
-                }
-            break;
-            case 't':
-                ret = fw_get_event_transport_tcp(optarg, &fw_ctx->args);
-                if (ret < 0) {
-                    usage(argv[0]);
-                    return -1;
-                }
-            break;
-            default:
-                usage(argv[0]);
-            return -1;
-        }
-    }
-
-    return 0;
-}
 
 /* Process received packet. */
 STATIC void * fw_process_packet(void *usr_ptr)
@@ -253,7 +145,7 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    ret = fw_parse_command_args(argc, argv, fw_ctx);
+    ret = fw_parse_command_args(argc, argv, &fw_ctx->args);
     if (ret < 0) {
         goto free_fw_ctx;
     }

@@ -8,8 +8,11 @@
 #define __FW_EVENTS_H__
 
 #include <stdint.h>
+#include <stdlib.h>
+#include <os.h>
 #include <os_thread.h>
 #include <event_def.h>
+#include <firewall_common.h>
 
 void *fw_events_init();
 void fw_event_add(void *, fw_event_t *evt);
