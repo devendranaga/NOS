@@ -36,7 +36,7 @@ STATIC bool mac_broadcast(uint8_t *src, uint8_t *dst)
 
 fw_event_details_t ethernet_deserialize(fw_packet_t *hdr)
 {
-    fw_event_details_t type = FW_EVENT_ALLOW;
+    fw_event_details_t type = FW_EVENT_DESCR_ALLOW;
 
     fw_copy_macaddr(hdr, hdr->eh.dst);
     fw_copy_macaddr(hdr, hdr->eh.src);
@@ -44,12 +44,12 @@ fw_event_details_t ethernet_deserialize(fw_packet_t *hdr)
 
     /* Deny if both src and dst are 0s. */
     if (mac_zeros(hdr->eh.src, hdr->eh.dst) == true) {
-        return FW_EVENT_SRC_DST_ARE_ZERO;
+        return FW_EVENT_DESCR_SRC_DST_ARE_ZERO;
     }
 
     /* Deny if both src and dst are broadcast. */
     if (mac_broadcast(hdr->eh.src, hdr->eh.dst) == true) {
-        return FW_EVENT_SRC_DST_ARE_BROADCAST;
+        return FW_EVENT_DESCR_SRC_DST_ARE_BROADCAST;
     }
 #if 0
     printf("dst: %02x:%02x:%02x:%02x:%02x:%02x\n",

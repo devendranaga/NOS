@@ -19,7 +19,7 @@ fw_event_details_t parse_protocol(struct fw_packet *pkt)
     uint32_t i;
 
     type = ethernet_deserialize(pkt);
-    if (type == FW_EVENT_ALLOW) {
+    if (type == FW_EVENT_DESCR_ALLOW) {
         for (i = 0; i < sizeof(ethertype_callbacks) /
                         sizeof(ethertype_callbacks[0]); i ++) {
             type = ethertype_callbacks[i].l2_deserialize(pkt);

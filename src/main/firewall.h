@@ -17,6 +17,7 @@
 #include <debug.h>
 #include <os.h>
 #include <os_signal.h>
+#include <events.h>
 
 /* Firewall interface context. */
 struct firewall_interface_context {
@@ -31,6 +32,9 @@ struct firewall_interface_context {
 
     /* Packet Queue pointer. */
     void *pkt_q;
+
+    /* Event Context. */
+    void *evt_ctx;
 
     /* Driver callbacks. */
     struct nw_driver_callbacks *nw_drv;

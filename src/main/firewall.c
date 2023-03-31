@@ -21,6 +21,10 @@ STATIC void * fw_process_packet(void *usr_ptr)
         os_mutex_lock(&fw_if_ptr->pkt_rx_evt_lock);
         os_cond_wait(&fw_if_ptr->pkt_rx_evt_cond, &fw_if_ptr->pkt_rx_evt_lock);
         while (1) {
+            fw_event_t *evt;
+            fw_event_type_t evt_type;
+            fw_event_details_t evt_descr;
+
             pkt = fw_packet_queue_first(fw_if_ptr->pkt_q);
             if (pkt == NULL) {
                 break;
@@ -28,9 +32,14 @@ STATIC void * fw_process_packet(void *usr_ptr)
 
             fw_debug(FW_DEBUG_LEVEL_VERBOSE, "parse rx msg of len [%d]\n",
                                                     pkt->total_len);
-            fw_event_details_t type;
-            type = parse_protocol(pkt);
-            (void)type;
+            evt_descr = parse_protocol(pkt);
+            FW_EVENT_GET_TYPE(evt_type, evt_descr);
+
+            /* Queue the event. */
+            evt = fw_event_new(evt_type, evt_descr);
+            if (evt) {
+                fw_event_add(fw_if_ptr->evt_ctx, evt);
+            }
 
             free(pkt);
         }
@@ -114,6 +123,12 @@ STATIC int fw_init_all_interfaces(struct firewall_context *fw_ctx)
         /* Initialize the packet queue. */
         fw_ctx->if_list[i].pkt_q = fw_packet_queue_init();
         if (!fw_ctx->if_list[i].pkt_q) {
+            return -1;
+        }
+
+        /* Initialize event context. */
+        fw_ctx->if_list[i].evt_ctx = fw_events_init();
+        if (!fw_ctx->if_list[i].evt_ctx) {
             return -1;
         }
 
