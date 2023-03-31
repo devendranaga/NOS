@@ -12,6 +12,7 @@
 /* Event Transmit Thread timeout. */
 #define FW_EVENT_TRANSMIT_THREAD_TIMEO_MS   1000
 
+/* Event Context. */
 struct fw_event_context {
     fw_event_t *evt_head;
     fw_event_t *evt_tail;
@@ -120,7 +121,6 @@ STATIC void * fw_event_transmit_thread(void *evt_ptr)
             while (event_node) {
                 uint8_t tx_buf[4096];
 
-                fw_debug(FW_DEBUG_LEVEL_INFO, "read event \n");
                 /*
                  * For each node prepre and send the
                  * events in serialized manner.

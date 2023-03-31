@@ -7,6 +7,7 @@
 #include <os_thread.h>
 #include <ethernet.h>
 #include <arp.h>
+#include <vlan.h>
 
 #define FW_PACKET_LEN_MAX 8192
 #define FW_RULE_NOT_MATCHED 0xDEADBEEF
@@ -20,8 +21,12 @@ struct fw_packet {
 
     /* Ethernet Header. */
     struct ethernet_header eh;
+
     /* Arp Header. */
     struct arp_header arp_h;
+
+    /* VLAN Header. */
+    struct vlan_header vlan_h;
 
     /*
      * Matching rule for this packet.

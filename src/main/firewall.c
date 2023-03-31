@@ -36,6 +36,9 @@ STATIC void * fw_process_packet(void *usr_ptr)
     struct firewall_interface_context *fw_if_ptr = usr_ptr;
     fw_packet_t *pkt;
 
+    /* delay a bit to let the rx thread schedule first. */
+    usleep(1000 * 1000u);
+
     while (1) {
         os_mutex_lock(&fw_if_ptr->pkt_rx_evt_lock);
         os_cond_wait(&fw_if_ptr->pkt_rx_evt_cond, &fw_if_ptr->pkt_rx_evt_lock);
@@ -81,6 +84,7 @@ STATIC void * fw_recv_packet(void *usr_ptr)
             continue;
         }
 
+        fw_debug(FW_DEBUG_LEVEL_INFO, "read packet of length %d\n", ret);
         pkt->off = 0;
         pkt->total_len = ret;
 

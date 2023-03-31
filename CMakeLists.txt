@@ -21,6 +21,11 @@ set(PROTOCOL_SRC
     ./src/lib/protocols/protocol_generic.c
     ./src/lib/protocols/l2/ethernet.c
     ./src/lib/protocols/l2/arp.c
+    ./src/lib/protocols/l2/vlan.c
+    ./src/lib/protocols/l2/mpls.c
+    ./src/lib/protocols/l2/pppoe.c
+    ./src/lib/protocols/l2/ptp.c
+    ./src/lib/protocols/l2/srp.c
     ./src/lib/protocols/l3/ipv4.c)
 
 set(LIB_SRC
