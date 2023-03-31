@@ -1,3 +1,9 @@
+/**
+ * @brief - Implement ARP header.
+ *
+ * @author - Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright - 2023-present All rights reserved.
+ */
 #ifndef __FW_PROTOCOLS_ARP_H__
 #define __FW_PROTOCOLS_ARP_H__
 
@@ -45,6 +51,8 @@ struct arp_header {
     /* target's ipaddress */
     uint32_t target_proto_addr;
 };
+
+typedef struct arp_header arp_header_t;
 
 #endif
 
