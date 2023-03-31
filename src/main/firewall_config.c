@@ -12,14 +12,15 @@
  * -I -> ip and port of the event server.
  * -t -> mqtt topic
  */
-#define CMD_ARGS_LIST "i:e:t:u:q"
+#define CMD_ARGS_LIST "i:e:t:E:"
 
 STATIC void usage(const char *progname)
 {
     fprintf(stderr, "<%s> -i <interface list separated by comma>\n"
                     "\t -e <event transport type : tcp, udp, mqtt>\n"
                     "\t -I <ip port of the event server in ip:port format>\n"
-                    "\t -t <mqtt topic>\n",
+                    "\t -t <mqtt topic>\n"
+                    "\t -E <Event log filename>\n",
                     progname);
 }
 

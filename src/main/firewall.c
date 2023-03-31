@@ -11,18 +11,35 @@
 CONST uint32_t term_signals[] = {SIGINT, SIGTERM};
 STATIC bool term_signal = false;
 
+/* Queue the received event. */
+STATIC void fw_queue_event(firewall_interface_context_t *fw_if_ctx,
+                           fw_packet_t *pkt,
+                           fw_event_details_t evt_descr)
+{
+    fw_event_type_t evt_type;
+    fw_event_t *evt;
+
+    FW_EVENT_GET_TYPE(evt_type, evt_descr);
+
+    /* Queue the event. */
+    evt = fw_event_new(evt_type, evt_descr);
+    if (evt) {
+        strcpy(evt->ifname, fw_if_ctx->ifname);
+        evt->rule_id = pkt->matched_rule_id;
+        fw_event_add(fw_if_ctx->evt_ctx, evt);
+    }
+}
+
 /* Process received packet. */
 STATIC void * fw_process_packet(void *usr_ptr)
 {
     struct firewall_interface_context *fw_if_ptr = usr_ptr;
-    struct fw_packet *pkt;
+    fw_packet_t *pkt;
 
     while (1) {
         os_mutex_lock(&fw_if_ptr->pkt_rx_evt_lock);
         os_cond_wait(&fw_if_ptr->pkt_rx_evt_cond, &fw_if_ptr->pkt_rx_evt_lock);
         while (1) {
-            fw_event_t *evt;
-            fw_event_type_t evt_type;
             fw_event_details_t evt_descr;
 
             pkt = fw_packet_queue_first(fw_if_ptr->pkt_q);
@@ -33,13 +50,7 @@ STATIC void * fw_process_packet(void *usr_ptr)
             fw_debug(FW_DEBUG_LEVEL_VERBOSE, "parse rx msg of len [%d]\n",
                                                     pkt->total_len);
             evt_descr = parse_protocol(pkt);
-            FW_EVENT_GET_TYPE(evt_type, evt_descr);
-
-            /* Queue the event. */
-            evt = fw_event_new(evt_type, evt_descr);
-            if (evt) {
-                fw_event_add(fw_if_ptr->evt_ctx, evt);
-            }
+            fw_queue_event(fw_if_ptr, pkt, evt_descr);
 
             free(pkt);
         }
@@ -97,6 +108,9 @@ STATIC int fw_init_all_interfaces(struct firewall_context *fw_ctx)
         if (!fw_ctx->if_list[i].raw_ctx) {
             return -1;
         }
+
+        /* Copy interface name. */
+        strcpy(fw_ctx->if_list[i].ifname, fw_ctx->args.if_list[i]);
 
         fw_ctx->if_list[i].nw_drv = &fw_ctx->nw_drv;
 

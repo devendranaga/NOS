@@ -9,6 +9,7 @@
 #include <arp.h>
 
 #define FW_PACKET_LEN_MAX 8192
+#define FW_RULE_NOT_MATCHED 0xDEADBEEF
 
 /* Define firewall packet. */
 struct fw_packet {
@@ -17,8 +18,17 @@ struct fw_packet {
     uint32_t off;
     struct os_mutex lock;
 
+    /* Ethernet Header. */
     struct ethernet_header eh;
+    /* Arp Header. */
     struct arp_header arp_h;
+
+    /*
+     * Matching rule for this packet.
+     * FW_RULE_NOT_MATCHED if no rule is matched.
+     */
+    uint32_t matched_rule_id;
+
     struct fw_packet *next;
 };
 

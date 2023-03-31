@@ -19,12 +19,14 @@ enum fw_event_details {
 
 typedef enum fw_event_details fw_event_details_t;
 
+/* Type of the Event. */
 enum fw_event_type {
     FW_EVENT_ALLOW,
     FW_EVENT_DENY,
     FW_EVENT_NOTIFY,
 };
 
+/* Get Type based on Details. */
 #define FW_EVENT_GET_TYPE(__type, __details) {\
     if (__details != FW_EVENT_DESCR_ALLOW) {\
         __type = FW_EVENT_DENY;\
