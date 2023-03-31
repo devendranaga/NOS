@@ -36,7 +36,8 @@ set(MAIN_SRC
     ./src/main/firewall_config.c)
 
 set(EVENT_SRC
-    ./src/events/events.c)
+    ./src/events/events.c
+    ./src/events/event_fmt_binary.c)
 
 set(SRC
     ${DRV_SRC}
