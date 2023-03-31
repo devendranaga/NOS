@@ -1,6 +1,21 @@
 #include <os_signal.h>
 
-int os_block_signals(uint32_t *signals, uint32_t signals_size)
+void os_register_signal(CONST uint32_t signum, void (*callback)(int signum))
+{
+    signal(signum, callback);
+}
+
+void os_register_signals(const uint32_t *signals, uint32_t signals_size,
+                         void (*callback)(int signum))
+{
+    uint32_t i = 0;
+
+    for (i = 0; i < signals_size; i ++) {
+        os_register_signal(signals[i], callback);
+    }
+}
+
+int os_block_signals(const uint32_t *signals, uint32_t signals_size)
 {
     sigset_t block;
     uint32_t i = 0;
@@ -15,7 +30,7 @@ int os_block_signals(uint32_t *signals, uint32_t signals_size)
 
 int os_block_term_signals()
 {
-    uint32_t signals[] = {SIGINT, SIGTERM};
+    const uint32_t signals[] = {SIGINT, SIGTERM};
 
     return os_block_signals(signals, sizeof(signals) / sizeof(signals[0]));
 }

@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements Packet queue.
+ *
+ * @author - Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright - 2023-present All rights reserved.
+ */
 #include <stdint.h>
 #include <stdlib.h>
 #include <fw_pkt.h>
@@ -8,11 +14,13 @@ struct fw_packet_queue_context {
     struct fw_packet *tail;
 };
 
+typedef struct fw_packet_queue_context fw_packet_queue_context_t;
+
 void *fw_packet_queue_init()
 {
     struct fw_packet_queue_context *ctx;
 
-    ctx = calloc(1, sizeof(struct fw_packet_queue_context));
+    ctx = calloc(1, sizeof(fw_packet_queue_context_t));
     if (!ctx) {
         return NULL;
     }
@@ -39,11 +47,13 @@ void fw_packet_queue_deinit(void *q)
     struct fw_packet *entry = ctx->head;
     struct fw_packet *t;
 
-    do {
+    while (entry) {
         t = entry;
         entry = entry->next;
         free(t);
-    } while (entry != NULL);
+    }
+
+    free(ctx);
 }
 
 struct fw_packet *fw_packet_queue_first(void *q)

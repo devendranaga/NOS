@@ -148,7 +148,7 @@ void fw_pcap_ops_pcap_reader_deinit(void *pcap_ctx)
 }
 
 int fw_pcap_ops_read_packet(void *pcap_ctx, fw_pcaprec_hdr_t *rec_hdr,
-                            uint8_t *buf, size_t buflen)
+                            uint8_t *buf, uint32_t buflen)
 {
     struct fw_pcap_ops_context *ops = pcap_ctx;
     int ret;

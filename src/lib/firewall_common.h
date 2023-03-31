@@ -7,6 +7,7 @@
 #define INLINE inline
 #define CONST const
 #define STATIC static
+#define SIZEOF(__var) ((sizeof(__var) / sizeof(__var[0])))
 
 void fw_hexdump(const char *msg, uint8_t *pkt, uint32_t pkt_len);
 

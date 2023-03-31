@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <signal.h>
 #include <pthread.h>
 #include <sched.h>
 #include <firewall_common.h>
@@ -36,6 +37,16 @@ STATIC int os_thread_set_cpu(pthread_t *thr, int cpu_core)
     }
 
     return 0;
+}
+
+void os_thread_destroy(void *ptr)
+{
+    struct os_thread_context *ctx = ptr;
+
+    if (ctx) {
+        pthread_kill(ctx->tid, SIGQUIT);
+        free(ctx);
+    }
 }
 
 void *os_thread_create(int priority, int cpu_core, void *usrdata,

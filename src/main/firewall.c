@@ -8,6 +8,9 @@
 
 #define MAX_THR_PRIO 1
 
+CONST uint32_t term_signals[] = {SIGINT, SIGTERM};
+STATIC bool term_signal = false;
+
 /* Process received packet. */
 STATIC void * fw_process_packet(void *usr_ptr)
 {
@@ -59,9 +62,8 @@ STATIC void * fw_recv_packet(void *usr_ptr)
         pkt->off = 0;
         pkt->total_len = ret;
 
-        fw_packet_queue_entry_add(fw_if_ptr->pkt_q, pkt);
-
         os_mutex_lock(&fw_if_ptr->pkt_rx_evt_lock);
+        fw_packet_queue_entry_add(fw_if_ptr->pkt_q, pkt);
         os_cond_signal(&fw_if_ptr->pkt_rx_evt_cond);
         os_mutex_unlock(&fw_if_ptr->pkt_rx_evt_lock);
     }
@@ -129,8 +131,21 @@ STATIC void fw_deinit_all_interfaces(struct firewall_context *fw_ctx)
 
     /* deInitialize each interface. */
     for (i = 0; i < fw_ctx->args.n_iflist; i ++) {
+        /* Deinitialize packet queue. */
+        fw_packet_queue_deinit(fw_ctx->if_list[i].pkt_q);
+
+        /* Deinitialize the network driver. */
         fw_ctx->nw_drv.deinit(fw_ctx->if_list[i].raw_ctx);
+
+        /* Deinitialize all the threads. */
+        os_thread_destroy(fw_ctx->if_list[i].rx_thr);
+        os_thread_destroy(fw_ctx->if_list[i].process_thr);
     }
+}
+
+STATIC void fw_signal_handler(int signum)
+{
+    term_signal = true;
 }
 
 int main(int argc, char **argv)
@@ -138,7 +153,7 @@ int main(int argc, char **argv)
     struct firewall_context *fw_ctx;
     int ret;
 
-    fw_debug(FW_DEBUG_LEVEL_INFO, "starting Firewall Daemon\n");
+    fw_debug(FW_DEBUG_LEVEL_INFO, "Starting Firewall Daemon\n");
 
     fw_ctx = calloc(1, sizeof(struct firewall_context));
     if (!fw_ctx) {
@@ -155,9 +170,18 @@ int main(int argc, char **argv)
         goto deinit_fw;
     }
 
+    os_register_signals(term_signals, SIZEOF(term_signals), fw_signal_handler);
+
     while (1) {
         os_wait_for_timeout(1000);
+        if (term_signal) {
+            fw_debug(FW_DEBUG_LEVEL_INFO, "Received term signal\n");
+            break;
+        }
     }
+
+    fw_deinit_all_interfaces(fw_ctx);
+    free(fw_ctx);
 
     return 0;
 
