@@ -48,7 +48,7 @@ STATIC void * fw_process_packet(void *usr_ptr)
                 break;
             }
 
-            fw_debug(FW_DEBUG_LEVEL_VERBOSE, "parse rx msg of len [%d]\n",
+            fw_debug(FW_DEBUG_LEVEL_INFO, "parse rx msg of len [%d]\n",
                                                     pkt->total_len);
             evt_descr = parse_protocol(pkt);
             fw_queue_event(fw_if_ptr, pkt, evt_descr);
@@ -144,7 +144,7 @@ STATIC int fw_init_all_interfaces(struct firewall_context *fw_ctx)
         }
 
         /* Initialize event context. */
-        fw_ctx->if_list[i].evt_ctx = fw_events_init();
+        fw_ctx->if_list[i].evt_ctx = fw_events_init(&fw_ctx->args.event_config);
         if (!fw_ctx->if_list[i].evt_ctx) {
             return -1;
         }

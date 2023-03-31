@@ -12,7 +12,7 @@
  * -I -> ip and port of the event server.
  * -t -> mqtt topic
  */
-#define CMD_ARGS_LIST "i:e:t:E:"
+#define CMD_ARGS_LIST "i:e:t:E:I:"
 
 STATIC void usage(const char *progname)
 {
@@ -80,11 +80,14 @@ STATIC int fw_get_event_transport(const char *optarg,
         i ++;
     }
     cmd_args->event_config.ip[i] = '\0';
+    i ++;
 
     while (optarg[i] != '\0') {
         tcp_port[j] = optarg[i];
         i ++;
+        j ++;
     }
+    tcp_port[j] = '\0';
     cmd_args->event_config.port = strtoul(tcp_port, &err_ptr, 10);
     if (err_ptr && (*err_ptr != '\0')) {
         return -1;

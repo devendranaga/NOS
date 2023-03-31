@@ -12,6 +12,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <getopt.h>
+#include <debug.h>
 #include <firewall_common.h>
 
 #define MAX_IFS             10
@@ -19,8 +20,8 @@
 
 /* Type of the event transport. */
 enum fw_event_transport_type {
-    FW_EVENT_TRANSPORT_TCP,
     FW_EVENT_TRANSPORT_UDP,
+    FW_EVENT_TRANSPORT_TCP,
     FW_EVENT_TRANSPORT_MQTT,
     FW_EVENT_TRANSPORT_INVAL,
 };
