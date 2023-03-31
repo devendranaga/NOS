@@ -4,7 +4,7 @@
 
 fw_event_details_t ipv4_deserialize(fw_packet_t *hdr)
 {
-    fw_event_details_t type = FW_EVENT_ALLOW;
+    fw_event_details_t type = FW_EVENT_DESCR_ALLOW;
 
     return type;
 }

@@ -11,19 +11,37 @@
 
 /* Details of the Firewall Events. */
 enum fw_event_details {
-    FW_EVEN_DENY,
-    FW_EVENT_ALLOW,
-    FW_EVENT_SRC_DST_ARE_BROADCAST,
-    FW_EVENT_SRC_DST_ARE_ZERO,
+    FW_EVENT_DESCR_DENY,
+    FW_EVENT_DESCR_ALLOW,
+
+    FW_EVENT_DESCR_ETH_SRC_DST_ARE_BROADCAST,
+    FW_EVENT_DESCR_ETH_SRC_DST_ARE_ZERO,
+
+    FW_EVENT_DESCR_ARP_HWTYPE_INVAL,
+    FW_EVENT_DESCR_ARP_HDR_LEN_TOO_SHORT,
+    FW_EVENT_DESCR_ARP_INVAL_HWADDR_LEN,
+    FW_EVENT_DESCR_ARP_INVAL_PROTO_ADDR_LEN,
+    FW_EVENT_DESCR_ARP_OP_INVAL,
 };
 
 typedef enum fw_event_details fw_event_details_t;
 
+/* Type of the Event. */
 enum fw_event_type {
-    ALLOW,
-    DENY,
-    NOTIFY,
+    FW_EVENT_ALLOW,
+    FW_EVENT_DENY,
+    FW_EVENT_NOTIFY,
 };
+
+/* Get Type based on Details. */
+#define FW_EVENT_GET_TYPE(__type, __details) {\
+    if (__details != FW_EVENT_DESCR_ALLOW) {\
+        __type = FW_EVENT_DENY;\
+    }\
+    if (__details == FW_EVENT_DESCR_ALLOW) {\
+        __type = FW_EVENT_ALLOW;\
+    }\
+}
 
 typedef enum fw_event_type fw_event_type_t;
 
@@ -67,6 +85,9 @@ struct fw_event {
 
     /* If its a protocol, then describe what it is. */
     fw_protocol_event_t     protocol_event;
+
+    /* Message length in bytes. */
+    uint16_t                msg_len;
 
     /* Optional message given by the rule file. */
     char                    *msg;

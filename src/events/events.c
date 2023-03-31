@@ -64,6 +64,27 @@ free_ctx:
     return NULL;
 }
 
+fw_event_t *fw_event_new(fw_event_type_t event,
+                         fw_event_details_t event_details)
+{
+    fw_event_t *evt = calloc(1, sizeof(fw_event_t));
+    if (!evt) {
+        return NULL;
+    }
+
+    evt->event = event;
+    evt->event_details = event_details;
+
+    return evt;
+}
+
+void fw_event_free(fw_event_t *evt)
+{
+    if (evt) {
+        free(evt);
+    }
+}
+
 void fw_event_add(void *evt_ptr, fw_event_t *evt)
 {
     fw_event_context_t *ctx = evt_ptr;
@@ -85,12 +106,16 @@ void fw_events_deinit(void *evt_ptr)
     fw_event_t *evt = ctx->evt_head;
     fw_event_t *tmp = evt;
 
-    os_mutex_lock(&ctx->event_lock);
-    while (evt != NULL) {
-        tmp = evt;
-        evt = evt->next;
-        free(tmp);
+    if (ctx) {
+        os_mutex_lock(&ctx->event_lock);
+        while (evt != NULL) {
+            tmp = evt;
+            evt = evt->next;
+            free(tmp);
+        }
+        os_mutex_unlock(&ctx->event_lock);
+
+        free(ctx);
     }
-    os_mutex_unlock(&ctx->event_lock);
 }
 

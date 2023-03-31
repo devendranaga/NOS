@@ -17,9 +17,12 @@
 #include <debug.h>
 #include <os.h>
 #include <os_signal.h>
+#include <events.h>
 
 /* Firewall interface context. */
 struct firewall_interface_context {
+    char ifname[20];
+
     /* Underlying driver sock. */
     void *raw_ctx;
 
@@ -32,6 +35,9 @@ struct firewall_interface_context {
     /* Packet Queue pointer. */
     void *pkt_q;
 
+    /* Event Context. */
+    void *evt_ctx;
+
     /* Driver callbacks. */
     struct nw_driver_callbacks *nw_drv;
 
@@ -39,13 +45,15 @@ struct firewall_interface_context {
     struct os_cond pkt_rx_evt_cond;
 };
 
+typedef struct firewall_interface_context firewall_interface_context_t;
+
 /* Firewall context. */
 struct firewall_context {
     /* Command line arguments. */
     fw_command_args_t args;
     struct nw_driver_callbacks nw_drv;
     int n_intf;
-    struct firewall_interface_context if_list[MAX_IFS];
+    firewall_interface_context_t if_list[MAX_IFS];
 };
 
 typedef struct firewall_context firewall_context_t;

@@ -16,6 +16,9 @@
 
 void *fw_events_init();
 void fw_event_add(void *, fw_event_t *evt);
+fw_event_t *fw_event_new(fw_event_type_t event,
+                         fw_event_details_t event_details);
+void fw_event_free(fw_event_t *evt);
 void fw_events_deinit(void *);
 
 #endif

@@ -27,15 +27,18 @@ enum fw_event_transport_type {
 
 typedef enum fw_event_transport_type fw_event_transport_type_t;
 
+/* Firewall event configuration. */
 struct fw_event_config {
     fw_event_transport_type_t evt_transport_type;
     char ip[20];
     int port;
     char mqtt_topic[128];
+    char event_log_file[128];
 };
 
 typedef struct fw_event_config fw_event_config_t;
 
+/* command line arguments. */
 struct fw_command_args {
     char if_list[MAX_IFS][MAX_IFNAME_SIZE];
     uint32_t n_iflist;
