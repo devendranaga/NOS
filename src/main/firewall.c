@@ -42,6 +42,7 @@ STATIC void * fw_process_packet(void *usr_ptr)
         while (1) {
             fw_event_details_t evt_descr;
 
+            /* Retrieve first entry in the queue. */
             pkt = fw_packet_queue_first(fw_if_ptr->pkt_q);
             if (pkt == NULL) {
                 break;
@@ -73,6 +74,7 @@ STATIC void * fw_recv_packet(void *usr_ptr)
             break;
         }
 
+        /* Read a packet from the interface. */
         ret = fw_if_ptr->nw_drv->read(fw_if_ptr->raw_ctx,
                                       pkt->msg, sizeof(pkt->msg));
         if (ret < 0) {
@@ -82,6 +84,7 @@ STATIC void * fw_recv_packet(void *usr_ptr)
         pkt->off = 0;
         pkt->total_len = ret;
 
+        /* Queue the packet to the processing engine. */
         os_mutex_lock(&fw_if_ptr->pkt_rx_evt_lock);
         fw_packet_queue_entry_add(fw_if_ptr->pkt_q, pkt);
         os_cond_signal(&fw_if_ptr->pkt_rx_evt_cond);
