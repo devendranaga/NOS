@@ -44,13 +44,21 @@ set(EVENT_SRC
     ./src/events/events.c
     ./src/events/event_fmt_binary.c)
 
+set(CONFIG_SRC
+    ./src/config/fw_config.c)
+
+set(RULES_SRC
+    ./src/rules/fw_rules.c)
+
 set(SRC
     ${DRV_SRC}
     ${MAIN_SRC}
     ${OS_SRC}
     ${LIB_SRC}
     ${DEBUG_SRC}
-    ${EVENT_SRC})
+    ${EVENT_SRC}
+    ${CONFIG_SRC}
+    ${RULES_SRC})
 
 set(TOOL_SRC
     ./tools/packet_gen/packet_gen.c
@@ -85,6 +93,8 @@ include_directories(./src/
                     ./src/lib/protocols/l3/
                     ./src/events/
                     ./src/debug/
+                    ./src/config/
+                    ./src/rules/
                     ./src/lib/pcap/
                     ./tools/packet_gen/
                     ./server/event_server/)

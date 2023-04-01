@@ -18,6 +18,7 @@
 #include <os.h>
 #include <os_signal.h>
 #include <events.h>
+#include <fw_config.h>
 
 /* Firewall interface context. */
 struct firewall_interface_context {
@@ -54,6 +55,7 @@ struct firewall_context {
     struct nw_driver_callbacks nw_drv;
     int n_intf;
     firewall_interface_context_t if_list[MAX_IFS];
+    fw_base_conf_t base_conf;
 };
 
 typedef struct firewall_context firewall_context_t;

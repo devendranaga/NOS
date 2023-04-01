@@ -28,9 +28,17 @@ enum fw_event_transport_type {
 
 typedef enum fw_event_transport_type fw_event_transport_type_t;
 
+enum fw_event_format_type {
+    FW_EVENT_FORMAT_BINARY,
+    FW_EVENT_FORMAT_CSV,
+};
+
+typedef enum fw_event_format_type fw_event_format_type_t;
+
 /* Firewall event configuration. */
 struct fw_event_config {
     fw_event_transport_type_t evt_transport_type;
+    fw_event_format_type_t evt_format_type;
     char ip[20];
     int port;
     char mqtt_topic[128];
@@ -46,6 +54,9 @@ struct fw_command_args {
 
     /* Event configuration. */
     fw_event_config_t event_config;
+
+    /* Firewall configuration. */
+    char config_file[128];
 };
 
 typedef struct fw_command_args fw_command_args_t;
