@@ -11,34 +11,44 @@
 #include <debug.h>
 #include <firewall_common.h>
 
-/* Callbacks for Ethertype. */
-STATIC const struct ethertype_callback_def {
-    uint16_t ethertype;
-    fw_event_details_t (*l2_deserialize)(fw_packet_t *hdr);
-} ethertype_callbacks[] = {
-    {FW_ETHERTYPE_ARP, arp_deserialize},
-    {FW_ETHERTYPE_IPV4, ipv4_deserialize},
-};
+STATIC fw_event_details_t parse_l2_protocol(fw_packet_t *pkt,
+                                            uint16_t ethertype)
+{
+    fw_event_details_t type = FW_EVENT_DESCR_DENY;
+
+    /*
+     * Scan through each ethertype supported and call the
+     * corresponding callback.
+     */
+    switch (ethertype) {
+        case FW_ETHERTYPE_ARP:
+            type = arp_deserialize(pkt);
+        break;
+        case FW_ETHERTYPE_IPV4:
+            type = ipv4_deserialize(pkt);
+        break;
+        default:
+            type = FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE;
+    }
+
+    return type;
+}
 
 fw_event_details_t parse_protocol(fw_packet_t *pkt)
 {
     fw_event_details_t type;
     bool match_found = false;
-    uint32_t i;
+    uint16_t ethertype;
 
     type = ethernet_deserialize(pkt);
     if (type == FW_EVENT_DESCR_ALLOW) {
 
-        /*
-         * Scan through each ethertype supported and call the
-         * corresponding callback.
-         */
-        for (i = 0; i < SIZEOF(ethertype_callbacks); i ++) {
-            if (ethertype_callbacks[i].ethertype == pkt->eh.ethertype) {
-                type = ethertype_callbacks[i].l2_deserialize(pkt);
-                match_found = true;
-            }
+        ethertype = pkt->eh.ethertype;
+        if (pkt->eh.ethertype == FW_ETHERTYPE_VLAN) {
+            vlan_deserialize(pkt);
+            ethertype = pkt->vlan_h.ethertype;
         }
+        type = parse_l2_protocol(pkt, ethertype);
     }
 
     /* We do not have support for this particular ethertype. */

@@ -62,6 +62,7 @@ set(EVENT_SERVER_SRC
     ./server/event_server/event_server.c)
 
 set(FW_FLAGS "-DCONFIG_DRIVER_RAW_SOCKET")
+set(FW_FLAGS "${FW_FLAGS} -DENABLE_PROTOCOL_PRINTS")
 
 set(CMAKE_C_FLAGS "-Wall -Wno-unused-parameter -Wextra -Werror ${FW_FLAGS} ")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wshadow -Wno-deprecated-declarations ")

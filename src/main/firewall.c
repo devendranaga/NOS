@@ -30,14 +30,19 @@ STATIC void fw_queue_event(firewall_interface_context_t *fw_if_ctx,
     }
 }
 
-/* Process received packet. */
+/*
+ * Process received packet.
+ *  - Parse the packet.
+ *  - Run the filter.
+ *  - Queue the events to the Event Thread.
+ */
 STATIC void * fw_process_packet(void *usr_ptr)
 {
     struct firewall_interface_context *fw_if_ptr = usr_ptr;
     fw_packet_t *pkt;
 
     /* delay a bit to let the rx thread schedule first. */
-    usleep(1000 * 1000u);
+    os_wait_for_timeout(1000);
 
     while (1) {
         os_mutex_lock(&fw_if_ptr->pkt_rx_evt_lock);
@@ -53,7 +58,10 @@ STATIC void * fw_process_packet(void *usr_ptr)
 
             fw_debug(FW_DEBUG_LEVEL_INFO, "parse rx msg of len [%d]\n",
                                                     pkt->total_len);
+            /* Parse the protocol. */
             evt_descr = parse_protocol(pkt);
+
+            /* Queue the generated event. */
             fw_queue_event(fw_if_ptr, pkt, evt_descr);
 
             free(pkt);
@@ -64,6 +72,11 @@ STATIC void * fw_process_packet(void *usr_ptr)
     return NULL;
 }
 
+/*
+ * Receive thread:
+ *  - receive the packet from the raw socket.
+ *  - queue the packet to the processing thread.
+ */
 STATIC void * fw_recv_packet(void *usr_ptr)
 {
     struct firewall_interface_context *fw_if_ptr = usr_ptr;
