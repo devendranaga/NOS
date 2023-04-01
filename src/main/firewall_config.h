@@ -12,6 +12,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <getopt.h>
+#include <debug.h>
 #include <firewall_common.h>
 
 #define MAX_IFS             10
@@ -19,8 +20,8 @@
 
 /* Type of the event transport. */
 enum fw_event_transport_type {
-    FW_EVENT_TRANSPORT_TCP,
     FW_EVENT_TRANSPORT_UDP,
+    FW_EVENT_TRANSPORT_TCP,
     FW_EVENT_TRANSPORT_MQTT,
     FW_EVENT_TRANSPORT_INVAL,
 };
@@ -42,11 +43,22 @@ typedef struct fw_event_config fw_event_config_t;
 struct fw_command_args {
     char if_list[MAX_IFS][MAX_IFNAME_SIZE];
     uint32_t n_iflist;
+
+    /* Event configuration. */
     fw_event_config_t event_config;
 };
 
 typedef struct fw_command_args fw_command_args_t;
 
+/**
+ * @brief - Parse command line arguments and place them into fw_args.
+ *
+ * @param [in] argc - input argc.
+ * @param [in] argv - input argv.
+ * @param [inout] fw_args - firewall argument pointer.
+ *
+ * @return 0 on succeess -1 on failure.
+ */
 int fw_parse_command_args(int argc, char **argv,
                           fw_command_args_t *fw_args);
 

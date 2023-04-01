@@ -9,12 +9,19 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <debug.h>
 #include <os.h>
 #include <os_thread.h>
 #include <event_def.h>
+#include <event_fmt_binary.h>
 #include <firewall_common.h>
+#include <firewall_config.h>
 
-void *fw_events_init();
+void *fw_events_init(struct fw_event_config *evt_config);
 void fw_event_add(void *, fw_event_t *evt);
 fw_event_t *fw_event_new(fw_event_type_t event,
                          fw_event_details_t event_details);

@@ -1,3 +1,9 @@
+/**
+ * @brief - Debug module definitions.
+ *
+ * @author - Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright - 2023-present All rights reserved.
+ */
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdint.h>
@@ -5,6 +11,7 @@
 #include <debug.h>
 #include <time.h>
 #include <sys/time.h>
+#include <os_thread.h>
 #include <firewall_common.h>
 
 STATIC struct fw_debug_level_ctl {
@@ -17,6 +24,8 @@ STATIC struct fw_debug_level_ctl {
     {FW_DEBUG_LEVEL_ERROR, true},
     {FW_DEBUG_LEVEL_FATAL, true},
 };
+
+STATIC os_mutex_t lock;
 
 STATIC bool is_log_lvl_enabled(fw_debug_level_t level)
 {
@@ -33,9 +42,15 @@ STATIC void fw_debug_msg(fw_debug_level_t debug_level,
     time_t now;
     int len = 0;
 
+    /*
+     * Take global lock for the debug print as this can be
+     * called by multiple functions.
+     */
+    os_mutex_lock(&lock);
+
     /* Drop if log level not present. */
     if (is_log_lvl_enabled(debug_level) == false) {
-        return;
+        goto unlock;
     }
 
     now = time(0);
@@ -68,6 +83,9 @@ STATIC void fw_debug_msg(fw_debug_level_t debug_level,
 
     len += vsnprintf(msg + len, sizeof(msg) - len, fmt, ap);
     fprintf(stderr, "%s", msg);
+
+unlock:
+    os_mutex_unlock(&lock);
 }
 
 void fw_debug(fw_debug_level_t debug_level, const char *fmt, ...)

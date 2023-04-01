@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements OS specific routines.
+ *
+ * @author - Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright - 2023-present All rights reserved.
+*/
 #include <stdint.h>
 #include <time.h>
 #include <sys/time.h>

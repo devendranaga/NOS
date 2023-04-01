@@ -21,6 +21,11 @@ set(PROTOCOL_SRC
     ./src/lib/protocols/protocol_generic.c
     ./src/lib/protocols/l2/ethernet.c
     ./src/lib/protocols/l2/arp.c
+    ./src/lib/protocols/l2/vlan.c
+    ./src/lib/protocols/l2/mpls.c
+    ./src/lib/protocols/l2/pppoe.c
+    ./src/lib/protocols/l2/ptp.c
+    ./src/lib/protocols/l2/srp.c
     ./src/lib/protocols/l3/ipv4.c)
 
 set(LIB_SRC
@@ -36,7 +41,8 @@ set(MAIN_SRC
     ./src/main/firewall_config.c)
 
 set(EVENT_SRC
-    ./src/events/events.c)
+    ./src/events/events.c
+    ./src/events/event_fmt_binary.c)
 
 set(SRC
     ${DRV_SRC}
@@ -56,6 +62,7 @@ set(EVENT_SERVER_SRC
     ./server/event_server/event_server.c)
 
 set(FW_FLAGS "-DCONFIG_DRIVER_RAW_SOCKET")
+set(FW_FLAGS "${FW_FLAGS} -DENABLE_PROTOCOL_PRINTS")
 
 set(CMAKE_C_FLAGS "-Wall -Wno-unused-parameter -Wextra -Werror ${FW_FLAGS} ")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wshadow -Wno-deprecated-declarations ")

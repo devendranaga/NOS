@@ -1,29 +1,59 @@
+/**
+ * @brief - Implement Protocol parser.
+ *
+ * @author - Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright - 2023-present All rights reserved.
+ */
 #include <stdint.h>
 #include <string.h>
 #include <protocol_generic.h>
 #include <fw_pkt.h>
+#include <debug.h>
 #include <firewall_common.h>
 
-/* Callbacks for Ethertype. */
-STATIC const struct ethertype_callback_def {
-    uint16_t ethertype;
-    fw_event_details_t (*l2_deserialize)(fw_packet_t *hdr);
-} ethertype_callbacks[] = {
-    {FW_ETHERTYPE_ARP, arp_deserialize},
-    {FW_ETHERTYPE_IPV4, ipv4_deserialize},
-};
+STATIC fw_event_details_t parse_l2_protocol(fw_packet_t *pkt,
+                                            uint16_t ethertype)
+{
+    fw_event_details_t type = FW_EVENT_DESCR_DENY;
 
-fw_event_details_t parse_protocol(struct fw_packet *pkt)
+    /*
+     * Scan through each ethertype supported and call the
+     * corresponding callback.
+     */
+    switch (ethertype) {
+        case FW_ETHERTYPE_ARP:
+            type = arp_deserialize(pkt);
+        break;
+        case FW_ETHERTYPE_IPV4:
+            type = ipv4_deserialize(pkt);
+        break;
+        default:
+            type = FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE;
+    }
+
+    return type;
+}
+
+fw_event_details_t parse_protocol(fw_packet_t *pkt)
 {
     fw_event_details_t type;
-    uint32_t i;
+    bool match_found = false;
+    uint16_t ethertype;
 
     type = ethernet_deserialize(pkt);
     if (type == FW_EVENT_DESCR_ALLOW) {
-        for (i = 0; i < sizeof(ethertype_callbacks) /
-                        sizeof(ethertype_callbacks[0]); i ++) {
-            type = ethertype_callbacks[i].l2_deserialize(pkt);
+
+        ethertype = pkt->eh.ethertype;
+        if (pkt->eh.ethertype == FW_ETHERTYPE_VLAN) {
+            vlan_deserialize(pkt);
+            ethertype = pkt->vlan_h.ethertype;
         }
+        type = parse_l2_protocol(pkt, ethertype);
+    }
+
+    /* We do not have support for this particular ethertype. */
+    if (!match_found) {
+        type = FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE;
     }
 
     return type;
@@ -45,6 +75,11 @@ void fw_copy_byte(fw_packet_t *pkt, uint8_t *val)
 {
     *val = pkt->msg[pkt->off];
     pkt->off ++;
+}
+
+bool fw_has_bit_set(fw_packet_t *pkt, uint32_t pos)
+{
+    return !!(pkt->msg[pkt->off] & (1 << pos));
 }
 
 void fw_copy_4_bytes(fw_packet_t *pkt, uint32_t *val)

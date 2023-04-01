@@ -12,27 +12,141 @@
 /* Event Transmit Thread timeout. */
 #define FW_EVENT_TRANSMIT_THREAD_TIMEO_MS   1000
 
+/* Event Context. */
 struct fw_event_context {
     fw_event_t *evt_head;
     fw_event_t *evt_tail;
 
     os_mutex_t event_lock;
 
+    int fd;
+    struct fw_event_config *evt_config;
+    struct sockaddr_in udp_server_addr;
+
     void *transmit_thread;
 };
 
 typedef struct fw_event_context fw_event_context_t;
 
-STATIC void * fw_event_transmit_thread(void *)
+STATIC int fw_event_connection_udp_init(fw_event_context_t *evt_ctx)
 {
+    struct sockaddr_in *server_addr =  &evt_ctx->udp_server_addr;
+    const char *ipaddr = evt_ctx->evt_config->ip;
+    int port = evt_ctx->evt_config->port;
+    int ret = -1;
+
+    evt_ctx->fd = socket(AF_INET, SOCK_DGRAM, 0);
+    if (evt_ctx->fd > 0) {
+        server_addr->sin_addr.s_addr = inet_addr(ipaddr);
+        server_addr->sin_port = htons(port);
+        server_addr->sin_family = AF_INET;
+        ret = 0;
+    }
+
+    return ret;
+}
+
+STATIC int fw_event_connection_udp_send(fw_event_context_t *ctx,
+                                        CONST uint8_t *data,
+                                        uint32_t data_len)
+{
+    return sendto(ctx->fd, data, data_len, 0,
+                  (struct sockaddr *)&ctx->udp_server_addr,
+                  sizeof(struct sockaddr_in));
+}
+
+STATIC void fw_event_connection_udp_deinit(fw_event_context_t *ctx)
+{
+    if (ctx->fd > 0) {
+        close(ctx->fd);
+    }
+}
+
+struct fw_event_sender {
+    int (*init)(fw_event_context_t *evt_cx);
+    int (*send)(fw_event_context_t *evt_ctx,
+                CONST uint8_t *pkt, uint32_t pkt_len);
+    void (*deinit)(fw_event_context_t *evt_ctx);
+} evt_sender_list[] = {
+    {
+        fw_event_connection_udp_init,
+        fw_event_connection_udp_send,
+        fw_event_connection_udp_deinit,
+    }
+};
+
+STATIC int fw_event_connection_init(fw_event_context_t *evt_ctx)
+{
+    fw_event_transport_type_t evt_transport_type;
+    evt_transport_type = evt_ctx->evt_config->evt_transport_type;
+
+    return evt_sender_list[evt_transport_type].init(evt_ctx);
+}
+
+STATIC int fw_event_connection_send(fw_event_context_t *evt_ctx,
+                                    CONST uint8_t *pkt, uint32_t pkt_len)
+{
+    fw_event_transport_type_t evt_transport_type;
+    evt_transport_type = evt_ctx->evt_config->evt_transport_type;
+
+    fw_debug(FW_DEBUG_LEVEL_INFO, "send %d bytes\n", pkt_len);
+    return evt_sender_list[evt_transport_type].send(evt_ctx, pkt, pkt_len);
+}
+
+STATIC void fw_event_connection_deinit(fw_event_context_t *evt_ctx)
+{
+    fw_event_transport_type_t evt_transport_type;
+    evt_transport_type = evt_ctx->evt_config->evt_transport_type;
+
+    return evt_sender_list[evt_transport_type].deinit(evt_ctx);
+}
+
+STATIC void * fw_event_transmit_thread(void *evt_ptr)
+{
+    struct fw_event_context *evt_ctx = evt_ptr;
+
     while (1) {
+        fw_event_t *event_node;
+        fw_event_t *tmp;
+        uint32_t pkt_len;
+
         os_wait_for_timeout(FW_EVENT_TRANSMIT_THREAD_TIMEO_MS);
+
+        /* Initialize connection to the Event server. */
+        fw_event_connection_init(evt_ctx);
+
+        os_mutex_lock(&evt_ctx->event_lock);
+        {
+            event_node = evt_ctx->evt_head;
+            while (event_node) {
+                uint8_t tx_buf[4096];
+
+                /*
+                 * For each node prepre and send the
+                 * events in serialized manner.
+                 */
+                fw_event_fmt_binary_t *bin = (fw_event_fmt_binary_t *)tx_buf;
+
+                pkt_len = fw_event_fmt_binary_serialize(event_node, bin);
+                fw_event_connection_send(evt_ctx, tx_buf, pkt_len);
+
+                tmp = event_node;
+                event_node = event_node->next;
+                free(tmp);
+            }
+
+            evt_ctx->evt_head = NULL;
+            evt_ctx->evt_tail = NULL;
+        }
+        os_mutex_unlock(&evt_ctx->event_lock);
+
+        fw_event_connection_deinit(evt_ctx);
     }
 
     return NULL;
 }
 
-void *fw_events_init()
+void *fw_events_init(struct fw_event_config *evt_config)
 {
     fw_event_context_t *ctx;
 
@@ -40,6 +154,8 @@ void *fw_events_init()
     if (!ctx) {
         return NULL;
     }
+
+    ctx->evt_config = evt_config;
 
     /* Create a Transmit Thread for the Events. */
     ctx->transmit_thread = os_thread_create(FW_EVENT_TRANSMIT_THREAD_PRIO,
