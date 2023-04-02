@@ -12,7 +12,7 @@
  * -I -> ip and port of the event server.
  * -t -> mqtt topic
  */
-#define CMD_ARGS_LIST "i:e:t:E:I:"
+#define CMD_ARGS_LIST "i:e:t:E:I:f:b:"
 
 STATIC void usage(const char *progname)
 {
@@ -20,8 +20,9 @@ STATIC void usage(const char *progname)
                     "\t -e <event transport type : tcp, udp, mqtt>\n"
                     "\t -I <ip port of the event server in ip:port format>\n"
                     "\t -t <mqtt topic>\n"
-                    "\t -E <Event log filename>\n",
-                    progname);
+                    "\t -E <Event log filename>\n"
+                    "\t -f <configuration file>\n"
+                    "\t -b <event format: binary, csv>\n", progname);
 }
 
 /* Get all interfaces passed via command line. */
@@ -66,6 +67,20 @@ STATIC int fw_get_event_transport_type(const char *optarg,
     return 0;
 }
 
+STATIC int fw_get_event_format_type(const char *optarg,
+                                    fw_command_args_t *cmd_args)
+{
+    if (!strcmp(optarg, "binary")) {
+        cmd_args->event_config.evt_format_type = FW_EVENT_FORMAT_BINARY;
+    } else if (!strcmp(optarg, "csv")) {
+        cmd_args->event_config.evt_format_type = FW_EVENT_FORMAT_CSV;
+    } else {
+        return -1;
+    }
+
+    return 0;
+}
+
 /* Get Event Transport IP and Port. */
 STATIC int fw_get_event_transport(const char *optarg,
                                   fw_command_args_t *cmd_args)
@@ -103,6 +118,13 @@ STATIC INLINE void fw_get_event_transport_mqtt_topic(const char *optarg,
     strcpy(cmd_args->event_config.mqtt_topic, optarg);
 }
 
+STATIC INLINE void fw_get_event_log_file(const char *optarg,
+                                         fw_command_args_t *cmd_args)
+{
+    strcpy(cmd_args->event_config.event_log_file, optarg);
+    cmd_args->event_config.log_to_file = true;
+}
+
 /* Parse command line arguments. */
 int fw_parse_command_args(int argc, char **argv,
                           fw_command_args_t *fw_args)
@@ -111,6 +133,15 @@ int fw_parse_command_args(int argc, char **argv,
 
     while ((ret = getopt(argc, argv, CMD_ARGS_LIST)) != -1) {
         switch (ret) {
+            case 'b':
+                ret = fw_get_event_format_type(optarg, fw_args);
+                if (ret < 0) {
+                    return -1;
+                }
+            break;
+            case 'f':
+                strcpy(fw_args->config_file, optarg);
+            break;
             case 'i':
                 fw_get_interface_list(optarg, fw_args);
             break;
@@ -120,6 +151,9 @@ int fw_parse_command_args(int argc, char **argv,
                     usage(argv[0]);
                     return -1;
                 }
+            break;
+            case 'E':
+                fw_get_event_log_file(optarg, fw_args);
             break;
             case 'I':
                 ret = fw_get_event_transport(optarg, fw_args);

@@ -7,6 +7,7 @@
 #ifndef __FW_EVENTS_H__
 #define __FW_EVENTS_H__
 
+#include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -25,6 +26,7 @@ void *fw_events_init(struct fw_event_config *evt_config);
 void fw_event_add(void *, fw_event_t *evt);
 fw_event_t *fw_event_new(fw_event_type_t event,
                          fw_event_details_t event_details);
+uint32_t fw_event_get_rule_id_on_event_descr(fw_event_details_t evt_descr);
 void fw_event_free(fw_event_t *evt);
 void fw_events_deinit(void *);
 

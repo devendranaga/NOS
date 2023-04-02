@@ -88,3 +88,23 @@ void fw_hexdump(const char *msg, uint8_t *pkt, uint32_t pkt_len)
     fprintf(stderr, "\n");
 }
 
+uint16_t fw_packet_get_ethertype(fw_packet_t *pkt)
+{
+    uint16_t ethertype = pkt->eh.ethertype;
+
+    if (ethertype == FW_ETHERTYPE_VLAN) {
+        ethertype = pkt->vlan_h.ethertype;
+    }
+
+    return ethertype;
+}
+
+uint16_t fw_packet_get_vid(fw_packet_t *pkt)
+{
+    if (pkt->eh.ethertype == FW_ETHERTYPE_VLAN) {
+        return pkt->vlan_h.vid;
+    }
+
+    return 0;
+}
+

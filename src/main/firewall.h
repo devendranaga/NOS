@@ -1,3 +1,9 @@
+/**
+ * @brief - Defines Firewall context.
+ *
+ * @author - Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright - 2023-present All rights reserved.
+ */
 #ifndef __FIREWALL_H__
 #define __FIREWALL_H__
 
@@ -18,9 +24,11 @@
 #include <os.h>
 #include <os_signal.h>
 #include <events.h>
+#include <fw_config.h>
 
 /* Firewall interface context. */
 struct firewall_interface_context {
+    /* Underlying interface name. */
     char ifname[20];
 
     /* Underlying driver sock. */
@@ -51,9 +59,15 @@ typedef struct firewall_interface_context firewall_interface_context_t;
 struct firewall_context {
     /* Command line arguments. */
     fw_command_args_t args;
+
+    /* Callback pointer set. */
     struct nw_driver_callbacks nw_drv;
+
     int n_intf;
     firewall_interface_context_t if_list[MAX_IFS];
+
+    /* Base configuration info. */
+    fw_base_conf_t base_conf;
 };
 
 typedef struct firewall_context firewall_context_t;

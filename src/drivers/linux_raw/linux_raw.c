@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements Linux RAW Socket.
+ *
+ * @author - Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright - 2023-present All rights reserved.
+ */
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,6 +19,9 @@
 
 #define LINUX_RAW_MAC_ADDR 6
 
+/*
+ * Context info regards to the raw socket.
+ */
 struct linux_raw_driver_context {
     char *device_name;
     int fd;
@@ -20,6 +29,9 @@ struct linux_raw_driver_context {
     int dev_index;
 };
 
+/**
+ * @brief - set promiscous mode on the raw socket.
+ */
 STATIC int linux_set_promisc(int fd, const char *device_name)
 {
     struct ifreq req;
@@ -41,6 +53,7 @@ STATIC int linux_set_promisc(int fd, const char *device_name)
     return 0;
 }
 
+/* Get Mac Address of the interface. */
 STATIC int linux_get_hwaddr(int fd, const char *device_name, uint8_t *mac)
 {
     struct ifreq req;
@@ -63,6 +76,7 @@ STATIC int linux_get_hwaddr(int fd, const char *device_name, uint8_t *mac)
     return 0;
 }
 
+/* Bind the socket to the device. */
 STATIC int linux_bind_to_device(int fd, const char *device_name)
 {
     struct ifreq req;

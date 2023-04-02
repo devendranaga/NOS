@@ -37,7 +37,6 @@ STATIC fw_event_details_t parse_l2_protocol(fw_packet_t *pkt,
 fw_event_details_t parse_protocol(fw_packet_t *pkt)
 {
     fw_event_details_t type;
-    bool match_found = false;
     uint16_t ethertype;
 
     type = ethernet_deserialize(pkt);
@@ -49,11 +48,6 @@ fw_event_details_t parse_protocol(fw_packet_t *pkt)
             ethertype = pkt->vlan_h.ethertype;
         }
         type = parse_l2_protocol(pkt, ethertype);
-    }
-
-    /* We do not have support for this particular ethertype. */
-    if (!match_found) {
-        type = FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE;
     }
 
     return type;

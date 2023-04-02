@@ -17,7 +17,10 @@ STATIC void fw_queue_event(firewall_interface_context_t *fw_if_ctx,
                            fw_event_details_t evt_descr)
 {
     fw_event_type_t evt_type;
+    uint32_t rule_id;
     fw_event_t *evt;
+
+    rule_id = fw_event_get_rule_id_on_event_descr(evt_descr);
 
     FW_EVENT_GET_TYPE(evt_type, evt_descr);
 
@@ -25,7 +28,13 @@ STATIC void fw_queue_event(firewall_interface_context_t *fw_if_ctx,
     evt = fw_event_new(evt_type, evt_descr);
     if (evt) {
         strcpy(evt->ifname, fw_if_ctx->ifname);
-        evt->rule_id = pkt->matched_rule_id;
+        if (rule_id == 0) {
+            evt->rule_id = pkt->matched_rule_id;
+        } else {
+            evt->rule_id = rule_id;
+        }
+        evt->protocol_event.ethertype = fw_packet_get_ethertype(pkt);
+        evt->protocol_event.vid = fw_packet_get_vid(pkt);
         fw_event_add(fw_if_ctx->evt_ctx, evt);
     }
 }
@@ -180,6 +189,8 @@ STATIC void fw_deinit_all_interfaces(struct firewall_context *fw_ctx)
 
     /* deInitialize each interface. */
     for (i = 0; i < fw_ctx->args.n_iflist; i ++) {
+        fw_events_deinit(fw_ctx->if_list[i].evt_ctx);
+
         /* Deinitialize packet queue. */
         fw_packet_queue_deinit(fw_ctx->if_list[i].pkt_q);
 
@@ -209,18 +220,29 @@ int main(int argc, char **argv)
         return -1;
     }
 
+    /* Parse command line arguments. */
     ret = fw_parse_command_args(argc, argv, &fw_ctx->args);
     if (ret < 0) {
         goto free_fw_ctx;
     }
 
+    /* Parse configuration. */
+    ret = fw_base_config_parse(fw_ctx->args.config_file,
+                               &fw_ctx->base_conf);
+    if (ret < 0) {
+        goto free_fw_ctx;
+    }
+
+    /* Initialize all interfaces. */
     ret = fw_init_all_interfaces(fw_ctx);
     if (ret < 0) {
         goto deinit_fw;
     }
 
+    /* Register termination handlers. */
     os_register_signals(term_signals, SIZEOF(term_signals), fw_signal_handler);
 
+    /* Wait for the termination signal. */
     while (1) {
         os_wait_for_timeout(1000);
         if (term_signal) {
@@ -229,12 +251,14 @@ int main(int argc, char **argv)
         }
     }
 
+    /* Deinitialize the firewall daemon. */
     fw_deinit_all_interfaces(fw_ctx);
     free(fw_ctx);
 
     return 0;
 
 deinit_fw:
+    fw_debug(FW_DEBUG_LEVEL_ERROR, "Stopping firewall\n");
     fw_deinit_all_interfaces(fw_ctx);
 
 free_fw_ctx:
