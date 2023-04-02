@@ -56,9 +56,9 @@ fw_event_details_t ethernet_deserialize(fw_packet_t *hdr)
 {
     fw_event_details_t type = FW_EVENT_DESCR_ALLOW;
 
-    fw_copy_macaddr(hdr, hdr->eh.dst);
-    fw_copy_macaddr(hdr, hdr->eh.src);
-    fw_copy_2_bytes(hdr, &hdr->eh.ethertype);
+    fw_pkt_copy_macaddr(hdr, hdr->eh.dst);
+    fw_pkt_copy_macaddr(hdr, hdr->eh.src);
+    fw_pkt_copy_2_bytes(hdr, &hdr->eh.ethertype);
 
     /* Deny if both src and dst are 0s. */
     if (mac_zeros(hdr->eh.src, hdr->eh.dst) == true) {

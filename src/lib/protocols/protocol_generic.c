@@ -53,30 +53,30 @@ fw_event_details_t parse_protocol(fw_packet_t *pkt)
     return type;
 }
 
-void fw_copy_macaddr(fw_packet_t *pkt, uint8_t *mac)
+void fw_pkt_copy_macaddr(fw_packet_t *pkt, uint8_t *mac)
 {
     memcpy(mac, pkt->msg + pkt->off, FW_MACADDR_LEN);
     pkt->off += FW_MACADDR_LEN;
 }
 
-void fw_copy_2_bytes(fw_packet_t *pkt, uint16_t *val)
+void fw_pkt_copy_2_bytes(fw_packet_t *pkt, uint16_t *val)
 {
     *val = (pkt->msg[pkt->off] << 8) | (pkt->msg[pkt->off + 1]);
     pkt->off += 2;
 }
 
-void fw_copy_byte(fw_packet_t *pkt, uint8_t *val)
+void fw_pkt_copy_byte(fw_packet_t *pkt, uint8_t *val)
 {
     *val = pkt->msg[pkt->off];
     pkt->off ++;
 }
 
-bool fw_has_bit_set(fw_packet_t *pkt, uint32_t pos)
+bool fw_pkt_has_bit_set(fw_packet_t *pkt, uint32_t pos)
 {
     return !!(pkt->msg[pkt->off] & (1 << pos));
 }
 
-void fw_copy_4_bytes(fw_packet_t *pkt, uint32_t *val)
+void fw_pkt_copy_4_bytes(fw_packet_t *pkt, uint32_t *val)
 {
     *val = (pkt->msg[pkt->off]      << 24) |
            (pkt->msg[pkt->off + 1]  << 16) |

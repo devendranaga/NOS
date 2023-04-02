@@ -25,12 +25,12 @@ STATIC void vlan_print(vlan_header_t *vlan_hdr)
 fw_event_details_t vlan_deserialize(fw_packet_t *pkt)
 {
     pkt->vlan_h.pcp = (pkt->msg[pkt->off] & 0xE0) >> 5;
-    pkt->vlan_h.dei = fw_has_bit_set(pkt, 4);
+    pkt->vlan_h.dei = fw_pkt_has_bit_set(pkt, 4);
     pkt->vlan_h.vid = ((pkt->msg[pkt->off] & 0x0F) << 4 |
                 (pkt->msg[pkt->off + 1]));
     pkt->off += 2;
 
-    fw_copy_2_bytes(pkt, &pkt->vlan_h.ethertype);
+    fw_pkt_copy_2_bytes(pkt, &pkt->vlan_h.ethertype);
 
     vlan_print(&pkt->vlan_h);
 

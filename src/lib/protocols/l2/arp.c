@@ -94,37 +94,37 @@ fw_event_details_t arp_deserialize(fw_packet_t *hdr)
     }
 
     /* Check Hardware type within range. */
-    fw_copy_2_bytes(hdr, &hdr->arp_h.hwtype);
+    fw_pkt_copy_2_bytes(hdr, &hdr->arp_h.hwtype);
     if (!arp_hwtype_in_range(hdr->arp_h.hwtype)) {
         return FW_EVENT_DESCR_ARP_HWTYPE_INVAL;
     }
 
-    fw_copy_2_bytes(hdr, &hdr->arp_h.proto_type);
-    fw_copy_byte(hdr, &hdr->arp_h.hw_addr_len);
+    fw_pkt_copy_2_bytes(hdr, &hdr->arp_h.proto_type);
+    fw_pkt_copy_byte(hdr, &hdr->arp_h.hw_addr_len);
 
     /* ARP Hardware Addr length is not 6. */
     if (hdr->arp_h.hw_addr_len != ARP_HW_ADDR_LEN) {
         return FW_EVENT_DESCR_ARP_INVAL_HWADDR_LEN;
     }
 
-    fw_copy_byte(hdr, &hdr->arp_h.proto_addr_len);
+    fw_pkt_copy_byte(hdr, &hdr->arp_h.proto_addr_len);
 
     /* ARP Protocol addr length is not 4. */
     if (hdr->arp_h.proto_addr_len != ARP_PROTO_ADDR_LEN) {
         return FW_EVENT_DESCR_ARP_INVAL_PROTO_ADDR_LEN;
     }
 
-    fw_copy_2_bytes(hdr, &hdr->arp_h.operation);
+    fw_pkt_copy_2_bytes(hdr, &hdr->arp_h.operation);
 
     /* Check ARP operation is within range. */
     if (!arp_op_in_range(hdr->arp_h.operation)) {
         return FW_EVENT_DESCR_ARP_OP_INVAL;
     }
 
-    fw_copy_macaddr(hdr, hdr->arp_h.sender_hw_addr);
-    fw_copy_4_bytes(hdr, &hdr->arp_h.sender_proto_addr);
-    fw_copy_macaddr(hdr, hdr->arp_h.target_hw_addr);
-    fw_copy_4_bytes(hdr, &hdr->arp_h.target_proto_addr);
+    fw_pkt_copy_macaddr(hdr, hdr->arp_h.sender_hw_addr);
+    fw_pkt_copy_4_bytes(hdr, &hdr->arp_h.sender_proto_addr);
+    fw_pkt_copy_macaddr(hdr, hdr->arp_h.target_hw_addr);
+    fw_pkt_copy_4_bytes(hdr, &hdr->arp_h.target_proto_addr);
 
     arp_print(&hdr->arp_h);
 

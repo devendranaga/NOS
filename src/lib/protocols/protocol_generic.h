@@ -22,11 +22,11 @@ typedef enum fw_protocol_type fw_protocol_type_t;
  * @param [in] pkt : packet pointer.
  * @param [in] mac : MAC address.
  */
-void fw_copy_macaddr(fw_packet_t *pkt, uint8_t *mac);
-void fw_copy_2_bytes(fw_packet_t *pkt, uint16_t *val);
-void fw_copy_byte(fw_packet_t *pkt, uint8_t *val);
-void fw_copy_4_bytes(fw_packet_t *pkt, uint32_t *val);
-bool fw_has_bit_set(fw_packet_t *pkt, uint32_t pos);
+void fw_pkt_copy_macaddr(fw_packet_t *pkt, uint8_t *mac);
+void fw_pkt_copy_2_bytes(fw_packet_t *pkt, uint16_t *val);
+void fw_pkt_copy_byte(fw_packet_t *pkt, uint8_t *val);
+void fw_pkt_copy_4_bytes(fw_packet_t *pkt, uint32_t *val);
+bool fw_pkt_has_bit_set(fw_packet_t *pkt, uint32_t pos);
 
 fw_event_details_t ethernet_deserialize(fw_packet_t *hdr);
 fw_event_details_t arp_deserialize(fw_packet_t *hdr);
