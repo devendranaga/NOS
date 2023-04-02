@@ -48,6 +48,8 @@ int fw_event_server_init(const char *ipaddr, int port)
         printf("\t event_type: %d\n", bin->evt_type);
         printf("\t event_description: %d\n", bin->evt_description);
         printf("\t rule_id: %d\n", bin->rule_id);
+        printf("\t protocol.ethertype: 0x%04x\n", bin->protocol.ethertype);
+        printf("\t protocol.vid: %d\n", bin->protocol.vid);
     }
 
 bind_err:
