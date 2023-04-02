@@ -20,7 +20,6 @@ STATIC void fw_queue_event(firewall_interface_context_t *fw_if_ctx,
     uint32_t rule_id;
     fw_event_t *evt;
 
-    printf("evt_descr %d\n", evt_descr);
     rule_id = fw_event_get_rule_id_on_event_descr(evt_descr);
 
     FW_EVENT_GET_TYPE(evt_type, evt_descr);
@@ -34,6 +33,8 @@ STATIC void fw_queue_event(firewall_interface_context_t *fw_if_ctx,
         } else {
             evt->rule_id = rule_id;
         }
+        evt->protocol_event.ethertype = fw_packet_get_ethertype(pkt);
+        evt->protocol_event.vid = fw_packet_get_vid(pkt);
         fw_event_add(fw_if_ctx->evt_ctx, evt);
     }
 }
@@ -188,6 +189,8 @@ STATIC void fw_deinit_all_interfaces(struct firewall_context *fw_ctx)
 
     /* deInitialize each interface. */
     for (i = 0; i < fw_ctx->args.n_iflist; i ++) {
+        fw_events_deinit(fw_ctx->if_list[i].evt_ctx);
+
         /* Deinitialize packet queue. */
         fw_packet_queue_deinit(fw_ctx->if_list[i].pkt_q);
 

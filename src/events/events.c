@@ -19,6 +19,7 @@ struct fw_event_context {
 
     os_mutex_t event_lock;
 
+    /* Event fd UDP / TCP / MQTT. */
     int fd;
 
     FILE *log_fp;
@@ -146,11 +147,26 @@ STATIC int fw_event_serializer_binary(fw_event_context_t *evt_ctx,
     return fw_event_connection_send(evt_ctx, tx_buf, pkt_len);
 }
 
+STATIC int fw_event_write_log(fw_event_context_t *evt_ctx,
+                              fw_event_t *evt)
+{
+    fprintf(evt_ctx->log_fp, "%u, 0x%04x, %u, '' \n",
+                            evt->rule_id,
+                            evt->protocol_event.ethertype,
+                            evt->protocol_event.vid);
+    return 0;
+}
+
 struct fw_event_serializer {
     int (*serializer)(fw_event_context_t *evt_ctx,
                       fw_event_t *evt);
 } fw_event_serializer_list[] = {
-    { fw_event_serializer_binary },
+    {
+        fw_event_serializer_binary,
+    },
+    {
+        fw_event_write_log,
+    },
 };
 
 STATIC void * fw_event_transmit_thread(void *evt_ptr)
@@ -192,7 +208,7 @@ STATIC void * fw_event_transmit_thread(void *evt_ptr)
     return NULL;
 }
 
-void *fw_events_init(struct fw_event_config *evt_config)
+void *fw_events_init(fw_event_config_t *evt_config)
 {
     fw_event_context_t *ctx;
 
@@ -216,7 +232,21 @@ void *fw_events_init(struct fw_event_config *evt_config)
     ctx->evt_head = NULL;
     ctx->evt_tail = NULL;
 
+    if (evt_config->log_to_file) {
+        /* Create Event Logging Thread. */
+        ctx->log_fp = fopen(evt_config->event_log_file, "w");
+        if (!ctx->log_fp) {
+            goto free_thread;
+        }
+
+        fprintf(ctx->log_fp, "Rule_ID, Ethertype, VLAN ID, Message\n");
+        fflush(ctx->log_fp);
+    }
+
     return ctx;
+
+free_thread:
+    os_thread_destroy(ctx->transmit_thread);
 
 free_ctx:
     if (ctx) {
@@ -236,6 +266,7 @@ fw_event_t *fw_event_new(fw_event_type_t event,
 
     evt->event = event;
     evt->event_details = event_details;
+    evt->protocol_event.protocol = FW_EVENT_PROTOCOL_NONE;
 
     return evt;
 }
@@ -277,6 +308,10 @@ void fw_events_deinit(void *evt_ptr)
         }
         os_mutex_unlock(&ctx->event_lock);
 
+        if (ctx->log_fp) {
+            fflush(ctx->log_fp);
+            fclose(ctx->log_fp);
+        }
         free(ctx);
     }
 }

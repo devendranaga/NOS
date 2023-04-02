@@ -8,6 +8,7 @@
 #define __FIREWALL_CONFIG_H__
 
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
@@ -42,6 +43,7 @@ struct fw_event_config {
     char ip[20];
     int port;
     char mqtt_topic[128];
+    bool log_to_file;
     char event_log_file[128];
 };
 

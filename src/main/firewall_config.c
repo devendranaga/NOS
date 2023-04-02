@@ -118,6 +118,13 @@ STATIC INLINE void fw_get_event_transport_mqtt_topic(const char *optarg,
     strcpy(cmd_args->event_config.mqtt_topic, optarg);
 }
 
+STATIC INLINE void fw_get_event_log_file(const char *optarg,
+                                         fw_command_args_t *cmd_args)
+{
+    strcpy(cmd_args->event_config.event_log_file, optarg);
+    cmd_args->event_config.log_to_file = true;
+}
+
 /* Parse command line arguments. */
 int fw_parse_command_args(int argc, char **argv,
                           fw_command_args_t *fw_args)
@@ -144,6 +151,9 @@ int fw_parse_command_args(int argc, char **argv,
                     usage(argv[0]);
                     return -1;
                 }
+            break;
+            case 'E':
+                fw_get_event_log_file(optarg, fw_args);
             break;
             case 'I':
                 ret = fw_get_event_transport(optarg, fw_args);

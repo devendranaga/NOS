@@ -39,6 +39,8 @@ struct fw_packet {
 
 typedef struct fw_packet fw_packet_t;
 
+uint16_t fw_packet_get_ethertype(fw_packet_t *pkt);
+uint16_t fw_packet_get_vid(fw_packet_t *pkt);
 void *fw_packet_queue_init();
 void fw_packet_queue_deinit(void *);
 void fw_packet_queue_entry_add(void *q, struct fw_packet *pkt);

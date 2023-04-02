@@ -118,6 +118,7 @@ int fw_base_config_parse(const char *filename, fw_base_conf_t *conf)
         }
     }
 
+    fclose(fp);
     return ret >= 0 ? 0 : -1;
 }
 

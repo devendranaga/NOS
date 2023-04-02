@@ -51,6 +51,7 @@ typedef enum fw_event_type fw_event_type_t;
 #define FW_EVENT_IPV6_ADDR_LEN      16
 
 enum fw_event_protocol {
+    FW_EVENT_PROTOCOL_NONE,
     FW_EVENT_PROTOCOL_TCP,
     FW_EVENT_PROTOCOL_UDP,
     FW_EVENT_PROTOCOL_ICMP,
