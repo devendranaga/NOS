@@ -46,6 +46,9 @@ STATIC fw_event_details_t parse_l4_protocol(fw_packet_t *pkt)
             case FW_IPV4_PROTOCOL_ICMP:
                 type = icmp_deserialize(pkt);
             break;
+            case FW_IPV4_PROTOCOL_UDP:
+                type = udp_deserialize(pkt);
+            break;
         }
     }
     return type;
