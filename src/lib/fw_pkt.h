@@ -11,6 +11,7 @@
 #include <ptp.h>
 #include <ipv4.h>
 #include <icmp.h>
+#include <firewall_common.h>
 
 #define FW_PACKET_LEN_MAX 8192
 #define FW_RULE_NOT_MATCHED 0xDEADBEEF
@@ -58,6 +59,8 @@ void *fw_packet_queue_init();
 void fw_packet_queue_deinit(void *);
 void fw_packet_queue_entry_add(void *q, struct fw_packet *pkt);
 struct fw_packet *fw_packet_queue_first(void *q);
+
+uint32_t fw_packet_get_remaining_len(fw_packet_t *pkt);
 
 #endif
 

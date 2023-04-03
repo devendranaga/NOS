@@ -55,6 +55,8 @@ fw_event_details_t icmp_deserialize(fw_packet_t *pkt)
         type = icmp_parse_echo_reply(pkt);
     }
 
+    pkt->icmp_h.pkt_len = fw_packet_get_remaining_len(pkt);
+
     icmp_print(&pkt->icmp_h);
 
     return type;
