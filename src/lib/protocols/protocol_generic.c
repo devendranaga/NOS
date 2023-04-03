@@ -27,6 +27,9 @@ STATIC fw_event_details_t parse_l2_protocol(fw_packet_t *pkt,
         case FW_ETHERTYPE_IPV4:
             type = ipv4_deserialize(pkt);
         break;
+        case FW_ETHERTYPE_PTP:
+            type = ptp_deserialize(pkt);
+        break;
         default:
             type = FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE;
     }
@@ -62,6 +65,13 @@ void fw_pkt_copy_macaddr(fw_packet_t *pkt, uint8_t *mac)
 void fw_pkt_copy_2_bytes(fw_packet_t *pkt, uint16_t *val)
 {
     *val = (pkt->msg[pkt->off] << 8) | (pkt->msg[pkt->off + 1]);
+    pkt->off += 2;
+}
+
+void fw_pkt_encode_2_bytes(fw_packet_t *pkt, uint16_t val)
+{
+    pkt->msg[pkt->off]      = (val & 0xFF00) >> 8;
+    pkt->msg[pkt->off + 1]  = (val & 0x00FF);
     pkt->off += 2;
 }
 
