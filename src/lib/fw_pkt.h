@@ -10,6 +10,8 @@
 #include <vlan.h>
 #include <ptp.h>
 #include <ipv4.h>
+#include <icmp.h>
+#include <firewall_common.h>
 
 #define FW_PACKET_LEN_MAX 8192
 #define FW_RULE_NOT_MATCHED 0xDEADBEEF
@@ -36,11 +38,15 @@ struct fw_packet {
     /* IPv4 Header. */
     struct ipv4_header ipv4_h;
 
+    /* ICMP Header. */
+    struct icmp_header icmp_h;
+
     /*
      * Matching rule for this packet.
      * FW_RULE_NOT_MATCHED if no rule is matched.
      */
     uint32_t matched_rule_id;
+    bool is_layer2_ptp;
 
     struct fw_packet *next;
 };
@@ -53,6 +59,8 @@ void *fw_packet_queue_init();
 void fw_packet_queue_deinit(void *);
 void fw_packet_queue_entry_add(void *q, struct fw_packet *pkt);
 struct fw_packet *fw_packet_queue_first(void *q);
+
+uint32_t fw_packet_get_remaining_len(fw_packet_t *pkt);
 
 #endif
 

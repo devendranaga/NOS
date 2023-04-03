@@ -94,6 +94,7 @@ include_directories(./src/
                     ./src/lib/protocols/
                     ./src/lib/protocols/l2/
                     ./src/lib/protocols/l3/
+                    ./src/lib/protocols/l4/
                     ./src/events/
                     ./src/debug/
                     ./src/config/

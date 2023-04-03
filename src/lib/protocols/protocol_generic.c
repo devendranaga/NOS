@@ -37,6 +37,20 @@ STATIC fw_event_details_t parse_l2_protocol(fw_packet_t *pkt,
     return type;
 }
 
+STATIC fw_event_details_t parse_l4_protocol(fw_packet_t *pkt)
+{
+    fw_event_details_t type = FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL;
+
+    if (fw_packet_get_ethertype(pkt) == FW_ETHERTYPE_IPV4) {
+        switch (pkt->ipv4_h.protocol) {
+            case FW_IPV4_PROTOCOL_ICMP:
+                type = icmp_deserialize(pkt);
+            break;
+        }
+    }
+    return type;
+}
+
 fw_event_details_t parse_protocol(fw_packet_t *pkt)
 {
     fw_event_details_t type;
@@ -51,6 +65,10 @@ fw_event_details_t parse_protocol(fw_packet_t *pkt)
             ethertype = pkt->vlan_h.ethertype;
         }
         type = parse_l2_protocol(pkt, ethertype);
+        /* L3 is covered in ipv4. */
+        if (type == FW_EVENT_DESCR_ALLOW) {
+            type = parse_l4_protocol(pkt);
+        }
     }
 
     return type;

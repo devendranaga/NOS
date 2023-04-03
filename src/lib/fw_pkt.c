@@ -108,3 +108,10 @@ uint16_t fw_packet_get_vid(fw_packet_t *pkt)
     return 0;
 }
 
+uint32_t fw_packet_get_remaining_len(fw_packet_t *pkt)
+{
+    int remaining_len = pkt->total_len - pkt->off;
+
+    return (remaining_len < 0) ? 0 : remaining_len;
+}
+

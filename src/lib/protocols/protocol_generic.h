@@ -33,10 +33,12 @@ void fw_pkt_copy_8_bytes(fw_packet_t *pkt, uint8_t *val);
 void fw_pkt_encode_2_bytes(fw_packet_t *pkt, uint16_t val);
 
 fw_event_details_t ethernet_deserialize(fw_packet_t *hdr);
+fw_event_details_t ethernet_serialize(fw_packet_t *hdr);
 fw_event_details_t arp_deserialize(fw_packet_t *hdr);
 fw_event_details_t vlan_deserialize(fw_packet_t *hdr);
 fw_event_details_t ipv4_deserialize(fw_packet_t *hdr);
 fw_event_details_t ptp_deserialize(fw_packet_t *hdr);
+fw_event_details_t icmp_deserialize(fw_packet_t *hdr);
 
 fw_event_details_t parse_protocol(struct fw_packet *pkt);
 

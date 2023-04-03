@@ -21,6 +21,20 @@
 #define PTP_LI_59_BIT               (1 << 1)
 #define PTP_LI_61_BIT               (1 << 0)
 
+struct ptp_announce_header {
+    uint16_t origin_current_utc_offset;
+    uint8_t priority_1;
+    uint8_t grand_master_clock_class;
+    uint8_t grand_master_clock_accuracy;
+    uint16_t grand_master_clock_variance;
+    uint8_t priority_2;
+    uint8_t grand_master_clock_id[8];
+    uint16_t local_steps_removed;
+    uint8_t timesource;
+};
+
+typedef struct ptp_announce_header ptp_announce_header_t;
+
 /* Implements PTP Header. */
 struct ptp_header {
     uint8_t major_sdoid;
@@ -41,6 +55,7 @@ struct ptp_header {
     uint8_t log_message_period;
     uint64_t origin_timestamp_sec;
     uint32_t origin_timestamp_ns;
+    ptp_announce_header_t announce_hdr;
 };
 
 #define PTP_HAS_SECURITY_BIT_SET(__ptp)             (!!(__ptp->flags & PTP_SECURITY_BIT))
@@ -58,6 +73,10 @@ struct ptp_header {
 #define PTP_LI_61_BIT_SET(__ptp)                    (!!(__ptp->flags & PTP_LI_61_BIT))
 
 typedef struct ptp_header ptp_header_t;
+
+bool ptp_msg_type_is_sync(ptp_header_t *ptp_hdr);
+bool ptp_msg_type_is_peer_delay_req(ptp_header_t *ptp_hdr);
+bool ptp_msg_type_is_announce(ptp_header_t *ptp_hdr);
 
 #endif
 

@@ -30,6 +30,10 @@ enum fw_event_details {
     FW_EVENT_DESCR_IPV4_FLAGS_RESERVED_SET, /* IPv4 reserved bits are set. */
     FW_EVENT_DESCR_IPV4_FLAGS_BOTH_MF_DF_SET, /* IPv4 both MF and DF bits are set. */
     FW_EVENT_DESCR_IPV4_TTL_ZERO, /* IPv4 TTL is zero. */
+
+    FW_EVENT_DESCR_ICMP_INVAL,
+
+    FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL,
 };
 
 typedef enum fw_event_details fw_event_details_t;
