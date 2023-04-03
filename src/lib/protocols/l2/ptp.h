@@ -74,5 +74,9 @@ struct ptp_header {
 
 typedef struct ptp_header ptp_header_t;
 
+bool ptp_msg_type_is_sync(ptp_header_t *ptp_hdr);
+bool ptp_msg_type_is_peer_delay_req(ptp_header_t *ptp_hdr);
+bool ptp_msg_type_is_announce(ptp_header_t *ptp_hdr);
+
 #endif
 

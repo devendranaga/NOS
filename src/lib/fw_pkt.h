@@ -41,6 +41,7 @@ struct fw_packet {
      * FW_RULE_NOT_MATCHED if no rule is matched.
      */
     uint32_t matched_rule_id;
+    bool is_layer2_ptp;
 
     struct fw_packet *next;
 };

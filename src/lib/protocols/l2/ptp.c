@@ -13,6 +13,21 @@
 #define PTP_MSG_TYPE_PEER_DELAY_REQ     0x02
 #define PTP_MSG_TYPE_ANNOUNCE           0x0B
 
+bool ptp_msg_type_is_sync(ptp_header_t *ptp_hdr)
+{
+    return ptp_hdr->message_type == PTP_MSG_TYPE_SYNC;
+}
+
+bool ptp_msg_type_is_peer_delay_req(ptp_header_t *ptp_hdr)
+{
+    return ptp_hdr->message_type == PTP_MSG_TYPE_PEER_DELAY_REQ;
+}
+
+bool ptp_msg_type_is_announce(ptp_header_t *ptp_hdr)
+{
+    return ptp_hdr->message_type == PTP_MSG_TYPE_ANNOUNCE;
+}
+
 fw_event_details_t ptp_deserialize(fw_packet_t *pkt)
 {
     pkt->ptp_h.major_sdoid = (pkt->msg[pkt->off] & 0xF0) >> 4;
@@ -62,6 +77,8 @@ fw_event_details_t ptp_deserialize(fw_packet_t *pkt)
         fw_pkt_copy_byte(pkt,
                     &pkt->ptp_h.announce_hdr.timesource);
     }
+
+    pkt->is_layer2_ptp = true;
 
     return FW_EVENT_DESCR_ALLOW;
 }
