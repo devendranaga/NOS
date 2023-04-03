@@ -6,7 +6,7 @@
  */
 #include <packet_gen.h>
 
-#define CMD_ARGS "-i:P:"
+#define CMD_ARGS "i:P:"
 
 struct packet_gen_config {
     char ifname[20];
@@ -22,6 +22,7 @@ STATIC void usage(const char *progname)
                     "\t\t <-P pcap filename>\n", progname);
 }
 
+/* Parse command line arguments. */
 STATIC int packet_gen_parse_cmd_args(int argc, char **argv,
                                      packet_gen_config_t *pkt_gen_config)
 {

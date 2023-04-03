@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements OS Thread routines.
+ *
+ * @author - Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright - 2023-present All rights reserved.
+ */
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <stdbool.h>
@@ -24,6 +30,7 @@ STATIC void os_thread_attr_default_detached(pthread_attr_t *attr)
     pthread_attr_setdetachstate(attr, PTHREAD_CREATE_DETACHED);
 }
 
+/* Set CPU for this specific thread id. */
 STATIC int os_thread_set_cpu(pthread_t *thr, int cpu_core)
 {
     cpu_set_t cpuset;
@@ -39,6 +46,7 @@ STATIC int os_thread_set_cpu(pthread_t *thr, int cpu_core)
     return 0;
 }
 
+/* Destroy the thread. */
 void os_thread_destroy(void *ptr)
 {
     struct os_thread_context *ctx = ptr;
@@ -65,15 +73,18 @@ void *os_thread_create(int priority, int cpu_core, void *usrdata,
     ctx->cpu_core = cpu_core;
     ctx->detachable = detachable;
 
+    /* Create detachable thread if asked. */
     if (detachable) {
         os_thread_attr_default_detached(&attr);
     }
 
+    /* Create thread and assign the startup function. */
     ret = pthread_create(&ctx->tid, &attr, start_func, usrdata);
     if (ret < 0) {
         goto free_ctx;
     }
 
+    /* Set CPU for this thread. */
     os_thread_set_cpu(&ctx->tid, cpu_core);
 
     return ctx;
