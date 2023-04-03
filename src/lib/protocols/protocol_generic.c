@@ -27,6 +27,9 @@ STATIC fw_event_details_t parse_l2_protocol(fw_packet_t *pkt,
         case FW_ETHERTYPE_IPV4:
             type = ipv4_deserialize(pkt);
         break;
+        case FW_ETHERTYPE_PTP:
+            type = ptp_deserialize(pkt);
+        break;
         default:
             type = FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE;
     }
@@ -65,6 +68,13 @@ void fw_pkt_copy_2_bytes(fw_packet_t *pkt, uint16_t *val)
     pkt->off += 2;
 }
 
+void fw_pkt_encode_2_bytes(fw_packet_t *pkt, uint16_t val)
+{
+    pkt->msg[pkt->off]      = (val & 0xFF00) >> 8;
+    pkt->msg[pkt->off + 1]  = (val & 0x00FF);
+    pkt->off += 2;
+}
+
 void fw_pkt_copy_byte(fw_packet_t *pkt, uint8_t *val)
 {
     *val = pkt->msg[pkt->off];
@@ -83,5 +93,36 @@ void fw_pkt_copy_4_bytes(fw_packet_t *pkt, uint32_t *val)
            (pkt->msg[pkt->off + 2] << 8)   |
            (pkt->msg[pkt->off + 3]);
     pkt->off += 4;
+}
+
+void fw_pkt_copy_6_bytes(fw_packet_t *pkt, uint8_t *val)
+{
+    uint32_t i;
+
+    for (i = 0; i < 6; i ++) {
+        val[i] = pkt->msg[pkt->off + i];
+    }
+    pkt->off += 6;
+}
+
+void fw_pkt_copy_6_bytes_u64(fw_packet_t *pkt, uint64_t *val)
+{
+    *val = ((uint64_t)(pkt->msg[pkt->off]) << 40)       |
+           ((uint64_t)(pkt->msg[pkt->off + 1]) << 32)   |
+           (pkt->msg[pkt->off + 2] << 24)               |
+           (pkt->msg[pkt->off + 3] << 16)               |
+           (pkt->msg[pkt->off + 4] << 8)                |
+           (pkt->msg[pkt->off + 5]);
+    pkt->off += 6;
+}
+
+void fw_pkt_copy_8_bytes(fw_packet_t *pkt, uint8_t *val)
+{
+    uint32_t i;
+
+    for (i = 0; i < 8; i ++) {
+        val[i] = pkt->msg[pkt->off + i];
+    }
+    pkt->off += 8;
 }
 

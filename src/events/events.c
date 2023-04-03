@@ -35,7 +35,7 @@ typedef struct fw_event_context fw_event_context_t;
  * Event ID to Rule ID mappings for signatures that
  * are found directly within the Firewall.
  */
-struct fw_event_rule_id_base {
+STATIC CONST struct fw_event_rule_id_base {
     fw_event_details_t event_details;
     uint32_t rule_id;
 } fw_event_rule_id_list[] = {
@@ -47,6 +47,11 @@ struct fw_event_rule_id_base {
     {FW_EVENT_DESCR_ARP_INVAL_HWADDR_LEN,       0x00000006U},
     {FW_EVENT_DESCR_ARP_INVAL_PROTO_ADDR_LEN,   0x00000007U},
     {FW_EVENT_DESCR_ARP_OP_INVAL,               0x00000008U},
+    {FW_EVENT_DESCR_IPV4_INVAL_VERSION,         0x00000009U},
+    {FW_EVENT_DESCR_IPV4_HDR_LEN_TOO_SMALL,     0x0000000AU},
+    {FW_EVENT_DESCR_IPV4_FLAGS_RESERVED_SET,    0x0000000BU},
+    {FW_EVENT_DESCR_IPV4_FLAGS_BOTH_MF_DF_SET,  0x0000000CU},
+    {FW_EVENT_DESCR_IPV4_TTL_ZERO,              0x0000000DU},
 };
 
 /**
