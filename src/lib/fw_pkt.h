@@ -10,6 +10,7 @@
 #include <vlan.h>
 #include <ptp.h>
 #include <ipv4.h>
+#include <icmp.h>
 
 #define FW_PACKET_LEN_MAX 8192
 #define FW_RULE_NOT_MATCHED 0xDEADBEEF
@@ -35,6 +36,9 @@ struct fw_packet {
 
     /* IPv4 Header. */
     struct ipv4_header ipv4_h;
+
+    /* ICMP Header. */
+    struct icmp_header icmp_h;
 
     /*
      * Matching rule for this packet.

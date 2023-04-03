@@ -38,6 +38,7 @@ fw_event_details_t arp_deserialize(fw_packet_t *hdr);
 fw_event_details_t vlan_deserialize(fw_packet_t *hdr);
 fw_event_details_t ipv4_deserialize(fw_packet_t *hdr);
 fw_event_details_t ptp_deserialize(fw_packet_t *hdr);
+fw_event_details_t icmp_deserialize(fw_packet_t *hdr);
 
 fw_event_details_t parse_protocol(struct fw_packet *pkt);
 
