@@ -8,6 +8,7 @@
 #include <ethernet.h>
 #include <arp.h>
 #include <vlan.h>
+#include <ptp.h>
 #include <ipv4.h>
 
 #define FW_PACKET_LEN_MAX 8192
@@ -28,6 +29,9 @@ struct fw_packet {
 
     /* VLAN Header. */
     struct vlan_header vlan_h;
+
+    /* PTP Header. */
+    struct ptp_header ptp_h;
 
     /* IPv4 Header. */
     struct ipv4_header ipv4_h;

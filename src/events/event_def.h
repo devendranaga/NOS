@@ -14,22 +14,22 @@ enum fw_event_details {
     FW_EVENT_DESCR_DENY,
     FW_EVENT_DESCR_ALLOW,
 
-    FW_EVENT_DESCR_ETH_SRC_DST_ARE_BROADCAST,
-    FW_EVENT_DESCR_ETH_SRC_DST_ARE_ZERO,
+    FW_EVENT_DESCR_ETH_SRC_DST_ARE_BROADCAST, /* Both are broadcast. */
+    FW_EVENT_DESCR_ETH_SRC_DST_ARE_ZERO, /* Both are zeros. */
 
-    FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE,
+    FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE, /* Unsupported ethertype for this firewall. */
 
-    FW_EVENT_DESCR_ARP_HWTYPE_INVAL,
-    FW_EVENT_DESCR_ARP_HDR_LEN_TOO_SHORT,
-    FW_EVENT_DESCR_ARP_INVAL_HWADDR_LEN,
-    FW_EVENT_DESCR_ARP_INVAL_PROTO_ADDR_LEN,
-    FW_EVENT_DESCR_ARP_OP_INVAL,
+    FW_EVENT_DESCR_ARP_HWTYPE_INVAL, /* ARP hardware type is invalid. */
+    FW_EVENT_DESCR_ARP_HDR_LEN_TOO_SHORT, /* ARP Header length is too short. */
+    FW_EVENT_DESCR_ARP_INVAL_HWADDR_LEN, /* ARP invalid Hardware address length. */
+    FW_EVENT_DESCR_ARP_INVAL_PROTO_ADDR_LEN, /* ARP Invalid Protocol Address Length. */
+    FW_EVENT_DESCR_ARP_OP_INVAL, /* ARP op field is invalid. */
 
-    FW_EVENT_DESCR_IPV4_INVAL_VERSION,
-    FW_EVENT_DESCR_IPV4_HDR_LEN_TOO_SMALL,
-    FW_EVENT_DESCR_IPV4_FLAGS_RESERVED_SET,
-    FW_EVENT_DESCR_IPV4_FLAGS_BOTH_MF_DF_SET,
-    FW_EVENT_DESCR_IPV4_TTL_ZERO,
+    FW_EVENT_DESCR_IPV4_INVAL_VERSION, /* IPv4 invalid version. */
+    FW_EVENT_DESCR_IPV4_HDR_LEN_TOO_SMALL, /* IPv4 header length is too small. */
+    FW_EVENT_DESCR_IPV4_FLAGS_RESERVED_SET, /* IPv4 reserved bits are set. */
+    FW_EVENT_DESCR_IPV4_FLAGS_BOTH_MF_DF_SET, /* IPv4 both MF and DF bits are set. */
+    FW_EVENT_DESCR_IPV4_TTL_ZERO, /* IPv4 TTL is zero. */
 };
 
 typedef enum fw_event_details fw_event_details_t;

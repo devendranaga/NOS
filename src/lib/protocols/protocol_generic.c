@@ -85,3 +85,34 @@ void fw_pkt_copy_4_bytes(fw_packet_t *pkt, uint32_t *val)
     pkt->off += 4;
 }
 
+void fw_pkt_copy_6_bytes(fw_packet_t *pkt, uint8_t *val)
+{
+    uint32_t i;
+
+    for (i = 0; i < 6; i ++) {
+        val[i] = pkt->msg[pkt->off + i];
+    }
+    pkt->off += 6;
+}
+
+void fw_pkt_copy_6_bytes_u64(fw_packet_t *pkt, uint64_t *val)
+{
+    *val = ((uint64_t)(pkt->msg[pkt->off]) << 40)       |
+           ((uint64_t)(pkt->msg[pkt->off + 1]) << 32)   |
+           (pkt->msg[pkt->off + 2] << 24)               |
+           (pkt->msg[pkt->off + 3] << 16)               |
+           (pkt->msg[pkt->off + 4] << 8)                |
+           (pkt->msg[pkt->off + 5]);
+    pkt->off += 6;
+}
+
+void fw_pkt_copy_8_bytes(fw_packet_t *pkt, uint8_t *val)
+{
+    uint32_t i;
+
+    for (i = 0; i < 8; i ++) {
+        val[i] = pkt->msg[pkt->off + i];
+    }
+    pkt->off += 8;
+}
+

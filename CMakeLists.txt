@@ -28,7 +28,8 @@ set(PROTOCOL_SRC
     ./src/lib/protocols/l2/srp.c
     ./src/lib/protocols/l3/ipv4.c
     ./src/lib/protocols/l2/8021ae.c
-    ./src/lib/protocols/l2/8021x_mka.c)
+    ./src/lib/protocols/l2/8021x_mka.c
+    ./src/lib/protocols/l4/icmp.c)
 
 set(LIB_SRC
     ./src/lib/fw_pkt.c
