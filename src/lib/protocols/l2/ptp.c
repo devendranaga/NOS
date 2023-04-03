@@ -9,6 +9,10 @@
 #include <fw_pkt.h>
 #include <protocol_generic.h>
 
+#define PTP_MSG_TYPE_SYNC               0x00
+#define PTP_MSG_TYPE_PEER_DELAY_REQ     0x02
+#define PTP_MSG_TYPE_ANNOUNCE           0x0B
+
 fw_event_details_t ptp_deserialize(fw_packet_t *pkt)
 {
     pkt->ptp_h.major_sdoid = (pkt->msg[pkt->off] & 0xF0) >> 4;
@@ -35,6 +39,29 @@ fw_event_details_t ptp_deserialize(fw_packet_t *pkt)
     fw_pkt_copy_byte(pkt, &pkt->ptp_h.log_message_period);
     fw_pkt_copy_6_bytes_u64(pkt, &pkt->ptp_h.origin_timestamp_sec);
     fw_pkt_copy_4_bytes(pkt, &pkt->ptp_h.origin_timestamp_ns);
+
+    /* Parse Announce Header. */
+    if (pkt->ptp_h.message_type == PTP_MSG_TYPE_ANNOUNCE) {
+        fw_pkt_copy_2_bytes(pkt,
+                    &pkt->ptp_h.announce_hdr.origin_current_utc_offset);
+        pkt->off ++;
+        fw_pkt_copy_byte(pkt,
+                    &pkt->ptp_h.announce_hdr.priority_1);
+        fw_pkt_copy_byte(pkt,
+                    &pkt->ptp_h.announce_hdr.grand_master_clock_class);
+        fw_pkt_copy_byte(pkt,
+                    &pkt->ptp_h.announce_hdr.grand_master_clock_accuracy);
+        fw_pkt_copy_2_bytes(pkt,
+                    &pkt->ptp_h.announce_hdr.grand_master_clock_variance);
+        fw_pkt_copy_byte(pkt,
+                    &pkt->ptp_h.announce_hdr.priority_2);
+        fw_pkt_copy_8_bytes(pkt,
+                    pkt->ptp_h.announce_hdr.grand_master_clock_id);
+        fw_pkt_copy_2_bytes(pkt,
+                    &pkt->ptp_h.announce_hdr.local_steps_removed);
+        fw_pkt_copy_byte(pkt,
+                    &pkt->ptp_h.announce_hdr.timesource);
+    }
 
     return FW_EVENT_DESCR_ALLOW;
 }
