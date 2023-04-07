@@ -41,9 +41,24 @@ STATIC fw_event_details_t icmp_parse_echo_reply(fw_packet_t *pkt)
     return FW_EVENT_DESCR_ALLOW;
 }
 
+STATIC uint32_t icmp_get_min_hdrlen(icmp_header_t *icmp_h)
+{
+    return sizeof(icmp_h->code) +
+           sizeof(icmp_h->type) +
+           sizeof(icmp_h->checksum) +
+           sizeof(icmp_h->ping_req);
+}
+
 fw_event_details_t icmp_deserialize(fw_packet_t *pkt)
 {
     fw_event_details_t type = FW_EVENT_DESCR_ICMP_INVAL;
+
+    /* Validate and drop if ICMP header length is too small. could be a
+     * bad formed packet or test from a sender.
+     */
+    if ((pkt->total_len - pkt->off) < icmp_get_min_hdrlen(&pkt->icmp_h)) {
+        return FW_EVENT_DESCR_ICMP_HDR_TOO_SMALL;
+    }
 
     fw_pkt_copy_byte(pkt, &pkt->icmp_h.type);
     fw_pkt_copy_byte(pkt, &pkt->icmp_h.code);
@@ -53,9 +68,13 @@ fw_event_details_t icmp_deserialize(fw_packet_t *pkt)
         type = icmp_parse_echo_req(pkt);
     } else if (pkt->icmp_h.type == ICMP_ECHO_REPLY) {
         type = icmp_parse_echo_reply(pkt);
+    } else {
+        type = FW_EVENT_DESCR_ICMP_UNSUPPORTED_TYPE;
     }
 
-    pkt->icmp_h.pkt_len = fw_packet_get_remaining_len(pkt);
+    if (type == FW_EVENT_DESCR_ALLOW) {
+        pkt->icmp_h.pkt_len = fw_packet_get_remaining_len(pkt);
+    }
 
     icmp_print(&pkt->icmp_h);
 

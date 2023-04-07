@@ -40,6 +40,7 @@ fw_event_details_t ipv4_deserialize(fw_packet_t *hdr);
 fw_event_details_t ptp_deserialize(fw_packet_t *hdr);
 fw_event_details_t icmp_deserialize(fw_packet_t *hdr);
 fw_event_details_t udp_deserialize(fw_packet_t *hdr);
+fw_event_details_t tcp_deserialize(fw_packet_t *pkt);
 
 fw_event_details_t parse_protocol(struct fw_packet *pkt);
 

@@ -32,6 +32,13 @@ enum fw_event_details {
     FW_EVENT_DESCR_IPV4_TTL_ZERO, /* IPv4 TTL is zero. */
 
     FW_EVENT_DESCR_ICMP_INVAL,
+    FW_EVENT_DESCR_ICMP_UNSUPPORTED_TYPE, /* Unsupported ICMP Type. */
+    FW_EVENT_DESCR_ICMP_HDR_TOO_SMALL, /* Too small ICMP Header Length. */
+
+    FW_EVENT_DESCR_TCP_HDR_FLAGS_NULL, /* TCP Flags are 0. */
+    FW_EVENT_DESCR_TCP_RESERVED_FLAGS_SET, /* TCP Reserved flags are set. */
+    FW_EVENT_DESCR_TCP_SRC_PORT_ZERO, /* TCP Source Port is 0. */
+    FW_EVENT_DESCR_TCP_DST_PORT_ZERO, /* TCP Destination Port is 0. */
 
     FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL,
 };
