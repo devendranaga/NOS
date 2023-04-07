@@ -7,7 +7,8 @@
 #ifndef __LIB_PROTOCOLS_IPV4_H__
 #define __LIB_PROTOCOLS_IPV4_H__
 
-#define FW_IPV4_PROTOCOL_ICMP 1
+#define FW_IPV4_PROTOCOL_ICMP   1
+#define FW_IPV4_PROTOCOL_UDP    17
 
 struct ipv4_header {
     uint8_t version;

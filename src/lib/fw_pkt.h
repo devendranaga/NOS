@@ -11,6 +11,7 @@
 #include <ptp.h>
 #include <ipv4.h>
 #include <icmp.h>
+#include <udp.h>
 #include <firewall_common.h>
 
 #define FW_PACKET_LEN_MAX 8192
@@ -40,6 +41,9 @@ struct fw_packet {
 
     /* ICMP Header. */
     struct icmp_header icmp_h;
+
+    /* UDP Header. */
+    struct udp_header udp_h;
 
     /*
      * Matching rule for this packet.
