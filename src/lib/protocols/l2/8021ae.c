@@ -9,6 +9,8 @@
 #include <firewall_common.h>
 #include <debug.h>
 
+#define IEEE8021AE_SECTAG_LEN 1
+
 #ifdef ENABLE_PROTOCOL_PRINTS
 void ieee8021ae_print(ieee8021ae_hdr_t *hdr)
 {
@@ -49,9 +51,22 @@ bool ieee8021ae_has_encrypt_on(ieee8021ae_hdr_t *hdr)
     return ((hdr->e == true) && (hdr->c == true));
 }
 
+STATIC uint16_t ieee8021ae_min_hdrlen(ieee8021ae_hdr_t *hdr)
+{
+    return IEEE8021AE_SECTAG_LEN +
+           sizeof(hdr->short_len) +
+           sizeof(hdr->packet_no) +
+           sizeof(hdr->port_id);
+}
+
 fw_event_details_t ieee8021ae_deserialize(fw_packet_t *pkt)
 {
     fw_pkt_copy_byte(pkt, &pkt->macsec_h.sectag);
+
+    /* Too small length of the IEEE 802.1AE hdr. */
+    if ((pkt->total_len - pkt->off) < ieee8021ae_min_hdrlen(&pkt->macsec_h)) {
+        return FW_EVENT_DESCR_IEEE8021AE_HDRLEN_TOO_SMALL;
+    }
 
     pkt->macsec_h.ver = !!(pkt->macsec_h.sectag & 0x80);
     pkt->macsec_h.es = !!(pkt->macsec_h.sectag & 0x40);

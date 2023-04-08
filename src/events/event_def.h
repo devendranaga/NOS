@@ -25,6 +25,8 @@ enum fw_event_details {
     FW_EVENT_DESCR_ARP_INVAL_PROTO_ADDR_LEN, /* ARP Invalid Protocol Address Length. */
     FW_EVENT_DESCR_ARP_OP_INVAL, /* ARP op field is invalid. */
 
+    FW_EVENT_DESCR_IEEE8021AE_HDRLEN_TOO_SMALL, /* IEEE 802.1AE length too short. */
+
     FW_EVENT_DESCR_IPV4_INVAL_VERSION, /* IPv4 invalid version. */
     FW_EVENT_DESCR_IPV4_HDR_LEN_TOO_SMALL, /* IPv4 header length is too small. */
     FW_EVENT_DESCR_IPV4_FLAGS_RESERVED_SET, /* IPv4 reserved bits are set. */
