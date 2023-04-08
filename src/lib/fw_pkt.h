@@ -10,8 +10,10 @@
 #include <vlan.h>
 #include <ptp.h>
 #include <ipv4.h>
+#include <ipv6.h>
 #include <icmp.h>
 #include <udp.h>
+#include <tcp.h>
 #include <firewall_common.h>
 
 #define FW_PACKET_LEN_MAX 8192
@@ -44,6 +46,9 @@ struct fw_packet {
 
     /* UDP Header. */
     struct udp_header udp_h;
+
+    /* TCP Header. */
+    struct tcp_header tcp_h;
 
     /*
      * Matching rule for this packet.
