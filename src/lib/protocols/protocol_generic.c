@@ -147,3 +147,13 @@ void fw_pkt_copy_8_bytes(fw_packet_t *pkt, uint8_t *val)
     pkt->off += 8;
 }
 
+void fw_pkt_copy_16_bytes(fw_packet_t *pkt, uint8_t *val)
+{
+    uint32_t i;
+
+    for (i = 0; i < 16; i ++) {
+        val[i] = pkt->msg[pkt->off + i];
+    }
+    pkt->off += 16;
+}
+

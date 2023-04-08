@@ -41,6 +41,9 @@ struct fw_packet {
     /* IPv4 Header. */
     struct ipv4_header ipv4_h;
 
+    /* IPv6 Header. */
+    struct ipv6_header ipv6_h;
+
     /* ICMP Header. */
     struct icmp_header icmp_h;
 

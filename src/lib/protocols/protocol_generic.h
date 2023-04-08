@@ -31,6 +31,7 @@ void fw_pkt_copy_6_bytes(fw_packet_t *pkt, uint8_t *val);
 void fw_pkt_copy_6_bytes_u64(fw_packet_t *pkt, uint64_t *val);
 void fw_pkt_copy_8_bytes(fw_packet_t *pkt, uint8_t *val);
 void fw_pkt_encode_2_bytes(fw_packet_t *pkt, uint16_t val);
+void fw_pkt_copy_16_bytes(fw_packet_t *pkt, uint8_t *val);
 
 fw_event_details_t ethernet_deserialize(fw_packet_t *hdr);
 fw_event_details_t ethernet_serialize(fw_packet_t *hdr);

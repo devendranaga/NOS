@@ -30,6 +30,7 @@ enum fw_event_details {
     FW_EVENT_DESCR_IPV4_FLAGS_RESERVED_SET, /* IPv4 reserved bits are set. */
     FW_EVENT_DESCR_IPV4_FLAGS_BOTH_MF_DF_SET, /* IPv4 both MF and DF bits are set. */
     FW_EVENT_DESCR_IPV4_TTL_ZERO, /* IPv4 TTL is zero. */
+    FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL,
 
     FW_EVENT_DESCR_ICMP_INVAL,
     FW_EVENT_DESCR_ICMP_UNSUPPORTED_TYPE, /* Unsupported ICMP Type. */
@@ -40,7 +41,7 @@ enum fw_event_details {
     FW_EVENT_DESCR_TCP_SRC_PORT_ZERO, /* TCP Source Port is 0. */
     FW_EVENT_DESCR_TCP_DST_PORT_ZERO, /* TCP Destination Port is 0. */
 
-    FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL,
+    FW_EVENT_DESCR_IPV6_HDRLEN_TOO_SMALL, /* IPv6 Header length too small. */
 };
 
 typedef enum fw_event_details fw_event_details_t;
