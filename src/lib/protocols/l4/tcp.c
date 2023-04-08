@@ -68,8 +68,14 @@ fw_event_details_t tcp_deserialize(fw_packet_t *pkt)
     pkt->off ++;
 
     pkt->tcp_h.flags = pkt->msg[pkt->off];
+    /* TCP flags are 0. */
     if (pkt->tcp_h.flags == 0) {
         return FW_EVENT_DESCR_TCP_HDR_FLAGS_NULL;
+    }
+
+    /* TCP flags are set. */
+    if (pkt->tcp_h.flags == 0xFF) {
+        return FW_EVENT_DESCR_TCP_ALL_FLAGS_SET;
     }
 
     pkt->tcp_h.cwr = fw_pkt_has_bit_set(pkt, CWR_BIT);
@@ -80,6 +86,11 @@ fw_event_details_t tcp_deserialize(fw_packet_t *pkt)
     pkt->tcp_h.rst = fw_pkt_has_bit_set(pkt, RST_BIT);
     pkt->tcp_h.syn = fw_pkt_has_bit_set(pkt, SYN_BIT);
     pkt->tcp_h.fin = fw_pkt_has_bit_set(pkt, FIN_BIT);
+
+    /* SYN + FIN are both set, flag this packet. */
+    if (pkt->tcp_h.syn && pkt->tcp_h.fin) {
+        return FW_EVENT_DESCR_TCP_SYN_FIN_BOTH_SET;
+    }
 
     pkt->off ++;
 

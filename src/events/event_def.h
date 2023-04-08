@@ -40,6 +40,8 @@ enum fw_event_details {
     FW_EVENT_DESCR_TCP_RESERVED_FLAGS_SET, /* TCP Reserved flags are set. */
     FW_EVENT_DESCR_TCP_SRC_PORT_ZERO, /* TCP Source Port is 0. */
     FW_EVENT_DESCR_TCP_DST_PORT_ZERO, /* TCP Destination Port is 0. */
+    FW_EVENT_DESCR_TCP_SYN_FIN_BOTH_SET, /* TCP SYN + FIN both are set. */
+    FW_EVENT_DESCR_TCP_ALL_FLAGS_SET, /* TCP All flags are set. */
 
     FW_EVENT_DESCR_IPV6_HDRLEN_TOO_SMALL, /* IPv6 Header length too small. */
 };

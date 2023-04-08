@@ -63,13 +63,23 @@ STATIC fw_event_details_t __parse_l4_protocol(fw_packet_t *pkt, bool is_ipv6, ui
     return type;
 }
 
+STATIC INLINE bool protocol_has_ethertype_ipv4(fw_packet_t *pkt)
+{
+    return fw_packet_get_ethertype(pkt) == FW_ETHERTYPE_IPV4;
+}
+
+STATIC INLINE bool protocol_has_ethertype_ipv6(fw_packet_t *pkt)
+{
+    return fw_packet_get_ethertype(pkt) == FW_ETHERTYPE_IPV6;
+}
+
 STATIC fw_event_details_t parse_l4_protocol(fw_packet_t *pkt)
 {
     fw_event_details_t type = FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL;
 
-    if (fw_packet_get_ethertype(pkt) == FW_ETHERTYPE_IPV4) {
+    if (protocol_has_ethertype_ipv4(pkt)) {
         type = __parse_l4_protocol(pkt, false, pkt->ipv4_h.protocol);
-    } else if (fw_packet_get_ethertype(pkt) == FW_ETHERTYPE_IPV6) {
+    } else if (protocol_has_ethertype_ipv6(pkt)) {
         type = __parse_l4_protocol(pkt, true, pkt->ipv6_h.next_header);
     }
 
