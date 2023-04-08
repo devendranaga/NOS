@@ -37,6 +37,7 @@ fw_event_details_t ethernet_deserialize(fw_packet_t *hdr);
 fw_event_details_t ethernet_serialize(fw_packet_t *hdr);
 fw_event_details_t arp_deserialize(fw_packet_t *hdr);
 fw_event_details_t vlan_deserialize(fw_packet_t *hdr);
+fw_event_details_t ieee8021ae_deserialize(fw_packet_t *pkt);
 fw_event_details_t ipv4_deserialize(fw_packet_t *hdr);
 fw_event_details_t ipv6_deserialize(fw_packet_t *pkt);
 fw_event_details_t ptp_deserialize(fw_packet_t *hdr);

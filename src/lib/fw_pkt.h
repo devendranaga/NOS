@@ -1,14 +1,22 @@
+/**
+ * @brief - Implements fw_pkt header.
+ *
+ * @author - Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright - 2023-present All rights reserved.
+ */
 #ifndef __FW_PKT_H__
 #define __FW_PKT_H__
 
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
 #include <stdbool.h>
 #include <os_thread.h>
 #include <ethernet.h>
 #include <arp.h>
 #include <vlan.h>
 #include <ptp.h>
+#include <8021ae.h>
 #include <ipv4.h>
 #include <ipv6.h>
 #include <icmp.h>
@@ -37,6 +45,9 @@ struct fw_packet {
 
     /* PTP Header. */
     struct ptp_header ptp_h;
+
+    /* IEEE 802.1AE MACsec Header. */
+    struct ieee8021ae_hdr macsec_h;
 
     /* IPv4 Header. */
     struct ipv4_header ipv4_h;

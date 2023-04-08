@@ -33,6 +33,9 @@ STATIC fw_event_details_t parse_l2_protocol(fw_packet_t *pkt,
         case FW_ETHERTYPE_PTP:
             type = ptp_deserialize(pkt);
         break;
+        case FW_ETHERTYPE_MACSEC:
+            type = ieee8021ae_deserialize(pkt);
+        break;
         default:
             type = FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE;
         break;

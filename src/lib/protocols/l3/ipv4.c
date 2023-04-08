@@ -27,11 +27,11 @@ STATIC void ipv4_print(ipv4_header_t *hdr)
     fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t ecn: %d\n", hdr->ecn);
     fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t total_len: %d\n", hdr->total_len);
     fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t identification: 0x%04x\n", hdr->identification);
-    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t\t flags: {\n");
-    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t\t\t reserved: %d\n", hdr->reserved);
-    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t\t\t dont_fragment: %d\n", hdr->dont_fragment);
-    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t\t\t more_fragment: %d\n", hdr->more_fragment);
-    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t\t }\n");
+    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t flags: {\n");
+    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t\t reserved: %d\n", hdr->reserved);
+    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t\t dont_fragment: %d\n", hdr->dont_fragment);
+    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t\t more_fragment: %d\n", hdr->more_fragment);
+    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t }\n");
     fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t frag_off: %d\n", hdr->frag_off);
     fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t ttl: %d\n", hdr->ttl);
     fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t protocol: %d\n", hdr->protocol);
