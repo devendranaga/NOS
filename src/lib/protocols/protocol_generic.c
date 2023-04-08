@@ -27,11 +27,37 @@ STATIC fw_event_details_t parse_l2_protocol(fw_packet_t *pkt,
         case FW_ETHERTYPE_IPV4:
             type = ipv4_deserialize(pkt);
         break;
+        case FW_ETHERTYPE_IPV6:
+            type = ipv6_deserialize(pkt);
+        break;
         case FW_ETHERTYPE_PTP:
             type = ptp_deserialize(pkt);
         break;
         default:
             type = FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE;
+        break;
+    }
+
+    return type;
+}
+
+STATIC fw_event_details_t __parse_l4_protocol(fw_packet_t *pkt, bool is_ipv6, uint8_t protocol)
+{
+    fw_event_details_t type = FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL;
+
+    switch (protocol) {
+        case FW_IPV4_PROTOCOL_ICMP:
+            type = icmp_deserialize(pkt);
+        break;
+        case FW_IPV4_PROTOCOL_UDP:
+            type = udp_deserialize(pkt);
+        break;
+        case FW_IPV4_PROTOCOL_TCP:
+            type = tcp_deserialize(pkt);
+        break;
+        default:
+            type = FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL;
+        break;
     }
 
     return type;
@@ -42,15 +68,11 @@ STATIC fw_event_details_t parse_l4_protocol(fw_packet_t *pkt)
     fw_event_details_t type = FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL;
 
     if (fw_packet_get_ethertype(pkt) == FW_ETHERTYPE_IPV4) {
-        switch (pkt->ipv4_h.protocol) {
-            case FW_IPV4_PROTOCOL_ICMP:
-                type = icmp_deserialize(pkt);
-            break;
-            case FW_IPV4_PROTOCOL_UDP:
-                type = udp_deserialize(pkt);
-            break;
-        }
+        type = __parse_l4_protocol(pkt, false, pkt->ipv4_h.protocol);
+    } else if (fw_packet_get_ethertype(pkt) == FW_ETHERTYPE_IPV6) {
+        type = __parse_l4_protocol(pkt, true, pkt->ipv6_h.next_header);
     }
+
     return type;
 }
 
