@@ -20,6 +20,7 @@
 #include <ipv4.h>
 #include <ipv6.h>
 #include <icmp.h>
+#include <icmp6.h>
 #include <udp.h>
 #include <tcp.h>
 #include <firewall_common.h>
@@ -57,6 +58,9 @@ struct fw_packet {
 
     /* ICMP Header. */
     struct icmp_header icmp_h;
+
+    /* ICMP6 Header. */
+    struct icmp6_header icmp6_h;
 
     /* UDP Header. */
     struct udp_header udp_h;
