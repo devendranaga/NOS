@@ -45,7 +45,14 @@ enum fw_event_details {
     FW_EVENT_DESCR_TCP_SYN_FIN_BOTH_SET, /* TCP SYN + FIN both are set. */
     FW_EVENT_DESCR_TCP_ALL_FLAGS_SET, /* TCP All flags are set. */
 
+    FW_EVENT_DESCR_UDP_SRC_PORT_ZERO, /* UDP Source Port is 0. */
+    FW_EVENT_DESCR_UDP_DST_PORT_ZERO, /* UDP Destination Port is 0. */
+    FW_EVENT_DESCR_UDP_PAYLOAD_LEN_ZERO, /* UDP Payload length is 0. */
+
     FW_EVENT_DESCR_IPV6_HDRLEN_TOO_SMALL, /* IPv6 Header length too small. */
+
+    FW_EVENT_DESCR_ICMP6_HDRLEN_TOO_SMALL, /* ICMP6 Header length too small. */
+    FW_EVENT_DESCR_ICMP6_UNSUPPORTED_TYPE, /* ICMP6 Unsupported type. */
 };
 
 typedef enum fw_event_details fw_event_details_t;
