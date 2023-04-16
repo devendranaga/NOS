@@ -17,6 +17,7 @@
 #include <vlan.h>
 #include <ptp.h>
 #include <8021ae.h>
+#include <8021x.h>
 #include <ipv4.h>
 #include <ipv6.h>
 #include <icmp.h>
@@ -49,6 +50,8 @@ struct fw_packet {
 
     /* IEEE 802.1AE MACsec Header. */
     struct ieee8021ae_hdr macsec_h;
+
+    struct ieee8021x_header dot1x_h;
 
     /* IPv4 Header. */
     struct ipv4_header ipv4_h;
