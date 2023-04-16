@@ -53,6 +53,10 @@ enum fw_event_details {
 
     FW_EVENT_DESCR_ICMP6_HDRLEN_TOO_SMALL, /* ICMP6 Header length too small. */
     FW_EVENT_DESCR_ICMP6_UNSUPPORTED_TYPE, /* ICMP6 Unsupported type. */
+
+    FW_EVENT_DESCR_8021X_MKA_CKN_TOO_LARGE, /* 802.1x MKA CKN length too large. */
+    FW_EVENT_DESCR_8021X_MKA_ALG_AGILITY_INVALID, /* 802.1x MKA Algorithm Agility unknown. */
+    FW_EVENT_DESCR_8021X_MKA_VERSION_OUT_OF_RANGE, /* 802.1x MKA Version out of range. */
 };
 
 typedef enum fw_event_details fw_event_details_t;

@@ -56,7 +56,8 @@ STATIC uint16_t ieee8021ae_min_hdrlen(ieee8021ae_hdr_t *hdr)
     return IEEE8021AE_SECTAG_LEN +
            sizeof(hdr->short_len) +
            sizeof(hdr->packet_no) +
-           sizeof(hdr->port_id);
+           sizeof(hdr->port_id) +
+           IEEE8021AE_ICV_LEN;
 }
 
 fw_event_details_t ieee8021ae_deserialize(fw_packet_t *pkt)
@@ -89,6 +90,6 @@ fw_event_details_t ieee8021ae_deserialize(fw_packet_t *pkt)
 
     ieee8021ae_print(&pkt->macsec_h);
 
-    return FW_EVENT_DESCR_ALLOW;    
+    return FW_EVENT_DESCR_ALLOW;
 }
 

@@ -192,3 +192,8 @@ void fw_pkt_copy_16_bytes(fw_packet_t *pkt, uint8_t *val)
     pkt->off += 16;
 }
 
+void fw_pkt_copy_n_bytes(fw_packet_t *pkt, uint8_t *val, uint32_t bytes)
+{
+    memcpy(val, &pkt->msg[pkt->off], bytes);
+    pkt->off += bytes;
+}
