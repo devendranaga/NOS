@@ -46,6 +46,8 @@ fw_event_details_t ipv4_deserialize(fw_packet_t *pkt)
 {
     fw_event_details_t type = FW_EVENT_DESCR_ALLOW;
 
+    pkt->ipv4_h.start_off = pkt->off;
+
     /* Check if version is 4. */
     pkt->ipv4_h.version = (pkt->msg[pkt->off] & 0xF0) >> 4;
     if (pkt->ipv4_h.version != IPV4_VERSION) {
@@ -100,6 +102,8 @@ fw_event_details_t ipv4_deserialize(fw_packet_t *pkt)
     fw_pkt_copy_4_bytes(pkt, &pkt->ipv4_h.src_ipaddr);
     fw_pkt_copy_4_bytes(pkt, &pkt->ipv4_h.dst_ipaddr);
 
+    pkt->ipv4_h.stop_off = pkt->off;
+
     ipv4_print(&pkt->ipv4_h);
     return type;
 }
@@ -107,5 +111,28 @@ fw_event_details_t ipv4_deserialize(fw_packet_t *pkt)
 bool ipv4_pkt_has_fragments(ipv4_header_t *hdr)
 {
     return hdr->more_fragment;
+}
+
+bool ipv4_pkt_validate_checksum(fw_packet_t *pkt)
+{
+    uint32_t val = 0;
+    int carry = 0;
+    uint32_t i = 0;
+
+    /* Append all two bytes together. */
+    for (i = pkt->ipv4_h.start_off; i < pkt->ipv4_h.stop_off; i += 2) {
+        val += ((pkt->msg[i + 1] << 8) | (pkt->msg[i]));
+    }
+
+    /* Find the carry if overflow 0xFFFF. */
+    carry = (val & 0xFF0000) >> 16;
+    val = val & 0xFFFF;
+
+    /* A combined value must reach 0xFFFF. */
+    if ((val + carry) == 0xFFFF) {
+        return true;
+    }
+
+    return false;
 }
 
