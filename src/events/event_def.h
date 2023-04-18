@@ -128,6 +128,12 @@ struct fw_event {
     /* Optional message given by the rule file. */
     char                    *msg;
 
+    /* Sample packet bytes if more description needed in the event. */
+    uint8_t                 *pkt;
+
+    /* Packet length. */
+    uint16_t                pkt_len;
+
     struct fw_event         *next;
 };
 
