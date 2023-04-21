@@ -17,12 +17,12 @@
 STATIC void usage(const char *progname)
 {
     fprintf(stderr, "<%s> -i <interface list separated by comma>\n"
-                    "\t -e <event transport type : tcp, udp, mqtt>\n"
+                    "\t -e <event transport type : tcp, udp, mqtt, console>\n"
                     "\t -I <ip port of the event server in ip:port format>\n"
                     "\t -t <mqtt topic>\n"
                     "\t -E <Event log filename>\n"
                     "\t -f <configuration file>\n"
-                    "\t -b <event format: binary, csv>\n", progname);
+                    "\t -b <event format: binary, csv, text>\n", progname);
 }
 
 /* Get all interfaces passed via command line. */
@@ -60,6 +60,8 @@ STATIC int fw_get_event_transport_type(const char *optarg,
         cmd_args->event_config.evt_transport_type = FW_EVENT_TRANSPORT_UDP;
     } else if (!strcasecmp(optarg, "mqtt")) {
         cmd_args->event_config.evt_transport_type = FW_EVENT_TRANSPORT_MQTT;
+    } else if (!strcasecmp(optarg, "console")) {
+        cmd_args->event_config.evt_transport_type = FW_EVENT_TRANSPORT_CONSOLE;
     } else {
         return -1;
     }
@@ -74,6 +76,8 @@ STATIC int fw_get_event_format_type(const char *optarg,
         cmd_args->event_config.evt_format_type = FW_EVENT_FORMAT_BINARY;
     } else if (!strcmp(optarg, "csv")) {
         cmd_args->event_config.evt_format_type = FW_EVENT_FORMAT_CSV;
+    } else if (!strcmp(optarg, "text")) {
+        cmd_args->event_config.evt_format_type = FW_EVENT_FORMAT_TEXT;
     } else {
         return -1;
     }
@@ -131,11 +135,17 @@ int fw_parse_command_args(int argc, char **argv,
 {
     int ret;
 
+    if (argc == 1) {
+        usage(argv[0]);
+        return -1;
+    }
+
     while ((ret = getopt(argc, argv, CMD_ARGS_LIST)) != -1) {
         switch (ret) {
             case 'b':
                 ret = fw_get_event_format_type(optarg, fw_args);
                 if (ret < 0) {
+                    usage(argv[0]);
                     return -1;
                 }
             break;

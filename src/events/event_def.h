@@ -57,6 +57,8 @@ enum fw_event_details {
     FW_EVENT_DESCR_8021X_MKA_CKN_TOO_LARGE, /* 802.1x MKA CKN length too large. */
     FW_EVENT_DESCR_8021X_MKA_ALG_AGILITY_INVALID, /* 802.1x MKA Algorithm Agility unknown. */
     FW_EVENT_DESCR_8021X_MKA_VERSION_OUT_OF_RANGE, /* 802.1x MKA Version out of range. */
+
+    FW_EVENT_DESCR_DHCP_PARAMSET_UNKNOWN, /* DHCP Parameter set unknown. */
 };
 
 typedef enum fw_event_details fw_event_details_t;
@@ -127,6 +129,12 @@ struct fw_event {
 
     /* Optional message given by the rule file. */
     char                    *msg;
+
+    /* Sample packet bytes if more description needed in the event. */
+    uint8_t                 *pkt;
+
+    /* Packet length. */
+    uint16_t                pkt_len;
 
     struct fw_event         *next;
 };

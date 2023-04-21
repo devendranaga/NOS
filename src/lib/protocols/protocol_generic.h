@@ -40,6 +40,18 @@ fw_event_details_t arp_deserialize(fw_packet_t *hdr);
 fw_event_details_t vlan_deserialize(fw_packet_t *hdr);
 fw_event_details_t ieee8021ae_deserialize(fw_packet_t *pkt);
 fw_event_details_t ipv4_deserialize(fw_packet_t *hdr);
+fw_event_details_t dhcp_deserialize(fw_packet_t *hdr);
+void dhcp_free(fw_packet_t *hdr);
+
+/**
+ * @brief - Validate IPv4 checksum.
+ *
+ * @param[in] hdr - Received packet.
+ *
+ * @return true if checksum validation is success. false
+ * if checksum validation fails.
+ */
+bool ipv4_pkt_validate_checksum(fw_packet_t *hdr);
 fw_event_details_t ipv6_deserialize(fw_packet_t *pkt);
 fw_event_details_t ptp_deserialize(fw_packet_t *hdr);
 fw_event_details_t icmp_deserialize(fw_packet_t *hdr);

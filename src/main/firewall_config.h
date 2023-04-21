@@ -22,6 +22,7 @@
 /* Type of the event transport. */
 enum fw_event_transport_type {
     FW_EVENT_TRANSPORT_UDP,
+    FW_EVENT_TRANSPORT_CONSOLE,
     FW_EVENT_TRANSPORT_TCP,
     FW_EVENT_TRANSPORT_MQTT,
     FW_EVENT_TRANSPORT_INVAL,
@@ -31,6 +32,7 @@ typedef enum fw_event_transport_type fw_event_transport_type_t;
 
 enum fw_event_format_type {
     FW_EVENT_FORMAT_BINARY,
+    FW_EVENT_FORMAT_TEXT,
     FW_EVENT_FORMAT_CSV,
 };
 

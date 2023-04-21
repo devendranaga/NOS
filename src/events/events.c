@@ -23,6 +23,7 @@ struct fw_event_context {
     int fd;
 
     FILE *log_fp;
+    FILE *console_fp;
     struct fw_event_config *evt_config;
     struct sockaddr_in udp_server_addr;
 
@@ -38,37 +39,100 @@ typedef struct fw_event_context fw_event_context_t;
 STATIC CONST struct fw_event_rule_id_base {
     fw_event_details_t event_details;
     uint32_t rule_id;
+    const char *desc;
 } fw_event_rule_id_list[] = {
-    {FW_EVENT_DESCR_ETH_SRC_DST_ARE_BROADCAST,      0x00000001U},
-    {FW_EVENT_DESCR_ETH_SRC_DST_ARE_ZERO,           0x00000002U},
-    {FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE,       0x00000003U},
-    {FW_EVENT_DESCR_ARP_HWTYPE_INVAL,               0x00000004U},
-    {FW_EVENT_DESCR_ARP_HDR_LEN_TOO_SHORT,          0x00000005U},
-    {FW_EVENT_DESCR_ARP_INVAL_HWADDR_LEN,           0x00000006U},
-    {FW_EVENT_DESCR_ARP_INVAL_PROTO_ADDR_LEN,       0x00000007U},
-    {FW_EVENT_DESCR_ARP_OP_INVAL,                   0x00000008U},
-    {FW_EVENT_DESCR_IPV4_INVAL_VERSION,             0x00000009U},
-    {FW_EVENT_DESCR_IPV4_HDR_LEN_TOO_SMALL,         0x0000000AU},
-    {FW_EVENT_DESCR_IPV4_FLAGS_RESERVED_SET,        0x0000000BU},
-    {FW_EVENT_DESCR_IPV4_FLAGS_BOTH_MF_DF_SET,      0x0000000CU},
-    {FW_EVENT_DESCR_IPV4_TTL_ZERO,                  0x0000000DU},
-    {FW_EVENT_DESCR_IEEE8021AE_HDRLEN_TOO_SMALL,    0x0000000EU},
-    {FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL,      0x0000000FU},
-    {FW_EVENT_DESCR_ICMP_INVAL,                     0000000010U},
-    {FW_EVENT_DESCR_ICMP_UNSUPPORTED_TYPE,          0x00000011U},
-    {FW_EVENT_DESCR_ICMP_HDR_TOO_SMALL,             0x00000012U},
-    {FW_EVENT_DESCR_TCP_HDR_FLAGS_NULL,             0x00000013U},
-    {FW_EVENT_DESCR_TCP_RESERVED_FLAGS_SET,         0x00000014U},
-    {FW_EVENT_DESCR_TCP_SRC_PORT_ZERO,              0x00000015U},
-    {FW_EVENT_DESCR_TCP_DST_PORT_ZERO,              0x00000016U},
-    {FW_EVENT_DESCR_TCP_SYN_FIN_BOTH_SET,           0x00000017U},
-    {FW_EVENT_DESCR_TCP_ALL_FLAGS_SET,              0x00000018U},
-    {FW_EVENT_DESCR_UDP_SRC_PORT_ZERO,              0x00000019U},
-    {FW_EVENT_DESCR_UDP_DST_PORT_ZERO,              0x0000001AU},
-    {FW_EVENT_DESCR_UDP_PAYLOAD_LEN_ZERO,           0x0000001BU},
-    {FW_EVENT_DESCR_IPV6_HDRLEN_TOO_SMALL,          0x0000001CU},
-    {FW_EVENT_DESCR_ICMP6_HDRLEN_TOO_SMALL,         0x0000001DU},
-    {FW_EVENT_DESCR_ICMP6_UNSUPPORTED_TYPE,         0x0000001EU},
+    {FW_EVENT_DESCR_ALLOW,                          0x00000000U,
+        "Allow"},
+
+    {FW_EVENT_DESCR_ETH_SRC_DST_ARE_BROADCAST,      0x00000001U,
+        "Ethernet src and dst are broadcast"},
+
+    {FW_EVENT_DESCR_ETH_SRC_DST_ARE_ZERO,           0x00000002U,
+        "Ethernet src and dst are zero"},
+
+    {FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE,       0x00000003U,
+        "Ethernet unsupported ethertype"},
+
+    {FW_EVENT_DESCR_ARP_HWTYPE_INVAL,               0x00000004U,
+        "ARP invalid Hw Type"},
+
+    {FW_EVENT_DESCR_ARP_HDR_LEN_TOO_SHORT,          0x00000005U,
+        "ARP Header length too short"},
+
+    {FW_EVENT_DESCR_ARP_INVAL_HWADDR_LEN,           0x00000006U,
+        "ARP invalid hardware address length"},
+
+    {FW_EVENT_DESCR_ARP_INVAL_PROTO_ADDR_LEN,       0x00000007U,
+        "ARP invalid protocol address length"},
+
+    {FW_EVENT_DESCR_ARP_OP_INVAL,                   0x00000008U,
+        "ARP invalid operation"},
+
+    {FW_EVENT_DESCR_IPV4_INVAL_VERSION,             0x00000009U,
+        "IPv4 invalid version"},
+
+    {FW_EVENT_DESCR_IPV4_HDR_LEN_TOO_SMALL,         0x0000000AU,
+        "IPv4 header length too small"},
+
+    {FW_EVENT_DESCR_IPV4_FLAGS_RESERVED_SET,        0x0000000BU,
+        "IPv4 reserved flags are set"},
+
+    {FW_EVENT_DESCR_IPV4_FLAGS_BOTH_MF_DF_SET,      0x0000000CU,
+        "IPv4 flags MF and DF both are set"},
+
+    {FW_EVENT_DESCR_IPV4_TTL_ZERO,                  0x0000000DU,
+        "IPv4 TTL is 0"},
+
+    {FW_EVENT_DESCR_IEEE8021AE_HDRLEN_TOO_SMALL,    0x0000000EU,
+        "MACsec header length too small"},
+
+    {FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL,      0x0000000FU,
+        "IPv4 unsupported protocol"},
+
+    {FW_EVENT_DESCR_ICMP_INVAL,                     0000000010U,
+        "ICMP packet is invalid (generic error)"},
+
+    {FW_EVENT_DESCR_ICMP_UNSUPPORTED_TYPE,          0x00000011U,
+        "ICMP unsupported type"},
+
+    {FW_EVENT_DESCR_ICMP_HDR_TOO_SMALL,             0x00000012U,
+        "ICMP header too small"},
+
+    {FW_EVENT_DESCR_TCP_HDR_FLAGS_NULL,             0x00000013U,
+        "TCP header flags are 0"},
+
+    {FW_EVENT_DESCR_TCP_RESERVED_FLAGS_SET,         0x00000014U,
+        "TCP reserved flags are set"},
+
+    {FW_EVENT_DESCR_TCP_SRC_PORT_ZERO,              0x00000015U,
+        "TCP source port 0"},
+
+    {FW_EVENT_DESCR_TCP_DST_PORT_ZERO,              0x00000016U,
+        "TCP Destination port 0"},
+
+    {FW_EVENT_DESCR_TCP_SYN_FIN_BOTH_SET,           0x00000017U,
+        "TCP SYN and FIN both are set"},
+
+    {FW_EVENT_DESCR_TCP_ALL_FLAGS_SET,              0x00000018U,
+        "TCP All flags are set"},
+
+    {FW_EVENT_DESCR_UDP_SRC_PORT_ZERO,              0x00000019U,
+        "UDP source port 0"},
+
+    {FW_EVENT_DESCR_UDP_DST_PORT_ZERO,              0x0000001AU,
+        "UDP Destination port zero"},
+
+    {FW_EVENT_DESCR_UDP_PAYLOAD_LEN_ZERO,           0x0000001BU,
+        "UDP payload length zero"},
+
+    {FW_EVENT_DESCR_IPV6_HDRLEN_TOO_SMALL,          0x0000001CU,
+        "IPv6 header length too small"},
+
+    {FW_EVENT_DESCR_ICMP6_HDRLEN_TOO_SMALL,         0x0000001DU,
+        "ICMP6 header length too small"},
+
+    {FW_EVENT_DESCR_ICMP6_UNSUPPORTED_TYPE,         0x0000001EU,
+        "ICMP6 unsupported type"},
 };
 
 /**
@@ -112,6 +176,27 @@ STATIC void fw_event_connection_udp_deinit(fw_event_context_t *ctx)
     }
 }
 
+STATIC int fw_event_connection_console_init(fw_event_context_t *ctx)
+{
+    ctx->console_fp = stderr;
+
+    return 0;
+}
+
+STATIC int fw_event_connection_console_send(fw_event_context_t *ctx,
+                                            CONST uint8_t *data,
+                                            uint32_t data_len)
+{
+    fprintf(ctx->console_fp, "%s\n", data);
+
+    return 0;
+}
+
+STATIC void fw_event_connection_console_deinit(fw_event_context_t *ctx)
+{
+}
+
+
 /**
  * @brief - Sender callbacks.
  */
@@ -125,6 +210,11 @@ struct fw_event_sender {
         fw_event_connection_udp_init,
         fw_event_connection_udp_send,
         fw_event_connection_udp_deinit,
+    },
+    {
+        fw_event_connection_console_init,
+        fw_event_connection_console_send,
+        fw_event_connection_console_deinit,
     }
 };
 
@@ -179,12 +269,56 @@ STATIC int fw_event_write_log(fw_event_context_t *evt_ctx,
     return 0;
 }
 
+STATIC struct fw_evt_context_str {
+    fw_event_type_t type;
+    const char *str;
+} fw_evt_ctx_list[] = {
+    {FW_EVENT_ALLOW, "Allow"},
+    {FW_EVENT_DENY, "Deny"},
+    {FW_EVENT_NOTIFY, "Notify"},
+};
+
+STATIC const char *fw_get_event_desc_str(fw_event_details_t descr)
+{
+    uint32_t i;
+
+    for (i = 0; i < SIZEOF(fw_event_rule_id_list); i ++) {
+        if (fw_event_rule_id_list[i].event_details == descr) {
+            return fw_event_rule_id_list[i].desc;
+        }
+    }
+
+    return "Unknown error";
+}
+
+STATIC int fw_event_serialize_text(fw_event_context_t *evt_ctx,
+                                  fw_event_t *evt)
+{
+    char msg[4096];
+    int len;
+
+    len = snprintf(msg, sizeof(msg), "%s -> ", fw_evt_ctx_list[evt->event].str);
+    len += snprintf(msg + len, sizeof(msg) - len, "%d:{%s} ",
+                                  evt->event_details,
+                                  fw_get_event_desc_str(evt->event_details));
+    len += snprintf(msg + len, sizeof(msg) - len, "ruleid: %d ",
+                                  evt->rule_id);
+    len += snprintf(msg + len, sizeof(msg) - len, "ifname: [%s] ",
+                                  evt->ifname);
+    len += snprintf(msg + len, sizeof(msg) - len, "ethertype: [0x%04x] ",
+                                  evt->protocol_event.ethertype);
+    return fw_event_connection_send(evt_ctx, (const uint8_t *)msg, len);
+}
+
 struct fw_event_serializer {
     int (*serializer)(fw_event_context_t *evt_ctx,
                       fw_event_t *evt);
 } fw_event_serializer_list[] = {
     {
         fw_event_serializer_binary,
+    },
+    {
+        fw_event_serialize_text,
     },
     {
         fw_event_write_log,
@@ -213,7 +347,6 @@ STATIC void * fw_event_transmit_thread(void *evt_ptr)
             while (event_node) {
                 fw_event_serializer_list[evt_fmt].serializer(evt_ctx,
                                                          event_node);
-
                 tmp = event_node;
                 event_node = event_node->next;
                 free(tmp);

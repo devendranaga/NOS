@@ -24,16 +24,17 @@ STATIC void ipv6_print(ipv6_header_t *hdr)
     fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t payload_len: %d\n", hdr->payload_len);
     fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t next_header: %d\n", hdr->next_header);
     fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t hoplimit: %d\n", hdr->hoplimit);
-    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t src_ipv6addr: {\n\t ");
+    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t src_ipv6addr: { ");
     for (i = 0; i < sizeof(hdr->src_ip6addr); i ++) {
         fprintf(stderr, "%02x ", hdr->src_ip6addr[i]);
     }
-    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t }\n");
-    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t dst_ipv6addr: {\n\t ");
+    fprintf(stderr, " }\n");
+    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t dst_ipv6addr: { ");
     for (i = 0; i < sizeof(hdr->dst_ip6addr); i ++) {
         fprintf(stderr, "%02x ", hdr->dst_ip6addr[i]);
     }
-    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t }\n");
+    fprintf(stderr, " }\n");
+    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\n\t }\n");
     fw_debug(FW_DEBUG_LEVEL_VERBOSE, "}\n");
 }
 #endif

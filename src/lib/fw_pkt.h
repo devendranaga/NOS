@@ -25,6 +25,7 @@
 #include <udp.h>
 #include <tcp.h>
 #include <someip.h>
+#include <dhcp.h>
 #include <firewall_common.h>
 
 #define FW_PACKET_LEN_MAX 8192
@@ -74,6 +75,9 @@ struct fw_packet {
 
     /* SOME/IP Header. */
     struct someip_header someip_h;
+
+    /* DHCP Header. */
+    struct dhcp_header dhcp_h;
 
     /*
      * Matching rule for this packet.
