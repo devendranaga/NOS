@@ -49,13 +49,13 @@ STATIC fw_event_details_t __parse_l4_protocol(fw_packet_t *pkt, bool is_ipv6, ui
     fw_event_details_t type = FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL;
 
     switch (protocol) {
-        case FW_IPV4_PROTOCOL_ICMP:
+        case FW_L3_PROTOCOL_ICMP:
             type = icmp_deserialize(pkt);
         break;
-        case FW_IPV4_PROTOCOL_UDP:
+        case FW_L3_PROTOCOL_UDP:
             type = udp_deserialize(pkt);
         break;
-        case FW_IPV4_PROTOCOL_TCP:
+        case FW_L3_PROTOCOL_TCP:
             type = tcp_deserialize(pkt);
         break;
         default:
@@ -76,6 +76,42 @@ STATIC INLINE bool protocol_has_ethertype_ipv6(fw_packet_t *pkt)
     return fw_packet_get_ethertype(pkt) == FW_ETHERTYPE_IPV6;
 }
 
+STATIC INLINE bool protocol_has_udp(fw_packet_t *pkt)
+{
+    uint32_t ethertype;
+
+    ethertype = fw_packet_get_ethertype(pkt);
+    if (ethertype == FW_ETHERTYPE_IPV4) {
+        if (pkt->ipv4_h.protocol == FW_L3_PROTOCOL_UDP) {
+            return true;
+        }
+    } else if (ethertype == FW_ETHERTYPE_IPV6) {
+        if (pkt->ipv6_h.next_header == FW_L3_PROTOCOL_UDP) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+STATIC INLINE bool protocol_has_tcp(fw_packet_t *pkt)
+{
+    uint32_t ethertype;
+
+    ethertype = fw_packet_get_ethertype(pkt);
+    if (ethertype == FW_ETHERTYPE_IPV6) {
+        if (pkt->ipv4_h.protocol == FW_L3_PROTOCOL_TCP) {
+            return true;
+        }
+    } else if (ethertype == FW_ETHERTYPE_IPV6) {
+        if (pkt->ipv6_h.next_header == FW_L3_PROTOCOL_TCP) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 STATIC fw_event_details_t parse_l4_protocol(fw_packet_t *pkt)
 {
     fw_event_details_t type = FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL;
@@ -84,6 +120,17 @@ STATIC fw_event_details_t parse_l4_protocol(fw_packet_t *pkt)
         type = __parse_l4_protocol(pkt, false, pkt->ipv4_h.protocol);
     } else if (protocol_has_ethertype_ipv6(pkt)) {
         type = __parse_l4_protocol(pkt, true, pkt->ipv6_h.next_header);
+    }
+
+    return type;
+}
+
+STATIC fw_event_details_t parse_app_protocol(fw_packet_t *pkt)
+{
+    fw_event_details_t type = FW_EVENT_DESCR_DENY;
+
+    if (protocol_has_udp(pkt)) {
+        type = dhcp_deserialize(pkt);
     }
 
     return type;
@@ -106,6 +153,10 @@ fw_event_details_t parse_protocol(fw_packet_t *pkt)
         /* L3 is covered in ipv4. */
         if (type == FW_EVENT_DESCR_ALLOW) {
             type = parse_l4_protocol(pkt);
+            /* Parse Application specific data. */
+            if (type == FW_EVENT_DESCR_ALLOW) {
+                type = parse_app_protocol(pkt);
+            }
         }
     }
 

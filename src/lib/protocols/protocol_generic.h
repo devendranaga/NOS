@@ -40,6 +40,8 @@ fw_event_details_t arp_deserialize(fw_packet_t *hdr);
 fw_event_details_t vlan_deserialize(fw_packet_t *hdr);
 fw_event_details_t ieee8021ae_deserialize(fw_packet_t *pkt);
 fw_event_details_t ipv4_deserialize(fw_packet_t *hdr);
+fw_event_details_t dhcp_deserialize(fw_packet_t *hdr);
+void dhcp_free(fw_packet_t *hdr);
 
 /**
  * @brief - Validate IPv4 checksum.

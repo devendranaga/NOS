@@ -35,7 +35,8 @@ set(PROTOCOL_SRC
     ./src/lib/protocols/l4/icmp6.c
     ./src/lib/protocols/l4/udp.c
     ./src/lib/protocols/l4/tcp.c
-    ./src/lib/protocols/app/someip.c)
+    ./src/lib/protocols/app/someip.c
+    ./src/lib/protocols/app/dhcp.c)
 
 set(LIB_SRC
     ./src/lib/fw_pkt.c
