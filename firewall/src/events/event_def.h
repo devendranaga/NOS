@@ -58,6 +58,7 @@ enum fw_event_details {
     FW_EVENT_DESCR_8021X_MKA_ALG_AGILITY_INVALID, /* 802.1x MKA Algorithm Agility unknown. */
     FW_EVENT_DESCR_8021X_MKA_VERSION_OUT_OF_RANGE, /* 802.1x MKA Version out of range. */
     FW_EVENT_DESCR_8021X_MKA_INVAL_PARAMSET_TYPE, /* 802.1x MKA Invalid parameter set length. */
+    FW_EVENT_DESCR_8021X_MKA_ICV_LEN_INVAL, /* 802.1x MKA ICV length is invalid. */
 
     FW_EVENT_DESCR_DHCP_PARAMSET_UNKNOWN, /* DHCP Parameter set unknown. */
     FW_EVENT_DESCR_DHCP_MAGIC_COOKIE_INVALID, /* DHCP Magic cookie is invalid. */

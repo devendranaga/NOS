@@ -157,6 +157,7 @@ STATIC fw_event_details_t ieee8021x_deserialize_sak_use_paramset(
     return FW_EVENT_DESCR_ALLOW;
 }
 
+/* Parse Dist SAK. */
 STATIC fw_event_details_t ieee8021x_deserialize_dist_sak(fw_packet_t *hdr)
 {
     struct ieee8021x_eapol_mka_dist_sak_paramset *dp;
@@ -185,6 +186,23 @@ STATIC fw_event_details_t ieee8021x_deserialize_dist_sak(fw_packet_t *hdr)
     }
 
     fw_pkt_copy_n_bytes(hdr, dp->key_wrap, dp->key_wrap_len);
+
+    return FW_EVENT_DESCR_ALLOW;
+}
+
+/* Parse ICV. */
+STATIC fw_event_details_t ieee8021x_deserialize_icv(fw_packet_t *hdr)
+{
+    struct ieee8021x_eapol_mka_icv_paramset *ip;
+
+    ip = &hdr->dot1x_h.eapol.mka.ip;
+
+    ip->paramset_len = ieee8021x_mka_get_paramset_len(hdr);
+    if (ip->paramset_len != MKA_ICV_LEN_MAX) {
+        return FW_EVENT_DESCR_8021X_MKA_ICV_LEN_INVAL;
+    }
+
+    fw_pkt_copy_n_bytes(hdr, ip->icv, ip->paramset_len);
 
     return FW_EVENT_DESCR_ALLOW;
 }
@@ -241,10 +259,17 @@ STATIC fw_event_details_t ieee8021x_deserialize_eapol(fw_packet_t *hdr)
                     return evt_descr;
                 }
             } break;
-            case MKA_ICV_PARAMSET:
-            break;
-            default:
-            break;
+            case MKA_ICV_PARAMSET: {
+                hdr->off ++;
+
+                evt_descr = ieee8021x_deserialize_icv(hdr);
+                if (evt_descr != FW_EVENT_DESCR_ALLOW) {
+                    return evt_descr;
+                }
+            } break;
+            default: {
+                return FW_EVENT_DESCR_8021X_MKA_INVAL_PARAMSET_TYPE;
+            } break;
         }
     }
 
