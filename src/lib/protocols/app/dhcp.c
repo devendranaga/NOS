@@ -110,6 +110,53 @@ fw_event_details_t dhcp_deserialize(fw_packet_t *hdr)
             case DHCP_OPT_PARAMETER_END: {
                 hdr->off ++;
             } break;
+            case DHCP_OPT_PARAMETER_DHCP_SERVER_IDENTIFIER: {
+                hdr->off ++;
+
+                fw_pkt_copy_byte(hdr, &msg_len);
+                fw_pkt_copy_4_bytes(hdr, &dhcp_h->options.server_id.ipaddr);
+            } break;
+            case DHCP_OPT_PARAMETER_SUBNET_MASK: {
+                hdr->off ++;
+
+                fw_pkt_copy_byte(hdr, &msg_len);
+                fw_pkt_copy_4_bytes(hdr, &dhcp_h->options.subnet_mask.subnet_mask);
+            } break;
+            case DHCP_OPT_PARAMETER_ROUTER: {
+                hdr->off ++;
+
+                fw_pkt_copy_byte(hdr, &msg_len);
+                fw_pkt_copy_4_bytes(hdr, &dhcp_h->options.router.router_ipaddr);
+            } break;
+            case DHCP_OPT_PARAMETER_DOMAIN_NAME_SERVER: {
+                uint32_t i = 0;
+
+                hdr->off ++;
+
+                fw_pkt_copy_byte(hdr, &msg_len);
+                dhcp_h->options.dns_list.n_servers = msg_len / sizeof(uint32_t);
+                dhcp_h->options.dns_list.dns_server_ipaddr =
+                        calloc(1, msg_len / sizeof(uint32_t));
+                if (!dhcp_h->options.dns_list.dns_server_ipaddr) {
+                    return FW_EVENT_DESCR_DENY;
+                }
+                while (i < dhcp_h->options.dns_list.n_servers) {
+                    fw_pkt_copy_4_bytes(hdr,
+                                        &dhcp_h->options.dns_list.dns_server_ipaddr[i]);
+                    i ++;
+                }
+            } break;
+            case DHCP_OPT_PARAMETER_DOMAIN_NAME: {
+
+                fw_pkt_copy_byte(hdr, &msg_len);
+                dhcp_h->options.domain_name.name = calloc(1, msg_len);
+                if (!dhcp_h->options.domain_name.name) {
+                    return FW_EVENT_DESCR_DENY;
+                }
+                fw_pkt_copy_n_bytes(hdr,
+                                    dhcp_h->options.domain_name.name,
+                                    msg_len);
+            } break;
             default: {
                 ret = FW_EVENT_DESCR_DHCP_PARAMSET_UNKNOWN;
             }
@@ -126,5 +173,11 @@ void dhcp_free(fw_packet_t *hdr)
     }
     if (hdr->dhcp_h.options.param_list.parameter_list) {
         free(hdr->dhcp_h.options.param_list.parameter_list);
+    }
+    if (hdr->dhcp_h.options.dns_list.dns_server_ipaddr) {
+        free(hdr->dhcp_h.options.dns_list.dns_server_ipaddr);
+    }
+    if (hdr->dhcp_h.options.domain_name.name) {
+        free(hdr->dhcp_h.options.domain_name.name);
     }
 }

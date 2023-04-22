@@ -11,6 +11,13 @@
 
 #define DHCP_MAGIC_COOKIE "DHCP"
 
+#define DHCP_DISCOVER 1
+#define DHCP_OFFER    2
+#define DHCP_REQUEST  3
+#define DHCP_ACK      5
+#define DHCP_NAK      6
+#define DHCP_INFORM   8
+
 #define DHCP_MSG_TYPE_BOOT_REQ                              1
 
 #define DHCP_OPT_MESSAGE_TYPE                               53
@@ -29,10 +36,32 @@
 #define DHCP_OPT_PARAMETER_NETBIOS_OVER_TCP_IP_NAME_SERVER  44
 #define DHCP_OPT_PARAMETER_NETBIOS_OVER_TCP_IP_NODE_TYPE    46
 #define DHCP_OPT_PARAMETER_NETBIOS_OVER_TCP_IP_SCOPE        47
+#define DHCP_OPT_PARAMETER_DHCP_SERVER_IDENTIFIER           54
 #define DHCP_OPT_PARAMETER_CLASSLESS_STATIC_ROUTE           121
 #define DHCP_OPT_PARAMETER_PRIVATE_ROUTE                    249
 #define DHCP_OPT_PARAMETER_PRIVATE_AUTO_DISCOVERY           252
 #define DHCP_OPT_PARAMETER_END                              255
+
+struct dhcp_opt_server_identifier {
+    uint32_t ipaddr;
+};
+
+struct dhcp_opt_subnet_mask {
+    uint32_t subnet_mask;
+};
+
+struct dhcp_opt_router {
+    uint32_t router_ipaddr;
+};
+
+struct dhcp_opt_dns_list {
+    int n_servers;
+    uint32_t *dns_server_ipaddr;
+};
+
+struct dhcp_opt_domain_name {
+    char *name;
+};
 
 struct dhcp_client_identifier {
     uint8_t hw_type;
@@ -56,10 +85,15 @@ struct dhcp_parameter_request_list {
 
 struct dhcp_options {
     uint8_t dhcp_inform;
-    struct dhcp_client_identifier client_id;
+    struct dhcp_opt_client_identifier client_id;
+    struct dhcp_opt_server_identifier server_id;
     struct dhcp_hostname hostname;
     struct dhcp_vendor_class_id vendor;
     struct dhcp_parameter_request_list param_list;
+    struct dhcp_opt_subnet_mask subnet_mask;
+    struct dhcp_opt_router router;
+    struct dhcp_opt_dns_list dns_list;
+    struct dhcp_opt_domain_name domain_name;
     uint8_t dhcp_end;
 };
 
