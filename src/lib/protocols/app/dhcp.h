@@ -55,7 +55,7 @@ struct dhcp_opt_router {
 };
 
 struct dhcp_opt_dns_list {
-    int n_servers;
+    uint32_t n_servers;
     uint32_t *dns_server_ipaddr;
 };
 
@@ -63,7 +63,7 @@ struct dhcp_opt_domain_name {
     char *name;
 };
 
-struct dhcp_client_identifier {
+struct dhcp_opt_client_identifier {
     uint8_t hw_type;
     uint8_t client_mac[6];
 };
