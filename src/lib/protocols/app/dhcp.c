@@ -18,6 +18,7 @@ fw_event_details_t dhcp_deserialize(fw_packet_t *hdr)
 {
     fw_event_details_t ret = FW_EVENT_DESCR_ALLOW;
     dhcp_header_t *dhcp_h = &hdr->dhcp_h;
+    const uint8_t dhcp_cookie[] = {'D' ,'H', 'C', 'P'};
 
     memset(&hdr->dhcp_h, 0, sizeof(hdr->dhcp_h));
 
@@ -46,6 +47,9 @@ fw_event_details_t dhcp_deserialize(fw_packet_t *hdr)
     fw_pkt_copy_n_bytes(hdr,
                         dhcp_h->boot_filename, sizeof(dhcp_h->boot_filename));
     fw_pkt_copy_n_bytes(hdr, dhcp_h->magic_cookie, sizeof(dhcp_h->magic_cookie));
+    if (memcmp(dhcp_h->magic_cookie, dhcp_cookie, sizeof(dhcp_cookie)) != 0) {
+        return FW_EVENT_DESCR_DHCP_MAGIC_COOKIE_INVALID;
+    }
 
     /* Parse options. */
     while (hdr->off > hdr->total_len) {

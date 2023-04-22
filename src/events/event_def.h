@@ -59,6 +59,7 @@ enum fw_event_details {
     FW_EVENT_DESCR_8021X_MKA_VERSION_OUT_OF_RANGE, /* 802.1x MKA Version out of range. */
 
     FW_EVENT_DESCR_DHCP_PARAMSET_UNKNOWN, /* DHCP Parameter set unknown. */
+    FW_EVENT_DESCR_DHCP_MAGIC_COOKIE_INVALID, /* DHCP Magic cookie is invalid. */
 };
 
 typedef enum fw_event_details fw_event_details_t;
