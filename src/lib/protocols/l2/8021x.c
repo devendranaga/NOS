@@ -14,7 +14,7 @@ STATIC bool ieee8021x_mka_version_in_range(uint8_t version)
     return true;
 }
 
-STATIC uint16_t get_paramset_len(fw_packet_t *hdr)
+STATIC uint16_t ieee8021x_mka_get_paramset_len(fw_packet_t *hdr)
 {
     return ((hdr->msg[hdr->off] & 0x0F) |
             (hdr->msg[hdr->off + 1]));
@@ -48,7 +48,7 @@ STATIC fw_event_details_t ieee8021x_deserialize_mka_bp(fw_packet_t *hdr)
     bp->key_server = !!(hdr->msg[hdr->off] & 0x80);
     bp->macsec_desired = !!(hdr->msg[hdr->off] & 0x40);
     bp->macsec_capability = (hdr->msg[hdr->off] & 0x30) >> 4;
-    bp->paramset_len = get_paramset_len(hdr);
+    bp->paramset_len = ieee8021x_mka_get_paramset_len(hdr);
     hdr->off += 2;
 
     ieee8021x_get_sci(hdr, bp->sci);
@@ -69,6 +69,30 @@ STATIC fw_event_details_t ieee8021x_deserialize_mka_bp(fw_packet_t *hdr)
     return FW_EVENT_DESCR_ALLOW;
 }
 
+STATIC fw_event_details_t ieee8021x_deserialize_mka_pp(fw_packet_t *hdr)
+{
+    struct ieee8021x_eapol_mka_potential_paramset *pp;
+    uint32_t len = 0;
+    uint32_t i = 0;
+
+    pp = &hdr->dot1x_h.eapol.mka.pp;
+
+    pp->paramset_len =  ieee8021x_mka_get_paramset_len(hdr);
+
+    while (len > pp->paramset_len) {
+        pp->num_peers ++;
+
+        fw_pkt_copy_n_bytes(hdr,
+                            pp->peer_list[i].mi, sizeof(pp->peer_list[i].mi));
+        fw_pkt_copy_4_bytes(hdr, &pp->peer_list[i].mn);
+        len += sizeof(pp->peer_list[i].mi) +
+               sizeof(pp->peer_list[i].mn);
+        i ++;
+    }
+
+    return FW_EVENT_DESCR_ALLOW;
+}
+
 STATIC fw_event_details_t ieee8021x_deserialize_eapol(fw_packet_t *hdr)
 {
     fw_event_details_t evt_descr;
@@ -79,6 +103,36 @@ STATIC fw_event_details_t ieee8021x_deserialize_eapol(fw_packet_t *hdr)
 
     evt_descr = ieee8021x_deserialize_mka_bp(hdr);
     hdr->dot1x_h.eapol.mka.paramset_preset |= MKA_BASIC_PARAMSET_BIT;
+
+    /* Parse ICV. */
+    if ((hdr->total_len - hdr->off) == MKA_ICV_LEN_MAX) {
+        fw_pkt_copy_n_bytes(hdr,
+                            hdr->dot1x_h.eapol.mka.ip.icv, MKA_ICV_LEN_MAX);
+    }
+
+    while (hdr->off > hdr->total_len) {
+        switch (hdr->msg[hdr->off]) {
+            case MKA_LIVE_PEERLIST_PARAMSET:
+            break;
+            case MKA_POTENTIAL_PEERLIST_PARAMSET: {
+                hdr->off ++;
+
+                /* Deserialize Potential Peer List. */
+                evt_descr = ieee8021x_deserialize_mka_pp(hdr);
+                if (evt_descr != FW_EVENT_DESCR_ALLOW) {
+                    return evt_descr;
+                }
+            } break;
+            case MKA_MACSEC_SAKUSE_PARAMSET:
+            break;
+            case MKA_DIST_SAK_PARAMSET:
+            break;
+            case MKA_ICV_PARAMSET:
+            break;
+            default:
+            break;
+        }
+    }
 
     return evt_descr;
 }
