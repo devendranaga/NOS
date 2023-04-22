@@ -87,6 +87,7 @@ struct ieee8021x_eapol_mka_dist_sak_paramset {
     uint8_t         dist_an;
     uint8_t         conf_offset;
     uint16_t        paramset_len;
+    uint8_t         cipher[8];
     uint32_t        key_number;
     uint8_t         key_wrap_len;
     uint8_t         key_wrap[MKA_AES_KEYWRAP_LEN_MAX];

@@ -88,7 +88,7 @@ STATIC void ieee8021x_deserialize_peer(fw_packet_t *hdr,
     }
 }
 
-/* Parser Potential Peer List. */
+/* Parse Potential Peer List. */
 STATIC fw_event_details_t ieee8021x_deserialize_mka_pp(fw_packet_t *hdr)
 {
     struct ieee8021x_eapol_mka_potential_paramset *pp;
@@ -105,6 +105,7 @@ STATIC fw_event_details_t ieee8021x_deserialize_mka_pp(fw_packet_t *hdr)
     return FW_EVENT_DESCR_ALLOW;
 }
 
+/* Parse Live Peer List. */
 STATIC fw_event_details_t ieee8021x_deserialize_mka_lp(fw_packet_t *hdr)
 {
     struct ieee8021x_eapol_mka_live_paramset *lp;
@@ -121,6 +122,7 @@ STATIC fw_event_details_t ieee8021x_deserialize_mka_lp(fw_packet_t *hdr)
     return FW_EVENT_DESCR_ALLOW;
 }
 
+/* Parse MACsec SAKuse. */
 STATIC fw_event_details_t ieee8021x_deserialize_sak_use_paramset(
                                                 fw_packet_t *hdr)
 {
@@ -151,6 +153,38 @@ STATIC fw_event_details_t ieee8021x_deserialize_sak_use_paramset(
     fw_pkt_copy_n_bytes(hdr, mp->old_mi, sizeof(mp->old_mi));
     fw_pkt_copy_4_bytes(hdr, &mp->old_kn);
     fw_pkt_copy_4_bytes(hdr, &mp->old_lowest_pn);
+
+    return FW_EVENT_DESCR_ALLOW;
+}
+
+STATIC fw_event_details_t ieee8021x_deserialize_dist_sak(fw_packet_t *hdr)
+{
+    struct ieee8021x_eapol_mka_dist_sak_paramset *dp;
+    uint32_t wrapped_key_len = 0;
+
+    dp = &hdr->dot1x_h.eapol.mka.dp;
+
+    dp->dist_an = (hdr->msg[hdr->off] & 0xC0) >> 6;
+    dp->conf_offset = (hdr->msg[hdr->off] & 0x30) >> 4;
+
+    dp->paramset_len = ieee8021x_mka_get_paramset_len(hdr);
+    hdr->off += 2;
+
+    fw_pkt_copy_4_bytes(hdr, &dp->key_number);
+
+    /* AES-GCM-128. */
+    if (dp->paramset_len == 28) {
+        wrapped_key_len = dp->paramset_len - sizeof(dp->key_number);
+        dp->key_wrap_len = wrapped_key_len;
+    } else {
+        fw_pkt_copy_n_bytes(hdr, dp->cipher, sizeof(dp->cipher));
+        wrapped_key_len = dp->paramset_len -
+                          sizeof(dp->key_number) -
+                          sizeof(dp->cipher);
+        dp->key_wrap_len = wrapped_key_len;
+    }
+
+    fw_pkt_copy_n_bytes(hdr, dp->key_wrap, dp->key_wrap_len);
 
     return FW_EVENT_DESCR_ALLOW;
 }
@@ -199,8 +233,14 @@ STATIC fw_event_details_t ieee8021x_deserialize_eapol(fw_packet_t *hdr)
                     return evt_descr;
                 }
             } break;
-            case MKA_DIST_SAK_PARAMSET:
-            break;
+            case MKA_DIST_SAK_PARAMSET: {
+                hdr->off ++;
+
+                evt_descr = ieee8021x_deserialize_dist_sak(hdr);
+                if (evt_descr != FW_EVENT_DESCR_ALLOW) {
+                    return evt_descr;
+                }
+            } break;
             case MKA_ICV_PARAMSET:
             break;
             default:
