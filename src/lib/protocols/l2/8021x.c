@@ -96,6 +96,8 @@ STATIC fw_event_details_t ieee8021x_deserialize_mka_pp(fw_packet_t *hdr)
     pp = &hdr->dot1x_h.eapol.mka.pp;
 
     pp->paramset_len =  ieee8021x_mka_get_paramset_len(hdr);
+    hdr->off += 2;
+
     ieee8021x_deserialize_peer(hdr, pp->paramset_len,
                                &pp->num_peers,
                                pp->peer_list);
@@ -110,9 +112,45 @@ STATIC fw_event_details_t ieee8021x_deserialize_mka_lp(fw_packet_t *hdr)
     lp = &hdr->dot1x_h.eapol.mka.lp;
 
     lp->paramset_len = ieee8021x_mka_get_paramset_len(hdr);
+    hdr->off += 2;
+
     ieee8021x_deserialize_peer(hdr, lp->paramset_len,
                                &lp->num_peers,
                                lp->peer_list);
+
+    return FW_EVENT_DESCR_ALLOW;
+}
+
+STATIC fw_event_details_t ieee8021x_deserialize_sak_use_paramset(
+                                                fw_packet_t *hdr)
+{
+    struct ieee8021x_eapol_mka_macsec_sak_paramset *mp;
+
+    mp = &hdr->dot1x_h.eapol.mka.mp;
+
+    mp->lan = (hdr->msg[hdr->off] & 0xC0) >> 6;
+    mp->ltx = !!(hdr->msg[hdr->off] & 0x20);
+    mp->lrx = !!(hdr->msg[hdr->off] & 0x10);
+    mp->oan = (hdr->msg[hdr->off] & 0x0C) >> 2;
+    mp->otx = !!(hdr->msg[hdr->off] & 0x02);
+    mp->orx = !!(hdr->msg[hdr->off] & 0x01);
+
+    hdr->off ++;
+
+    mp->ptx = !!(hdr->msg[hdr->off] & 0x80);
+    mp->prx = !!(hdr->msg[hdr->off] & 0x40);
+    mp->dp = !!(hdr->msg[hdr->off] & 0x20);
+
+    mp->paramset_len = ieee8021x_mka_get_paramset_len(hdr);
+    hdr->off += 2;
+
+    fw_pkt_copy_n_bytes(hdr, mp->latest_mi, sizeof(mp->latest_mi));
+    fw_pkt_copy_4_bytes(hdr, &mp->latest_kn);
+    fw_pkt_copy_4_bytes(hdr, &mp->latest_lowest_pn);
+
+    fw_pkt_copy_n_bytes(hdr, mp->old_mi, sizeof(mp->old_mi));
+    fw_pkt_copy_4_bytes(hdr, &mp->old_kn);
+    fw_pkt_copy_4_bytes(hdr, &mp->old_lowest_pn);
 
     return FW_EVENT_DESCR_ALLOW;
 }
@@ -153,8 +191,14 @@ STATIC fw_event_details_t ieee8021x_deserialize_eapol(fw_packet_t *hdr)
                     return evt_descr;
                 }
             } break;
-            case MKA_MACSEC_SAKUSE_PARAMSET:
-            break;
+            case MKA_MACSEC_SAKUSE_PARAMSET: {
+                hdr->off ++;
+
+                evt_descr = ieee8021x_deserialize_sak_use_paramset(hdr);
+                if (evt_descr != FW_EVENT_DESCR_ALLOW) {
+                    return evt_descr;
+                }
+            } break;
             case MKA_DIST_SAK_PARAMSET:
             break;
             case MKA_ICV_PARAMSET:
