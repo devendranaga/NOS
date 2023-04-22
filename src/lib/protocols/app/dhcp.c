@@ -154,7 +154,7 @@ fw_event_details_t dhcp_deserialize(fw_packet_t *hdr)
                     return FW_EVENT_DESCR_DENY;
                 }
                 fw_pkt_copy_n_bytes(hdr,
-                                    dhcp_h->options.domain_name.name,
+                                    (uint8_t *)(dhcp_h->options.domain_name.name),
                                     msg_len);
             } break;
             default: {
