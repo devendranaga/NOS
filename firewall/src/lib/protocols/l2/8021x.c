@@ -272,12 +272,30 @@ STATIC fw_event_details_t ieee8021x_deserialize_eapol_mka(fw_packet_t *hdr)
     return evt_descr;
 }
 
+STATIC fw_event_details_t ieee8021x_deserialize_eap_md5_challenge(
+                                                 fw_packet_t *hdr)
+{
+    struct ieee8021x_eap_md5_challenge *md5;
+
+    md5 = &hdr->dot1x_h.eapol.eap_pkt.md5_challenge;
+
+    fw_pkt_copy_byte(hdr, &md5->md5_len);
+    fw_pkt_copy_n_bytes(hdr, md5->md5_val, md5->md5_len);
+
+    return FW_EVENT_DESCR_ALLOW;
+}
+
 STATIC fw_event_details_t ieee8021x_deserialize_eap_pkt(fw_packet_t *hdr)
 {
     fw_pkt_copy_byte(hdr, &hdr->dot1x_h.eapol.eap_pkt.code);
     fw_pkt_copy_byte(hdr, &hdr->dot1x_h.eapol.eap_pkt.id);
     fw_pkt_copy_2_bytes(hdr, &hdr->dot1x_h.eapol.eap_pkt.len);
     fw_pkt_copy_byte(hdr, &hdr->dot1x_h.eapol.eap_pkt.type);
+
+    switch (hdr->dot1x_h.eapol.eap_pkt.type) {
+        case EAP_TYPE_MD5_CHALLENGE:
+            return ieee8021x_deserialize_eap_md5_challenge(hdr);
+    }
 
     return FW_EVENT_DESCR_ALLOW;
 }

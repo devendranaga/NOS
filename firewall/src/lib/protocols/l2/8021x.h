@@ -7,6 +7,12 @@
 #define EAPOL_PKT                           0
 #define EAPOL_MKA                           5
 
+#define EAP_CODE_SUCCESS                    0
+#define EAP_CODE_REQ                        1
+#define EAP_CODE_RESPONSE                   2
+
+#define EAP_TYPE_MD5_CHALLENGE              4
+
 #define MKA_VERSION_1                       1
 #define MKA_VERSION_3                       3
 
@@ -139,11 +145,17 @@ struct ieee8021x_eapol_mka {
     struct ieee8021x_eapol_mka_icv_paramset ip;
 };
 
+struct ieee8021x_eap_md5_challenge {
+    uint8_t md5_len;
+    uint8_t md5_val[16];
+};
+
 struct ieee8021x_eap_packet {
     uint8_t code;
     uint8_t id;
     uint16_t len;
     uint8_t type;
+    struct ieee8021x_eap_md5_challenge md5_challenge;
 };
 
 struct ieee8021x_eapol {
