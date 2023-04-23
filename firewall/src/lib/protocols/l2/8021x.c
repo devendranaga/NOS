@@ -207,13 +207,9 @@ STATIC fw_event_details_t ieee8021x_deserialize_icv(fw_packet_t *hdr)
     return FW_EVENT_DESCR_ALLOW;
 }
 
-STATIC fw_event_details_t ieee8021x_deserialize_eapol(fw_packet_t *hdr)
+STATIC fw_event_details_t ieee8021x_deserialize_eapol_mka(fw_packet_t *hdr)
 {
     fw_event_details_t evt_descr;
-
-    fw_pkt_copy_byte(hdr, &hdr->dot1x_h.eapol.version);
-    fw_pkt_copy_byte(hdr, &hdr->dot1x_h.eapol.type);
-    fw_pkt_copy_2_bytes(hdr, &hdr->dot1x_h.eapol.length);
 
     evt_descr = ieee8021x_deserialize_mka_bp(hdr);
     hdr->dot1x_h.eapol.mka.paramset_preset |= MKA_BASIC_PARAMSET_BIT;
@@ -271,6 +267,34 @@ STATIC fw_event_details_t ieee8021x_deserialize_eapol(fw_packet_t *hdr)
                 return FW_EVENT_DESCR_8021X_MKA_INVAL_PARAMSET_TYPE;
             } break;
         }
+    }
+
+    return evt_descr;
+}
+
+STATIC fw_event_details_t ieee8021x_deserialize_eap_pkt(fw_packet_t *hdr)
+{
+    fw_pkt_copy_byte(hdr, &hdr->dot1x_h.eapol.eap_pkt.code);
+    fw_pkt_copy_byte(hdr, &hdr->dot1x_h.eapol.eap_pkt.id);
+    fw_pkt_copy_2_bytes(hdr, &hdr->dot1x_h.eapol.eap_pkt.len);
+    fw_pkt_copy_byte(hdr, &hdr->dot1x_h.eapol.eap_pkt.type);
+
+    return FW_EVENT_DESCR_ALLOW;
+}
+
+STATIC fw_event_details_t ieee8021x_deserialize_eapol(fw_packet_t *hdr)
+{
+    fw_event_details_t evt_descr = FW_EVENT_DESCR_DENY;
+
+    fw_pkt_copy_byte(hdr, &hdr->dot1x_h.eapol.version);
+    fw_pkt_copy_byte(hdr, &hdr->dot1x_h.eapol.type);
+    fw_pkt_copy_2_bytes(hdr, &hdr->dot1x_h.eapol.length);
+
+    switch (hdr->dot1x_h.eapol.type) {
+        case EAPOL_PKT:
+            return ieee8021x_deserialize_eap_pkt(hdr);
+        case EAPOL_MKA:
+            return ieee8021x_deserialize_eapol_mka(hdr);
     }
 
     return evt_descr;

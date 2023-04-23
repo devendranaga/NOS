@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#define EAPOL_PKT                           0
 #define EAPOL_MKA                           5
 
 #define MKA_VERSION_1                       1
@@ -138,10 +139,18 @@ struct ieee8021x_eapol_mka {
     struct ieee8021x_eapol_mka_icv_paramset ip;
 };
 
+struct ieee8021x_eap_packet {
+    uint8_t code;
+    uint8_t id;
+    uint16_t len;
+    uint8_t type;
+};
+
 struct ieee8021x_eapol {
     uint8_t version;
     uint8_t type;
     uint16_t length;
+    struct ieee8021x_eap_packet eap_pkt;
     struct ieee8021x_eapol_mka mka;
 };
 
