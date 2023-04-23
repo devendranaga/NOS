@@ -1,3 +1,9 @@
+/**
+ * @brief - Implement 802.1x parsing.
+ *
+ * @author - Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright - 2023-present All rights reserved.
+ */
 #include <firewall_common.h>
 #include <protocol_generic.h>
 #include <fw_pkt.h>
@@ -69,10 +75,11 @@ STATIC fw_event_details_t ieee8021x_deserialize_mka_bp(fw_packet_t *hdr)
     return FW_EVENT_DESCR_ALLOW;
 }
 
-STATIC void ieee8021x_deserialize_peer(fw_packet_t *hdr,
-                                       uint32_t paramset_len,
-                                       uint8_t *num_peers,
-                                       struct ieee8021x_eapol_mka_peer *peer_list)
+STATIC fw_event_details_t ieee8021x_deserialize_peer(
+                                        fw_packet_t *hdr,
+                                        uint32_t paramset_len,
+                                        uint8_t *num_peers,
+                                        struct ieee8021x_eapol_mka_peer *peer_list)
 {
     uint32_t i = 0;
     uint32_t len = 0;
@@ -80,46 +87,52 @@ STATIC void ieee8021x_deserialize_peer(fw_packet_t *hdr,
     while (len > paramset_len) {
         (*num_peers) ++;
 
+        if (*num_peers > MKA_MAX_PEERS) {
+            return FW_EVENT_DESCR_8021X_MKA_TOO_MANY_PEERS;
+        }
+
         fw_pkt_copy_n_bytes(hdr,
                             peer_list[i].mi, sizeof(peer_list[i].mi));
         fw_pkt_copy_4_bytes(hdr, &peer_list[i].mn);
         len += sizeof(peer_list[i].mi) + sizeof(peer_list[i].mn);
         i ++;
     }
+
+    return FW_EVENT_DESCR_ALLOW;
 }
 
 /* Parse Potential Peer List. */
 STATIC fw_event_details_t ieee8021x_deserialize_mka_pp(fw_packet_t *hdr)
 {
     struct ieee8021x_eapol_mka_potential_paramset *pp;
+    fw_event_details_t evt_descr;
 
     pp = &hdr->dot1x_h.eapol.mka.pp;
 
     pp->paramset_len =  ieee8021x_mka_get_paramset_len(hdr);
     hdr->off += 2;
 
-    ieee8021x_deserialize_peer(hdr, pp->paramset_len,
+    evt_descr = ieee8021x_deserialize_peer(hdr, pp->paramset_len,
                                &pp->num_peers,
                                pp->peer_list);
-
-    return FW_EVENT_DESCR_ALLOW;
+    return evt_descr;
 }
 
 /* Parse Live Peer List. */
 STATIC fw_event_details_t ieee8021x_deserialize_mka_lp(fw_packet_t *hdr)
 {
     struct ieee8021x_eapol_mka_live_paramset *lp;
+    fw_event_details_t evt_descr;
 
     lp = &hdr->dot1x_h.eapol.mka.lp;
 
     lp->paramset_len = ieee8021x_mka_get_paramset_len(hdr);
     hdr->off += 2;
 
-    ieee8021x_deserialize_peer(hdr, lp->paramset_len,
+    evt_descr = ieee8021x_deserialize_peer(hdr, lp->paramset_len,
                                &lp->num_peers,
                                lp->peer_list);
-
-    return FW_EVENT_DESCR_ALLOW;
+    return evt_descr;
 }
 
 /* Parse MACsec SAKuse. */
@@ -143,6 +156,16 @@ STATIC fw_event_details_t ieee8021x_deserialize_sak_use_paramset(
     mp->prx = !!(hdr->msg[hdr->off] & 0x40);
     mp->dp = !!(hdr->msg[hdr->off] & 0x20);
 
+    /* All bits set. */
+    if (mp->ltx &&
+        mp->lrx &&
+        mp->otx &&
+        mp->orx &&
+        mp->ptx &&
+        mp->prx) {
+        return FW_EVENT_DESCR_8021X_MKA_SAKUSE_PARAM_MALFORMED;
+    }
+
     mp->paramset_len = ieee8021x_mka_get_paramset_len(hdr);
     hdr->off += 2;
 
@@ -153,6 +176,10 @@ STATIC fw_event_details_t ieee8021x_deserialize_sak_use_paramset(
     fw_pkt_copy_n_bytes(hdr, mp->old_mi, sizeof(mp->old_mi));
     fw_pkt_copy_4_bytes(hdr, &mp->old_kn);
     fw_pkt_copy_4_bytes(hdr, &mp->old_lowest_pn);
+
+    if ((mp->latest_lowest_pn == 0) || (mp->old_lowest_pn == 0)) {
+        return FW_EVENT_DESCR_8021X_MKA_MACSEC_PN_INVALID;
+    }
 
     return FW_EVENT_DESCR_ALLOW;
 }
@@ -172,6 +199,11 @@ STATIC fw_event_details_t ieee8021x_deserialize_dist_sak(fw_packet_t *hdr)
     hdr->off += 2;
 
     fw_pkt_copy_4_bytes(hdr, &dp->key_number);
+
+    /* Default cipher or 256 bit key and non default cipher. */
+    if ((dp->paramset_len < 28) || (dp->paramset_len > 52)) {
+        return FW_EVENT_DESCR_8021X_MKA_DIST_SAK_BODY_INVALID;
+    }
 
     /* AES-GCM-128. */
     if (dp->paramset_len == 28) {
@@ -225,6 +257,8 @@ STATIC fw_event_details_t ieee8021x_deserialize_eapol_mka(fw_packet_t *hdr)
             case MKA_LIVE_PEERLIST_PARAMSET: {
                 hdr->off ++;
 
+                hdr->dot1x_h.eapol.mka.paramset_preset |=
+                                        MKA_LIVE_PARAMSET_BIT;
                 evt_descr = ieee8021x_deserialize_mka_lp(hdr);
                 if (evt_descr != FW_EVENT_DESCR_ALLOW) {
                     return evt_descr;
@@ -233,6 +267,8 @@ STATIC fw_event_details_t ieee8021x_deserialize_eapol_mka(fw_packet_t *hdr)
             case MKA_POTENTIAL_PEERLIST_PARAMSET: {
                 hdr->off ++;
 
+                hdr->dot1x_h.eapol.mka.paramset_preset |=
+                                        MKA_POTENTIAL_PARAMSET_BIT;
                 /* Deserialize Potential Peer List. */
                 evt_descr = ieee8021x_deserialize_mka_pp(hdr);
                 if (evt_descr != FW_EVENT_DESCR_ALLOW) {
@@ -242,6 +278,8 @@ STATIC fw_event_details_t ieee8021x_deserialize_eapol_mka(fw_packet_t *hdr)
             case MKA_MACSEC_SAKUSE_PARAMSET: {
                 hdr->off ++;
 
+                hdr->dot1x_h.eapol.mka.paramset_preset |=
+                                        MKA_MACSEC_SAK_USE_PARAMSET_BIT;
                 evt_descr = ieee8021x_deserialize_sak_use_paramset(hdr);
                 if (evt_descr != FW_EVENT_DESCR_ALLOW) {
                     return evt_descr;
@@ -250,6 +288,8 @@ STATIC fw_event_details_t ieee8021x_deserialize_eapol_mka(fw_packet_t *hdr)
             case MKA_DIST_SAK_PARAMSET: {
                 hdr->off ++;
 
+                hdr->dot1x_h.eapol.mka.paramset_preset |=
+                                        MKA_DIST_SAK_PARAMSET_BIT;
                 evt_descr = ieee8021x_deserialize_dist_sak(hdr);
                 if (evt_descr != FW_EVENT_DESCR_ALLOW) {
                     return evt_descr;
@@ -258,6 +298,8 @@ STATIC fw_event_details_t ieee8021x_deserialize_eapol_mka(fw_packet_t *hdr)
             case MKA_ICV_PARAMSET: {
                 hdr->off ++;
 
+                hdr->dot1x_h.eapol.mka.paramset_preset |=
+                                        MKA_ICV_PARAMSET_BIT;
                 evt_descr = ieee8021x_deserialize_icv(hdr);
                 if (evt_descr != FW_EVENT_DESCR_ALLOW) {
                     return evt_descr;

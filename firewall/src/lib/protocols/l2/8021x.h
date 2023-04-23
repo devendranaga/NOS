@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements 802.1x protocol parsing.
+ *
+ * @author - Devendra Naga (devendra.aaru@outlook.com)
+ * @copyright - 2023-present All rights reserved.
+ */
 #ifndef __LIB_PROTOCOLS_8021X_H__
 #define __LIB_PROTOCOLS_8021X_H__
 
@@ -100,6 +106,9 @@ struct ieee8021x_eapol_mka_dist_sak_paramset {
     uint8_t         key_wrap[MKA_AES_KEYWRAP_LEN_MAX];
 };
 
+/**
+ * MKA SAK use Parameter set.
+ */
 struct ieee8021x_eapol_mka_macsec_sak_paramset {
     uint8_t         lan;
     bool            ltx;
@@ -119,6 +128,9 @@ struct ieee8021x_eapol_mka_macsec_sak_paramset {
     uint32_t        old_lowest_pn;
 };
 
+/**
+ * MKA ICV Parameter set.
+ */
 struct ieee8021x_eapol_mka_icv_paramset {
     uint16_t        paramset_len;
     uint8_t         icv[MKA_ICV_LEN_MAX];
