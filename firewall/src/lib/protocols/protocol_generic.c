@@ -169,6 +169,12 @@ void fw_pkt_copy_macaddr(fw_packet_t *pkt, uint8_t *mac)
     pkt->off += FW_MACADDR_LEN;
 }
 
+void fw_pkt_encode_macaddr(fw_packet_t *pkt, uint8_t *mac)
+{
+    memcpy(pkt->msg + pkt->off, mac, FW_MACADDR_LEN);
+    pkt->off += FW_MACADDR_LEN;
+}
+
 void fw_pkt_copy_2_bytes(fw_packet_t *pkt, uint16_t *val)
 {
     *val = (pkt->msg[pkt->off] << 8) | (pkt->msg[pkt->off + 1]);
@@ -188,9 +194,20 @@ void fw_pkt_copy_byte(fw_packet_t *pkt, uint8_t *val)
     pkt->off ++;
 }
 
+void fw_pkt_encode_byte(fw_packet_t *pkt, uint8_t val)
+{
+    pkt->msg[pkt->off] = val;
+    pkt->off ++;
+}
+
 bool fw_pkt_has_bit_set(fw_packet_t *pkt, uint32_t pos)
 {
     return !!(pkt->msg[pkt->off] & (1 << pos));
+}
+
+void fw_pkt_set_bit(fw_packet_t *pkt, uint32_t pos)
+{
+    pkt->msg[pkt->off] |= (1 << pos);
 }
 
 void fw_pkt_copy_4_bytes(fw_packet_t *pkt, uint32_t *val)
@@ -200,6 +217,14 @@ void fw_pkt_copy_4_bytes(fw_packet_t *pkt, uint32_t *val)
            (pkt->msg[pkt->off + 2] << 8)   |
            (pkt->msg[pkt->off + 3]);
     pkt->off += 4;
+}
+
+void fw_pkt_encode_4_bytes(fw_packet_t *pkt, uint32_t val)
+{
+    pkt->msg[pkt->off]     = (val & 0xFF000000) >> 24;
+    pkt->msg[pkt->off + 1] = (val & 0x00FF0000) >> 16;
+    pkt->msg[pkt->off + 2] = (val & 0x0000FF00) >> 8;
+    pkt->msg[pkt->off + 3] = (val & 0x000000FF);
 }
 
 void fw_pkt_copy_6_bytes(fw_packet_t *pkt, uint8_t *val)

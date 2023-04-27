@@ -83,6 +83,23 @@ STATIC void arp_print(arp_header_t *arp_h)
 }
 #endif
 
+fw_event_details_t arp_serialize(fw_packet_t *hdr)
+{
+    arp_header_t *arp_h = &hdr->arp_h;
+    
+    fw_pkt_encode_2_bytes(hdr, arp_h->hwtype);
+    fw_pkt_encode_2_bytes(hdr, arp_h->proto_type);
+    fw_pkt_encode_byte(hdr, arp_h->hw_addr_len);
+    fw_pkt_encode_byte(hdr, arp_h->proto_addr_len);
+    fw_pkt_encode_2_bytes(hdr, arp_h->operation);
+    fw_pkt_encode_macaddr(hdr, arp_h->sender_hw_addr);
+    fw_pkt_encode_4_bytes(hdr, arp_h->sender_proto_addr);
+    fw_pkt_encode_macaddr(hdr, arp_h->target_hw_addr);
+    fw_pkt_encode_4_bytes(hdr, arp_h->target_proto_addr);
+
+    return FW_EVENT_DESCR_ALLOW;
+}
+
 fw_event_details_t arp_deserialize(fw_packet_t *hdr)
 {
     uint16_t arp_hdr_len = 0;

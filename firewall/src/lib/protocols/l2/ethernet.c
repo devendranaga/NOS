@@ -77,11 +77,9 @@ fw_event_details_t ethernet_deserialize(fw_packet_t *hdr)
 
 fw_event_details_t ethernet_serialize(fw_packet_t *hdr)
 {
-    memcpy(hdr->msg, hdr->eh.dst, sizeof(hdr->eh.dst));
-    hdr->off += sizeof(hdr->eh.dst);
+    fw_pkt_encode_macaddr(hdr, hdr->eh.dst);
 
-    memcpy(hdr->msg + hdr->off, hdr->eh.src, sizeof(hdr->eh.src));
-    hdr->off += sizeof(hdr->eh.src);
+    fw_pkt_encode_macaddr(hdr, hdr->eh.src);
 
     fw_pkt_encode_2_bytes(hdr, hdr->eh.ethertype);
 
