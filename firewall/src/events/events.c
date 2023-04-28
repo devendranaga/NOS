@@ -41,98 +41,98 @@ STATIC CONST struct fw_event_rule_id_base {
     uint32_t rule_id;
     const char *desc;
 } fw_event_rule_id_list[] = {
-    {FW_EVENT_DESCR_ALLOW,                          0x00000000U,
+    {FW_EVENT_DESCR_ALLOW,                              0x00000000U,
         "Allow"},
 
-    {FW_EVENT_DESCR_ETH_SRC_DST_ARE_BROADCAST,      0x00000001U,
+    {FW_EVENT_DESCR_ETH_SRC_DST_ARE_BROADCAST,          0x00000001U,
         "Ethernet src and dst are broadcast"},
-
-    {FW_EVENT_DESCR_ETH_SRC_DST_ARE_ZERO,           0x00000002U,
+    {FW_EVENT_DESCR_ETH_SRC_DST_ARE_ZERO,               0x00000002U,
         "Ethernet src and dst are zero"},
-
-    {FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE,       0x00000003U,
+    {FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE,           0x00000003U,
         "Ethernet unsupported ethertype"},
 
-    {FW_EVENT_DESCR_ARP_HWTYPE_INVAL,               0x00000004U,
+    {FW_EVENT_DESCR_ARP_HWTYPE_INVAL,                   0x00000004U,
         "ARP invalid Hw Type"},
-
-    {FW_EVENT_DESCR_ARP_HDR_LEN_TOO_SHORT,          0x00000005U,
+    {FW_EVENT_DESCR_ARP_HDR_LEN_TOO_SHORT,              0x00000005U,
         "ARP Header length too short"},
-
-    {FW_EVENT_DESCR_ARP_INVAL_HWADDR_LEN,           0x00000006U,
+    {FW_EVENT_DESCR_ARP_INVAL_HWADDR_LEN,               0x00000006U,
         "ARP invalid hardware address length"},
-
-    {FW_EVENT_DESCR_ARP_INVAL_PROTO_ADDR_LEN,       0x00000007U,
+    {FW_EVENT_DESCR_ARP_INVAL_PROTO_ADDR_LEN,           0x00000007U,
         "ARP invalid protocol address length"},
-
-    {FW_EVENT_DESCR_ARP_OP_INVAL,                   0x00000008U,
+    {FW_EVENT_DESCR_ARP_OP_INVAL,                       0x00000008U,
         "ARP invalid operation"},
 
-    {FW_EVENT_DESCR_IPV4_INVAL_VERSION,             0x00000009U,
+    {FW_EVENT_DESCR_IPV4_INVAL_VERSION,                 0x00000009U,
         "IPv4 invalid version"},
-
-    {FW_EVENT_DESCR_IPV4_HDR_LEN_TOO_SMALL,         0x0000000AU,
+    {FW_EVENT_DESCR_IPV4_HDR_LEN_TOO_SMALL,             0x0000000AU,
         "IPv4 header length too small"},
-
-    {FW_EVENT_DESCR_IPV4_FLAGS_RESERVED_SET,        0x0000000BU,
+    {FW_EVENT_DESCR_IPV4_FLAGS_RESERVED_SET,            0x0000000BU,
         "IPv4 reserved flags are set"},
-
-    {FW_EVENT_DESCR_IPV4_FLAGS_BOTH_MF_DF_SET,      0x0000000CU,
+    {FW_EVENT_DESCR_IPV4_FLAGS_BOTH_MF_DF_SET,          0x0000000CU,
         "IPv4 flags MF and DF both are set"},
-
-    {FW_EVENT_DESCR_IPV4_TTL_ZERO,                  0x0000000DU,
+    {FW_EVENT_DESCR_IPV4_TTL_ZERO,                      0x0000000DU,
         "IPv4 TTL is 0"},
 
-    {FW_EVENT_DESCR_IEEE8021AE_HDRLEN_TOO_SMALL,    0x0000000EU,
+    {FW_EVENT_DESCR_IEEE8021AE_HDRLEN_TOO_SMALL,        0x0000000EU,
         "MACsec header length too small"},
 
-    {FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL,      0x0000000FU,
+    {FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL,          0x0000000FU,
         "IPv4 unsupported protocol"},
 
-    {FW_EVENT_DESCR_ICMP_INVAL,                     0000000010U,
+    {FW_EVENT_DESCR_ICMP_INVAL,                         0000000010U,
         "ICMP packet is invalid (generic error)"},
-
-    {FW_EVENT_DESCR_ICMP_UNSUPPORTED_TYPE,          0x00000011U,
+    {FW_EVENT_DESCR_ICMP_UNSUPPORTED_TYPE,              0x00000011U,
         "ICMP unsupported type"},
-
-    {FW_EVENT_DESCR_ICMP_HDR_TOO_SMALL,             0x00000012U,
+    {FW_EVENT_DESCR_ICMP_HDR_TOO_SMALL,                 0x00000012U,
         "ICMP header too small"},
 
-    {FW_EVENT_DESCR_TCP_HDR_FLAGS_NULL,             0x00000013U,
+    {FW_EVENT_DESCR_TCP_HDR_FLAGS_NULL,                 0x00000013U,
         "TCP header flags are 0"},
-
-    {FW_EVENT_DESCR_TCP_RESERVED_FLAGS_SET,         0x00000014U,
+    {FW_EVENT_DESCR_TCP_RESERVED_FLAGS_SET,             0x00000014U,
         "TCP reserved flags are set"},
-
-    {FW_EVENT_DESCR_TCP_SRC_PORT_ZERO,              0x00000015U,
+    {FW_EVENT_DESCR_TCP_SRC_PORT_ZERO,                  0x00000015U,
         "TCP source port 0"},
-
-    {FW_EVENT_DESCR_TCP_DST_PORT_ZERO,              0x00000016U,
+    {FW_EVENT_DESCR_TCP_DST_PORT_ZERO,                  0x00000016U,
         "TCP Destination port 0"},
-
-    {FW_EVENT_DESCR_TCP_SYN_FIN_BOTH_SET,           0x00000017U,
+    {FW_EVENT_DESCR_TCP_SYN_FIN_BOTH_SET,               0x00000017U,
         "TCP SYN and FIN both are set"},
-
-    {FW_EVENT_DESCR_TCP_ALL_FLAGS_SET,              0x00000018U,
+    {FW_EVENT_DESCR_TCP_ALL_FLAGS_SET,                  0x00000018U,
         "TCP All flags are set"},
 
-    {FW_EVENT_DESCR_UDP_SRC_PORT_ZERO,              0x00000019U,
+    {FW_EVENT_DESCR_UDP_SRC_PORT_ZERO,                  0x00000019U,
         "UDP source port 0"},
-
-    {FW_EVENT_DESCR_UDP_DST_PORT_ZERO,              0x0000001AU,
+    {FW_EVENT_DESCR_UDP_DST_PORT_ZERO,                  0x0000001AU,
         "UDP Destination port zero"},
-
-    {FW_EVENT_DESCR_UDP_PAYLOAD_LEN_ZERO,           0x0000001BU,
+    {FW_EVENT_DESCR_UDP_PAYLOAD_LEN_ZERO,               0x0000001BU,
         "UDP payload length zero"},
 
-    {FW_EVENT_DESCR_IPV6_HDRLEN_TOO_SMALL,          0x0000001CU,
+    {FW_EVENT_DESCR_IPV6_HDRLEN_TOO_SMALL,              0x0000001CU,
         "IPv6 header length too small"},
 
-    {FW_EVENT_DESCR_ICMP6_HDRLEN_TOO_SMALL,         0x0000001DU,
+    {FW_EVENT_DESCR_ICMP6_HDRLEN_TOO_SMALL,             0x0000001DU,
         "ICMP6 header length too small"},
-
-    {FW_EVENT_DESCR_ICMP6_UNSUPPORTED_TYPE,         0x0000001EU,
+    {FW_EVENT_DESCR_ICMP6_UNSUPPORTED_TYPE,             0x0000001EU,
         "ICMP6 unsupported type"},
+
+    {FW_EVENT_DESCR_8021X_MKA_CKN_TOO_LARGE,            0x0000001FU,
+        "MKA CKN too large"},
+    {FW_EVENT_DESCR_8021X_MKA_ALG_AGILITY_INVALID,      0x00000020U,
+        "MKA Algorithm Agility is invalid"},
+    {FW_EVENT_DESCR_8021X_MKA_VERSION_OUT_OF_RANGE,     0x00000021U,
+        "MKA Version out of range"},
+    {FW_EVENT_DESCR_8021X_MKA_INVAL_PARAMSET_TYPE,      0x00000022U,
+        "MKA Invalid parameter set type"},
+    {FW_EVENT_DESCR_8021X_MKA_ICV_LEN_INVAL,            0x00000023U,
+        "MKA ICV length invalid"},
+    {FW_EVENT_DESCR_8021X_MKA_SAKUSE_PARAM_MALFORMED,   0x00000024U,
+        "MKA SAKuse parameter malformed"},
+    {FW_EVENT_DESCR_8021X_MKA_TOO_MANY_PEERS,           0x00000025U,
+        "MKA too many peers"},
+    {FW_EVENT_DESCR_8021X_MKA_MACSEC_PN_INVALID,        0x00000026U,
+        "MKA MACsec PN invalid"},
+    {FW_EVENT_DESCR_8021X_MKA_DIST_SAK_BODY_INVALID,    0x00000027U,
+        "MKA Dist SAK body invalid"},
+
 };
 
 /**

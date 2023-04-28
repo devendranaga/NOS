@@ -59,6 +59,10 @@ enum fw_event_details {
     FW_EVENT_DESCR_8021X_MKA_VERSION_OUT_OF_RANGE, /* 802.1x MKA Version out of range. */
     FW_EVENT_DESCR_8021X_MKA_INVAL_PARAMSET_TYPE, /* 802.1x MKA Invalid parameter set length. */
     FW_EVENT_DESCR_8021X_MKA_ICV_LEN_INVAL, /* 802.1x MKA ICV length is invalid. */
+    FW_EVENT_DESCR_8021X_MKA_SAKUSE_PARAM_MALFORMED, /* 802.1x MKA SAKuse parameter set is malformed. */
+    FW_EVENT_DESCR_8021X_MKA_TOO_MANY_PEERS, /* 802.1x MKA too many peers. */
+    FW_EVENT_DESCR_8021X_MKA_MACSEC_PN_INVALID, /* 802.1x MKA MACsec PN invalid. */
+    FW_EVENT_DESCR_8021X_MKA_DIST_SAK_BODY_INVALID, /* 802.1x MKA Dist SAK body invalid. */
 
     FW_EVENT_DESCR_DHCP_PARAMSET_UNKNOWN, /* DHCP Parameter set unknown. */
     FW_EVENT_DESCR_DHCP_MAGIC_COOKIE_INVALID, /* DHCP Magic cookie is invalid. */
