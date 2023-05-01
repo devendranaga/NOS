@@ -1,42 +1,36 @@
 #include <stdlib.h>
 #include <crypto_intf.h>
 #include <openssl_crypto_intf.h>
+#include <mbedtls_crypto_intf.h>
 
 static crypto_intf_context_t ctx;
 
 int register_crypto_intf(crypto_lib_type_t type, crypto_intf_t *intf)
 {
-    crypto_intf_list_t *item;
-
-    item = calloc(1, sizeof(crypto_intf_list_t));
-    if (!item) {
-        return -1;
-    }
-
-    item->type = type;
-    item->intf = intf;
-
-    if (!ctx.intf_h) {
-        ctx.intf_h = item;
-        ctx.intf_t = item;
-    } else {
-        ctx.intf_t->next = item;
-        ctx.intf_t = item;
-    }
+    ctx.intf_list[type].type = type;
+    ctx.intf_list[type].intf = intf;
 
     return 0;
 }
 
+typedef int (*init_callbacks)(void);
+
+static init_callbacks init_callbacks_list[] = {
+    openssl_crypto_intf_init,
+    mbedtls_crypto_intf_init,
+};
+
 int init_crypto_intf()
 {
+    int i;
     int ret;
 
-    ret = openssl_crypto_intf_init();
-    if (ret < 0) {
-        return -1;
+    for (i = 0; i < sizeof(init_callbacks_list) /
+                    sizeof(init_callbacks_list[0]); i ++) {
+        ret = init_callbacks_list[i]();
     }
 
-    return 0;
+    return ret;
 }
 
 int crypto_hash(crypto_hash_in_t *hash_in,
@@ -44,16 +38,12 @@ int crypto_hash(crypto_hash_in_t *hash_in,
 {
     crypto_intf_list_t *cry;
 
-    for (cry = ctx.intf_h; cry != NULL; cry = cry->next) {
+    cry = &ctx.intf_list[hash_in->lib_type];
+    crypto_intf_t *cryp_intf = cry->intf;
 
-        if ((cry->type == CRYPTO_LIB_OPENSSL) && cry->intf) {
-            crypto_intf_t *cryp_intf = cry->intf;
-
-            if (cryp_intf->hash_intf &&
-                cryp_intf->hash_intf->hash) {
-                cryp_intf->hash_intf->hash(hash_in, hash_out);
-            }
-        }
+    if (cryp_intf->hash_intf &&
+        cryp_intf->hash_intf->hash) {
+        cryp_intf->hash_intf->hash(hash_in, hash_out);
     }
 
     return 0;

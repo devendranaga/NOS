@@ -8,26 +8,29 @@
 #include <crypto_common.h>
 
 typedef enum crypto_hash_type {
-    CRYPTO_HASH_SHA2_256,
+    CRYPTO_HASH_SHA2_256 = 0,
     CRYPTO_HASH_SHA2_384,
     CRYPTO_HASH_SHA2_512,
 } crypto_hash_type_t;
 
 typedef struct crypto_hash_in {
+    crypto_lib_type_t   lib_type;
     crypto_hash_type_t  hash_type;
     uint8_t             *buf;
     uint32_t            buf_size;
     const char          *filename;
 } crypto_hash_in_t;
 
-#define CRYPTO_HASH_BUF_PREPARE(__hash_in, __hash_type, __buf, __buf_size) { \
+#define CRYPTO_HASH_BUF_PREPARE(__hash_in, __lib_type, __hash_type, __buf, __buf_size) { \
+    (__hash_in)->lib_type = __lib_type; \
     (__hash_in)->hash_type = __hash_type; \
     (__hash_in)->buf = __buf; \
     (__hash_in)->buf_size = __buf_size; \
     (__hash_in)->filename = NULL; \
 }
 
-#define CRYPTO_HASH_FILE_PREPARE(__hash_in, __hash_type, __filename) { \
+#define CRYPTO_HASH_FILE_PREPARE(__hash_in, __lib_type, __hash_type, __filename) { \
+    (__hash_in)->lib_type = __lib_type; \
     (__hash_in)->hash_type = __hash_type; \
     (__hash_in)->buf = 0; \
     (__hash_in)->buf_size = 0; \
@@ -64,12 +67,10 @@ typedef struct crypto_intf {
 typedef struct crypto_intf_list {
     crypto_lib_type_t       type;
     crypto_intf_t           *intf;
-    struct crypto_intf_list *next;
 } crypto_intf_list_t;
 
 typedef struct crypto_intf_context {
-    crypto_intf_list_t *intf_h;
-    crypto_intf_list_t *intf_t;
+    crypto_intf_list_t intf_list[3];
 } crypto_intf_context_t;
 
 int init_crypto_intf();
