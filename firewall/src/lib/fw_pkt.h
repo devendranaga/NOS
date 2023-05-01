@@ -26,6 +26,7 @@
 #include <tcp.h>
 #include <someip.h>
 #include <dhcp.h>
+#include <ntp_v4.h>
 #include <firewall_common.h>
 
 #define FW_PACKET_LEN_MAX 8192
@@ -78,6 +79,9 @@ struct fw_packet {
 
     /* DHCP Header. */
     struct dhcp_header dhcp_h;
+
+    /* NTP V4 Header. */
+    struct ntpv4_header ntpv4_h;
 
     /*
      * Matching rule for this packet.
