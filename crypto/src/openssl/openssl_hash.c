@@ -42,7 +42,7 @@ static int openssl_hash_file(EVP_MD_CTX *md_ctx,
         uint8_t msg[1024];
 
         ret = aos_fileio_read(fd, msg, sizeof(msg));
-        if (ret == 0) {
+        if (ret <= 0) {
             break;
         }
 
