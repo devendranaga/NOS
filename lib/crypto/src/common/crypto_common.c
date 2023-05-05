@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <crypto_lib_types.h>
 #include <crypto_common.h>
+#include <crypto_hash_intf.h>
 
 static struct crypto_lib_type_msg {
     crypto_lib_type_t type;
@@ -30,3 +31,4 @@ const char *crypto_get_lib_type_str(crypto_lib_type_t type)
 {
     return crypto_lib_types_str[type].str;
 }
+

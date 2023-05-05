@@ -1,19 +1,30 @@
-#ifndef __CRYPTO_INTF_H__
-#define __CRYPTO_INTF_H__
+/**
+ * @brief - Implements Hash interface.
+ * 
+ * @author - Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright - 2023-present All rights reserved.
+*/
+#ifndef __AOS_CRYPTO_HASH_INTF_H__
+#define __AOS_CRYPTO_HASH_INTF_H__
 
 #include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
 #include <crypto_lib_types.h>
-#include <crypto_common.h>
 
+/* Crypto hash type. */
 typedef enum crypto_hash_type {
     CRYPTO_HASH_SHA2_256 = 0,
     CRYPTO_HASH_SHA2_384,
     CRYPTO_HASH_SHA2_512,
+    CRYPTO_HASH_SHA3_256,
+    CRYPTO_HASH_SHA3_384,
+    CRYPTO_HASH_SHA3_512,
+    CRYPTO_HASH_SHAKE128,
+    CRYPTO_HASH_SHAKE256,
+    CRYPTO_HASH_RIPEMD160,
 } crypto_hash_type_t;
 
 typedef struct crypto_hash_in {
+    /* One of the supported libraries. */
     crypto_lib_type_t   lib_type;
     crypto_hash_type_t  hash_type;
     uint8_t             *buf;
@@ -21,6 +32,7 @@ typedef struct crypto_hash_in {
     const char          *filename;
 } crypto_hash_in_t;
 
+/* Prepare the Hash parameter buffer. */
 #define CRYPTO_HASH_BUF_PREPARE(__hash_in, __lib_type, __hash_type, __buf, __buf_size) { \
     (__hash_in)->lib_type = __lib_type; \
     (__hash_in)->hash_type = __hash_type; \
@@ -29,6 +41,7 @@ typedef struct crypto_hash_in {
     (__hash_in)->filename = NULL; \
 }
 
+/* Prepare the Hash parameter buffer for file hashing. */
 #define CRYPTO_HASH_FILE_PREPARE(__hash_in, __lib_type, __hash_type, __filename) { \
     (__hash_in)->lib_type = __lib_type; \
     (__hash_in)->hash_type = __hash_type; \
@@ -52,31 +65,24 @@ typedef struct crypto_hash_intf {
                 crypto_hash_out_t *hash_out);
 } crypto_hash_intf_t;
 
-typedef struct crypto_mac_intf {
-    int (*generate)(const char *keyfile,
-                    const char *buf_in, uint32_t buf_in_size);
-    bool (*verify)(const char *keyfile,
-                   const char *buf_in, uint32_t buf_in_size);
-} crypto_mac_intf_t;
-
-typedef struct crypto_intf {
-    crypto_hash_intf_t *hash_intf;
-    crypto_mac_intf_t  *mac_intf;
-} crypto_intf_t;
-
-typedef struct crypto_intf_list {
-    crypto_lib_type_t       type;
-    crypto_intf_t           *intf;
-} crypto_intf_list_t;
-
-typedef struct crypto_intf_context {
-    crypto_intf_list_t intf_list[3];
-} crypto_intf_context_t;
-
-int init_crypto_intf();
-int register_crypto_intf(crypto_lib_type_t type, crypto_intf_t *intf);
-
+/**
+ * @brief - Generate the Hash.
+ * 
+ * @param[in] hash_in : input hash parameter data.
+ * @param[out] hash_out : output hash parameter data.
+ * 
+ * @return 0 on success -1 on failure.
+*/
 int crypto_hash(crypto_hash_in_t *hash_in,
                 crypto_hash_out_t *hash_out);
+
+/**
+ * @brief - Get Hash string of the hash type.
+ * 
+ * @param[in] type : Hash type.
+ * 
+ * @return string format of hash type.
+*/
+const char *crypto_hash_string(crypto_hash_type_t type);
 
 #endif
