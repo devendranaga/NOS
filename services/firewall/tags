@@ -1,0 +1,991 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/devnaga/work/auto_os_c/firewall/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+ACK_BIT	src/lib/protocols/l4/tcp.c	/^#define ACK_BIT /;"	d	file:
+ARP_HW_ADDR_LEN	src/lib/protocols/l2/arp.h	/^#define ARP_HW_ADDR_LEN /;"	d
+ARP_HW_TYPE_ARCNET	src/lib/protocols/l2/arp.h	/^#define ARP_HW_TYPE_ARCNET /;"	d
+ARP_HW_TYPE_ATM	src/lib/protocols/l2/arp.h	/^#define ARP_HW_TYPE_ATM /;"	d
+ARP_HW_TYPE_ATM2	src/lib/protocols/l2/arp.h	/^#define ARP_HW_TYPE_ATM2 /;"	d
+ARP_HW_TYPE_ETHERNET	src/lib/protocols/l2/arp.h	/^#define ARP_HW_TYPE_ETHERNET /;"	d
+ARP_HW_TYPE_FIBRE_CHAN	src/lib/protocols/l2/arp.h	/^#define ARP_HW_TYPE_FIBRE_CHAN /;"	d
+ARP_HW_TYPE_FRAME_RELAY	src/lib/protocols/l2/arp.h	/^#define ARP_HW_TYPE_FRAME_RELAY /;"	d
+ARP_HW_TYPE_HDLC	src/lib/protocols/l2/arp.h	/^#define ARP_HW_TYPE_HDLC /;"	d
+ARP_HW_TYPE_IEEE_802	src/lib/protocols/l2/arp.h	/^#define ARP_HW_TYPE_IEEE_802 /;"	d
+ARP_HW_TYPE_SERIAL	src/lib/protocols/l2/arp.h	/^#define ARP_HW_TYPE_SERIAL /;"	d
+ARP_OP_ARP_REPLY	src/lib/protocols/l2/arp.h	/^#define ARP_OP_ARP_REPLY /;"	d
+ARP_OP_ARP_REQ	src/lib/protocols/l2/arp.h	/^#define ARP_OP_ARP_REQ /;"	d
+ARP_OP_DRARP_ERROR	src/lib/protocols/l2/arp.h	/^#define ARP_OP_DRARP_ERROR /;"	d
+ARP_OP_DRARP_REPLY	src/lib/protocols/l2/arp.h	/^#define ARP_OP_DRARP_REPLY /;"	d
+ARP_OP_DRARP_REQ	src/lib/protocols/l2/arp.h	/^#define ARP_OP_DRARP_REQ /;"	d
+ARP_OP_INARP_REPLY	src/lib/protocols/l2/arp.h	/^#define ARP_OP_INARP_REPLY /;"	d
+ARP_OP_INARP_REQ	src/lib/protocols/l2/arp.h	/^#define ARP_OP_INARP_REQ /;"	d
+ARP_OP_RARP_REPLY	src/lib/protocols/l2/arp.h	/^#define ARP_OP_RARP_REPLY /;"	d
+ARP_OP_RARP_REQ	src/lib/protocols/l2/arp.h	/^#define ARP_OP_RARP_REQ /;"	d
+ARP_PROTO_ADDR_LEN	src/lib/protocols/l2/arp.h	/^#define ARP_PROTO_ADDR_LEN /;"	d
+CMAKE_C_COMPILER	CMakeLists.txt	/^    set(CMAKE_C_COMPILER "\/usr\/bin\/clang")$/;"	v
+CMAKE_C_COMPILER	CMakeLists.txt	/^    set(CMAKE_C_COMPILER "\/usr\/bin\/gcc")$/;"	v
+CMAKE_C_FLAGS	CMakeLists.txt	/^set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --param ssp-buffer-size=4 ")$/;"	v
+CMAKE_C_FLAGS	CMakeLists.txt	/^set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wformat-security ")$/;"	v
+CMAKE_C_FLAGS	CMakeLists.txt	/^set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wnull-dereference -fstack-protector-all ")$/;"	v
+CMAKE_C_FLAGS	CMakeLists.txt	/^set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wshadow -Wno-deprecated-declarations ")$/;"	v
+CMAKE_C_FLAGS	CMakeLists.txt	/^set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wstack-protector ")$/;"	v
+CMAKE_C_FLAGS	CMakeLists.txt	/^set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wstack-usage=8192 -fstack-usage ")$/;"	v
+CMAKE_C_FLAGS	CMakeLists.txt	/^set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fstack-clash-protection -fPIE ")$/;"	v
+CMAKE_C_FLAGS	CMakeLists.txt	/^set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -ggdb ")$/;"	v
+CMAKE_C_FLAGS	CMakeLists.txt	/^set(CMAKE_C_FLAGS "-Wall -Wno-unused-parameter -Wextra -Werror ${FW_FLAGS} ")$/;"	v
+CMD_ARGS	server/event_server/event_server.c	/^#define CMD_ARGS /;"	d	file:
+CMD_ARGS	tools/packet_gen/packet_gen.c	/^#define CMD_ARGS /;"	d	file:
+CMD_ARGS_LIST	src/main/firewall_config.c	/^#define CMD_ARGS_LIST /;"	d	file:
+CONFIG_SRC	CMakeLists.txt	/^set(CONFIG_SRC$/;"	v
+CONST	src/lib/firewall_common.h	/^#define CONST /;"	d
+CWR_BIT	src/lib/protocols/l4/tcp.c	/^#define CWR_BIT /;"	d	file:
+DEBUG_SRC	CMakeLists.txt	/^set(DEBUG_SRC$/;"	v
+DHCP_ACK	src/lib/protocols/app/dhcp.h	/^#define DHCP_ACK /;"	d
+DHCP_DISCOVER	src/lib/protocols/app/dhcp.h	/^#define DHCP_DISCOVER /;"	d
+DHCP_INFORM	src/lib/protocols/app/dhcp.h	/^#define DHCP_INFORM /;"	d
+DHCP_LEN_DEFAULT	src/lib/protocols/app/dhcp.c	/^#define DHCP_LEN_DEFAULT /;"	d	file:
+DHCP_MAGIC_COOKIE	src/lib/protocols/app/dhcp.h	/^#define DHCP_MAGIC_COOKIE /;"	d
+DHCP_MSG_TYPE_BOOT_REQ	src/lib/protocols/app/dhcp.h	/^#define DHCP_MSG_TYPE_BOOT_REQ /;"	d
+DHCP_NAK	src/lib/protocols/app/dhcp.h	/^#define DHCP_NAK /;"	d
+DHCP_OFFER	src/lib/protocols/app/dhcp.h	/^#define DHCP_OFFER /;"	d
+DHCP_OPT_CLIENT_ID	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_CLIENT_ID /;"	d
+DHCP_OPT_HOST_NAME	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_HOST_NAME /;"	d
+DHCP_OPT_MESSAGE_TYPE	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_MESSAGE_TYPE /;"	d
+DHCP_OPT_PARAMETER_CLASSLESS_STATIC_ROUTE	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_PARAMETER_CLASSLESS_STATIC_ROUTE /;"	d
+DHCP_OPT_PARAMETER_DHCP_SERVER_IDENTIFIER	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_PARAMETER_DHCP_SERVER_IDENTIFIER /;"	d
+DHCP_OPT_PARAMETER_DOMAIN_NAME	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_PARAMETER_DOMAIN_NAME /;"	d
+DHCP_OPT_PARAMETER_DOMAIN_NAME_SERVER	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_PARAMETER_DOMAIN_NAME_SERVER /;"	d
+DHCP_OPT_PARAMETER_END	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_PARAMETER_END /;"	d
+DHCP_OPT_PARAMETER_NETBIOS_OVER_TCP_IP_NAME_SERVER	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_PARAMETER_NETBIOS_OVER_TCP_IP_NAME_SERVER /;"	d
+DHCP_OPT_PARAMETER_NETBIOS_OVER_TCP_IP_NODE_TYPE	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_PARAMETER_NETBIOS_OVER_TCP_IP_NODE_TYPE /;"	d
+DHCP_OPT_PARAMETER_NETBIOS_OVER_TCP_IP_SCOPE	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_PARAMETER_NETBIOS_OVER_TCP_IP_SCOPE /;"	d
+DHCP_OPT_PARAMETER_PERFORM_ROUTER_DISCOVERY	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_PARAMETER_PERFORM_ROUTER_DISCOVERY /;"	d
+DHCP_OPT_PARAMETER_PRIVATE_AUTO_DISCOVERY	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_PARAMETER_PRIVATE_AUTO_DISCOVERY /;"	d
+DHCP_OPT_PARAMETER_PRIVATE_ROUTE	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_PARAMETER_PRIVATE_ROUTE /;"	d
+DHCP_OPT_PARAMETER_REQ_LIST	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_PARAMETER_REQ_LIST /;"	d
+DHCP_OPT_PARAMETER_ROUTER	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_PARAMETER_ROUTER /;"	d
+DHCP_OPT_PARAMETER_STATIC_ROUTE	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_PARAMETER_STATIC_ROUTE /;"	d
+DHCP_OPT_PARAMETER_SUBNET_MASK	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_PARAMETER_SUBNET_MASK /;"	d
+DHCP_OPT_PARAMETER_VENDOR_SPECIFIC	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_PARAMETER_VENDOR_SPECIFIC /;"	d
+DHCP_OPT_VENDOR_CLASS_ID	src/lib/protocols/app/dhcp.h	/^#define DHCP_OPT_VENDOR_CLASS_ID /;"	d
+DHCP_REQUEST	src/lib/protocols/app/dhcp.h	/^#define DHCP_REQUEST /;"	d
+DRV_SRC	CMakeLists.txt	/^set(DRV_SRC$/;"	v
+EAPOL_MKA	src/lib/protocols/l2/8021x.h	/^#define EAPOL_MKA /;"	d
+EAPOL_PKT	src/lib/protocols/l2/8021x.h	/^#define EAPOL_PKT /;"	d
+ECE_BIT	src/lib/protocols/l4/tcp.c	/^#define ECE_BIT /;"	d	file:
+EVENT_SERVER_SRC	CMakeLists.txt	/^set(EVENT_SERVER_SRC$/;"	v
+EVENT_SRC	CMakeLists.txt	/^set(EVENT_SRC$/;"	v
+FIN_BIT	src/lib/protocols/l4/tcp.c	/^#define FIN_BIT /;"	d	file:
+FW_DEBUG_LEVEL_ERROR	src/debug/debug.h	/^    FW_DEBUG_LEVEL_ERROR,$/;"	e	enum:fw_debug_level
+FW_DEBUG_LEVEL_FATAL	src/debug/debug.h	/^    FW_DEBUG_LEVEL_FATAL,$/;"	e	enum:fw_debug_level
+FW_DEBUG_LEVEL_INFO	src/debug/debug.h	/^    FW_DEBUG_LEVEL_INFO,$/;"	e	enum:fw_debug_level
+FW_DEBUG_LEVEL_VERBOSE	src/debug/debug.h	/^    FW_DEBUG_LEVEL_VERBOSE,$/;"	e	enum:fw_debug_level
+FW_DEBUG_LEVEL_WARN	src/debug/debug.h	/^    FW_DEBUG_LEVEL_WARN,$/;"	e	enum:fw_debug_level
+FW_ETHERTYPE_ARP	src/lib/protocols/l2/ethernet.h	/^#define FW_ETHERTYPE_ARP /;"	d
+FW_ETHERTYPE_EAPOL_MKA	src/lib/protocols/l2/ethernet.h	/^#define FW_ETHERTYPE_EAPOL_MKA /;"	d
+FW_ETHERTYPE_IPV4	src/lib/protocols/l2/ethernet.h	/^#define FW_ETHERTYPE_IPV4 /;"	d
+FW_ETHERTYPE_IPV6	src/lib/protocols/l2/ethernet.h	/^#define FW_ETHERTYPE_IPV6 /;"	d
+FW_ETHERTYPE_MACSEC	src/lib/protocols/l2/ethernet.h	/^#define FW_ETHERTYPE_MACSEC /;"	d
+FW_ETHERTYPE_MPLS_MULTICAST	src/lib/protocols/l2/ethernet.h	/^#define FW_ETHERTYPE_MPLS_MULTICAST /;"	d
+FW_ETHERTYPE_MPLS_UNICAST	src/lib/protocols/l2/ethernet.h	/^#define FW_ETHERTYPE_MPLS_UNICAST /;"	d
+FW_ETHERTYPE_PPPOE_DISCOVERY	src/lib/protocols/l2/ethernet.h	/^#define FW_ETHERTYPE_PPPOE_DISCOVERY /;"	d
+FW_ETHERTYPE_PPPPE_SESS_STAGE	src/lib/protocols/l2/ethernet.h	/^#define FW_ETHERTYPE_PPPPE_SESS_STAGE /;"	d
+FW_ETHERTYPE_PTP	src/lib/protocols/l2/ethernet.h	/^#define FW_ETHERTYPE_PTP /;"	d
+FW_ETHERTYPE_SRP	src/lib/protocols/l2/ethernet.h	/^#define FW_ETHERTYPE_SRP /;"	d
+FW_ETHERTYPE_VLAN	src/lib/protocols/l2/ethernet.h	/^#define FW_ETHERTYPE_VLAN /;"	d
+FW_EVENT_ALLOW	src/events/event_def.h	/^    FW_EVENT_ALLOW,$/;"	e	enum:fw_event_type
+FW_EVENT_DENY	src/events/event_def.h	/^    FW_EVENT_DENY,$/;"	e	enum:fw_event_type
+FW_EVENT_DESCR_8021X_MKA_ALG_AGILITY_INVALID	src/events/event_def.h	/^    FW_EVENT_DESCR_8021X_MKA_ALG_AGILITY_INVALID, \/* 802.1x MKA Algorithm Agility unknown. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_8021X_MKA_CKN_TOO_LARGE	src/events/event_def.h	/^    FW_EVENT_DESCR_8021X_MKA_CKN_TOO_LARGE, \/* 802.1x MKA CKN length too large. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_8021X_MKA_ICV_LEN_INVAL	src/events/event_def.h	/^    FW_EVENT_DESCR_8021X_MKA_ICV_LEN_INVAL, \/* 802.1x MKA ICV length is invalid. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_8021X_MKA_INVAL_PARAMSET_TYPE	src/events/event_def.h	/^    FW_EVENT_DESCR_8021X_MKA_INVAL_PARAMSET_TYPE, \/* 802.1x MKA Invalid parameter set length. */;"	e	enum:fw_event_details
+FW_EVENT_DESCR_8021X_MKA_VERSION_OUT_OF_RANGE	src/events/event_def.h	/^    FW_EVENT_DESCR_8021X_MKA_VERSION_OUT_OF_RANGE, \/* 802.1x MKA Version out of range. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_ALLOW	src/events/event_def.h	/^    FW_EVENT_DESCR_ALLOW,$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_ARP_HDR_LEN_TOO_SHORT	src/events/event_def.h	/^    FW_EVENT_DESCR_ARP_HDR_LEN_TOO_SHORT, \/* ARP Header length is too short. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_ARP_HWTYPE_INVAL	src/events/event_def.h	/^    FW_EVENT_DESCR_ARP_HWTYPE_INVAL, \/* ARP hardware type is invalid. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_ARP_INVAL_HWADDR_LEN	src/events/event_def.h	/^    FW_EVENT_DESCR_ARP_INVAL_HWADDR_LEN, \/* ARP invalid Hardware address length. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_ARP_INVAL_PROTO_ADDR_LEN	src/events/event_def.h	/^    FW_EVENT_DESCR_ARP_INVAL_PROTO_ADDR_LEN, \/* ARP Invalid Protocol Address Length. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_ARP_OP_INVAL	src/events/event_def.h	/^    FW_EVENT_DESCR_ARP_OP_INVAL, \/* ARP op field is invalid. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_DENY	src/events/event_def.h	/^    FW_EVENT_DESCR_DENY,$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_DHCP_MAGIC_COOKIE_INVALID	src/events/event_def.h	/^    FW_EVENT_DESCR_DHCP_MAGIC_COOKIE_INVALID, \/* DHCP Magic cookie is invalid. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_DHCP_PARAMSET_UNKNOWN	src/events/event_def.h	/^    FW_EVENT_DESCR_DHCP_PARAMSET_UNKNOWN, \/* DHCP Parameter set unknown. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_ETH_SRC_DST_ARE_BROADCAST	src/events/event_def.h	/^    FW_EVENT_DESCR_ETH_SRC_DST_ARE_BROADCAST, \/* Both are broadcast. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_ETH_SRC_DST_ARE_ZERO	src/events/event_def.h	/^    FW_EVENT_DESCR_ETH_SRC_DST_ARE_ZERO, \/* Both are zeros. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE	src/events/event_def.h	/^    FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE, \/* Unsupported ethertype for this firewall. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_ICMP6_HDRLEN_TOO_SMALL	src/events/event_def.h	/^    FW_EVENT_DESCR_ICMP6_HDRLEN_TOO_SMALL, \/* ICMP6 Header length too small. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_ICMP6_UNSUPPORTED_TYPE	src/events/event_def.h	/^    FW_EVENT_DESCR_ICMP6_UNSUPPORTED_TYPE, \/* ICMP6 Unsupported type. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_ICMP_HDR_TOO_SMALL	src/events/event_def.h	/^    FW_EVENT_DESCR_ICMP_HDR_TOO_SMALL, \/* Too small ICMP Header Length. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_ICMP_INVAL	src/events/event_def.h	/^    FW_EVENT_DESCR_ICMP_INVAL,$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_ICMP_UNSUPPORTED_TYPE	src/events/event_def.h	/^    FW_EVENT_DESCR_ICMP_UNSUPPORTED_TYPE, \/* Unsupported ICMP Type. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_IEEE8021AE_HDRLEN_TOO_SMALL	src/events/event_def.h	/^    FW_EVENT_DESCR_IEEE8021AE_HDRLEN_TOO_SMALL, \/* IEEE 802.1AE length too short. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_IPV4_FLAGS_BOTH_MF_DF_SET	src/events/event_def.h	/^    FW_EVENT_DESCR_IPV4_FLAGS_BOTH_MF_DF_SET, \/* IPv4 both MF and DF bits are set. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_IPV4_FLAGS_RESERVED_SET	src/events/event_def.h	/^    FW_EVENT_DESCR_IPV4_FLAGS_RESERVED_SET, \/* IPv4 reserved bits are set. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_IPV4_HDR_LEN_TOO_SMALL	src/events/event_def.h	/^    FW_EVENT_DESCR_IPV4_HDR_LEN_TOO_SMALL, \/* IPv4 header length is too small. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_IPV4_INVAL_VERSION	src/events/event_def.h	/^    FW_EVENT_DESCR_IPV4_INVAL_VERSION, \/* IPv4 invalid version. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_IPV4_TTL_ZERO	src/events/event_def.h	/^    FW_EVENT_DESCR_IPV4_TTL_ZERO, \/* IPv4 TTL is zero. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL	src/events/event_def.h	/^    FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL,$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_IPV6_HDRLEN_TOO_SMALL	src/events/event_def.h	/^    FW_EVENT_DESCR_IPV6_HDRLEN_TOO_SMALL, \/* IPv6 Header length too small. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_TCP_ALL_FLAGS_SET	src/events/event_def.h	/^    FW_EVENT_DESCR_TCP_ALL_FLAGS_SET, \/* TCP All flags are set. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_TCP_DST_PORT_ZERO	src/events/event_def.h	/^    FW_EVENT_DESCR_TCP_DST_PORT_ZERO, \/* TCP Destination Port is 0. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_TCP_HDR_FLAGS_NULL	src/events/event_def.h	/^    FW_EVENT_DESCR_TCP_HDR_FLAGS_NULL, \/* TCP Flags are 0. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_TCP_RESERVED_FLAGS_SET	src/events/event_def.h	/^    FW_EVENT_DESCR_TCP_RESERVED_FLAGS_SET, \/* TCP Reserved flags are set. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_TCP_SRC_PORT_ZERO	src/events/event_def.h	/^    FW_EVENT_DESCR_TCP_SRC_PORT_ZERO, \/* TCP Source Port is 0. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_TCP_SYN_FIN_BOTH_SET	src/events/event_def.h	/^    FW_EVENT_DESCR_TCP_SYN_FIN_BOTH_SET, \/* TCP SYN + FIN both are set. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_UDP_DST_PORT_ZERO	src/events/event_def.h	/^    FW_EVENT_DESCR_UDP_DST_PORT_ZERO, \/* UDP Destination Port is 0. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_UDP_PAYLOAD_LEN_ZERO	src/events/event_def.h	/^    FW_EVENT_DESCR_UDP_PAYLOAD_LEN_ZERO, \/* UDP Payload length is 0. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_DESCR_UDP_SRC_PORT_ZERO	src/events/event_def.h	/^    FW_EVENT_DESCR_UDP_SRC_PORT_ZERO, \/* UDP Source Port is 0. *\/$/;"	e	enum:fw_event_details
+FW_EVENT_FORMAT_BINARY	src/main/firewall_config.h	/^    FW_EVENT_FORMAT_BINARY,$/;"	e	enum:fw_event_format_type
+FW_EVENT_FORMAT_CSV	src/main/firewall_config.h	/^    FW_EVENT_FORMAT_CSV,$/;"	e	enum:fw_event_format_type
+FW_EVENT_FORMAT_TEXT	src/main/firewall_config.h	/^    FW_EVENT_FORMAT_TEXT,$/;"	e	enum:fw_event_format_type
+FW_EVENT_GET_TYPE	src/events/event_def.h	/^#define FW_EVENT_GET_TYPE(/;"	d
+FW_EVENT_IPV6_ADDR_LEN	src/events/event_def.h	/^#define FW_EVENT_IPV6_ADDR_LEN /;"	d
+FW_EVENT_MAX_IFNAME_SIZE	src/events/event_def.h	/^#define FW_EVENT_MAX_IFNAME_SIZE /;"	d
+FW_EVENT_NOTIFY	src/events/event_def.h	/^    FW_EVENT_NOTIFY,$/;"	e	enum:fw_event_type
+FW_EVENT_PROTOCOL_ICMP	src/events/event_def.h	/^    FW_EVENT_PROTOCOL_ICMP,$/;"	e	enum:fw_event_protocol
+FW_EVENT_PROTOCOL_NONE	src/events/event_def.h	/^    FW_EVENT_PROTOCOL_NONE,$/;"	e	enum:fw_event_protocol
+FW_EVENT_PROTOCOL_PTP	src/events/event_def.h	/^    FW_EVENT_PROTOCOL_PTP,$/;"	e	enum:fw_event_protocol
+FW_EVENT_PROTOCOL_TCP	src/events/event_def.h	/^    FW_EVENT_PROTOCOL_TCP,$/;"	e	enum:fw_event_protocol
+FW_EVENT_PROTOCOL_UDP	src/events/event_def.h	/^    FW_EVENT_PROTOCOL_UDP,$/;"	e	enum:fw_event_protocol
+FW_EVENT_TRANSMIT_THREAD_PRIO	src/events/events.c	/^#define FW_EVENT_TRANSMIT_THREAD_PRIO /;"	d	file:
+FW_EVENT_TRANSMIT_THREAD_TIMEO_MS	src/events/events.c	/^#define FW_EVENT_TRANSMIT_THREAD_TIMEO_MS /;"	d	file:
+FW_EVENT_TRANSPORT_CONSOLE	src/main/firewall_config.h	/^    FW_EVENT_TRANSPORT_CONSOLE,$/;"	e	enum:fw_event_transport_type
+FW_EVENT_TRANSPORT_INVAL	src/main/firewall_config.h	/^    FW_EVENT_TRANSPORT_INVAL,$/;"	e	enum:fw_event_transport_type
+FW_EVENT_TRANSPORT_MQTT	src/main/firewall_config.h	/^    FW_EVENT_TRANSPORT_MQTT,$/;"	e	enum:fw_event_transport_type
+FW_EVENT_TRANSPORT_TCP	src/main/firewall_config.h	/^    FW_EVENT_TRANSPORT_TCP,$/;"	e	enum:fw_event_transport_type
+FW_EVENT_TRANSPORT_UDP	src/main/firewall_config.h	/^    FW_EVENT_TRANSPORT_UDP,$/;"	e	enum:fw_event_transport_type
+FW_FLAGS	CMakeLists.txt	/^set(FW_FLAGS "${FW_FLAGS} -DENABLE_PROTOCOL_PRINTS")$/;"	v
+FW_FLAGS	CMakeLists.txt	/^set(FW_FLAGS "-DCONFIG_DRIVER_RAW_SOCKET")$/;"	v
+FW_L3_PROTOCOL_ICMP	src/lib/protocols/l3/l3_protocol.h	/^#define FW_L3_PROTOCOL_ICMP /;"	d
+FW_L3_PROTOCOL_TCP	src/lib/protocols/l3/l3_protocol.h	/^#define FW_L3_PROTOCOL_TCP /;"	d
+FW_L3_PROTOCOL_UDP	src/lib/protocols/l3/l3_protocol.h	/^#define FW_L3_PROTOCOL_UDP /;"	d
+FW_MACADDR_LEN	src/lib/protocols/l2/ethernet.h	/^#define FW_MACADDR_LEN /;"	d
+FW_PACKET_LEN_MAX	src/lib/fw_pkt.h	/^#define FW_PACKET_LEN_MAX /;"	d
+FW_PORT_DHCP_DST_PORT	src/lib/protocols/fw_ports.h	/^#define FW_PORT_DHCP_DST_PORT /;"	d
+FW_PORT_DHCP_SRC_PORT	src/lib/protocols/fw_ports.h	/^#define FW_PORT_DHCP_SRC_PORT /;"	d
+FW_PROTO_ARP	src/lib/protocols/protocol_generic.h	/^    FW_PROTO_ARP,$/;"	e	enum:fw_protocol_type
+FW_RULE_NOT_MATCHED	src/lib/fw_pkt.h	/^#define FW_RULE_NOT_MATCHED /;"	d
+Firewall	CMakeLists.txt	/^project(Firewall)$/;"	p
+HOME	configs/fw_base.conf	/^HOME="127.0.0.1"$/;"	k
+ICMP6_TYPE_ECHO_REPLY	src/lib/protocols/l4/icmp6.h	/^#define ICMP6_TYPE_ECHO_REPLY /;"	d
+ICMP6_TYPE_ECHO_REQUEST	src/lib/protocols/l4/icmp6.h	/^#define ICMP6_TYPE_ECHO_REQUEST /;"	d
+ICMP6_TYPE_NEIGHBOR_ADVERTISEMENT	src/lib/protocols/l4/icmp6.h	/^#define ICMP6_TYPE_NEIGHBOR_ADVERTISEMENT /;"	d
+ICMP_ECHO_REPLY	src/lib/protocols/l4/icmp.h	/^#define ICMP_ECHO_REPLY /;"	d
+ICMP_ECHO_REQ	src/lib/protocols/l4/icmp.h	/^#define ICMP_ECHO_REQ /;"	d
+IEEE8021AE_ICV_LEN	src/lib/protocols/l2/8021ae.h	/^#define IEEE8021AE_ICV_LEN /;"	d
+IEEE8021AE_SCI_LEN	src/lib/protocols/l2/8021ae.h	/^#define IEEE8021AE_SCI_LEN /;"	d
+IEEE8021AE_SECTAG_LEN	src/lib/protocols/l2/8021ae.c	/^#define IEEE8021AE_SECTAG_LEN /;"	d	file:
+INLINE	src/lib/firewall_common.h	/^#define INLINE /;"	d
+IPV4_FLAGS_DONT_FRAGMENT_BIT	src/lib/protocols/l3/ipv4.c	/^#define IPV4_FLAGS_DONT_FRAGMENT_BIT /;"	d	file:
+IPV4_FLAGS_MORE_FRAGMENT_BIT	src/lib/protocols/l3/ipv4.c	/^#define IPV4_FLAGS_MORE_FRAGMENT_BIT /;"	d	file:
+IPV4_FLAGS_RESERVED_BIT	src/lib/protocols/l3/ipv4.c	/^#define IPV4_FLAGS_RESERVED_BIT /;"	d	file:
+IPV4_HDR_LEN_DEFAULT	src/lib/protocols/l3/ipv4.c	/^#define IPV4_HDR_LEN_DEFAULT /;"	d	file:
+IPV4_VERSION	src/lib/protocols/l3/ipv4.c	/^#define IPV4_VERSION /;"	d	file:
+IPV6_ADDR_LEN	src/lib/protocols/l3/ipv6.h	/^#define IPV6_ADDR_LEN /;"	d
+IPV6_HDR_VERSION_TC_FLOW_LABLE	src/lib/protocols/l3/ipv6.c	/^#define IPV6_HDR_VERSION_TC_FLOW_LABLE /;"	d	file:
+LIB_SRC	CMakeLists.txt	/^set(LIB_SRC$/;"	v
+LINUX_RAW_MAC_ADDR	src/drivers/linux_raw/linux_raw.c	/^#define LINUX_RAW_MAC_ADDR /;"	d	file:
+MACSEC_CAP_INTEG_CONF_WITH_OFFSET	src/lib/protocols/l2/8021x.h	/^#define MACSEC_CAP_INTEG_CONF_WITH_OFFSET /;"	d
+MACSEC_CAP_NONE	src/lib/protocols/l2/8021x.h	/^#define MACSEC_CAP_NONE /;"	d
+MAIN_SRC	CMakeLists.txt	/^set(MAIN_SRC$/;"	v
+MAX_IFNAME_SIZE	src/main/firewall_config.h	/^#define MAX_IFNAME_SIZE /;"	d
+MAX_IFS	src/main/firewall_config.h	/^#define MAX_IFS /;"	d
+MAX_THR_PRIO	src/main/firewall.c	/^#define MAX_THR_PRIO /;"	d	file:
+MKA_AES_KEYWRAP_LEN_MAX	src/lib/protocols/l2/8021x.h	/^#define MKA_AES_KEYWRAP_LEN_MAX /;"	d
+MKA_ALGORITHM_AGILITY	src/lib/protocols/l2/8021x.h	/^#define MKA_ALGORITHM_AGILITY /;"	d
+MKA_BASIC_PARAMSET_BIT	src/lib/protocols/l2/8021x.h	/^    MKA_BASIC_PARAMSET_BIT          = 0x0001,$/;"	e	enum:mka_paramset_type
+MKA_BPS_LEN	src/lib/protocols/l2/8021x.h	/^#define MKA_BPS_LEN /;"	d
+MKA_CKN_LEN	src/lib/protocols/l2/8021x.h	/^#define MKA_CKN_LEN /;"	d
+MKA_DIST_SAK_PARAMSET	src/lib/protocols/l2/8021x.h	/^#define MKA_DIST_SAK_PARAMSET /;"	d
+MKA_DIST_SAK_PARAMSET_BIT	src/lib/protocols/l2/8021x.h	/^    MKA_DIST_SAK_PARAMSET_BIT       = 0x0008,$/;"	e	enum:mka_paramset_type
+MKA_ICV_LEN_MAX	src/lib/protocols/l2/8021x.h	/^#define MKA_ICV_LEN_MAX /;"	d
+MKA_ICV_PARAMSET	src/lib/protocols/l2/8021x.h	/^#define MKA_ICV_PARAMSET /;"	d
+MKA_ICV_PARAMSET_BIT	src/lib/protocols/l2/8021x.h	/^    MKA_ICV_PARAMSET_BIT            = 0x0020,$/;"	e	enum:mka_paramset_type
+MKA_KEYSERVER_PRIORITY_0	src/lib/protocols/l2/8021x.h	/^#define MKA_KEYSERVER_PRIORITY_0 /;"	d
+MKA_KEYSERVER_PRIORITY_255	src/lib/protocols/l2/8021x.h	/^#define MKA_KEYSERVER_PRIORITY_255 /;"	d
+MKA_LIVE_PARAMSET_BIT	src/lib/protocols/l2/8021x.h	/^    MKA_LIVE_PARAMSET_BIT           = 0x0004,$/;"	e	enum:mka_paramset_type
+MKA_LIVE_PEERLIST_PARAMSET	src/lib/protocols/l2/8021x.h	/^#define MKA_LIVE_PEERLIST_PARAMSET /;"	d
+MKA_MACSEC_SAKUSE_PARAMSET	src/lib/protocols/l2/8021x.h	/^#define MKA_MACSEC_SAKUSE_PARAMSET /;"	d
+MKA_MACSEC_SAK_USE_PARAMSET_BIT	src/lib/protocols/l2/8021x.h	/^    MKA_MACSEC_SAK_USE_PARAMSET_BIT = 0x0010,$/;"	e	enum:mka_paramset_type
+MKA_MAX_PEERS	src/lib/protocols/l2/8021x.h	/^#define MKA_MAX_PEERS /;"	d
+MKA_MI_LEN	src/lib/protocols/l2/8021x.h	/^#define MKA_MI_LEN /;"	d
+MKA_POTENTIAL_PARAMSET_BIT	src/lib/protocols/l2/8021x.h	/^    MKA_POTENTIAL_PARAMSET_BIT      = 0x0002,$/;"	e	enum:mka_paramset_type
+MKA_POTENTIAL_PEERLIST_PARAMSET	src/lib/protocols/l2/8021x.h	/^#define MKA_POTENTIAL_PEERLIST_PARAMSET /;"	d
+MKA_SCI_LEN	src/lib/protocols/l2/8021x.h	/^#define MKA_SCI_LEN /;"	d
+MKA_VERSION_1	src/lib/protocols/l2/8021x.h	/^#define MKA_VERSION_1 /;"	d
+MKA_VERSION_3	src/lib/protocols/l2/8021x.h	/^#define MKA_VERSION_3 /;"	d
+OS_SRC	CMakeLists.txt	/^set(OS_SRC$/;"	v
+PROTOCOL_SRC	CMakeLists.txt	/^set(PROTOCOL_SRC$/;"	v
+PSH_BIT	src/lib/protocols/l4/tcp.c	/^#define PSH_BIT /;"	d	file:
+PTP_ALTERNATE_MASTER_BIT	src/lib/protocols/l2/ptp.h	/^#define PTP_ALTERNATE_MASTER_BIT /;"	d
+PTP_FREQ_TRACEABLE_BIT	src/lib/protocols/l2/ptp.h	/^#define PTP_FREQ_TRACEABLE_BIT /;"	d
+PTP_HAS_ALTERNATE_MASTER_BIT_SET	src/lib/protocols/l2/ptp.h	/^#define PTP_HAS_ALTERNATE_MASTER_BIT_SET(/;"	d
+PTP_HAS_FREQ_TRACEABLE_BIT_SET	src/lib/protocols/l2/ptp.h	/^#define PTP_HAS_FREQ_TRACEABLE_BIT_SET(/;"	d
+PTP_HAS_PROFILE_SPEC_1_BIT_SET	src/lib/protocols/l2/ptp.h	/^#define PTP_HAS_PROFILE_SPEC_1_BIT_SET(/;"	d
+PTP_HAS_PROFILE_SPEC_2_BIT_SET	src/lib/protocols/l2/ptp.h	/^#define PTP_HAS_PROFILE_SPEC_2_BIT_SET(/;"	d
+PTP_HAS_SECURITY_BIT_SET	src/lib/protocols/l2/ptp.h	/^#define PTP_HAS_SECURITY_BIT_SET(/;"	d
+PTP_HAS_SYNC_UNCERTAIN_BIT_SET	src/lib/protocols/l2/ptp.h	/^#define PTP_HAS_SYNC_UNCERTAIN_BIT_SET(/;"	d
+PTP_HAS_TIMESCALE_BIT_SET	src/lib/protocols/l2/ptp.h	/^#define PTP_HAS_TIMESCALE_BIT_SET(/;"	d
+PTP_HAS_TIME_TRACEABLE_BIT_SET	src/lib/protocols/l2/ptp.h	/^#define PTP_HAS_TIME_TRACEABLE_BIT_SET(/;"	d
+PTP_HAS_TWO_STEP_BIT_SET	src/lib/protocols/l2/ptp.h	/^#define PTP_HAS_TWO_STEP_BIT_SET(/;"	d
+PTP_HAS_UNICAST_BIT_SET	src/lib/protocols/l2/ptp.h	/^#define PTP_HAS_UNICAST_BIT_SET(/;"	d
+PTP_HAS_UTC_REASONABLE_BIT_SET	src/lib/protocols/l2/ptp.h	/^#define PTP_HAS_UTC_REASONABLE_BIT_SET(/;"	d
+PTP_LI_59_BIT	src/lib/protocols/l2/ptp.h	/^#define PTP_LI_59_BIT /;"	d
+PTP_LI_59_BIT_SET	src/lib/protocols/l2/ptp.h	/^#define PTP_LI_59_BIT_SET(/;"	d
+PTP_LI_61_BIT	src/lib/protocols/l2/ptp.h	/^#define PTP_LI_61_BIT /;"	d
+PTP_LI_61_BIT_SET	src/lib/protocols/l2/ptp.h	/^#define PTP_LI_61_BIT_SET(/;"	d
+PTP_MSG_TYPE_ANNOUNCE	src/lib/protocols/l2/ptp.c	/^#define PTP_MSG_TYPE_ANNOUNCE /;"	d	file:
+PTP_MSG_TYPE_PEER_DELAY_REQ	src/lib/protocols/l2/ptp.c	/^#define PTP_MSG_TYPE_PEER_DELAY_REQ /;"	d	file:
+PTP_MSG_TYPE_SYNC	src/lib/protocols/l2/ptp.c	/^#define PTP_MSG_TYPE_SYNC /;"	d	file:
+PTP_PROFILE_SPEC_1_BIT	src/lib/protocols/l2/ptp.h	/^#define PTP_PROFILE_SPEC_1_BIT /;"	d
+PTP_PROFILE_SPEC_2_BIT	src/lib/protocols/l2/ptp.h	/^#define PTP_PROFILE_SPEC_2_BIT /;"	d
+PTP_SECURITY_BIT	src/lib/protocols/l2/ptp.h	/^#define PTP_SECURITY_BIT /;"	d
+PTP_SYNC_UNCERTAIN_BIT	src/lib/protocols/l2/ptp.h	/^#define PTP_SYNC_UNCERTAIN_BIT /;"	d
+PTP_TIMESCALE_BIT	src/lib/protocols/l2/ptp.h	/^#define PTP_TIMESCALE_BIT /;"	d
+PTP_TIME_TRACEABLE_BIT	src/lib/protocols/l2/ptp.h	/^#define PTP_TIME_TRACEABLE_BIT /;"	d
+PTP_TWO_STEP_BIT	src/lib/protocols/l2/ptp.h	/^#define PTP_TWO_STEP_BIT /;"	d
+PTP_UNICAST_BIT	src/lib/protocols/l2/ptp.h	/^#define PTP_UNICAST_BIT /;"	d
+PTP_UTC_REASONABLE_BIT	src/lib/protocols/l2/ptp.h	/^#define PTP_UTC_REASONABLE_BIT /;"	d
+RST_BIT	src/lib/protocols/l4/tcp.c	/^#define RST_BIT /;"	d	file:
+RULES_SRC	CMakeLists.txt	/^set(RULES_SRC$/;"	v
+RULE_ACTION_ALERT	src/rules/fw_rules.h	/^    RULE_ACTION_ALERT,$/;"	e	enum:rule_action
+RULE_ACTION_DROP	src/rules/fw_rules.h	/^    RULE_ACTION_DROP,$/;"	e	enum:rule_action
+RULE_ACTION_LOG	src/rules/fw_rules.h	/^    RULE_ACTION_LOG,$/;"	e	enum:rule_action
+RULE_PROTOCOL_TYPE_ARP	src/rules/fw_rules.h	/^    RULE_PROTOCOL_TYPE_ARP,$/;"	e	enum:rule_protocol_type
+RULE_PROTOCOL_TYPE_ICMP	src/rules/fw_rules.h	/^    RULE_PROTOCOL_TYPE_ICMP,$/;"	e	enum:rule_protocol_type
+SIZEOF	src/lib/firewall_common.h	/^#define SIZEOF(/;"	d
+SRC	CMakeLists.txt	/^set(SRC$/;"	v
+STATIC	src/lib/firewall_common.h	/^#define STATIC /;"	d
+SYN_BIT	src/lib/protocols/l4/tcp.c	/^#define SYN_BIT /;"	d	file:
+TOOL_SRC	CMakeLists.txt	/^set(TOOL_SRC$/;"	v
+URG_BIT	src/lib/protocols/l4/tcp.c	/^#define URG_BIT /;"	d	file:
+_GNU_SOURCE	src/lib/os/os_thread.c	/^#define _GNU_SOURCE$/;"	d	file:
+__FIREWALL_COMMON_H__	src/lib/firewall_common.h	/^#define __FIREWALL_COMMON_H__$/;"	d
+__FIREWALL_CONFIG_H__	src/main/firewall_config.h	/^#define __FIREWALL_CONFIG_H__$/;"	d
+__FIREWALL_H__	src/main/firewall.h	/^#define __FIREWALL_H__$/;"	d
+__FIREWALL_LINUX_RAW_H__	src/drivers/linux_raw/linux_raw.h	/^#define __FIREWALL_LINUX_RAW_H__$/;"	d
+__FIRWEALL_DRIVER_GENERIC_H__	src/drivers/driver_generic.h	/^#define __FIRWEALL_DRIVER_GENERIC_H__$/;"	d
+__FW_CONFIG_H__	src/config/fw_config.h	/^#define __FW_CONFIG_H__$/;"	d
+__FW_DEBUG_H__	src/debug/debug.h	/^#define __FW_DEBUG_H__$/;"	d
+__FW_EVENTS_H__	src/events/events.h	/^#define __FW_EVENTS_H__$/;"	d
+__FW_EVENT_DEF_H__	src/events/event_def.h	/^#define __FW_EVENT_DEF_H__$/;"	d
+__FW_EVENT_FMT_BINARY_H__	src/events/event_fmt_binary.h	/^#define __FW_EVENT_FMT_BINARY_H__$/;"	d
+__FW_EVENT_FMT_H__	src/events/event_fmt.h	/^#define __FW_EVENT_FMT_H__$/;"	d
+__FW_EVENT_SERVER_H__	server/event_server/event_server.h	/^#define __FW_EVENT_SERVER_H__$/;"	d
+__FW_LIB_OS_SIGNAL_H__	src/lib/os/os_signal.h	/^#define __FW_LIB_OS_SIGNAL_H__$/;"	d
+__FW_OS_H__	src/lib/os/os.h	/^#define __FW_OS_H__$/;"	d
+__FW_PACKET_GEN_PCAP_REPLAY_H__	tools/packet_gen/pcap_replay.h	/^#define __FW_PACKET_GEN_PCAP_REPLAY_H__$/;"	d
+__FW_PCAP_OPS_H__	src/lib/pcap/pcap_ops.h	/^#define __FW_PCAP_OPS_H__$/;"	d
+__FW_PKT_H__	src/lib/fw_pkt.h	/^#define __FW_PKT_H__$/;"	d
+__FW_PORTS_H__	src/lib/protocols/fw_ports.h	/^#define __FW_PORTS_H__$/;"	d
+__FW_PROTOCOLS_ARP_H__	src/lib/protocols/l2/arp.h	/^#define __FW_PROTOCOLS_ARP_H__$/;"	d
+__FW_RULES_H__	src/rules/fw_rules.h	/^#define __FW_RULES_H__$/;"	d
+__FW_TOOLS_PACKET_GEN_H__	tools/packet_gen/packet_gen.h	/^#define __FW_TOOLS_PACKET_GEN_H__$/;"	d
+__L3_PROTOCOL_H__	src/lib/protocols/l3/l3_protocol.h	/^#define __L3_PROTOCOL_H__$/;"	d
+__LIB_PROTOCOLS_8021AE_H__	src/lib/protocols/l2/8021ae.h	/^#define __LIB_PROTOCOLS_8021AE_H__$/;"	d
+__LIB_PROTOCOLS_8021X_H__	src/lib/protocols/l2/8021x.h	/^#define __LIB_PROTOCOLS_8021X_H__$/;"	d
+__LIB_PROTOCOLS_DHCP_H__	src/lib/protocols/app/dhcp.h	/^#define __LIB_PROTOCOLS_DHCP_H__$/;"	d
+__LIB_PROTOCOLS_ETHERNET_H__	src/lib/protocols/l2/ethernet.h	/^#define __LIB_PROTOCOLS_ETHERNET_H__$/;"	d
+__LIB_PROTOCOLS_GENERIC_H__	src/lib/protocols/protocol_generic.h	/^#define __LIB_PROTOCOLS_GENERIC_H__$/;"	d
+__LIB_PROTOCOLS_ICMP6_H__	src/lib/protocols/l4/icmp6.h	/^#define __LIB_PROTOCOLS_ICMP6_H__$/;"	d
+__LIB_PROTOCOLS_ICMP_H__	src/lib/protocols/l4/icmp.h	/^#define __LIB_PROTOCOLS_ICMP_H__$/;"	d
+__LIB_PROTOCOLS_IPV4_H__	src/lib/protocols/l3/ipv4.h	/^#define __LIB_PROTOCOLS_IPV4_H__$/;"	d
+__LIB_PROTOCOLS_IPV6_H__	src/lib/protocols/l3/ipv6.h	/^#define __LIB_PROTOCOLS_IPV6_H__$/;"	d
+__LIB_PROTOCOLS_PTP_H__	src/lib/protocols/l2/ptp.h	/^#define __LIB_PROTOCOLS_PTP_H__$/;"	d
+__LIB_PROTOCOLS_SOMEIP_H__	src/lib/protocols/app/someip.h	/^#define __LIB_PROTOCOLS_SOMEIP_H__$/;"	d
+__LIB_PROTOCOLS_TCP_H__	src/lib/protocols/l4/tcp.h	/^#define __LIB_PROTOCOLS_TCP_H__$/;"	d
+__LIB_PROTOCOLS_VLAN_H__	src/lib/protocols/l2/vlan.h	/^#define __LIB_PROTOCOLS_VLAN_H__$/;"	d
+__LIB_PROTOCOL_UDP_H__	src/lib/protocols/l4/udp.h	/^#define __LIB_PROTOCOL_UDP_H__$/;"	d
+__OS_THREAD_H__	src/lib/os/os_thread.h	/^#define __OS_THREAD_H__$/;"	d
+__parse_l4_protocol	src/lib/protocols/protocol_generic.c	/^STATIC fw_event_details_t __parse_l4_protocol(fw_packet_t *pkt, bool is_ipv6, uint8_t protocol)$/;"	f	typeref:typename:STATIC fw_event_details_t
+ack	src/lib/protocols/l4/tcp.h	/^    bool ack;$/;"	m	struct:tcp_header	typeref:typename:bool
+ack_no	src/lib/protocols/l4/tcp.h	/^    uint32_t ack_no;$/;"	m	struct:tcp_header	typeref:typename:uint32_t
+actor_mi	src/lib/protocols/l2/8021x.h	/^    uint8_t         actor_mi[MKA_MI_LEN];$/;"	m	struct:ieee8021x_eapol_mka_basic_paramset	typeref:typename:uint8_t[]
+actor_mn	src/lib/protocols/l2/8021x.h	/^    uint32_t        actor_mn;$/;"	m	struct:ieee8021x_eapol_mka_basic_paramset	typeref:typename:uint32_t
+alg_agility	src/lib/protocols/l2/8021x.h	/^    uint32_t        alg_agility;$/;"	m	struct:ieee8021x_eapol_mka_basic_paramset	typeref:typename:uint32_t
+an	src/lib/protocols/l2/8021ae.h	/^    uint8_t an;$/;"	m	struct:ieee8021ae_hdr	typeref:typename:uint8_t
+announce_hdr	src/lib/protocols/l2/ptp.h	/^    ptp_announce_header_t announce_hdr;$/;"	m	struct:ptp_header	typeref:typename:ptp_announce_header_t
+args	src/main/firewall.h	/^    fw_command_args_t args;$/;"	m	struct:firewall_context	typeref:typename:fw_command_args_t
+arp_deserialize	src/lib/protocols/l2/arp.c	/^fw_event_details_t arp_deserialize(fw_packet_t *hdr)$/;"	f	typeref:typename:fw_event_details_t
+arp_get_hdr_len	src/lib/protocols/l2/arp.c	/^STATIC INLINE uint8_t arp_get_hdr_len(arp_header_t *arp_h)$/;"	f	typeref:typename:STATIC INLINE uint8_t
+arp_h	src/lib/fw_pkt.h	/^    struct arp_header arp_h;$/;"	m	struct:fw_packet	typeref:struct:arp_header
+arp_header	src/lib/protocols/l2/arp.h	/^struct arp_header {$/;"	s
+arp_header_t	src/lib/protocols/l2/arp.h	/^typedef struct arp_header arp_header_t;$/;"	t	typeref:struct:arp_header
+arp_hwtype_in_range	src/lib/protocols/l2/arp.c	/^STATIC INLINE bool arp_hwtype_in_range(uint16_t hwtype)$/;"	f	typeref:typename:STATIC INLINE bool
+arp_op_in_range	src/lib/protocols/l2/arp.c	/^STATIC INLINE bool arp_op_in_range(uint16_t operation)$/;"	f	typeref:typename:STATIC INLINE bool
+arp_print	src/lib/protocols/l2/arp.c	/^STATIC void arp_print(arp_header_t *arp_h)$/;"	f	typeref:typename:STATIC void
+base_conf	src/main/firewall.h	/^    fw_base_conf_t base_conf;$/;"	m	struct:firewall_context	typeref:typename:fw_base_conf_t
+boot_filename	src/lib/protocols/app/dhcp.h	/^    uint8_t boot_filename[128];$/;"	m	struct:dhcp_header	typeref:typename:uint8_t[128]
+bootp_broadcast_flag	src/lib/protocols/app/dhcp.h	/^    bool bootp_broadcast_flag;$/;"	m	struct:dhcp_header	typeref:typename:bool
+bp	src/lib/protocols/l2/8021x.h	/^    struct ieee8021x_eapol_mka_basic_paramset bp;$/;"	m	struct:ieee8021x_eapol_mka	typeref:struct:ieee8021x_eapol_mka_basic_paramset
+broadcast	src/lib/protocols/l2/ethernet.c	/^STATIC CONST uint8_t broadcast[] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};$/;"	v	typeref:typename:STATIC CONST uint8_t[]
+c	src/lib/protocols/l2/8021ae.h	/^    bool c;$/;"	m	struct:ieee8021ae_hdr	typeref:typename:bool
+callback	src/config/fw_config.c	/^    int (*callback)(const char *var,$/;"	m	struct:fw_config_params	typeref:typename:int (*)(const char * var,const char * val,fw_base_conf_t * conf)	file:
+checksum	src/lib/protocols/l4/icmp.h	/^    uint16_t checksum;$/;"	m	struct:icmp_header	typeref:typename:uint16_t
+checksum	src/lib/protocols/l4/icmp6.h	/^    uint16_t checksum;$/;"	m	struct:icmp6_header	typeref:typename:uint16_t
+checksum	src/lib/protocols/l4/tcp.h	/^    uint16_t checksum;$/;"	m	struct:tcp_header	typeref:typename:uint16_t
+checksum	src/lib/protocols/l4/udp.h	/^    uint16_t checksum;$/;"	m	struct:udp_header	typeref:typename:uint16_t
+cipher	src/lib/protocols/l2/8021x.h	/^    uint8_t         cipher[8];$/;"	m	struct:ieee8021x_eapol_mka_dist_sak_paramset	typeref:typename:uint8_t[8]
+ckn	src/lib/protocols/l2/8021x.h	/^    uint8_t         ckn[MKA_CKN_LEN];$/;"	m	struct:ieee8021x_eapol_mka_basic_paramset	typeref:typename:uint8_t[]
+ckn_len	src/lib/protocols/l2/8021x.h	/^    uint8_t         ckn_len;$/;"	m	struct:ieee8021x_eapol_mka_basic_paramset	typeref:typename:uint8_t
+client_id	src/lib/protocols/app/dhcp.h	/^    struct dhcp_opt_client_identifier client_id;$/;"	m	struct:dhcp_options	typeref:struct:dhcp_opt_client_identifier
+client_id	src/lib/protocols/app/someip.h	/^    uint16_t client_id;$/;"	m	struct:someip_header	typeref:typename:uint16_t
+client_ipaddr	src/lib/protocols/app/dhcp.h	/^    uint32_t client_ipaddr;$/;"	m	struct:dhcp_header	typeref:typename:uint32_t
+client_mac	src/lib/protocols/app/dhcp.h	/^    uint8_t client_mac[6];$/;"	m	struct:dhcp_header	typeref:typename:uint8_t[6]
+client_mac	src/lib/protocols/app/dhcp.h	/^    uint8_t client_mac[6];$/;"	m	struct:dhcp_opt_client_identifier	typeref:typename:uint8_t[6]
+client_padding	src/lib/protocols/app/dhcp.h	/^    uint8_t client_padding[10];$/;"	m	struct:dhcp_header	typeref:typename:uint8_t[10]
+clk_id	src/lib/protocols/l2/ptp.h	/^    uint8_t clk_id[8];$/;"	m	struct:ptp_header	typeref:typename:uint8_t[8]
+code	src/lib/protocols/l2/8021x.h	/^    uint8_t code;$/;"	m	struct:ieee8021x_eap_packet	typeref:typename:uint8_t
+code	src/lib/protocols/l4/icmp.h	/^    uint8_t code;$/;"	m	struct:icmp_header	typeref:typename:uint8_t
+code	src/lib/protocols/l4/icmp6.h	/^    uint8_t code;$/;"	m	struct:icmp6_header	typeref:typename:uint8_t
+cond	src/lib/os/os_thread.h	/^    pthread_cond_t cond;$/;"	m	struct:os_cond	typeref:typename:pthread_cond_t
+conf_offset	src/lib/protocols/l2/8021x.h	/^    uint8_t         conf_offset;$/;"	m	struct:ieee8021x_eapol_mka_dist_sak_paramset	typeref:typename:uint8_t
+config_file	src/main/firewall_config.h	/^    char config_file[128];$/;"	m	struct:fw_command_args	typeref:typename:char[128]
+config_params	src/config/fw_config.c	/^} config_params[] = {$/;"	v	typeref:struct:fw_config_params[]
+console_fp	src/events/events.c	/^    FILE *console_fp;$/;"	m	struct:fw_event_context	typeref:typename:FILE *	file:
+control_field	src/lib/protocols/l2/ptp.h	/^    uint8_t control_field;$/;"	m	struct:ptp_header	typeref:typename:uint8_t
+corrections_ns	src/lib/protocols/l2/ptp.h	/^    uint64_t corrections_ns;$/;"	m	struct:ptp_header	typeref:typename:uint64_t
+corrections_sub_ns	src/lib/protocols/l2/ptp.h	/^    uint16_t corrections_sub_ns;$/;"	m	struct:ptp_header	typeref:typename:uint16_t
+cpu_core	src/lib/os/os_thread.c	/^    int cpu_core;$/;"	m	struct:os_thread_context	typeref:typename:int	file:
+cwr	src/lib/protocols/l4/tcp.h	/^    bool cwr;$/;"	m	struct:tcp_header	typeref:typename:bool
+data_offset	src/lib/protocols/l4/tcp.h	/^    uint8_t data_offset;$/;"	m	struct:tcp_header	typeref:typename:uint8_t
+debug_ctl_set	src/debug/debug.c	/^} debug_ctl_set[] = {$/;"	v	typeref:struct:fw_debug_level_ctl[]
+debug_level	src/debug/debug.c	/^    fw_debug_level_t debug_level;$/;"	m	struct:fw_debug_level_ctl	typeref:typename:fw_debug_level_t	file:
+dei	src/lib/protocols/l2/vlan.h	/^    bool dei; \/* 1 bit. *\/$/;"	m	struct:vlan_header	typeref:typename:bool
+deinit	src/drivers/driver_generic.h	/^    void (*deinit)(void *);$/;"	m	struct:nw_driver_callbacks	typeref:typename:void (*)(void *)
+deinit	src/events/events.c	/^    void (*deinit)(fw_event_context_t *evt_ctx);$/;"	m	struct:fw_event_sender	typeref:typename:void (*)(fw_event_context_t * evt_ctx)	file:
+desc	src/events/events.c	/^    const char *desc;$/;"	m	struct:fw_event_rule_id_base	typeref:typename:const char *	file:
+detachable	src/lib/os/os_thread.c	/^    bool detachable;$/;"	m	struct:os_thread_context	typeref:typename:bool	file:
+dev_index	src/drivers/linux_raw/linux_raw.c	/^    int dev_index;$/;"	m	struct:linux_raw_driver_context	typeref:typename:int	file:
+device_name	src/drivers/linux_raw/linux_raw.c	/^    char *device_name;$/;"	m	struct:linux_raw_driver_context	typeref:typename:char *	file:
+dhcp_deserialize	src/lib/protocols/app/dhcp.c	/^fw_event_details_t dhcp_deserialize(fw_packet_t *hdr)$/;"	f	typeref:typename:fw_event_details_t
+dhcp_end	src/lib/protocols/app/dhcp.h	/^    uint8_t dhcp_end;$/;"	m	struct:dhcp_options	typeref:typename:uint8_t
+dhcp_free	src/lib/protocols/app/dhcp.c	/^void dhcp_free(fw_packet_t *hdr)$/;"	f	typeref:typename:void
+dhcp_h	src/lib/fw_pkt.h	/^    struct dhcp_header dhcp_h;$/;"	m	struct:fw_packet	typeref:struct:dhcp_header
+dhcp_header	src/lib/protocols/app/dhcp.h	/^struct dhcp_header {$/;"	s
+dhcp_header_t	src/lib/protocols/app/dhcp.h	/^typedef struct dhcp_header dhcp_header_t;$/;"	t	typeref:struct:dhcp_header
+dhcp_hostname	src/lib/protocols/app/dhcp.h	/^struct dhcp_hostname {$/;"	s
+dhcp_inform	src/lib/protocols/app/dhcp.h	/^    uint8_t dhcp_inform;$/;"	m	struct:dhcp_options	typeref:typename:uint8_t
+dhcp_opt_client_identifier	src/lib/protocols/app/dhcp.h	/^struct dhcp_opt_client_identifier {$/;"	s
+dhcp_opt_dns_list	src/lib/protocols/app/dhcp.h	/^struct dhcp_opt_dns_list {$/;"	s
+dhcp_opt_domain_name	src/lib/protocols/app/dhcp.h	/^struct dhcp_opt_domain_name {$/;"	s
+dhcp_opt_router	src/lib/protocols/app/dhcp.h	/^struct dhcp_opt_router {$/;"	s
+dhcp_opt_server_identifier	src/lib/protocols/app/dhcp.h	/^struct dhcp_opt_server_identifier {$/;"	s
+dhcp_opt_subnet_mask	src/lib/protocols/app/dhcp.h	/^struct dhcp_opt_subnet_mask {$/;"	s
+dhcp_options	src/lib/protocols/app/dhcp.h	/^struct dhcp_options {$/;"	s
+dhcp_parameter_request_list	src/lib/protocols/app/dhcp.h	/^struct dhcp_parameter_request_list {$/;"	s
+dhcp_vendor_class_id	src/lib/protocols/app/dhcp.h	/^struct dhcp_vendor_class_id {$/;"	s
+dist_an	src/lib/protocols/l2/8021x.h	/^    uint8_t         dist_an;$/;"	m	struct:ieee8021x_eapol_mka_dist_sak_paramset	typeref:typename:uint8_t
+dns_list	src/lib/protocols/app/dhcp.h	/^    struct dhcp_opt_dns_list dns_list;$/;"	m	struct:dhcp_options	typeref:struct:dhcp_opt_dns_list
+dns_server_ipaddr	src/lib/protocols/app/dhcp.h	/^    uint32_t *dns_server_ipaddr;$/;"	m	struct:dhcp_opt_dns_list	typeref:typename:uint32_t *
+domain_name	src/lib/protocols/app/dhcp.h	/^    struct dhcp_opt_domain_name domain_name;$/;"	m	struct:dhcp_options	typeref:struct:dhcp_opt_domain_name
+domain_no	src/lib/protocols/l2/ptp.h	/^    uint8_t domain_no;$/;"	m	struct:ptp_header	typeref:typename:uint8_t
+dont_fragment	src/lib/protocols/l3/ipv4.h	/^    bool            dont_fragment;$/;"	m	struct:ipv4_header	typeref:typename:bool
+dot1x_h	src/lib/fw_pkt.h	/^    struct ieee8021x_header dot1x_h;$/;"	m	struct:fw_packet	typeref:struct:ieee8021x_header
+dp	src/lib/protocols/l2/8021x.h	/^    bool            dp;$/;"	m	struct:ieee8021x_eapol_mka_macsec_sak_paramset	typeref:typename:bool
+dp	src/lib/protocols/l2/8021x.h	/^    struct ieee8021x_eapol_mka_dist_sak_paramset dp;$/;"	m	struct:ieee8021x_eapol_mka	typeref:struct:ieee8021x_eapol_mka_dist_sak_paramset
+dscp	src/lib/protocols/l3/ipv4.h	/^    uint8_t         dscp;$/;"	m	struct:ipv4_header	typeref:typename:uint8_t
+dscp	src/lib/protocols/l3/ipv6.h	/^    uint8_t dscp;$/;"	m	struct:ipv6_header	typeref:typename:uint8_t
+dst	src/lib/protocols/l2/ethernet.h	/^    uint8_t dst[FW_MACADDR_LEN];$/;"	m	struct:ethernet_header	typeref:typename:uint8_t[]
+dst_ip6addr	src/lib/protocols/l3/ipv6.h	/^    uint8_t dst_ip6addr[IPV6_ADDR_LEN];$/;"	m	struct:ipv6_header	typeref:typename:uint8_t[]
+dst_ipaddr	src/lib/protocols/l3/ipv4.h	/^    uint32_t        dst_ipaddr;$/;"	m	struct:ipv4_header	typeref:typename:uint32_t
+dst_ipv4	src/events/event_def.h	/^    uint32_t                dst_ipv4;$/;"	m	struct:fw_protocol_event	typeref:typename:uint32_t
+dst_ipv6	src/events/event_def.h	/^    uint8_t                 dst_ipv6[FW_EVENT_IPV6_ADDR_LEN];$/;"	m	struct:fw_protocol_event	typeref:typename:uint8_t[]
+dst_port	src/events/event_def.h	/^    uint16_t                dst_port;$/;"	m	struct:fw_protocol_event	typeref:typename:uint16_t
+dst_port	src/lib/protocols/l4/tcp.h	/^    uint16_t dst_port;$/;"	m	struct:tcp_header	typeref:typename:uint16_t
+dst_port	src/lib/protocols/l4/udp.h	/^    uint16_t dst_port;$/;"	m	struct:udp_header	typeref:typename:uint16_t
+e	src/lib/protocols/l2/8021ae.h	/^    bool e;$/;"	m	struct:ieee8021ae_hdr	typeref:typename:bool
+eap_pkt	src/lib/protocols/l2/8021x.h	/^    ieee8021x_eap_packet eap_pkt;$/;"	m	struct:ieee8021x_eapol	typeref:typename:ieee8021x_eap_packet
+eapol	src/lib/protocols/l2/8021x.h	/^    struct ieee8021x_eapol eapol;$/;"	m	struct:ieee8021x_header	typeref:struct:ieee8021x_eapol
+ece	src/lib/protocols/l4/tcp.h	/^    bool ece;$/;"	m	struct:tcp_header	typeref:typename:bool
+ecn	src/lib/protocols/l3/ipv4.h	/^    uint8_t         ecn;$/;"	m	struct:ipv4_header	typeref:typename:uint8_t
+ecn	src/lib/protocols/l3/ipv6.h	/^    uint8_t ecn;$/;"	m	struct:ipv6_header	typeref:typename:uint8_t
+eh	src/lib/fw_pkt.h	/^    struct ethernet_header eh;$/;"	m	struct:fw_packet	typeref:struct:ethernet_header
+enabled	src/debug/debug.c	/^    bool enabled;$/;"	m	struct:fw_debug_level_ctl	typeref:typename:bool	file:
+es	src/lib/protocols/l2/8021ae.h	/^    bool es;$/;"	m	struct:ieee8021ae_hdr	typeref:typename:bool
+ethernet_deserialize	src/lib/protocols/l2/ethernet.c	/^fw_event_details_t ethernet_deserialize(fw_packet_t *hdr)$/;"	f	typeref:typename:fw_event_details_t
+ethernet_header	src/lib/protocols/l2/ethernet.h	/^struct ethernet_header {$/;"	s
+ethernet_print	src/lib/protocols/l2/ethernet.c	/^STATIC void ethernet_print(struct ethernet_header *eh)$/;"	f	typeref:typename:STATIC void
+ethernet_serialize	src/lib/protocols/l2/ethernet.c	/^fw_event_details_t ethernet_serialize(fw_packet_t *hdr)$/;"	f	typeref:typename:fw_event_details_t
+ethertype	src/events/event_def.h	/^    uint16_t                ethertype;$/;"	m	struct:fw_protocol_event	typeref:typename:uint16_t
+ethertype	src/events/event_fmt_binary.h	/^    uint16_t ethertype;$/;"	m	struct:fw_event_fmt_binary_protocol	typeref:typename:uint16_t
+ethertype	src/lib/protocols/l2/ethernet.h	/^    uint16_t ethertype;$/;"	m	struct:ethernet_header	typeref:typename:uint16_t
+ethertype	src/lib/protocols/l2/vlan.h	/^    uint16_t ethertype; \/* 16 bits. *\/$/;"	m	struct:vlan_header	typeref:typename:uint16_t
+event	src/events/event_def.h	/^    fw_event_type_t         event;$/;"	m	struct:fw_event	typeref:typename:fw_event_type_t
+event_config	src/main/firewall_config.h	/^    fw_event_config_t event_config;$/;"	m	struct:fw_command_args	typeref:typename:fw_event_config_t
+event_details	src/events/event_def.h	/^    fw_event_details_t      event_details;$/;"	m	struct:fw_event	typeref:typename:fw_event_details_t
+event_details	src/events/events.c	/^    fw_event_details_t event_details;$/;"	m	struct:fw_event_rule_id_base	typeref:typename:fw_event_details_t	file:
+event_lock	src/events/events.c	/^    os_mutex_t event_lock;$/;"	m	struct:fw_event_context	typeref:typename:os_mutex_t	file:
+event_log_file	src/main/firewall_config.h	/^    char event_log_file[128];$/;"	m	struct:fw_event_config	typeref:typename:char[128]
+event_serverd	CMakeLists.txt	/^add_executable(event_serverd ${EVENT_SERVER_SRC})$/;"	t
+evt_config	src/events/events.c	/^    struct fw_event_config *evt_config;$/;"	m	struct:fw_event_context	typeref:struct:fw_event_config *	file:
+evt_ctx	src/main/firewall.h	/^    void *evt_ctx;$/;"	m	struct:firewall_interface_context	typeref:typename:void *
+evt_description	src/events/event_fmt_binary.h	/^    fw_event_details_t evt_description;$/;"	m	struct:fw_event_fmt_binary	typeref:typename:fw_event_details_t
+evt_format_type	src/main/firewall_config.h	/^    fw_event_format_type_t evt_format_type;$/;"	m	struct:fw_event_config	typeref:typename:fw_event_format_type_t
+evt_head	src/events/events.c	/^    fw_event_t *evt_head;$/;"	m	struct:fw_event_context	typeref:typename:fw_event_t *	file:
+evt_sender_list	src/events/events.c	/^} evt_sender_list[] = {$/;"	v	typeref:struct:fw_event_sender[]
+evt_server_command_line_args	server/event_server/event_server.c	/^struct evt_server_command_line_args {$/;"	s	file:
+evt_server_parse_command_line_args	server/event_server/event_server.c	/^STATIC int evt_server_parse_command_line_args(int argc, char **argv,$/;"	f	typeref:typename:STATIC int
+evt_tail	src/events/events.c	/^    fw_event_t *evt_tail;$/;"	m	struct:fw_event_context	typeref:typename:fw_event_t *	file:
+evt_transport_type	src/main/firewall_config.h	/^    fw_event_transport_type_t evt_transport_type;$/;"	m	struct:fw_event_config	typeref:typename:fw_event_transport_type_t
+evt_type	src/events/event_fmt_binary.h	/^    fw_event_type_t evt_type;$/;"	m	struct:fw_event_fmt_binary	typeref:typename:fw_event_type_t
+fd	src/drivers/linux_raw/linux_raw.c	/^    int fd;$/;"	m	struct:linux_raw_driver_context	typeref:typename:int	file:
+fd	src/events/events.c	/^    int fd;$/;"	m	struct:fw_event_context	typeref:typename:int	file:
+fin	src/lib/protocols/l4/tcp.h	/^    bool fin;$/;"	m	struct:tcp_header	typeref:typename:bool
+firewall	README.md	/^# firewall$/;"	c
+firewall_context	src/main/firewall.h	/^struct firewall_context {$/;"	s
+firewall_context_t	src/main/firewall.h	/^typedef struct firewall_context firewall_context_t;$/;"	t	typeref:struct:firewall_context
+firewall_interface_context	src/main/firewall.h	/^struct firewall_interface_context {$/;"	s
+firewall_interface_context_t	src/main/firewall.h	/^typedef struct firewall_interface_context firewall_interface_context_t;$/;"	t	typeref:struct:firewall_interface_context
+flags	src/lib/protocols/l2/ptp.h	/^    uint16_t flags;$/;"	m	struct:ptp_header	typeref:typename:uint16_t
+flags	src/lib/protocols/l4/tcp.h	/^    uint8_t flags;$/;"	m	struct:tcp_header	typeref:typename:uint8_t
+flow_label	src/lib/protocols/l3/ipv6.h	/^    uint32_t flow_label;$/;"	m	struct:ipv6_header	typeref:typename:uint32_t
+format_default_glob_header	src/lib/pcap/pcap_ops.c	/^STATIC pcap_hdr_t format_default_glob_header()$/;"	f	typeref:typename:STATIC pcap_hdr_t
+fp	src/lib/pcap/pcap_ops.c	/^    FILE *fp;$/;"	m	struct:fw_pcap_ops_context	typeref:typename:FILE *	file:
+frag_off	src/lib/protocols/l3/ipv4.h	/^    uint32_t        frag_off;$/;"	m	struct:ipv4_header	typeref:typename:uint32_t
+from_ipv4	src/rules/fw_rules.h	/^    uint32_t from_ipv4;$/;"	m	struct:fw_rule_config_item	typeref:typename:uint32_t
+from_port	src/rules/fw_rules.h	/^    uint32_t from_port;$/;"	m	struct:fw_rule_config_item	typeref:typename:uint32_t
+fw_base_conf	src/config/fw_config.h	/^struct fw_base_conf {$/;"	s
+fw_base_conf_t	src/config/fw_config.h	/^typedef struct fw_base_conf fw_base_conf_t;$/;"	t	typeref:struct:fw_base_conf
+fw_base_config_parse	src/config/fw_config.c	/^int fw_base_config_parse(const char *filename, fw_base_conf_t *conf)$/;"	f	typeref:typename:int
+fw_base_get_var_val	src/config/fw_config.c	/^STATIC int fw_base_get_var_val(FILE *fp, char *var, char *val)$/;"	f	typeref:typename:STATIC int
+fw_command_args	src/main/firewall_config.h	/^struct fw_command_args {$/;"	s
+fw_command_args_t	src/main/firewall_config.h	/^typedef struct fw_command_args fw_command_args_t;$/;"	t	typeref:struct:fw_command_args
+fw_config_params	src/config/fw_config.c	/^struct fw_config_params {$/;"	s	file:
+fw_debug	src/debug/debug.c	/^void fw_debug(fw_debug_level_t debug_level, const char *fmt, ...)$/;"	f	typeref:typename:void
+fw_debug_clear_log_level	src/debug/debug.c	/^void fw_debug_clear_log_level(fw_debug_level_t debug_level)$/;"	f	typeref:typename:void
+fw_debug_context	src/debug/debug.h	/^struct fw_debug_context {$/;"	s
+fw_debug_level	src/debug/debug.h	/^enum fw_debug_level {$/;"	g
+fw_debug_level_ctl	src/debug/debug.c	/^STATIC struct fw_debug_level_ctl {$/;"	s	file:
+fw_debug_level_t	src/debug/debug.h	/^typedef enum fw_debug_level fw_debug_level_t;$/;"	t	typeref:enum:fw_debug_level
+fw_debug_msg	src/debug/debug.c	/^STATIC void fw_debug_msg(fw_debug_level_t debug_level,$/;"	f	typeref:typename:STATIC void
+fw_debug_set_log_level	src/debug/debug.c	/^void fw_debug_set_log_level(fw_debug_level_t debug_level)$/;"	f	typeref:typename:void
+fw_deinit_all_interfaces	src/main/firewall.c	/^STATIC void fw_deinit_all_interfaces(struct firewall_context *fw_ctx)$/;"	f	typeref:typename:STATIC void
+fw_event	src/events/event_def.h	/^struct fw_event {$/;"	s
+fw_event_add	src/events/events.c	/^void fw_event_add(void *evt_ptr, fw_event_t *evt)$/;"	f	typeref:typename:void
+fw_event_config	src/main/firewall_config.h	/^struct fw_event_config {$/;"	s
+fw_event_config_t	src/main/firewall_config.h	/^typedef struct fw_event_config fw_event_config_t;$/;"	t	typeref:struct:fw_event_config
+fw_event_connection_console_deinit	src/events/events.c	/^STATIC void fw_event_connection_console_deinit(fw_event_context_t *ctx)$/;"	f	typeref:typename:STATIC void
+fw_event_connection_console_init	src/events/events.c	/^STATIC int fw_event_connection_console_init(fw_event_context_t *ctx)$/;"	f	typeref:typename:STATIC int
+fw_event_connection_console_send	src/events/events.c	/^STATIC int fw_event_connection_console_send(fw_event_context_t *ctx,$/;"	f	typeref:typename:STATIC int
+fw_event_connection_deinit	src/events/events.c	/^STATIC void fw_event_connection_deinit(fw_event_context_t *evt_ctx)$/;"	f	typeref:typename:STATIC void
+fw_event_connection_init	src/events/events.c	/^STATIC int fw_event_connection_init(fw_event_context_t *evt_ctx)$/;"	f	typeref:typename:STATIC int
+fw_event_connection_send	src/events/events.c	/^STATIC int fw_event_connection_send(fw_event_context_t *evt_ctx,$/;"	f	typeref:typename:STATIC int
+fw_event_connection_udp_deinit	src/events/events.c	/^STATIC void fw_event_connection_udp_deinit(fw_event_context_t *ctx)$/;"	f	typeref:typename:STATIC void
+fw_event_connection_udp_init	src/events/events.c	/^STATIC int fw_event_connection_udp_init(fw_event_context_t *evt_ctx)$/;"	f	typeref:typename:STATIC int
+fw_event_connection_udp_send	src/events/events.c	/^STATIC int fw_event_connection_udp_send(fw_event_context_t *ctx,$/;"	f	typeref:typename:STATIC int
+fw_event_context	src/events/events.c	/^struct fw_event_context {$/;"	s	file:
+fw_event_context_t	src/events/events.c	/^typedef struct fw_event_context fw_event_context_t;$/;"	t	typeref:struct:fw_event_context	file:
+fw_event_details	src/events/event_def.h	/^enum fw_event_details {$/;"	g
+fw_event_details_t	src/events/event_def.h	/^typedef enum fw_event_details fw_event_details_t;$/;"	t	typeref:enum:fw_event_details
+fw_event_fmt_binary	src/events/event_fmt_binary.h	/^struct fw_event_fmt_binary {$/;"	s
+fw_event_fmt_binary_protocol	src/events/event_fmt_binary.h	/^struct fw_event_fmt_binary_protocol {$/;"	s
+fw_event_fmt_binary_protocol_t	src/events/event_fmt_binary.h	/^typedef struct fw_event_fmt_binary_protocol fw_event_fmt_binary_protocol_t;$/;"	t	typeref:struct:fw_event_fmt_binary_protocol
+fw_event_fmt_binary_serialize	src/events/event_fmt_binary.c	/^uint32_t fw_event_fmt_binary_serialize(fw_event_t *event,$/;"	f	typeref:typename:uint32_t
+fw_event_fmt_binary_t	src/events/event_fmt_binary.h	/^typedef struct fw_event_fmt_binary fw_event_fmt_binary_t;$/;"	t	typeref:struct:fw_event_fmt_binary
+fw_event_format_type	src/main/firewall_config.h	/^enum fw_event_format_type {$/;"	g
+fw_event_format_type_t	src/main/firewall_config.h	/^typedef enum fw_event_format_type fw_event_format_type_t;$/;"	t	typeref:enum:fw_event_format_type
+fw_event_free	src/events/events.c	/^void fw_event_free(fw_event_t *evt)$/;"	f	typeref:typename:void
+fw_event_get_rule_id_on_event_descr	src/events/events.c	/^uint32_t fw_event_get_rule_id_on_event_descr(fw_event_details_t evt_descr)$/;"	f	typeref:typename:uint32_t
+fw_event_new	src/events/events.c	/^fw_event_t *fw_event_new(fw_event_type_t event,$/;"	f	typeref:typename:fw_event_t *
+fw_event_protocol	src/events/event_def.h	/^enum fw_event_protocol {$/;"	g
+fw_event_protocol_t	src/events/event_def.h	/^typedef enum fw_event_protocol fw_event_protocol_t;$/;"	t	typeref:enum:fw_event_protocol
+fw_event_rule_id_base	src/events/events.c	/^STATIC CONST struct fw_event_rule_id_base {$/;"	s	file:
+fw_event_rule_id_list	src/events/events.c	/^} fw_event_rule_id_list[] = {$/;"	v	typeref:struct:fw_event_rule_id_base[]
+fw_event_sender	src/events/events.c	/^struct fw_event_sender {$/;"	s	file:
+fw_event_serialize_text	src/events/events.c	/^STATIC int fw_event_serialize_text(fw_event_context_t *evt_ctx,$/;"	f	typeref:typename:STATIC int
+fw_event_serializer	src/events/events.c	/^struct fw_event_serializer {$/;"	s	file:
+fw_event_serializer_binary	src/events/events.c	/^STATIC int fw_event_serializer_binary(fw_event_context_t *evt_ctx,$/;"	f	typeref:typename:STATIC int
+fw_event_serializer_list	src/events/events.c	/^} fw_event_serializer_list[] = {$/;"	v	typeref:struct:fw_event_serializer[]
+fw_event_server_init	server/event_server/event_server.c	/^int fw_event_server_init(const char *ipaddr, int port)$/;"	f	typeref:typename:int
+fw_event_t	src/events/event_def.h	/^typedef struct fw_event fw_event_t;$/;"	t	typeref:struct:fw_event
+fw_event_transmit_thread	src/events/events.c	/^STATIC void * fw_event_transmit_thread(void *evt_ptr)$/;"	f	typeref:typename:STATIC void *
+fw_event_transport_type	src/main/firewall_config.h	/^enum fw_event_transport_type {$/;"	g
+fw_event_transport_type_t	src/main/firewall_config.h	/^typedef enum fw_event_transport_type fw_event_transport_type_t;$/;"	t	typeref:enum:fw_event_transport_type
+fw_event_type	src/events/event_def.h	/^enum fw_event_type {$/;"	g
+fw_event_type_t	src/events/event_def.h	/^typedef enum fw_event_type fw_event_type_t;$/;"	t	typeref:enum:fw_event_type
+fw_event_write_log	src/events/events.c	/^STATIC int fw_event_write_log(fw_event_context_t *evt_ctx,$/;"	f	typeref:typename:STATIC int
+fw_events_deinit	src/events/events.c	/^void fw_events_deinit(void *evt_ptr)$/;"	f	typeref:typename:void
+fw_events_init	src/events/events.c	/^void *fw_events_init(fw_event_config_t *evt_config)$/;"	f	typeref:typename:void *
+fw_evt_context_str	src/events/events.c	/^STATIC struct fw_evt_context_str {$/;"	s	file:
+fw_evt_ctx_list	src/events/events.c	/^} fw_evt_ctx_list[] = {$/;"	v	typeref:struct:fw_evt_context_str[]
+fw_get_event_desc_str	src/events/events.c	/^STATIC const char *fw_get_event_desc_str(fw_event_details_t descr)$/;"	f	typeref:typename:STATIC const char *
+fw_get_event_format_type	src/main/firewall_config.c	/^STATIC int fw_get_event_format_type(const char *optarg,$/;"	f	typeref:typename:STATIC int
+fw_get_event_log_file	src/main/firewall_config.c	/^STATIC INLINE void fw_get_event_log_file(const char *optarg,$/;"	f	typeref:typename:STATIC INLINE void
+fw_get_event_transport	src/main/firewall_config.c	/^STATIC int fw_get_event_transport(const char *optarg,$/;"	f	typeref:typename:STATIC int
+fw_get_event_transport_mqtt_topic	src/main/firewall_config.c	/^STATIC INLINE void fw_get_event_transport_mqtt_topic(const char *optarg,$/;"	f	typeref:typename:STATIC INLINE void
+fw_get_event_transport_type	src/main/firewall_config.c	/^STATIC int fw_get_event_transport_type(const char *optarg,$/;"	f	typeref:typename:STATIC int
+fw_get_home	src/config/fw_config.c	/^STATIC int fw_get_home(const char *var, const char *val,$/;"	f	typeref:typename:STATIC int
+fw_get_interface_list	src/main/firewall_config.c	/^STATIC void fw_get_interface_list(const char *iflist,$/;"	f	typeref:typename:STATIC void
+fw_get_ipv4	src/config/fw_config.c	/^STATIC uint32_t fw_get_ipv4(const char *ipaddr)$/;"	f	typeref:typename:STATIC uint32_t
+fw_get_rule_file	src/config/fw_config.c	/^STATIC int fw_get_rule_file(const char *var, const char *val,$/;"	f	typeref:typename:STATIC int
+fw_hexdump	src/lib/fw_pkt.c	/^void fw_hexdump(const char *msg, uint8_t *pkt, uint32_t pkt_len)$/;"	f	typeref:typename:void
+fw_init_all_interfaces	src/main/firewall.c	/^STATIC int fw_init_all_interfaces(struct firewall_context *fw_ctx)$/;"	f	typeref:typename:STATIC int
+fw_packet	src/lib/fw_pkt.h	/^struct fw_packet {$/;"	s
+fw_packet_get_ethertype	src/lib/fw_pkt.c	/^uint16_t fw_packet_get_ethertype(fw_packet_t *pkt)$/;"	f	typeref:typename:uint16_t
+fw_packet_get_remaining_len	src/lib/fw_pkt.c	/^uint32_t fw_packet_get_remaining_len(fw_packet_t *pkt)$/;"	f	typeref:typename:uint32_t
+fw_packet_get_vid	src/lib/fw_pkt.c	/^uint16_t fw_packet_get_vid(fw_packet_t *pkt)$/;"	f	typeref:typename:uint16_t
+fw_packet_queue_context	src/lib/fw_pkt.c	/^struct fw_packet_queue_context {$/;"	s	file:
+fw_packet_queue_context_t	src/lib/fw_pkt.c	/^typedef struct fw_packet_queue_context fw_packet_queue_context_t;$/;"	t	typeref:struct:fw_packet_queue_context	file:
+fw_packet_queue_deinit	src/lib/fw_pkt.c	/^void fw_packet_queue_deinit(void *q)$/;"	f	typeref:typename:void
+fw_packet_queue_entry_add	src/lib/fw_pkt.c	/^void fw_packet_queue_entry_add(void *q, struct fw_packet *pkt)$/;"	f	typeref:typename:void
+fw_packet_queue_first	src/lib/fw_pkt.c	/^struct fw_packet *fw_packet_queue_first(void *q)$/;"	f	typeref:struct:fw_packet *
+fw_packet_queue_init	src/lib/fw_pkt.c	/^void *fw_packet_queue_init()$/;"	f	typeref:typename:void *
+fw_packet_t	src/lib/fw_pkt.h	/^typedef struct fw_packet fw_packet_t;$/;"	t	typeref:struct:fw_packet
+fw_parse_command_args	src/main/firewall_config.c	/^int fw_parse_command_args(int argc, char **argv,$/;"	f	typeref:typename:int
+fw_pcap_ops_context	src/lib/pcap/pcap_ops.c	/^struct fw_pcap_ops_context {$/;"	s	file:
+fw_pcap_ops_format_pcap_pkthdr	src/lib/pcap/pcap_ops.c	/^STATIC fw_pcaprec_hdr_t fw_pcap_ops_format_pcap_pkthdr(uint32_t pktsize)$/;"	f	typeref:typename:STATIC fw_pcaprec_hdr_t
+fw_pcap_ops_pcap_reader_deinit	src/lib/pcap/pcap_ops.c	/^void fw_pcap_ops_pcap_reader_deinit(void *pcap_ctx)$/;"	f	typeref:typename:void
+fw_pcap_ops_pcap_reader_init	src/lib/pcap/pcap_ops.c	/^void *fw_pcap_ops_pcap_reader_init(const char *filename)$/;"	f	typeref:typename:void *
+fw_pcap_ops_read_packet	src/lib/pcap/pcap_ops.c	/^int fw_pcap_ops_read_packet(void *pcap_ctx, fw_pcaprec_hdr_t *rec_hdr,$/;"	f	typeref:typename:int
+fw_pcap_ops_write_packet	src/lib/pcap/pcap_ops.c	/^int fw_pcap_ops_write_packet(void *pcap_ctx, uint8_t *pkt, uint32_t pkt_len)$/;"	f	typeref:typename:int
+fw_pcap_ops_writer_deinit	src/lib/pcap/pcap_ops.c	/^void fw_pcap_ops_writer_deinit(void *pcap_ctx)$/;"	f	typeref:typename:void
+fw_pcap_ops_writer_init	src/lib/pcap/pcap_ops.c	/^void *fw_pcap_ops_writer_init(const char *filename)$/;"	f	typeref:typename:void *
+fw_pcaprec_hdr	src/lib/pcap/pcap_ops.h	/^struct fw_pcaprec_hdr {$/;"	s
+fw_pcaprec_hdr_t	src/lib/pcap/pcap_ops.h	/^typedef struct fw_pcaprec_hdr fw_pcaprec_hdr_t;$/;"	t	typeref:struct:fw_pcaprec_hdr
+fw_pkt_copy_16_bytes	src/lib/protocols/protocol_generic.c	/^void fw_pkt_copy_16_bytes(fw_packet_t *pkt, uint8_t *val)$/;"	f	typeref:typename:void
+fw_pkt_copy_2_bytes	src/lib/protocols/protocol_generic.c	/^void fw_pkt_copy_2_bytes(fw_packet_t *pkt, uint16_t *val)$/;"	f	typeref:typename:void
+fw_pkt_copy_4_bytes	src/lib/protocols/protocol_generic.c	/^void fw_pkt_copy_4_bytes(fw_packet_t *pkt, uint32_t *val)$/;"	f	typeref:typename:void
+fw_pkt_copy_6_bytes	src/lib/protocols/protocol_generic.c	/^void fw_pkt_copy_6_bytes(fw_packet_t *pkt, uint8_t *val)$/;"	f	typeref:typename:void
+fw_pkt_copy_6_bytes_u64	src/lib/protocols/protocol_generic.c	/^void fw_pkt_copy_6_bytes_u64(fw_packet_t *pkt, uint64_t *val)$/;"	f	typeref:typename:void
+fw_pkt_copy_8_bytes	src/lib/protocols/protocol_generic.c	/^void fw_pkt_copy_8_bytes(fw_packet_t *pkt, uint8_t *val)$/;"	f	typeref:typename:void
+fw_pkt_copy_byte	src/lib/protocols/protocol_generic.c	/^void fw_pkt_copy_byte(fw_packet_t *pkt, uint8_t *val)$/;"	f	typeref:typename:void
+fw_pkt_copy_macaddr	src/lib/protocols/protocol_generic.c	/^void fw_pkt_copy_macaddr(fw_packet_t *pkt, uint8_t *mac)$/;"	f	typeref:typename:void
+fw_pkt_copy_n_bytes	src/lib/protocols/protocol_generic.c	/^void fw_pkt_copy_n_bytes(fw_packet_t *pkt, uint8_t *val, uint32_t bytes)$/;"	f	typeref:typename:void
+fw_pkt_encode_2_bytes	src/lib/protocols/protocol_generic.c	/^void fw_pkt_encode_2_bytes(fw_packet_t *pkt, uint16_t val)$/;"	f	typeref:typename:void
+fw_pkt_has_bit_set	src/lib/protocols/protocol_generic.c	/^bool fw_pkt_has_bit_set(fw_packet_t *pkt, uint32_t pos)$/;"	f	typeref:typename:bool
+fw_process_packet	src/main/firewall.c	/^STATIC void * fw_process_packet(void *usr_ptr)$/;"	f	typeref:typename:STATIC void *
+fw_protocol_event	src/events/event_def.h	/^struct fw_protocol_event {$/;"	s
+fw_protocol_event_t	src/events/event_def.h	/^typedef struct fw_protocol_event fw_protocol_event_t;$/;"	t	typeref:struct:fw_protocol_event
+fw_protocol_type	src/lib/protocols/protocol_generic.h	/^enum fw_protocol_type {$/;"	g
+fw_protocol_type_t	src/lib/protocols/protocol_generic.h	/^typedef enum fw_protocol_type fw_protocol_type_t;$/;"	t	typeref:enum:fw_protocol_type
+fw_queue_event	src/main/firewall.c	/^STATIC void fw_queue_event(firewall_interface_context_t *fw_if_ctx,$/;"	f	typeref:typename:STATIC void
+fw_recv_packet	src/main/firewall.c	/^STATIC void * fw_recv_packet(void *usr_ptr)$/;"	f	typeref:typename:STATIC void *
+fw_rule_config_item	src/rules/fw_rules.h	/^struct fw_rule_config_item {$/;"	s
+fw_rule_config_item_t	src/rules/fw_rules.h	/^typedef struct fw_rule_config_item fw_rule_config_item_t;$/;"	t	typeref:struct:fw_rule_config_item
+fw_rule_init	src/rules/fw_rules.c	/^void *fw_rule_init(const char *rule_file)$/;"	f	typeref:typename:void *
+fw_rule_read	src/rules/fw_rules.c	/^STATIC int fw_rule_read(const char *data, struct rule_config_data *rule_data)$/;"	f	typeref:typename:STATIC int
+fw_signal_handler	src/main/firewall.c	/^STATIC void fw_signal_handler(int signum)$/;"	f	typeref:typename:STATIC void
+fwd	CMakeLists.txt	/^add_executable(fwd ${SRC})$/;"	t
+grand_master_clock_accuracy	src/lib/protocols/l2/ptp.h	/^    uint8_t grand_master_clock_accuracy;$/;"	m	struct:ptp_announce_header	typeref:typename:uint8_t
+grand_master_clock_class	src/lib/protocols/l2/ptp.h	/^    uint8_t grand_master_clock_class;$/;"	m	struct:ptp_announce_header	typeref:typename:uint8_t
+grand_master_clock_id	src/lib/protocols/l2/ptp.h	/^    uint8_t grand_master_clock_id[8];$/;"	m	struct:ptp_announce_header	typeref:typename:uint8_t[8]
+grand_master_clock_variance	src/lib/protocols/l2/ptp.h	/^    uint16_t grand_master_clock_variance;$/;"	m	struct:ptp_announce_header	typeref:typename:uint16_t
+hardware_address_len	src/lib/protocols/app/dhcp.h	/^    uint8_t hardware_address_len;$/;"	m	struct:dhcp_header	typeref:typename:uint8_t
+hardware_type	src/lib/protocols/app/dhcp.h	/^    uint8_t hardware_type;$/;"	m	struct:dhcp_header	typeref:typename:uint8_t
+hdr_chksum	src/lib/protocols/l3/ipv4.h	/^    uint16_t        hdr_chksum;$/;"	m	struct:ipv4_header	typeref:typename:uint16_t
+head	src/lib/fw_pkt.c	/^    struct fw_packet *head;$/;"	m	struct:fw_packet_queue_context	typeref:struct:fw_packet *	file:
+head	src/rules/fw_rules.h	/^    fw_rule_config_item_t *head;$/;"	m	struct:rule_config_data	typeref:typename:fw_rule_config_item_t *
+header_len	src/lib/protocols/l3/ipv4.h	/^    uint8_t         header_len;$/;"	m	struct:ipv4_header	typeref:typename:uint8_t
+home	src/config/fw_config.h	/^    uint32_t home;$/;"	m	struct:fw_base_conf	typeref:typename:uint32_t
+hoplimit	src/lib/protocols/l3/ipv6.h	/^    uint8_t hoplimit;$/;"	m	struct:ipv6_header	typeref:typename:uint8_t
+hops	src/lib/protocols/app/dhcp.h	/^    uint8_t hops;$/;"	m	struct:dhcp_header	typeref:typename:uint8_t
+hostname	src/lib/protocols/app/dhcp.h	/^    struct dhcp_hostname hostname;$/;"	m	struct:dhcp_options	typeref:struct:dhcp_hostname
+hostname	src/lib/protocols/app/dhcp.h	/^    uint8_t *hostname;$/;"	m	struct:dhcp_hostname	typeref:typename:uint8_t *
+hostname_len	src/lib/protocols/app/dhcp.h	/^    uint8_t hostname_len;$/;"	m	struct:dhcp_hostname	typeref:typename:uint8_t
+hw_addr_len	src/lib/protocols/l2/arp.h	/^    uint8_t hw_addr_len;$/;"	m	struct:arp_header	typeref:typename:uint8_t
+hw_type	src/lib/protocols/app/dhcp.h	/^    uint8_t hw_type;$/;"	m	struct:dhcp_opt_client_identifier	typeref:typename:uint8_t
+hwtype	src/lib/protocols/l2/arp.h	/^    uint16_t hwtype;$/;"	m	struct:arp_header	typeref:typename:uint16_t
+icmp6_deserialize	src/lib/protocols/l4/icmp6.c	/^fw_event_details_t icmp6_deserialize(fw_packet_t *pkt)$/;"	f	typeref:typename:fw_event_details_t
+icmp6_deserialize_echo_reply	src/lib/protocols/l4/icmp6.c	/^STATIC void icmp6_deserialize_echo_reply(fw_packet_t *pkt)$/;"	f	typeref:typename:STATIC void
+icmp6_deserialize_echo_req	src/lib/protocols/l4/icmp6.c	/^STATIC void icmp6_deserialize_echo_req(fw_packet_t *pkt)$/;"	f	typeref:typename:STATIC void
+icmp6_h	src/lib/fw_pkt.h	/^    struct icmp6_header icmp6_h;$/;"	m	struct:fw_packet	typeref:struct:icmp6_header
+icmp6_header	src/lib/protocols/l4/icmp6.h	/^struct icmp6_header {$/;"	s
+icmp6_header_t	src/lib/protocols/l4/icmp6.h	/^typedef struct icmp6_header icmp6_header_t;$/;"	t	typeref:struct:icmp6_header
+icmp6_min_hdrlen	src/lib/protocols/l4/icmp6.c	/^STATIC uint16_t icmp6_min_hdrlen(fw_packet_t *pkt)$/;"	f	typeref:typename:STATIC uint16_t
+icmp6_ping_req_hdr	src/lib/protocols/l4/icmp6.h	/^struct icmp6_ping_req_hdr {$/;"	s
+icmp6_ping_req_hdr_t	src/lib/protocols/l4/icmp6.h	/^typedef struct icmp6_ping_req_hdr icmp6_ping_req_hdr_t;$/;"	t	typeref:struct:icmp6_ping_req_hdr
+icmp6_print	src/lib/protocols/l4/icmp6.c	/^void icmp6_print(icmp6_header_t *hdr)$/;"	f	typeref:typename:void
+icmp_deserialize	src/lib/protocols/l4/icmp.c	/^fw_event_details_t icmp_deserialize(fw_packet_t *pkt)$/;"	f	typeref:typename:fw_event_details_t
+icmp_get_min_hdrlen	src/lib/protocols/l4/icmp.c	/^STATIC uint32_t icmp_get_min_hdrlen(icmp_header_t *icmp_h)$/;"	f	typeref:typename:STATIC uint32_t
+icmp_h	src/lib/fw_pkt.h	/^    struct icmp_header icmp_h;$/;"	m	struct:fw_packet	typeref:struct:icmp_header
+icmp_header	src/lib/protocols/l4/icmp.h	/^struct icmp_header {$/;"	s
+icmp_header_ping	src/lib/protocols/l4/icmp.h	/^struct icmp_header_ping {$/;"	s
+icmp_header_ping_t	src/lib/protocols/l4/icmp.h	/^typedef struct icmp_header_ping icmp_header_ping_t;$/;"	t	typeref:struct:icmp_header_ping
+icmp_header_t	src/lib/protocols/l4/icmp.h	/^typedef struct icmp_header icmp_header_t;$/;"	t	typeref:struct:icmp_header
+icmp_parse_echo_reply	src/lib/protocols/l4/icmp.c	/^STATIC fw_event_details_t icmp_parse_echo_reply(fw_packet_t *pkt)$/;"	f	typeref:typename:STATIC fw_event_details_t
+icmp_parse_echo_req	src/lib/protocols/l4/icmp.c	/^STATIC fw_event_details_t icmp_parse_echo_req(fw_packet_t *pkt)$/;"	f	typeref:typename:STATIC fw_event_details_t
+icmp_print	src/lib/protocols/l4/icmp.c	/^STATIC void icmp_print(struct icmp_header *icmp_h)$/;"	f	typeref:typename:STATIC void
+icv	src/lib/protocols/l2/8021ae.h	/^    uint8_t icv[IEEE8021AE_ICV_LEN];$/;"	m	struct:ieee8021ae_hdr	typeref:typename:uint8_t[]
+icv	src/lib/protocols/l2/8021x.h	/^    uint8_t         icv[MKA_ICV_LEN_MAX];$/;"	m	struct:ieee8021x_eapol_mka_icv_paramset	typeref:typename:uint8_t[]
+id	src/lib/protocols/app/dhcp.h	/^    uint8_t *id;$/;"	m	struct:dhcp_vendor_class_id	typeref:typename:uint8_t *
+id	src/lib/protocols/l2/8021x.h	/^    uint8_t id;$/;"	m	struct:ieee8021x_eap_packet	typeref:typename:uint8_t
+id	src/lib/protocols/l4/icmp6.h	/^    uint16_t id;$/;"	m	struct:icmp6_ping_req_hdr	typeref:typename:uint16_t
+identification	src/lib/protocols/l3/ipv4.h	/^    uint16_t        identification;$/;"	m	struct:ipv4_header	typeref:typename:uint16_t
+identifier	src/lib/protocols/l4/icmp.h	/^    uint16_t identifier;$/;"	m	struct:icmp_header_ping	typeref:typename:uint16_t
+ieee8021ae_deserialize	src/lib/protocols/l2/8021ae.c	/^fw_event_details_t ieee8021ae_deserialize(fw_packet_t *pkt)$/;"	f	typeref:typename:fw_event_details_t
+ieee8021ae_has_encrypt_on	src/lib/protocols/l2/8021ae.c	/^bool ieee8021ae_has_encrypt_on(ieee8021ae_hdr_t *hdr)$/;"	f	typeref:typename:bool
+ieee8021ae_hdr	src/lib/protocols/l2/8021ae.h	/^struct ieee8021ae_hdr {$/;"	s
+ieee8021ae_hdr_t	src/lib/protocols/l2/8021ae.h	/^typedef struct ieee8021ae_hdr ieee8021ae_hdr_t;$/;"	t	typeref:struct:ieee8021ae_hdr
+ieee8021ae_min_hdrlen	src/lib/protocols/l2/8021ae.c	/^STATIC uint16_t ieee8021ae_min_hdrlen(ieee8021ae_hdr_t *hdr)$/;"	f	typeref:typename:STATIC uint16_t
+ieee8021ae_print	src/lib/protocols/l2/8021ae.c	/^void ieee8021ae_print(ieee8021ae_hdr_t *hdr)$/;"	f	typeref:typename:void
+ieee8021x_deserialize	src/lib/protocols/l2/8021x.c	/^fw_event_details_t ieee8021x_deserialize(fw_packet_t *hdr)$/;"	f	typeref:typename:fw_event_details_t
+ieee8021x_deserialize_dist_sak	src/lib/protocols/l2/8021x.c	/^STATIC fw_event_details_t ieee8021x_deserialize_dist_sak(fw_packet_t *hdr)$/;"	f	typeref:typename:STATIC fw_event_details_t
+ieee8021x_deserialize_eapol	src/lib/protocols/l2/8021x.c	/^STATIC fw_event_details_t ieee8021x_deserialize_eapol(fw_packet_t *hdr)$/;"	f	typeref:typename:STATIC fw_event_details_t
+ieee8021x_deserialize_icv	src/lib/protocols/l2/8021x.c	/^STATIC fw_event_details_t ieee8021x_deserialize_icv(fw_packet_t *hdr)$/;"	f	typeref:typename:STATIC fw_event_details_t
+ieee8021x_deserialize_mka_bp	src/lib/protocols/l2/8021x.c	/^STATIC fw_event_details_t ieee8021x_deserialize_mka_bp(fw_packet_t *hdr)$/;"	f	typeref:typename:STATIC fw_event_details_t
+ieee8021x_deserialize_mka_lp	src/lib/protocols/l2/8021x.c	/^STATIC fw_event_details_t ieee8021x_deserialize_mka_lp(fw_packet_t *hdr)$/;"	f	typeref:typename:STATIC fw_event_details_t
+ieee8021x_deserialize_mka_pp	src/lib/protocols/l2/8021x.c	/^STATIC fw_event_details_t ieee8021x_deserialize_mka_pp(fw_packet_t *hdr)$/;"	f	typeref:typename:STATIC fw_event_details_t
+ieee8021x_deserialize_peer	src/lib/protocols/l2/8021x.c	/^STATIC void ieee8021x_deserialize_peer(fw_packet_t *hdr,$/;"	f	typeref:typename:STATIC void
+ieee8021x_deserialize_sak_use_paramset	src/lib/protocols/l2/8021x.c	/^STATIC fw_event_details_t ieee8021x_deserialize_sak_use_paramset($/;"	f	typeref:typename:STATIC fw_event_details_t
+ieee8021x_eap_packet	src/lib/protocols/l2/8021x.h	/^struct ieee8021x_eap_packet {$/;"	s
+ieee8021x_eapol	src/lib/protocols/l2/8021x.h	/^struct ieee8021x_eapol {$/;"	s
+ieee8021x_eapol_mka	src/lib/protocols/l2/8021x.h	/^struct ieee8021x_eapol_mka {$/;"	s
+ieee8021x_eapol_mka_basic_paramset	src/lib/protocols/l2/8021x.h	/^struct ieee8021x_eapol_mka_basic_paramset {$/;"	s
+ieee8021x_eapol_mka_dist_sak_paramset	src/lib/protocols/l2/8021x.h	/^struct ieee8021x_eapol_mka_dist_sak_paramset {$/;"	s
+ieee8021x_eapol_mka_icv_paramset	src/lib/protocols/l2/8021x.h	/^struct ieee8021x_eapol_mka_icv_paramset {$/;"	s
+ieee8021x_eapol_mka_live_paramset	src/lib/protocols/l2/8021x.h	/^struct ieee8021x_eapol_mka_live_paramset {$/;"	s
+ieee8021x_eapol_mka_macsec_sak_paramset	src/lib/protocols/l2/8021x.h	/^struct ieee8021x_eapol_mka_macsec_sak_paramset {$/;"	s
+ieee8021x_eapol_mka_peer	src/lib/protocols/l2/8021x.h	/^struct ieee8021x_eapol_mka_peer {$/;"	s
+ieee8021x_eapol_mka_potential_paramset	src/lib/protocols/l2/8021x.h	/^struct ieee8021x_eapol_mka_potential_paramset {$/;"	s
+ieee8021x_get_mi	src/lib/protocols/l2/8021x.c	/^STATIC INLINE void ieee8021x_get_mi(fw_packet_t *hdr, uint8_t *mi)$/;"	f	typeref:typename:STATIC INLINE void
+ieee8021x_get_sci	src/lib/protocols/l2/8021x.c	/^STATIC INLINE void ieee8021x_get_sci(fw_packet_t *hdr, uint8_t *sci)$/;"	f	typeref:typename:STATIC INLINE void
+ieee8021x_header	src/lib/protocols/l2/8021x.h	/^struct ieee8021x_header {$/;"	s
+ieee8021x_header_t	src/lib/protocols/l2/8021x.h	/^typedef struct ieee8021x_header ieee8021x_header_t;$/;"	t	typeref:struct:ieee8021x_header
+ieee8021x_mka_get_paramset_len	src/lib/protocols/l2/8021x.c	/^STATIC uint16_t ieee8021x_mka_get_paramset_len(fw_packet_t *hdr)$/;"	f	typeref:typename:STATIC uint16_t
+ieee8021x_mka_version_in_range	src/lib/protocols/l2/8021x.c	/^STATIC bool ieee8021x_mka_version_in_range(uint8_t version)$/;"	f	typeref:typename:STATIC bool
+if_list	src/main/firewall.h	/^    firewall_interface_context_t if_list[MAX_IFS];$/;"	m	struct:firewall_context	typeref:typename:firewall_interface_context_t[]
+if_list	src/main/firewall_config.h	/^    char if_list[MAX_IFS][MAX_IFNAME_SIZE];$/;"	m	struct:fw_command_args	typeref:typename:char[][]
+ifname	src/events/event_def.h	/^    char                    ifname[FW_EVENT_MAX_IFNAME_SIZE];$/;"	m	struct:fw_event	typeref:typename:char[]
+ifname	src/main/firewall.h	/^    char ifname[20];$/;"	m	struct:firewall_interface_context	typeref:typename:char[20]
+ifname	tools/packet_gen/packet_gen.c	/^    char ifname[20];$/;"	m	struct:packet_gen_config	typeref:typename:char[20]	file:
+incl_len	src/lib/pcap/pcap_ops.h	/^    uint32_t incl_len;       \/* number of octets of packet saved in file *\/$/;"	m	struct:fw_pcaprec_hdr	typeref:typename:uint32_t
+init	src/drivers/driver_generic.h	/^    void * (*init)(const char *);$/;"	m	struct:nw_driver_callbacks	typeref:typename:void * (*)(const char *)
+init	src/events/events.c	/^    int (*init)(fw_event_context_t *evt_cx);$/;"	m	struct:fw_event_sender	typeref:typename:int (*)(fw_event_context_t * evt_cx)	file:
+interface_version	src/lib/protocols/app/someip.h	/^    uint8_t interface_version;$/;"	m	struct:someip_header	typeref:typename:uint8_t
+ip	server/event_server/event_server.c	/^    char ip[20];$/;"	m	struct:evt_server_command_line_args	typeref:typename:char[20]	file:
+ip	src/lib/protocols/l2/8021x.h	/^    struct ieee8021x_eapol_mka_icv_paramset ip;$/;"	m	struct:ieee8021x_eapol_mka	typeref:struct:ieee8021x_eapol_mka_icv_paramset
+ip	src/main/firewall_config.h	/^    char ip[20];$/;"	m	struct:fw_event_config	typeref:typename:char[20]
+ipaddr	src/lib/protocols/app/dhcp.h	/^    uint32_t ipaddr;$/;"	m	struct:dhcp_opt_server_identifier	typeref:typename:uint32_t
+ipv4_deserialize	src/lib/protocols/l3/ipv4.c	/^fw_event_details_t ipv4_deserialize(fw_packet_t *pkt)$/;"	f	typeref:typename:fw_event_details_t
+ipv4_h	src/lib/fw_pkt.h	/^    struct ipv4_header ipv4_h;$/;"	m	struct:fw_packet	typeref:struct:ipv4_header
+ipv4_header	src/lib/protocols/l3/ipv4.h	/^struct ipv4_header {$/;"	s
+ipv4_header_t	src/lib/protocols/l3/ipv4.h	/^typedef struct ipv4_header ipv4_header_t;$/;"	t	typeref:struct:ipv4_header
+ipv4_pkt_has_fragments	src/lib/protocols/l3/ipv4.c	/^bool ipv4_pkt_has_fragments(ipv4_header_t *hdr)$/;"	f	typeref:typename:bool
+ipv4_pkt_validate_checksum	src/lib/protocols/l3/ipv4.c	/^bool ipv4_pkt_validate_checksum(fw_packet_t *pkt)$/;"	f	typeref:typename:bool
+ipv4_print	src/lib/protocols/l3/ipv4.c	/^STATIC void ipv4_print(ipv4_header_t *hdr)$/;"	f	typeref:typename:STATIC void
+ipv6_deserialize	src/lib/protocols/l3/ipv6.c	/^fw_event_details_t ipv6_deserialize(fw_packet_t *pkt)$/;"	f	typeref:typename:fw_event_details_t
+ipv6_h	src/lib/fw_pkt.h	/^    struct ipv6_header ipv6_h;$/;"	m	struct:fw_packet	typeref:struct:ipv6_header
+ipv6_header	src/lib/protocols/l3/ipv6.h	/^struct ipv6_header {$/;"	s
+ipv6_header_t	src/lib/protocols/l3/ipv6.h	/^typedef struct ipv6_header ipv6_header_t;$/;"	t	typeref:struct:ipv6_header
+ipv6_min_hdrlen	src/lib/protocols/l3/ipv6.c	/^STATIC uint32_t ipv6_min_hdrlen(ipv6_header_t *hdr)$/;"	f	typeref:typename:STATIC uint32_t
+ipv6_print	src/lib/protocols/l3/ipv6.c	/^STATIC void ipv6_print(ipv6_header_t *hdr)$/;"	f	typeref:typename:STATIC void
+is_layer2_ptp	src/lib/fw_pkt.h	/^    bool is_layer2_ptp;$/;"	m	struct:fw_packet	typeref:typename:bool
+is_log_lvl_enabled	src/debug/debug.c	/^STATIC bool is_log_lvl_enabled(fw_debug_level_t level)$/;"	f	typeref:typename:STATIC bool
+key_number	src/lib/protocols/l2/8021x.h	/^    uint32_t        key_number;$/;"	m	struct:ieee8021x_eapol_mka_dist_sak_paramset	typeref:typename:uint32_t
+key_server	src/lib/protocols/l2/8021x.h	/^    bool            key_server;$/;"	m	struct:ieee8021x_eapol_mka_basic_paramset	typeref:typename:bool
+key_server_priority	src/lib/protocols/l2/8021x.h	/^    uint8_t         key_server_priority;$/;"	m	struct:ieee8021x_eapol_mka_basic_paramset	typeref:typename:uint8_t
+key_wrap	src/lib/protocols/l2/8021x.h	/^    uint8_t         key_wrap[MKA_AES_KEYWRAP_LEN_MAX];$/;"	m	struct:ieee8021x_eapol_mka_dist_sak_paramset	typeref:typename:uint8_t[]
+key_wrap_len	src/lib/protocols/l2/8021x.h	/^    uint8_t         key_wrap_len;$/;"	m	struct:ieee8021x_eapol_mka_dist_sak_paramset	typeref:typename:uint8_t
+lan	src/lib/protocols/l2/8021x.h	/^    uint8_t         lan;$/;"	m	struct:ieee8021x_eapol_mka_macsec_sak_paramset	typeref:typename:uint8_t
+latest_kn	src/lib/protocols/l2/8021x.h	/^    uint32_t        latest_kn;$/;"	m	struct:ieee8021x_eapol_mka_macsec_sak_paramset	typeref:typename:uint32_t
+latest_lowest_pn	src/lib/protocols/l2/8021x.h	/^    uint32_t        latest_lowest_pn;$/;"	m	struct:ieee8021x_eapol_mka_macsec_sak_paramset	typeref:typename:uint32_t
+latest_mi	src/lib/protocols/l2/8021x.h	/^    uint8_t         latest_mi[MKA_MI_LEN];$/;"	m	struct:ieee8021x_eapol_mka_macsec_sak_paramset	typeref:typename:uint8_t[]
+len	src/lib/protocols/app/dhcp.h	/^    uint8_t len;$/;"	m	struct:dhcp_parameter_request_list	typeref:typename:uint8_t
+len	src/lib/protocols/app/dhcp.h	/^    uint8_t len;$/;"	m	struct:dhcp_vendor_class_id	typeref:typename:uint8_t
+len	src/lib/protocols/l2/8021x.h	/^    uint16_t len;$/;"	m	struct:ieee8021x_eap_packet	typeref:typename:uint16_t
+length	src/lib/protocols/app/someip.h	/^    uint32_t length;$/;"	m	struct:someip_header	typeref:typename:uint32_t
+length	src/lib/protocols/l2/8021x.h	/^    uint16_t length;$/;"	m	struct:ieee8021x_eapol	typeref:typename:uint16_t
+length	src/lib/protocols/l4/udp.h	/^    uint16_t length;$/;"	m	struct:udp_header	typeref:typename:uint16_t
+linux_bind_to_device	src/drivers/linux_raw/linux_raw.c	/^STATIC int linux_bind_to_device(int fd, const char *device_name)$/;"	f	typeref:typename:STATIC int
+linux_get_hwaddr	src/drivers/linux_raw/linux_raw.c	/^STATIC int linux_get_hwaddr(int fd, const char *device_name, uint8_t *mac)$/;"	f	typeref:typename:STATIC int
+linux_raw_deinit	src/drivers/linux_raw/linux_raw.c	/^void linux_raw_deinit(void *ctx)$/;"	f	typeref:typename:void
+linux_raw_driver_context	src/drivers/linux_raw/linux_raw.c	/^struct linux_raw_driver_context {$/;"	s	file:
+linux_raw_init	src/drivers/linux_raw/linux_raw.c	/^void *linux_raw_init(const char *device_name)$/;"	f	typeref:typename:void *
+linux_raw_read	src/drivers/linux_raw/linux_raw.c	/^int linux_raw_read(void *ctx, uint8_t *msg, uint32_t msg_len)$/;"	f	typeref:typename:int
+linux_raw_write	src/drivers/linux_raw/linux_raw.c	/^int linux_raw_write(void *ctx, uint8_t *msg, uint32_t msg_len)$/;"	f	typeref:typename:int
+linux_set_promisc	src/drivers/linux_raw/linux_raw.c	/^STATIC int linux_set_promisc(int fd, const char *device_name)$/;"	f	typeref:typename:STATIC int
+local_steps_removed	src/lib/protocols/l2/ptp.h	/^    uint16_t local_steps_removed;$/;"	m	struct:ptp_announce_header	typeref:typename:uint16_t
+lock	src/debug/debug.c	/^STATIC os_mutex_t lock;$/;"	v	typeref:typename:STATIC os_mutex_t
+lock	src/lib/fw_pkt.h	/^    struct os_mutex lock;$/;"	m	struct:fw_packet	typeref:struct:os_mutex
+log_fp	src/events/events.c	/^    FILE *log_fp;$/;"	m	struct:fw_event_context	typeref:typename:FILE *	file:
+log_message_period	src/lib/protocols/l2/ptp.h	/^    uint8_t log_message_period;$/;"	m	struct:ptp_header	typeref:typename:uint8_t
+log_to_file	src/main/firewall_config.h	/^    bool log_to_file;$/;"	m	struct:fw_event_config	typeref:typename:bool
+lp	src/lib/protocols/l2/8021x.h	/^    struct ieee8021x_eapol_mka_live_paramset lp;$/;"	m	struct:ieee8021x_eapol_mka	typeref:struct:ieee8021x_eapol_mka_live_paramset
+lrx	src/lib/protocols/l2/8021x.h	/^    bool            lrx;$/;"	m	struct:ieee8021x_eapol_mka_macsec_sak_paramset	typeref:typename:bool
+ltx	src/lib/protocols/l2/8021x.h	/^    bool            ltx;$/;"	m	struct:ieee8021x_eapol_mka_macsec_sak_paramset	typeref:typename:bool
+mac_broadcast	src/lib/protocols/l2/ethernet.c	/^STATIC bool mac_broadcast(uint8_t *src, uint8_t *dst)$/;"	f	typeref:typename:STATIC bool
+mac_zeros	src/lib/protocols/l2/ethernet.c	/^STATIC bool mac_zeros(uint8_t *src, uint8_t *dst)$/;"	f	typeref:typename:STATIC bool
+macsec_capability	src/lib/protocols/l2/8021x.h	/^    uint8_t         macsec_capability;$/;"	m	struct:ieee8021x_eapol_mka_basic_paramset	typeref:typename:uint8_t
+macsec_desired	src/lib/protocols/l2/8021x.h	/^    bool            macsec_desired;$/;"	m	struct:ieee8021x_eapol_mka_basic_paramset	typeref:typename:bool
+macsec_h	src/lib/fw_pkt.h	/^    struct ieee8021ae_hdr macsec_h;$/;"	m	struct:fw_packet	typeref:struct:ieee8021ae_hdr
+magic_cookie	src/lib/protocols/app/dhcp.h	/^    uint8_t magic_cookie[4];$/;"	m	struct:dhcp_header	typeref:typename:uint8_t[4]
+magic_number	src/lib/pcap/pcap_ops.c	/^    uint32_t magic_number;   \/* magic number *\/$/;"	m	struct:pcap_hdr	typeref:typename:uint32_t	file:
+main	server/event_server/event_server.c	/^int main(int argc, char **argv)$/;"	f	typeref:typename:int
+main	src/main/firewall.c	/^int main(int argc, char **argv)$/;"	f	typeref:typename:int
+main	tools/packet_gen/packet_gen.c	/^int main(int argc, char **argv)$/;"	f	typeref:typename:int
+major_sdoid	src/lib/protocols/l2/ptp.h	/^    uint8_t major_sdoid;$/;"	m	struct:ptp_header	typeref:typename:uint8_t
+matched_rule_id	src/lib/fw_pkt.h	/^    uint32_t matched_rule_id;$/;"	m	struct:fw_packet	typeref:typename:uint32_t
+message_len	src/lib/protocols/l2/ptp.h	/^    uint16_t message_len;$/;"	m	struct:ptp_header	typeref:typename:uint16_t
+message_type	src/lib/protocols/app/dhcp.h	/^    uint8_t message_type;$/;"	m	struct:dhcp_header	typeref:typename:uint8_t
+message_type	src/lib/protocols/app/someip.h	/^    uint8_t message_type;$/;"	m	struct:someip_header	typeref:typename:uint8_t
+message_type	src/lib/protocols/l2/ptp.h	/^    uint8_t message_type;$/;"	m	struct:ptp_header	typeref:typename:uint8_t
+message_type_specific	src/lib/protocols/l2/ptp.h	/^    uint32_t message_type_specific;$/;"	m	struct:ptp_header	typeref:typename:uint32_t
+method_id	src/lib/protocols/app/someip.h	/^    uint16_t method_id;$/;"	m	struct:someip_header	typeref:typename:uint16_t
+mi	src/lib/protocols/l2/8021x.h	/^    uint8_t         mi[MKA_MI_LEN];$/;"	m	struct:ieee8021x_eapol_mka_peer	typeref:typename:uint8_t[]
+minor_ptp_version	src/lib/protocols/l2/ptp.h	/^    uint8_t minor_ptp_version;$/;"	m	struct:ptp_header	typeref:typename:uint8_t
+minor_sdoid	src/lib/protocols/l2/ptp.h	/^    uint8_t minor_sdoid;$/;"	m	struct:ptp_header	typeref:typename:uint8_t
+mka	src/lib/protocols/l2/8021x.h	/^    struct ieee8021x_eapol_mka mka;$/;"	m	struct:ieee8021x_eapol	typeref:struct:ieee8021x_eapol_mka
+mka_paramset_type	src/lib/protocols/l2/8021x.h	/^enum mka_paramset_type {$/;"	g
+mka_paramset_type_t	src/lib/protocols/l2/8021x.h	/^typedef enum mka_paramset_type mka_paramset_type_t;$/;"	t	typeref:enum:mka_paramset_type
+mn	src/lib/protocols/l2/8021x.h	/^    uint32_t        mn;$/;"	m	struct:ieee8021x_eapol_mka_peer	typeref:typename:uint32_t
+more_fragment	src/lib/protocols/l3/ipv4.h	/^    bool            more_fragment;$/;"	m	struct:ipv4_header	typeref:typename:bool
+mp	src/lib/protocols/l2/8021x.h	/^    struct ieee8021x_eapol_mka_macsec_sak_paramset mp;$/;"	m	struct:ieee8021x_eapol_mka	typeref:struct:ieee8021x_eapol_mka_macsec_sak_paramset
+mqtt_topic	src/main/firewall_config.h	/^    char mqtt_topic[128];$/;"	m	struct:fw_event_config	typeref:typename:char[128]
+msg	src/events/event_def.h	/^    char                    *msg;$/;"	m	struct:fw_event	typeref:typename:char *
+msg	src/lib/fw_pkt.h	/^    uint8_t msg[FW_PACKET_LEN_MAX];$/;"	m	struct:fw_packet	typeref:typename:uint8_t[]
+msg	src/rules/fw_rules.h	/^    char *msg;$/;"	m	struct:fw_rule_config_item	typeref:typename:char *
+msg_len	src/events/event_def.h	/^    uint16_t                msg_len;$/;"	m	struct:fw_event	typeref:typename:uint16_t
+msg_len	src/rules/fw_rules.h	/^    uint32_t msg_len;$/;"	m	struct:fw_rule_config_item	typeref:typename:uint32_t
+mutex	src/lib/os/os_thread.h	/^    pthread_mutex_t mutex;$/;"	m	struct:os_mutex	typeref:typename:pthread_mutex_t
+n_iflist	src/main/firewall_config.h	/^    uint32_t n_iflist;$/;"	m	struct:fw_command_args	typeref:typename:uint32_t
+n_intf	src/main/firewall.h	/^    int n_intf;$/;"	m	struct:firewall_context	typeref:typename:int
+n_servers	src/lib/protocols/app/dhcp.h	/^    uint32_t n_servers;$/;"	m	struct:dhcp_opt_dns_list	typeref:typename:uint32_t
+name	src/lib/protocols/app/dhcp.h	/^    char *name;$/;"	m	struct:dhcp_opt_domain_name	typeref:typename:char *
+network	src/lib/pcap/pcap_ops.c	/^    uint32_t network;        \/* data link type *\/$/;"	m	struct:pcap_hdr	typeref:typename:uint32_t	file:
+next	src/events/event_def.h	/^    struct fw_event         *next;$/;"	m	struct:fw_event	typeref:struct:fw_event *
+next	src/lib/fw_pkt.h	/^    struct fw_packet *next;$/;"	m	struct:fw_packet	typeref:struct:fw_packet *
+next	src/rules/fw_rules.h	/^    struct fw_rule_config_item *next;$/;"	m	struct:fw_rule_config_item	typeref:struct:fw_rule_config_item *
+next_header	src/lib/protocols/l3/ipv6.h	/^    uint8_t next_header;$/;"	m	struct:ipv6_header	typeref:typename:uint8_t
+next_server_ipaddr	src/lib/protocols/app/dhcp.h	/^    uint32_t next_server_ipaddr;$/;"	m	struct:dhcp_header	typeref:typename:uint32_t
+num_peers	src/lib/protocols/l2/8021x.h	/^    uint8_t                             num_peers;$/;"	m	struct:ieee8021x_eapol_mka_live_paramset	typeref:typename:uint8_t
+num_peers	src/lib/protocols/l2/8021x.h	/^    uint8_t                             num_peers;$/;"	m	struct:ieee8021x_eapol_mka_potential_paramset	typeref:typename:uint8_t
+nw_driver_callbacks	src/drivers/driver_generic.h	/^struct nw_driver_callbacks {$/;"	s
+nw_driver_register	src/drivers/driver_generic.c	/^void nw_driver_register(struct nw_driver_callbacks *nw_drv)$/;"	f	typeref:typename:void
+nw_drv	src/main/firewall.h	/^    struct nw_driver_callbacks *nw_drv;$/;"	m	struct:firewall_interface_context	typeref:struct:nw_driver_callbacks *
+nw_drv	src/main/firewall.h	/^    struct nw_driver_callbacks nw_drv;$/;"	m	struct:firewall_context	typeref:struct:nw_driver_callbacks
+oan	src/lib/protocols/l2/8021x.h	/^    uint8_t         oan;$/;"	m	struct:ieee8021x_eapol_mka_macsec_sak_paramset	typeref:typename:uint8_t
+off	src/lib/fw_pkt.h	/^    uint32_t off;$/;"	m	struct:fw_packet	typeref:typename:uint32_t
+old_kn	src/lib/protocols/l2/8021x.h	/^    uint32_t        old_kn;$/;"	m	struct:ieee8021x_eapol_mka_macsec_sak_paramset	typeref:typename:uint32_t
+old_lowest_pn	src/lib/protocols/l2/8021x.h	/^    uint32_t        old_lowest_pn;$/;"	m	struct:ieee8021x_eapol_mka_macsec_sak_paramset	typeref:typename:uint32_t
+old_mi	src/lib/protocols/l2/8021x.h	/^    uint8_t         old_mi[MKA_MI_LEN];$/;"	m	struct:ieee8021x_eapol_mka_macsec_sak_paramset	typeref:typename:uint8_t[]
+operation	src/lib/protocols/l2/arp.h	/^    uint16_t operation;$/;"	m	struct:arp_header	typeref:typename:uint16_t
+options	src/lib/protocols/app/dhcp.h	/^    struct dhcp_options options;$/;"	m	struct:dhcp_header	typeref:struct:dhcp_options
+orig_len	src/lib/pcap/pcap_ops.h	/^    uint32_t orig_len;       \/* actual length of packet *\/$/;"	m	struct:fw_pcaprec_hdr	typeref:typename:uint32_t
+origin_current_utc_offset	src/lib/protocols/l2/ptp.h	/^    uint16_t origin_current_utc_offset;$/;"	m	struct:ptp_announce_header	typeref:typename:uint16_t
+origin_timestamp_ns	src/lib/protocols/l2/ptp.h	/^    uint32_t origin_timestamp_ns;$/;"	m	struct:ptp_header	typeref:typename:uint32_t
+origin_timestamp_sec	src/lib/protocols/l2/ptp.h	/^    uint64_t origin_timestamp_sec;$/;"	m	struct:ptp_header	typeref:typename:uint64_t
+orx	src/lib/protocols/l2/8021x.h	/^    bool            orx;$/;"	m	struct:ieee8021x_eapol_mka_macsec_sak_paramset	typeref:typename:bool
+os_block_signals	src/lib/os/os_signal.c	/^int os_block_signals(const uint32_t *signals, uint32_t signals_size)$/;"	f	typeref:typename:int
+os_block_term_signals	src/lib/os/os_signal.c	/^int os_block_term_signals()$/;"	f	typeref:typename:int
+os_cond	src/lib/os/os_thread.h	/^struct os_cond {$/;"	s
+os_cond_create	src/lib/os/os_thread.c	/^void os_cond_create(struct os_cond *cond)$/;"	f	typeref:typename:void
+os_cond_signal	src/lib/os/os_thread.c	/^void os_cond_signal(struct os_cond *cond)$/;"	f	typeref:typename:void
+os_cond_t	src/lib/os/os_thread.h	/^typedef struct os_cond os_cond_t;$/;"	t	typeref:struct:os_cond
+os_cond_wait	src/lib/os/os_thread.c	/^void os_cond_wait(struct os_cond *cond, struct os_mutex *mutex)$/;"	f	typeref:typename:void
+os_mutex	src/lib/os/os_thread.h	/^struct os_mutex {$/;"	s
+os_mutex_create	src/lib/os/os_thread.c	/^void os_mutex_create(struct os_mutex *mutex)$/;"	f	typeref:typename:void
+os_mutex_lock	src/lib/os/os_thread.c	/^void os_mutex_lock(struct os_mutex *mutex)$/;"	f	typeref:typename:void
+os_mutex_t	src/lib/os/os_thread.h	/^typedef struct os_mutex os_mutex_t;$/;"	t	typeref:struct:os_mutex
+os_mutex_unlock	src/lib/os/os_thread.c	/^void os_mutex_unlock(struct os_mutex *mutex)$/;"	f	typeref:typename:void
+os_register_signal	src/lib/os/os_signal.c	/^void os_register_signal(CONST uint32_t signum, void (*callback)(int signum))$/;"	f	typeref:typename:void
+os_register_signals	src/lib/os/os_signal.c	/^void os_register_signals(const uint32_t *signals, uint32_t signals_size,$/;"	f	typeref:typename:void
+os_thread_attr_default_detached	src/lib/os/os_thread.c	/^STATIC void os_thread_attr_default_detached(pthread_attr_t *attr)$/;"	f	typeref:typename:STATIC void
+os_thread_context	src/lib/os/os_thread.c	/^struct os_thread_context {$/;"	s	file:
+os_thread_create	src/lib/os/os_thread.c	/^void *os_thread_create(int priority, int cpu_core, void *usrdata,$/;"	f	typeref:typename:void *
+os_thread_destroy	src/lib/os/os_thread.c	/^void os_thread_destroy(void *ptr)$/;"	f	typeref:typename:void
+os_thread_set_cpu	src/lib/os/os_thread.c	/^STATIC int os_thread_set_cpu(pthread_t *thr, int cpu_core)$/;"	f	typeref:typename:STATIC int
+os_wait_for_timeout	src/lib/os/os.c	/^int os_wait_for_timeout(uint32_t timeout_ms)$/;"	f	typeref:typename:int
+otx	src/lib/protocols/l2/8021x.h	/^    bool            otx;$/;"	m	struct:ieee8021x_eapol_mka_macsec_sak_paramset	typeref:typename:bool
+packet_gen	CMakeLists.txt	/^add_executable(packet_gen ${TOOL_SRC})$/;"	t
+packet_gen_config	tools/packet_gen/packet_gen.c	/^struct packet_gen_config {$/;"	s	file:
+packet_gen_config_t	tools/packet_gen/packet_gen.c	/^typedef struct packet_gen_config packet_gen_config_t;$/;"	t	typeref:struct:packet_gen_config	file:
+packet_gen_parse_cmd_args	tools/packet_gen/packet_gen.c	/^STATIC int packet_gen_parse_cmd_args(int argc, char **argv,$/;"	f	typeref:typename:STATIC int
+packet_gen_pcap_replay_run	tools/packet_gen/pcap_replay.c	/^int packet_gen_pcap_replay_run(const char *device, const char *filename,$/;"	f	typeref:typename:int
+packet_no	src/lib/protocols/l2/8021ae.h	/^    uint32_t packet_no;$/;"	m	struct:ieee8021ae_hdr	typeref:typename:uint32_t
+param_list	src/lib/protocols/app/dhcp.h	/^    struct dhcp_parameter_request_list param_list;$/;"	m	struct:dhcp_options	typeref:struct:dhcp_parameter_request_list
+parameter_list	src/lib/protocols/app/dhcp.h	/^    uint8_t *parameter_list;$/;"	m	struct:dhcp_parameter_request_list	typeref:typename:uint8_t *
+paramset_len	src/lib/protocols/l2/8021x.h	/^    uint16_t                            paramset_len;$/;"	m	struct:ieee8021x_eapol_mka_live_paramset	typeref:typename:uint16_t
+paramset_len	src/lib/protocols/l2/8021x.h	/^    uint16_t                            paramset_len;$/;"	m	struct:ieee8021x_eapol_mka_potential_paramset	typeref:typename:uint16_t
+paramset_len	src/lib/protocols/l2/8021x.h	/^    uint16_t        paramset_len;$/;"	m	struct:ieee8021x_eapol_mka_basic_paramset	typeref:typename:uint16_t
+paramset_len	src/lib/protocols/l2/8021x.h	/^    uint16_t        paramset_len;$/;"	m	struct:ieee8021x_eapol_mka_dist_sak_paramset	typeref:typename:uint16_t
+paramset_len	src/lib/protocols/l2/8021x.h	/^    uint16_t        paramset_len;$/;"	m	struct:ieee8021x_eapol_mka_icv_paramset	typeref:typename:uint16_t
+paramset_len	src/lib/protocols/l2/8021x.h	/^    uint16_t        paramset_len;$/;"	m	struct:ieee8021x_eapol_mka_macsec_sak_paramset	typeref:typename:uint16_t
+paramset_preset	src/lib/protocols/l2/8021x.h	/^    mka_paramset_type_t paramset_preset;$/;"	m	struct:ieee8021x_eapol_mka	typeref:typename:mka_paramset_type_t
+parse_app_protocol	src/lib/protocols/protocol_generic.c	/^STATIC fw_event_details_t parse_app_protocol(fw_packet_t *pkt)$/;"	f	typeref:typename:STATIC fw_event_details_t
+parse_l2_protocol	src/lib/protocols/protocol_generic.c	/^STATIC fw_event_details_t parse_l2_protocol(fw_packet_t *pkt,$/;"	f	typeref:typename:STATIC fw_event_details_t
+parse_l4_protocol	src/lib/protocols/protocol_generic.c	/^STATIC fw_event_details_t parse_l4_protocol(fw_packet_t *pkt)$/;"	f	typeref:typename:STATIC fw_event_details_t
+parse_protocol	src/lib/protocols/protocol_generic.c	/^fw_event_details_t parse_protocol(fw_packet_t *pkt)$/;"	f	typeref:typename:fw_event_details_t
+payload_len	src/lib/protocols/l3/ipv6.h	/^    uint16_t payload_len;$/;"	m	struct:ipv6_header	typeref:typename:uint16_t
+pcap_filename	tools/packet_gen/packet_gen.c	/^    char pcap_filename[128];$/;"	m	struct:packet_gen_config	typeref:typename:char[128]	file:
+pcap_hdr	src/lib/pcap/pcap_ops.c	/^struct pcap_hdr {$/;"	s	file:
+pcap_hdr_t	src/lib/pcap/pcap_ops.c	/^typedef struct pcap_hdr pcap_hdr_t;$/;"	t	typeref:struct:pcap_hdr	file:
+pcap_replay	tools/packet_gen/packet_gen.c	/^    bool pcap_replay;$/;"	m	struct:packet_gen_config	typeref:typename:bool	file:
+pcp	src/lib/protocols/l2/vlan.h	/^    uint8_t pcp; \/* 3 bits. Priority Code Point. *\/$/;"	m	struct:vlan_header	typeref:typename:uint8_t
+peer_list	src/lib/protocols/l2/8021x.h	/^    struct ieee8021x_eapol_mka_peer     peer_list[MKA_MAX_PEERS];$/;"	m	struct:ieee8021x_eapol_mka_live_paramset	typeref:struct:ieee8021x_eapol_mka_peer[]
+peer_list	src/lib/protocols/l2/8021x.h	/^    struct ieee8021x_eapol_mka_peer     peer_list[MKA_MAX_PEERS];$/;"	m	struct:ieee8021x_eapol_mka_potential_paramset	typeref:struct:ieee8021x_eapol_mka_peer[]
+ping_reply	src/lib/protocols/l4/icmp.h	/^    icmp_header_ping_t ping_reply;$/;"	m	struct:icmp_header	typeref:typename:icmp_header_ping_t
+ping_reply	src/lib/protocols/l4/icmp6.h	/^    icmp6_ping_req_hdr_t ping_reply;$/;"	m	struct:icmp6_header	typeref:typename:icmp6_ping_req_hdr_t
+ping_req	src/lib/protocols/l4/icmp.h	/^    icmp_header_ping_t ping_req;$/;"	m	struct:icmp_header	typeref:typename:icmp_header_ping_t
+ping_req	src/lib/protocols/l4/icmp6.h	/^    icmp6_ping_req_hdr_t ping_req;$/;"	m	struct:icmp6_header	typeref:typename:icmp6_ping_req_hdr_t
+pkt	src/events/event_def.h	/^    uint8_t                 *pkt;$/;"	m	struct:fw_event	typeref:typename:uint8_t *
+pkt_len	src/events/event_def.h	/^    uint16_t                pkt_len;$/;"	m	struct:fw_event	typeref:typename:uint16_t
+pkt_len	src/lib/protocols/l2/8021ae.h	/^    uint16_t pkt_len;$/;"	m	struct:ieee8021ae_hdr	typeref:typename:uint16_t
+pkt_len	src/lib/protocols/l4/icmp.h	/^    uint32_t pkt_len;$/;"	m	struct:icmp_header	typeref:typename:uint32_t
+pkt_q	src/main/firewall.h	/^    void *pkt_q;$/;"	m	struct:firewall_interface_context	typeref:typename:void *
+pkt_rx_evt_cond	src/main/firewall.h	/^    struct os_cond pkt_rx_evt_cond;$/;"	m	struct:firewall_interface_context	typeref:struct:os_cond
+pkt_rx_evt_lock	src/main/firewall.h	/^    struct os_mutex pkt_rx_evt_lock;$/;"	m	struct:firewall_interface_context	typeref:struct:os_mutex
+port	server/event_server/event_server.c	/^    int port;$/;"	m	struct:evt_server_command_line_args	typeref:typename:int	file:
+port	src/main/firewall_config.h	/^    int port;$/;"	m	struct:fw_event_config	typeref:typename:int
+port_id	src/lib/protocols/l2/8021ae.h	/^    uint16_t port_id;$/;"	m	struct:ieee8021ae_hdr	typeref:typename:uint16_t
+pp	src/lib/protocols/l2/8021x.h	/^    struct ieee8021x_eapol_mka_potential_paramset pp;$/;"	m	struct:ieee8021x_eapol_mka	typeref:struct:ieee8021x_eapol_mka_potential_paramset
+priority	src/lib/os/os_thread.c	/^    int priority;$/;"	m	struct:os_thread_context	typeref:typename:int	file:
+priority_1	src/lib/protocols/l2/ptp.h	/^    uint8_t priority_1;$/;"	m	struct:ptp_announce_header	typeref:typename:uint8_t
+priority_2	src/lib/protocols/l2/ptp.h	/^    uint8_t priority_2;$/;"	m	struct:ptp_announce_header	typeref:typename:uint8_t
+process_thr	src/main/firewall.h	/^    void *process_thr;$/;"	m	struct:firewall_interface_context	typeref:typename:void *
+proto_addr_len	src/lib/protocols/l2/arp.h	/^    uint8_t proto_addr_len;$/;"	m	struct:arp_header	typeref:typename:uint8_t
+proto_type	src/lib/protocols/l2/arp.h	/^    uint16_t proto_type;$/;"	m	struct:arp_header	typeref:typename:uint16_t
+proto_type	src/rules/fw_rules.h	/^    rule_protocol_type_t proto_type;$/;"	m	struct:fw_rule_config_item	typeref:typename:rule_protocol_type_t
+protocol	src/events/event_def.h	/^    fw_event_protocol_t     protocol;$/;"	m	struct:fw_protocol_event	typeref:typename:fw_event_protocol_t
+protocol	src/events/event_fmt_binary.h	/^    fw_event_fmt_binary_protocol_t protocol;$/;"	m	struct:fw_event_fmt_binary	typeref:typename:fw_event_fmt_binary_protocol_t
+protocol	src/lib/protocols/l3/ipv4.h	/^    uint8_t         protocol;$/;"	m	struct:ipv4_header	typeref:typename:uint8_t
+protocol_event	src/events/event_def.h	/^    fw_protocol_event_t     protocol_event;$/;"	m	struct:fw_event	typeref:typename:fw_protocol_event_t
+protocol_has_ethertype_ipv4	src/lib/protocols/protocol_generic.c	/^STATIC INLINE bool protocol_has_ethertype_ipv4(fw_packet_t *pkt)$/;"	f	typeref:typename:STATIC INLINE bool
+protocol_has_ethertype_ipv6	src/lib/protocols/protocol_generic.c	/^STATIC INLINE bool protocol_has_ethertype_ipv6(fw_packet_t *pkt)$/;"	f	typeref:typename:STATIC INLINE bool
+protocol_has_tcp	src/lib/protocols/protocol_generic.c	/^STATIC INLINE bool protocol_has_tcp(fw_packet_t *pkt)$/;"	f	typeref:typename:STATIC INLINE bool
+protocol_has_udp	src/lib/protocols/protocol_generic.c	/^STATIC INLINE bool protocol_has_udp(fw_packet_t *pkt)$/;"	f	typeref:typename:STATIC INLINE bool
+prx	src/lib/protocols/l2/8021x.h	/^    bool            prx;$/;"	m	struct:ieee8021x_eapol_mka_macsec_sak_paramset	typeref:typename:bool
+psh	src/lib/protocols/l4/tcp.h	/^    bool psh;$/;"	m	struct:tcp_header	typeref:typename:bool
+ptp_announce_header	src/lib/protocols/l2/ptp.h	/^struct ptp_announce_header {$/;"	s
+ptp_announce_header_t	src/lib/protocols/l2/ptp.h	/^typedef struct ptp_announce_header ptp_announce_header_t;$/;"	t	typeref:struct:ptp_announce_header
+ptp_deserialize	src/lib/protocols/l2/ptp.c	/^fw_event_details_t ptp_deserialize(fw_packet_t *pkt)$/;"	f	typeref:typename:fw_event_details_t
+ptp_h	src/lib/fw_pkt.h	/^    struct ptp_header ptp_h;$/;"	m	struct:fw_packet	typeref:struct:ptp_header
+ptp_header	src/lib/protocols/l2/ptp.h	/^struct ptp_header {$/;"	s
+ptp_header_t	src/lib/protocols/l2/ptp.h	/^typedef struct ptp_header ptp_header_t;$/;"	t	typeref:struct:ptp_header
+ptp_msg_type_is_announce	src/lib/protocols/l2/ptp.c	/^bool ptp_msg_type_is_announce(ptp_header_t *ptp_hdr)$/;"	f	typeref:typename:bool
+ptp_msg_type_is_peer_delay_req	src/lib/protocols/l2/ptp.c	/^bool ptp_msg_type_is_peer_delay_req(ptp_header_t *ptp_hdr)$/;"	f	typeref:typename:bool
+ptp_msg_type_is_sync	src/lib/protocols/l2/ptp.c	/^bool ptp_msg_type_is_sync(ptp_header_t *ptp_hdr)$/;"	f	typeref:typename:bool
+ptx	src/lib/protocols/l2/8021x.h	/^    bool            ptx;$/;"	m	struct:ieee8021x_eapol_mka_macsec_sak_paramset	typeref:typename:bool
+raw_ctx	src/main/firewall.h	/^    void *raw_ctx;$/;"	m	struct:firewall_interface_context	typeref:typename:void *
+read	src/drivers/driver_generic.h	/^    int (*read)(void *, uint8_t *msg, uint32_t len);$/;"	m	struct:nw_driver_callbacks	typeref:typename:int (*)(void *,uint8_t * msg,uint32_t len)
+relay_agent_ipaddr	src/lib/protocols/app/dhcp.h	/^    uint32_t relay_agent_ipaddr;$/;"	m	struct:dhcp_header	typeref:typename:uint32_t
+reserved	src/lib/protocols/app/dhcp.h	/^    uint16_t reserved;$/;"	m	struct:dhcp_header	typeref:typename:uint16_t
+reserved	src/lib/protocols/l3/ipv4.h	/^    bool            reserved;$/;"	m	struct:ipv4_header	typeref:typename:bool
+reserved	src/lib/protocols/l4/tcp.h	/^    uint8_t reserved;$/;"	m	struct:tcp_header	typeref:typename:uint8_t
+return_code	src/lib/protocols/app/someip.h	/^    uint8_t return_code;$/;"	m	struct:someip_header	typeref:typename:uint8_t
+router	src/lib/protocols/app/dhcp.h	/^    struct dhcp_opt_router router;$/;"	m	struct:dhcp_options	typeref:struct:dhcp_opt_router
+router_ipaddr	src/lib/protocols/app/dhcp.h	/^    uint32_t router_ipaddr;$/;"	m	struct:dhcp_opt_router	typeref:typename:uint32_t
+rst	src/lib/protocols/l4/tcp.h	/^    bool rst;$/;"	m	struct:tcp_header	typeref:typename:bool
+rule_action	src/rules/fw_rules.h	/^    rule_action_t rule_action;$/;"	m	struct:fw_rule_config_item	typeref:typename:rule_action_t
+rule_action	src/rules/fw_rules.h	/^enum rule_action {$/;"	g
+rule_action_t	src/rules/fw_rules.h	/^typedef enum rule_action rule_action_t;$/;"	t	typeref:enum:rule_action
+rule_config_data	src/rules/fw_rules.h	/^struct rule_config_data {$/;"	s
+rule_file	configs/fw_base.conf	/^rule_file=".\/fw_rules.rules"$/;"	k
+rule_file	src/config/fw_config.h	/^    char *rule_file;$/;"	m	struct:fw_base_conf	typeref:typename:char *
+rule_id	src/events/event_def.h	/^    uint32_t                rule_id;$/;"	m	struct:fw_event	typeref:typename:uint32_t
+rule_id	src/events/event_fmt_binary.h	/^    uint32_t rule_id;$/;"	m	struct:fw_event_fmt_binary	typeref:typename:uint32_t
+rule_id	src/events/events.c	/^    uint32_t rule_id;$/;"	m	struct:fw_event_rule_id_base	typeref:typename:uint32_t	file:
+rule_id	src/rules/fw_rules.h	/^    uint32_t rule_id;$/;"	m	struct:fw_rule_config_item	typeref:typename:uint32_t
+rule_protocol_type	src/rules/fw_rules.h	/^enum rule_protocol_type {$/;"	g
+rule_protocol_type_t	src/rules/fw_rules.h	/^typedef enum rule_protocol_type rule_protocol_type_t;$/;"	t	typeref:enum:rule_protocol_type
+rx_thr	src/main/firewall.h	/^    void *rx_thr;$/;"	m	struct:firewall_interface_context	typeref:typename:void *
+sc	src/lib/protocols/l2/8021ae.h	/^    bool sc;$/;"	m	struct:ieee8021ae_hdr	typeref:typename:bool
+scb	src/lib/protocols/l2/8021ae.h	/^    bool scb;$/;"	m	struct:ieee8021ae_hdr	typeref:typename:bool
+sci	src/lib/protocols/l2/8021ae.h	/^    uint8_t sci[IEEE8021AE_SCI_LEN];$/;"	m	struct:ieee8021ae_hdr	typeref:typename:uint8_t[]
+sci	src/lib/protocols/l2/8021x.h	/^    uint8_t         sci[MKA_SCI_LEN];$/;"	m	struct:ieee8021x_eapol_mka_basic_paramset	typeref:typename:uint8_t[]
+seconds_elapsed	src/lib/protocols/app/dhcp.h	/^    uint16_t seconds_elapsed;$/;"	m	struct:dhcp_header	typeref:typename:uint16_t
+sectag	src/lib/protocols/l2/8021ae.h	/^    uint8_t sectag;$/;"	m	struct:ieee8021ae_hdr	typeref:typename:uint8_t
+send	src/events/events.c	/^    int (*send)(fw_event_context_t *evt_ctx,$/;"	m	struct:fw_event_sender	typeref:typename:int (*)(fw_event_context_t * evt_ctx,CONST uint8_t * pkt,uint32_t pkt_len)	file:
+sender_hw_addr	src/lib/protocols/l2/arp.h	/^    uint8_t sender_hw_addr[6];$/;"	m	struct:arp_header	typeref:typename:uint8_t[6]
+sender_proto_addr	src/lib/protocols/l2/arp.h	/^    uint32_t sender_proto_addr;$/;"	m	struct:arp_header	typeref:typename:uint32_t
+seq	src/lib/protocols/l4/icmp6.h	/^    uint16_t seq;$/;"	m	struct:icmp6_ping_req_hdr	typeref:typename:uint16_t
+seq_id	src/lib/protocols/l2/ptp.h	/^    uint16_t seq_id;$/;"	m	struct:ptp_header	typeref:typename:uint16_t
+seq_no	src/lib/protocols/l4/icmp.h	/^    uint16_t seq_no;$/;"	m	struct:icmp_header_ping	typeref:typename:uint16_t
+seq_no	src/lib/protocols/l4/tcp.h	/^    uint32_t seq_no;$/;"	m	struct:tcp_header	typeref:typename:uint32_t
+serializer	src/events/events.c	/^    int (*serializer)(fw_event_context_t *evt_ctx,$/;"	m	struct:fw_event_serializer	typeref:typename:int (*)(fw_event_context_t * evt_ctx,fw_event_t * evt)	file:
+server_hostname	src/lib/protocols/app/dhcp.h	/^    uint8_t server_hostname[64];$/;"	m	struct:dhcp_header	typeref:typename:uint8_t[64]
+server_id	src/lib/protocols/app/dhcp.h	/^    struct dhcp_opt_server_identifier server_id;$/;"	m	struct:dhcp_options	typeref:struct:dhcp_opt_server_identifier
+service_id	src/lib/protocols/app/someip.h	/^    uint16_t service_id;$/;"	m	struct:someip_header	typeref:typename:uint16_t
+session_id	src/lib/protocols/app/someip.h	/^    uint16_t session_id;$/;"	m	struct:someip_header	typeref:typename:uint16_t
+short_len	src/lib/protocols/l2/8021ae.h	/^    uint8_t short_len;$/;"	m	struct:ieee8021ae_hdr	typeref:typename:uint8_t
+sigfigs	src/lib/pcap/pcap_ops.c	/^    uint32_t sigfigs;        \/* accuracy of timestamps *\/$/;"	m	struct:pcap_hdr	typeref:typename:uint32_t	file:
+snaplen	src/lib/pcap/pcap_ops.c	/^    uint32_t snaplen;        \/* max length of captured packets, in octets *\/$/;"	m	struct:pcap_hdr	typeref:typename:uint32_t	file:
+someip_deserialize	src/lib/protocols/app/someip.c	/^fw_event_details_t someip_deserialize(fw_packet_t *hdr)$/;"	f	typeref:typename:fw_event_details_t
+someip_h	src/lib/fw_pkt.h	/^    struct someip_header someip_h;$/;"	m	struct:fw_packet	typeref:struct:someip_header
+someip_header	src/lib/protocols/app/someip.h	/^struct someip_header {$/;"	s
+someip_header_t	src/lib/protocols/app/someip.h	/^typedef struct someip_header someip_header_t;$/;"	t	typeref:struct:someip_header
+source_port_id	src/lib/protocols/l2/ptp.h	/^    uint16_t source_port_id;$/;"	m	struct:ptp_header	typeref:typename:uint16_t
+src	src/lib/protocols/l2/ethernet.h	/^    uint8_t src[FW_MACADDR_LEN];$/;"	m	struct:ethernet_header	typeref:typename:uint8_t[]
+src_ip6addr	src/lib/protocols/l3/ipv6.h	/^    uint8_t src_ip6addr[IPV6_ADDR_LEN];$/;"	m	struct:ipv6_header	typeref:typename:uint8_t[]
+src_ipaddr	src/lib/protocols/l3/ipv4.h	/^    uint32_t        src_ipaddr;$/;"	m	struct:ipv4_header	typeref:typename:uint32_t
+src_ipv4	src/events/event_def.h	/^    uint32_t                src_ipv4;$/;"	m	struct:fw_protocol_event	typeref:typename:uint32_t
+src_ipv6	src/events/event_def.h	/^    uint8_t                 src_ipv6[FW_EVENT_IPV6_ADDR_LEN];$/;"	m	struct:fw_protocol_event	typeref:typename:uint8_t[]
+src_port	src/events/event_def.h	/^    uint16_t                src_port;$/;"	m	struct:fw_protocol_event	typeref:typename:uint16_t
+src_port	src/lib/protocols/l4/tcp.h	/^    uint16_t src_port;$/;"	m	struct:tcp_header	typeref:typename:uint16_t
+src_port	src/lib/protocols/l4/udp.h	/^    uint16_t src_port;$/;"	m	struct:udp_header	typeref:typename:uint16_t
+srcmac	src/drivers/linux_raw/linux_raw.c	/^    uint8_t srcmac[LINUX_RAW_MAC_ADDR];$/;"	m	struct:linux_raw_driver_context	typeref:typename:uint8_t[]	file:
+start_off	src/lib/protocols/l3/ipv4.h	/^    uint32_t        start_off;$/;"	m	struct:ipv4_header	typeref:typename:uint32_t
+stop_off	src/lib/protocols/l3/ipv4.h	/^    uint32_t        stop_off;$/;"	m	struct:ipv4_header	typeref:typename:uint32_t
+str	src/events/events.c	/^    const char *str;$/;"	m	struct:fw_evt_context_str	typeref:typename:const char *	file:
+subnet_mask	src/lib/protocols/app/dhcp.h	/^    struct dhcp_opt_subnet_mask subnet_mask;$/;"	m	struct:dhcp_options	typeref:struct:dhcp_opt_subnet_mask
+subnet_mask	src/lib/protocols/app/dhcp.h	/^    uint32_t subnet_mask;$/;"	m	struct:dhcp_opt_subnet_mask	typeref:typename:uint32_t
+syn	src/lib/protocols/l4/tcp.h	/^    bool syn;$/;"	m	struct:tcp_header	typeref:typename:bool
+tail	src/lib/fw_pkt.c	/^    struct fw_packet *tail;$/;"	m	struct:fw_packet_queue_context	typeref:struct:fw_packet *	file:
+tail	src/rules/fw_rules.h	/^    fw_rule_config_item_t *tail;$/;"	m	struct:rule_config_data	typeref:typename:fw_rule_config_item_t *
+target_hw_addr	src/lib/protocols/l2/arp.h	/^    uint8_t target_hw_addr[6];$/;"	m	struct:arp_header	typeref:typename:uint8_t[6]
+target_proto_addr	src/lib/protocols/l2/arp.h	/^    uint32_t target_proto_addr;$/;"	m	struct:arp_header	typeref:typename:uint32_t
+tc	src/lib/protocols/l3/ipv6.h	/^    uint8_t tc;$/;"	m	struct:ipv6_header	typeref:typename:uint8_t
+tcp_deserialize	src/lib/protocols/l4/tcp.c	/^fw_event_details_t tcp_deserialize(fw_packet_t *pkt)$/;"	f	typeref:typename:fw_event_details_t
+tcp_h	src/lib/fw_pkt.h	/^    struct tcp_header tcp_h;$/;"	m	struct:fw_packet	typeref:struct:tcp_header
+tcp_header	src/lib/protocols/l4/tcp.h	/^struct tcp_header {$/;"	s
+tcp_header_t	src/lib/protocols/l4/tcp.h	/^typedef struct tcp_header tcp_header_t;$/;"	t	typeref:struct:tcp_header
+tcp_print	src/lib/protocols/l4/tcp.c	/^void tcp_print(tcp_header_t *tcp_h)$/;"	f	typeref:typename:void
+term_signal	src/main/firewall.c	/^STATIC bool term_signal = false;$/;"	v	typeref:typename:STATIC bool
+term_signals	src/main/firewall.c	/^CONST uint32_t term_signals[] = {SIGINT, SIGTERM};$/;"	v	typeref:typename:CONST uint32_t[]
+thiszone	src/lib/pcap/pcap_ops.c	/^    int32_t  thiszone;       \/* GMT to local correction *\/$/;"	m	struct:pcap_hdr	typeref:typename:int32_t	file:
+tid	src/lib/os/os_thread.c	/^    pthread_t tid;$/;"	m	struct:os_thread_context	typeref:typename:pthread_t	file:
+timesource	src/lib/protocols/l2/ptp.h	/^    uint8_t timesource;$/;"	m	struct:ptp_announce_header	typeref:typename:uint8_t
+to_ipv4	src/rules/fw_rules.h	/^    uint32_t to_ipv4;$/;"	m	struct:fw_rule_config_item	typeref:typename:uint32_t
+to_port	src/rules/fw_rules.h	/^    uint32_t to_port;$/;"	m	struct:fw_rule_config_item	typeref:typename:uint32_t
+total_len	src/lib/fw_pkt.h	/^    uint32_t total_len;$/;"	m	struct:fw_packet	typeref:typename:uint32_t
+total_len	src/lib/protocols/l3/ipv4.h	/^    uint16_t        total_len;$/;"	m	struct:ipv4_header	typeref:typename:uint16_t
+transaction_id	src/lib/protocols/app/dhcp.h	/^    uint8_t transaction_id[4];$/;"	m	struct:dhcp_header	typeref:typename:uint8_t[4]
+transmit_thread	src/events/events.c	/^    void *transmit_thread;$/;"	m	struct:fw_event_context	typeref:typename:void *	file:
+ts_sec	src/lib/pcap/pcap_ops.h	/^    uint32_t ts_sec;         \/* timestamp seconds *\/$/;"	m	struct:fw_pcaprec_hdr	typeref:typename:uint32_t
+ts_usec	src/lib/pcap/pcap_ops.h	/^    uint32_t ts_usec;        \/* timestamp microseconds *\/$/;"	m	struct:fw_pcaprec_hdr	typeref:typename:uint32_t
+ttl	src/lib/protocols/l3/ipv4.h	/^    uint8_t         ttl;$/;"	m	struct:ipv4_header	typeref:typename:uint8_t
+type	src/events/events.c	/^    fw_event_type_t type;$/;"	m	struct:fw_evt_context_str	typeref:typename:fw_event_type_t	file:
+type	src/lib/protocols/l2/8021x.h	/^    uint8_t type;$/;"	m	struct:ieee8021x_eap_packet	typeref:typename:uint8_t
+type	src/lib/protocols/l2/8021x.h	/^    uint8_t type;$/;"	m	struct:ieee8021x_eapol	typeref:typename:uint8_t
+type	src/lib/protocols/l4/icmp.h	/^    uint8_t type;$/;"	m	struct:icmp_header	typeref:typename:uint8_t
+type	src/lib/protocols/l4/icmp6.h	/^    uint8_t type;$/;"	m	struct:icmp6_header	typeref:typename:uint8_t
+udp_deserialize	src/lib/protocols/l4/udp.c	/^fw_event_details_t udp_deserialize(fw_packet_t *pkt)$/;"	f	typeref:typename:fw_event_details_t
+udp_h	src/lib/fw_pkt.h	/^    struct udp_header udp_h;$/;"	m	struct:fw_packet	typeref:struct:udp_header
+udp_header	src/lib/protocols/l4/udp.h	/^struct udp_header {$/;"	s
+udp_header_t	src/lib/protocols/l4/udp.h	/^typedef struct udp_header udp_header_t;$/;"	t	typeref:struct:udp_header
+udp_server_addr	src/events/events.c	/^    struct sockaddr_in udp_server_addr;$/;"	m	struct:fw_event_context	typeref:struct:sockaddr_in	file:
+urg	src/lib/protocols/l4/tcp.h	/^    bool urg;$/;"	m	struct:tcp_header	typeref:typename:bool
+urg_pointer	src/lib/protocols/l4/tcp.h	/^    uint16_t urg_pointer;$/;"	m	struct:tcp_header	typeref:typename:uint16_t
+usage	server/event_server/event_server.c	/^STATIC void usage(const char *progname)$/;"	f	typeref:typename:STATIC void
+usage	src/main/firewall_config.c	/^STATIC void usage(const char *progname)$/;"	f	typeref:typename:STATIC void
+usage	tools/packet_gen/packet_gen.c	/^STATIC void usage(const char *progname)$/;"	f	typeref:typename:STATIC void
+var	src/config/fw_config.c	/^    const char *var;$/;"	m	struct:fw_config_params	typeref:typename:const char *	file:
+vendor	src/lib/protocols/app/dhcp.h	/^    struct dhcp_vendor_class_id vendor;$/;"	m	struct:dhcp_options	typeref:struct:dhcp_vendor_class_id
+ver	src/lib/protocols/l2/8021ae.h	/^    bool ver;$/;"	m	struct:ieee8021ae_hdr	typeref:typename:bool
+version	src/lib/protocols/app/someip.h	/^    uint8_t version;$/;"	m	struct:someip_header	typeref:typename:uint8_t
+version	src/lib/protocols/l2/8021x.h	/^    uint8_t         version;$/;"	m	struct:ieee8021x_eapol_mka_basic_paramset	typeref:typename:uint8_t
+version	src/lib/protocols/l2/8021x.h	/^    uint8_t version;$/;"	m	struct:ieee8021x_eapol	typeref:typename:uint8_t
+version	src/lib/protocols/l3/ipv4.h	/^    uint8_t         version;$/;"	m	struct:ipv4_header	typeref:typename:uint8_t
+version	src/lib/protocols/l3/ipv6.h	/^    uint8_t version;$/;"	m	struct:ipv6_header	typeref:typename:uint8_t
+version_major	src/lib/pcap/pcap_ops.c	/^    uint16_t version_major;  \/* major version number *\/$/;"	m	struct:pcap_hdr	typeref:typename:uint16_t	file:
+version_minor	src/lib/pcap/pcap_ops.c	/^    uint16_t version_minor;  \/* minor version number *\/$/;"	m	struct:pcap_hdr	typeref:typename:uint16_t	file:
+version_ptp	src/lib/protocols/l2/ptp.h	/^    uint8_t version_ptp;$/;"	m	struct:ptp_header	typeref:typename:uint8_t
+vid	src/events/event_def.h	/^    uint16_t                vid;$/;"	m	struct:fw_protocol_event	typeref:typename:uint16_t
+vid	src/events/event_fmt_binary.h	/^    uint16_t vid;$/;"	m	struct:fw_event_fmt_binary_protocol	typeref:typename:uint16_t
+vid	src/lib/protocols/l2/vlan.h	/^    uint16_t vid; \/* 12 bits. *\/$/;"	m	struct:vlan_header	typeref:typename:uint16_t
+vlan_deserialize	src/lib/protocols/l2/vlan.c	/^fw_event_details_t vlan_deserialize(fw_packet_t *pkt)$/;"	f	typeref:typename:fw_event_details_t
+vlan_h	src/lib/fw_pkt.h	/^    struct vlan_header vlan_h;$/;"	m	struct:fw_packet	typeref:struct:vlan_header
+vlan_header	src/lib/protocols/l2/vlan.h	/^struct vlan_header {$/;"	s
+vlan_header_t	src/lib/protocols/l2/vlan.h	/^typedef struct vlan_header vlan_header_t;$/;"	t	typeref:struct:vlan_header
+vlan_print	src/lib/protocols/l2/vlan.c	/^STATIC void vlan_print(vlan_header_t *vlan_hdr)$/;"	f	typeref:typename:STATIC void
+win_size	src/lib/protocols/l4/tcp.h	/^    uint16_t win_size;$/;"	m	struct:tcp_header	typeref:typename:uint16_t
+write	src/drivers/driver_generic.h	/^    int (*write)(void *, uint8_t *msg, uint32_t len);$/;"	m	struct:nw_driver_callbacks	typeref:typename:int (*)(void *,uint8_t * msg,uint32_t len)
+your_ipaddr	src/lib/protocols/app/dhcp.h	/^    uint32_t your_ipaddr;$/;"	m	struct:dhcp_header	typeref:typename:uint32_t
+zero	src/lib/protocols/l2/ethernet.c	/^STATIC CONST uint8_t zero[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};$/;"	v	typeref:typename:STATIC CONST uint8_t[]

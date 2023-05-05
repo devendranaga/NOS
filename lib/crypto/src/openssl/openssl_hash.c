@@ -1,8 +1,15 @@
+/**
+ * @brief - Implements the OpenSSL crypto hash function.
+ * 
+ * @author - Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright - 2023-present All rights reserved.
+*/
 #include <stdint.h>
 #include <openssl/evp.h>
 #include <openssl/err.h>
 #include <aos_core.h>
 #include <crypto_intf.h>
+#include <openssl_crypto_common.h>
 
 static const EVP_MD *get_hash_fn(crypto_hash_type_t hash_type)
 {
@@ -13,17 +20,23 @@ static const EVP_MD *get_hash_fn(crypto_hash_type_t hash_type)
             return EVP_sha384();
         case CRYPTO_HASH_SHA2_512:
             return EVP_sha512();
+        case CRYPTO_HASH_SHA3_256:
+            return EVP_sha3_256();
+        case CRYPTO_HASH_SHA3_384:
+            return EVP_sha3_384();
+        case CRYPTO_HASH_SHA3_512:
+            return EVP_sha3_512();
+        case CRYPTO_HASH_RIPEMD160:
+            return EVP_ripemd160();
+        case CRYPTO_HASH_SHAKE128:
+            return EVP_shake128();
+        case CRYPTO_HASH_SHAKE256:
+            return EVP_shake256();
         default:
             return NULL;
     }
 
     return NULL;
-}
-
-#define LIBACORE_OPENSSL_RET_CHECK(__res) { \
-    if (__res != 1) { \
-        return -1; \
-    } \
 }
 
 static int openssl_hash_file(EVP_MD_CTX *md_ctx,

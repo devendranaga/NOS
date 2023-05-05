@@ -3,42 +3,45 @@
 #include <aos_core.h>
 
 struct crypto_hash_test_vectors {
-    crypto_lib_type_t type;
-    const char *hash_name;
-    uint8_t msg[1024];
-    uint32_t msg_len;
-    uint8_t hash[64];
-    uint32_t hash_len;
+    crypto_lib_type_t       type;
+    crypto_hash_type_t      hash_type;
+    const char              *hash_name;
+    uint8_t                 msg[1024];
+    uint32_t                msg_len;
+    uint8_t                 hash[64];
+    uint32_t                hash_len;
 } hash_test_vectors[] = {
     {
-        .type = CRYPTO_LIB_OPENSSL,
-        .hash_name = "SHA256",
-        .msg = {
+        .type       = CRYPTO_LIB_OPENSSL,
+        .hash_type  = CRYPTO_HASH_SHA2_256,
+        .hash_name  = "SHA256",
+        .msg        = {
             0x00,
         },
-        .msg_len = 1,
-        .hash = {
+        .msg_len    = 1,
+        .hash       = {
             0x6e, 0x34, 0x0b, 0x9c, 0xff, 0xb3, 0x7a, 0x98,
             0x9c, 0xa5, 0x44, 0xe6, 0xbb, 0x78, 0x0a, 0x2c,
             0x78, 0x90, 0x1d, 0x3f, 0xb3, 0x37, 0x38, 0x76,
             0x85, 0x11, 0xa3, 0x06, 0x17, 0xaf, 0xa0, 0x1d,
         },
-        .hash_len = 32,
+        .hash_len   = 32,
     },
     {
-        .type = CRYPTO_LIB_MBEDTLS,
-        .hash_name = "SHA256",
-        .msg = {
+        .type       = CRYPTO_LIB_MBEDTLS,
+        .hash_type  = CRYPTO_HASH_SHA2_256,
+        .hash_name  = "SHA256",
+        .msg        = {
             0x00,
         },
-        .msg_len = 1,
-        .hash = {
+        .msg_len    = 1,
+        .hash       = {
             0x6e, 0x34, 0x0b, 0x9c, 0xff, 0xb3, 0x7a, 0x98,
             0x9c, 0xa5, 0x44, 0xe6, 0xbb, 0x78, 0x0a, 0x2c,
             0x78, 0x90, 0x1d, 0x3f, 0xb3, 0x37, 0x38, 0x76,
             0x85, 0x11, 0xa3, 0x06, 0x17, 0xaf, 0xa0, 0x1d,
         },
-        .hash_len = 32,
+        .hash_len   = 32,
     }
 };
 
@@ -53,7 +56,7 @@ static int crypto_hash_tests()
 
     for (i = 0; i < sizeof(hash_test_vectors) / sizeof(hash_test_vectors[0]); i ++) {
         CRYPTO_HASH_BUF_PREPARE(&hash_in, hash_test_vectors[i].type,
-                                CRYPTO_HASH_SHA2_256,
+                                hash_test_vectors[i].hash_type,
                                 hash_test_vectors[i].msg,
                                 hash_test_vectors[i].msg_len);
         CRYPTO_HASH_OUT_PREPARE(&hash_out);
@@ -71,9 +74,10 @@ static int crypto_hash_tests()
                 result = false;
             }
 
-            printf("Type [%s] [%s] test %s \n",
+            printf("Type [%s] [%s:%s] Test %s \n",
                             crypto_get_lib_type_str(hash_test_vectors[i].type),
                             hash_test_vectors[i].hash_name,
+                            crypto_hash_string(CRYPTO_HASH_SHA2_256),
                             result ? "Pass" : "Fail");
         }
     }
