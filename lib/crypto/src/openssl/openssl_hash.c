@@ -7,7 +7,7 @@
 #include <stdint.h>
 #include <openssl/evp.h>
 #include <openssl/err.h>
-#include <aos_core.h>
+#include <nos_core.h>
 #include <crypto_intf.h>
 #include <openssl_crypto_common.h>
 
@@ -46,7 +46,7 @@ static int openssl_hash_file(EVP_MD_CTX *md_ctx,
     int fd;
     int ret;
 
-    fd = aos_fileio_open(hash_in->filename, "rb");
+    fd = nos_fileio_open(hash_in->filename, "rb");
     if (fd < 0) {
         return -1;
     }
@@ -54,7 +54,7 @@ static int openssl_hash_file(EVP_MD_CTX *md_ctx,
     while (1) {
         uint8_t msg[1024];
 
-        ret = aos_fileio_read(fd, msg, sizeof(msg));
+        ret = nos_fileio_read(fd, msg, sizeof(msg));
         if (ret <= 0) {
             break;
         }
@@ -66,7 +66,7 @@ static int openssl_hash_file(EVP_MD_CTX *md_ctx,
     ret = EVP_DigestFinal_ex(md_ctx, hash_out->hash, &hash_out->hash_len);
     LIBACORE_OPENSSL_RET_CHECK(ret);
 
-    aos_fileio_close(fd);
+    nos_fileio_close(fd);
 
     return 0;
 }

@@ -1,9 +1,8 @@
 #include <stdint.h>
 #include <stdbool.h>
-#include <aos_core.h>
 #include <mbedtls/sha256.h>
 #include <crypto_intf.h>
-#include <aos_core.h>
+#include <nos_core.h>
 
 #define LIBACORE_MBEDTSL_RET_CHECK(__res) { \
     if (__res != 0) { \
@@ -33,7 +32,7 @@ static int mbedtls_hash_sha2_256_file(crypto_hash_in_t *hash_in,
     int fd;
     int ret;
 
-    fd = aos_fileio_open(hash_in->filename, "rb");
+    fd = nos_fileio_open(hash_in->filename, "rb");
     if (fd < 0) {
         return -1;
     }
@@ -43,7 +42,7 @@ static int mbedtls_hash_sha2_256_file(crypto_hash_in_t *hash_in,
     while (1) {
         uint8_t buf[1024];
 
-        ret = aos_fileio_read(fd, buf, sizeof(buf));
+        ret = nos_fileio_read(fd, buf, sizeof(buf));
         if (ret <= 0) {
             break;
         }

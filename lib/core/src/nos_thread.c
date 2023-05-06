@@ -12,7 +12,7 @@
 #include <signal.h>
 #include <pthread.h>
 #include <sched.h>
-#include <os_thread.h>
+#include <nos_thread.h>
 
 /* Thread context structure. */
 struct aos_thread_context {

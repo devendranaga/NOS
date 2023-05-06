@@ -1,4 +1,4 @@
-#include <os_mutex.h>
+#include <nos_mutex.h>
 
 void os_mutex_create(struct os_mutex *mutex)
 {
