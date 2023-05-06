@@ -1,5 +1,5 @@
-#include "os_mutex.h"
-#include "os_cond.h"
+#include "nos_mutex.h"
+#include "nos_cond.h"
 
 void os_cond_create(struct os_cond *cond)
 {

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <crypto_intf.h>
-#include <aos_core.h>
+#include <nos_core.h>
 
 struct crypto_hash_test_vectors {
     crypto_lib_type_t       type;
@@ -65,7 +65,7 @@ static int crypto_hash_tests()
         if (ret < 0) {
             return -1;
         } else {
-            aos_hexdump_crypto(hash_test_vectors[i].hash_name,
+            nos_hexdump_crypto(hash_test_vectors[i].hash_name,
                                hash_out.hash, hash_out.hash_len);
             if (crypto_safe_memcmp(hash_test_vectors[i].hash,
                                    hash_out.hash, hash_out.hash_len) == 0) {

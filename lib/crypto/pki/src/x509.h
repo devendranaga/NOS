@@ -1,7 +1,10 @@
 #ifndef __NOS_X509_H__
 #define __NOS_X509_H__
 
+#include <stdint.h>
+
 typedef enum nos_x509_algorithm_type {
+    SHA256_WITH_RSA_2048,
 } nos_x509_algorithm_type_t;
 
 typedef struct nos_x509_tbs_sig_alg_id {
@@ -49,7 +52,7 @@ typedef struct nos_x509_subject_pubkey_info {
 } nos_x509_subject_pubkey_info_t;
 
 typedef struct nos_x509_tbs_certificate {
-    uint8_t                             version;
+    uint32_t                            version;
     uint8_t                             serial_no[32];
     uint8_t                             serial_no_len;
     nos_x509_tbs_sig_alg_id_t           signature_algid;
