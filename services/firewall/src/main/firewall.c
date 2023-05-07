@@ -110,6 +110,8 @@ STATIC void * fw_recv_packet(void *usr_ptr)
         pkt->off = 0;
         pkt->total_len = ret;
 
+        fw_if_ptr->stats.n_rx ++;
+
         /* Queue the packet to the processing engine. */
         os_mutex_lock(&fw_if_ptr->pkt_rx_evt_lock);
         fw_packet_queue_entry_add(fw_if_ptr->pkt_q, pkt);

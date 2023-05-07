@@ -66,6 +66,8 @@ enum fw_event_details {
 
     FW_EVENT_DESCR_DHCP_PARAMSET_UNKNOWN, /* DHCP Parameter set unknown. */
     FW_EVENT_DESCR_DHCP_MAGIC_COOKIE_INVALID, /* DHCP Magic cookie is invalid. */
+
+    FW_EVENT_DESCR_DOIP_VERSION_MISMATCH, /* DoIP Invalid version. */
 };
 
 typedef enum fw_event_details fw_event_details_t;
