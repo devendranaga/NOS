@@ -112,12 +112,12 @@ include_directories(./src/
                     ./tools/packet_gen/
                     ./server/event_server/)
 
-add_executable(fwd ${SRC})
-target_link_libraries(fwd pthread rt)
+add_executable(nos_fwd ${SRC})
+target_link_libraries(nos_fwd pthread rt)
 
-add_executable(packet_gen ${TOOL_SRC})
-target_link_libraries(packet_gen pthread rt)
+add_executable(nos_packet_gen ${TOOL_SRC})
+target_link_libraries(nos_packet_gen pthread rt)
 
-add_executable(event_serverd ${EVENT_SERVER_SRC})
-target_link_libraries(event_serverd pthread rt)
+add_executable(nos_event_serverd ${EVENT_SERVER_SRC})
+target_link_libraries(nos_event_serverd pthread rt)
 

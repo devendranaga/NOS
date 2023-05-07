@@ -25,6 +25,7 @@
 #include <os_signal.h>
 #include <events.h>
 #include <fw_config.h>
+#include <nos_fw_stats.h>
 
 /* Firewall interface context. */
 struct firewall_interface_context {
@@ -51,6 +52,9 @@ struct firewall_interface_context {
 
     struct os_mutex pkt_rx_evt_lock;
     struct os_cond pkt_rx_evt_cond;
+
+    /* Firewall stats. */
+    nos_fw_stats_intf_t stats;
 };
 
 typedef struct firewall_interface_context firewall_interface_context_t;
