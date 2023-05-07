@@ -37,7 +37,8 @@ set(PROTOCOL_SRC
     ./src/lib/protocols/l4/tcp.c
     ./src/lib/protocols/app/someip.c
     ./src/lib/protocols/app/dhcp.c
-    ./src/lib/protocols/app/ntp_v4.c)
+    ./src/lib/protocols/app/ntp_v4.c
+    ./src/lib/protocols/app/doip.c)
 
 set(LIB_SRC
     ./src/lib/fw_pkt.c
