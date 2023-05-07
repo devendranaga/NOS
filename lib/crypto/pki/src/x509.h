@@ -8,6 +8,8 @@ typedef enum nos_x509_algorithm_type {
 } nos_x509_algorithm_type_t;
 
 typedef struct nos_x509_tbs_sig_alg_id {
+    uint8_t                             obj_id[16];
+    uint8_t                             obj_id_len;
     nos_x509_algorithm_type_t           alg_type;
     uint8_t                             algorithm_parameters;
 } nos_x509_tbs_sig_alg_id_t;

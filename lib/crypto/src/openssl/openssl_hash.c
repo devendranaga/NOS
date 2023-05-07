@@ -54,7 +54,7 @@ static int openssl_hash_file(EVP_MD_CTX *md_ctx,
     while (1) {
         uint8_t msg[1024];
 
-        ret = nos_fileio_read(fd, msg, sizeof(msg));
+        ret = nos_fileio_read(fd, (char *)msg, sizeof(msg));
         if (ret <= 0) {
             break;
         }

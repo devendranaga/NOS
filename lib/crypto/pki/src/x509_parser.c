@@ -19,7 +19,7 @@ static int x509_der_file_to_buf(const char *filename,
         return -1;
     }
 
-    ret = nos_fileio_read(fd, buffer, buffer_size);
+    ret = nos_fileio_read(fd, (char *)buffer, buffer_size);
 
     nos_fileio_close(fd);
 
@@ -112,13 +112,70 @@ static int x509_parse_tbs_certificate_serial(uint8_t *buffer,
     return 0;
 }
 
+static int x509_parse_asn1_object_identifier(uint8_t *buffer,
+                                             uint32_t *off,
+                                             uint32_t buffer_size,
+                                             nos_x509_certificate_t *cert)
+{
+    uint32_t len = 0;
+
+    (*off) ++;
+
+    len = buffer[*off];
+    (*off) ++;
+
+    cert->certificate.signature_algid.obj_id_len = len;
+    memcpy(cert->certificate.signature_algid.obj_id, &buffer[*off], len);
+    (*off) += len;
+
+    return 0;
+}
+
+static int x509_parse_tbs_algorithm_identifier(uint8_t *buffer,
+                                               uint32_t *off,
+                                               uint32_t buffer_size,
+                                               nos_x509_certificate_t *cert)
+{
+    uint32_t len = 0;
+    int ret;
+
+    (*off) ++;
+    len = buffer[*off];
+    (void)len;
+    (*off) ++;
+
+    /*TODO: We do not know yet how to parse this. */
+    if (buffer[*off] == ASN1_OBJECT_IDENTIFIER_TAG) {
+        ret = x509_parse_asn1_object_identifier(buffer, off, buffer_size, cert);
+        if (ret < 0) {
+            return -1;
+        }
+    }
+    if (buffer[*off] == ASN1_NULL_TAG) {
+        /* Skip the 0x05 and 0x00. */
+        (*off) += 2;
+    }
+
+    return 0;
+}
+
+static int x509_parse_tbs_certificate_issuer(uint8_t *buffer,
+                                             uint32_t *off,
+                                             uint32_t buffer_size,
+                                             nos_x509_certificate_t *cert)
+{
+    (*off) ++;
+
+    return 0;
+}
+
 static int x509_parse_tbs_certificate(uint8_t *buffer,
                                       uint32_t *off,
                                       uint32_t buffer_size,
                                       nos_x509_certificate_t *cert)
 {
     int tbs_cert_len = 0;
-    int ret;
+    int ret = -1;
 
     if (buffer[*off] == ASN1_SEQUENCE_TAG) {
         (*off) ++;
@@ -127,6 +184,7 @@ static int x509_parse_tbs_certificate(uint8_t *buffer,
         if (tbs_cert_len > 0) {
             /* Parse version. */
 
+            /* Always a version tag First. */
             if ((buffer[*off] == ASN1_X509_VERSION_TAG) &&
                 (buffer[*off + 1] == ASN1_X509_VERSION_TAG_LEN) &&
                 (buffer[*off + 2] == ASN1_INTEGER_TAG)) {
@@ -136,12 +194,34 @@ static int x509_parse_tbs_certificate(uint8_t *buffer,
                 if (ret < 0) {
                     return -1;
                 }
+            } else {
+                return -1;
             }
+
+            /* Parse serial number. */
             if ((buffer[*off]) == ASN1_INTEGER_TAG) {
                 ret = x509_parse_tbs_certificate_serial(buffer, off, buffer_size, cert);
+                if (ret < 0) {
+                    return -1;
+                }
+            } else {
+                return -1;
             }
+
+            /* Parse Algorithm Identifier. */
             if (buffer[*off] == ASN1_SEQUENCE_TAG) {
-                
+                ret = x509_parse_tbs_algorithm_identifier(buffer, off, buffer_size, cert);
+                if (ret < 0) {
+                    return -1;
+                }
+            } else {
+                return -1;
+            }
+
+            if (buffer[*off] == ASN1_SEQUENCE_TAG) {
+                ret = x509_parse_tbs_certificate_issuer(buffer, off, buffer_size, cert);
+            } else {
+                return -1;
             }
         }
     }
@@ -155,7 +235,6 @@ static int x509_parse_certificate(uint8_t *buffer,
 {
     int cert_len = 0;
     uint32_t off = 0;
-    const int expected_seq_tags = 3;
     int ret = -1;
 
     if (buffer[off] == ASN1_SEQUENCE_TAG) {
@@ -174,25 +253,41 @@ static int x509_parse_buffer(uint8_t *buffer,
                              uint32_t buffer_size,
                              nos_x509_certificate_t *cert)
 {
-    int ret = -1;
-
     nos_hexdump_network("x509", buffer, buffer_size);
     x509_parse_certificate(buffer, buffer_size, cert);
 
     return 0;
 }
 
-int x509_print(nos_x509_certificate_t *cert)
+void x509_print(nos_x509_certificate_t *cert)
 {
+    int i;
+
     fprintf(stderr, "X509: {\n");
+
     fprintf(stderr, "\t tbsCertificate: {\n");
+
     fprintf(stderr, "\t\t version: %u\n", cert->certificate.version);
+
     fprintf(stderr, "\t\t serial: [");
-    for (int i = 0; i < cert->certificate.serial_no_len; i ++) {
+    for (i = 0; i < cert->certificate.serial_no_len; i ++) {
         fprintf(stderr, "%02x ", cert->certificate.serial_no[i]);
     }
     fprintf(stderr, "]\n");
+
+    fprintf(stderr, "\t\t Algorithm Identifier: {\n");
+
+    fprintf(stderr, "\t\t\t oid: [");
+    for (i = 0; i < cert->certificate.signature_algid.obj_id_len; i ++) {
+        fprintf(stderr, "%02x ", cert->certificate.signature_algid.obj_id[i]);
+    }
+
+    fprintf(stderr, "]\n");
+
+    fprintf(stderr, "\t\t }\n");
+
     fprintf(stderr, "\t }\n");
+
     fprintf(stderr, "}\n");
 }
 
@@ -211,7 +306,6 @@ int x509_parse_der(const char *filename, nos_x509_certificate_t *cert)
         ret = x509_parse_buffer(cert_buf, ret, cert);
     }
 
-fail:
     if (cert_buf) {
         free(cert_buf);
     }
