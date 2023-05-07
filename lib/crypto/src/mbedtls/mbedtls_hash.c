@@ -13,7 +13,6 @@
 static int mbedtls_hash_sha2_256_buf(crypto_hash_in_t *hash_in,
                                      crypto_hash_out_t *hash_out)
 {
-    mbedtls_sha256_context sha256_ctx;
     int ret;
 
     ret = mbedtls_sha256_ret(hash_in->buf,
@@ -42,7 +41,7 @@ static int mbedtls_hash_sha2_256_file(crypto_hash_in_t *hash_in,
     while (1) {
         uint8_t buf[1024];
 
-        ret = nos_fileio_read(fd, buf, sizeof(buf));
+        ret = nos_fileio_read(fd, (char *)buf, sizeof(buf));
         if (ret <= 0) {
             break;
         }
@@ -70,8 +69,8 @@ static struct mbedtls_hash_info {
 int mbedtls_hash(crypto_hash_in_t *hash_in,
                  crypto_hash_out_t *hash_out)
 {
+    uint32_t i;
     int ret;
-    int i;
 
     if (!hash_in || !hash_out) {
         return -1;

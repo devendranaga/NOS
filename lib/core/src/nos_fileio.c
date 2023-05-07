@@ -24,7 +24,7 @@ int nos_fileio_read(int fd, char *msg_out, uint32_t msg_size)
     return read(fd, msg_out, msg_size);
 }
 
-int nos_fileio_close(int fd)
+void nos_fileio_close(int fd)
 {
     if (fd > 0) {
         close(fd);

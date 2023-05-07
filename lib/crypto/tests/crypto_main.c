@@ -49,8 +49,7 @@ static int crypto_hash_tests()
 {
     crypto_hash_in_t hash_in;
     crypto_hash_out_t hash_out;
-    int i;
-    int j;
+    uint32_t i;
     bool result;
     int ret;
 

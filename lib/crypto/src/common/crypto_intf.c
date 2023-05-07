@@ -34,7 +34,7 @@ static init_callbacks init_callbacks_list[] = {
 
 int init_crypto_intf()
 {
-    int i;
+    uint32_t i;
     int ret;
 
     for (i = 0; i < sizeof(init_callbacks_list) /
