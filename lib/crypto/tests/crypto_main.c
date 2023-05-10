@@ -76,7 +76,7 @@ static int crypto_hash_tests()
             printf("Type [%s] [%s:%s] Test %s \n",
                             crypto_get_lib_type_str(hash_test_vectors[i].type),
                             hash_test_vectors[i].hash_name,
-                            crypto_hash_string(CRYPTO_HASH_SHA2_256),
+                            crypto_hash_get_hash_type_string(CRYPTO_HASH_SHA2_256),
                             result ? "Pass" : "Fail");
         }
     }
