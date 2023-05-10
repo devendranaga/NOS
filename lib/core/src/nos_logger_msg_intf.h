@@ -1,5 +1,12 @@
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define NOS_LOG_SERVICE_IP      "127.0.0.1"
+#define NOS_LOG_SERVICE_PORT    4224
+
 typedef enum nos_logger_log_lvl {
     NOS_LOGGER_LOG_LVL_VERBOSE,
     NOS_LOGGER_LOG_LVL_DEBUG,
@@ -23,3 +30,8 @@ typedef struct nos_logger_msg {
     uint16_t len;
     uint8_t val[0];
 } __attribute__ ((__packed__)) nos_logger_msg_t;
+
+#ifdef __cplusplus
+}
+#endif
+

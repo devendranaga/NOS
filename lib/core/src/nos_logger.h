@@ -1,4 +1,8 @@
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef enum nos_log_level {
     NOS_LOG_LEVEL_FATAL,
     NOS_LOG_LEVEL_ERROR,
@@ -18,3 +22,8 @@ int nos_log(nos_log_sink_t sink, nos_log_level_t log_level,
             const char *fmt, ...);
 
 void nos_log_set_log_level(nos_log_level_t log_level);
+
+#ifdef __cplusplus
+}
+#endif
+

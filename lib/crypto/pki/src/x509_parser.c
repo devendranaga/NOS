@@ -19,7 +19,7 @@ static int x509_der_file_to_buf(const char *filename,
         return -1;
     }
 
-    ret = nos_fileio_read(fd, (char *)buffer, buffer_size);
+    ret = nos_fileio_read(fd, buffer, buffer_size);
 
     nos_fileio_close(fd);
 

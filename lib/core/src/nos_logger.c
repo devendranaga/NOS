@@ -8,9 +8,6 @@
 #include <nos_socket.h>
 #include <pthread.h>
 
-#define NOS_LOG_SERVICE_IP      "127.0.0.1"
-#define NOS_LOG_SERVICE_PORT    4224
-
 static nos_log_level_t cur_log_lvl = NOS_LOG_LEVEL_INFO;
 static int log_fd = -1;
 

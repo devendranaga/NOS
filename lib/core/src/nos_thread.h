@@ -1,6 +1,11 @@
 #ifndef __CORE_SRC_AOS_THREAD_H__
 #define __CORE_SRC_AOS_THREAD_H__
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define AOS_THREAD_PRIO_DEFAULT 10
 #define AOS_THREAD_DEFAULT_CORE 0
 #define AOS_THREAD_DEFAULT_DETACHED true
@@ -25,6 +30,10 @@ typedef struct aos_thread_data aos_thread_data_t;
 
 void *aos_thread_create(aos_thread_data_t *thr_data);
 void aos_thread_destroy(void *ptr);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

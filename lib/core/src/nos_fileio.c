@@ -11,17 +11,21 @@ int nos_fileio_open(const char *filename, const char *mode)
 
     if (strcmp(mode, "rb") == 0) {
         fd = open(filename, O_RDONLY);
-        if (fd < 0) {
-            return -1;
-        }
+    } else if (strcmp(mode, "wb") == 0) {
+        fd = open(filename, O_CREAT, O_RDWR | S_IRWXU);
     }
 
     return fd;
 }
 
-int nos_fileio_read(int fd, char *msg_out, uint32_t msg_size)
+int nos_fileio_read(int fd, uint8_t *msg_out, uint32_t msg_size)
 {
     return read(fd, msg_out, msg_size);
+}
+
+int nos_fileio_write(int fd, uint8_t *msg_out, uint32_t msg_size)
+{
+    return write(fd, msg_out, msg_size);
 }
 
 void nos_fileio_close(int fd)
