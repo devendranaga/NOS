@@ -121,3 +121,4 @@ int openssl_hash(crypto_hash_in_t *hash_in,
     EVP_MD_CTX_destroy(md_ctx);
     return ret;
 }
+
