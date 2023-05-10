@@ -7,7 +7,8 @@ set(SRC
     ./src/nos_common.c
     ./src/nos_fileio.c
     ./src/config_parser/nos_config_parser.c
-    ./src/nos_logger.c)
+    ./src/nos_logger.c
+    ./src/nos_socket.c)
 
 set(TEST_SRC
     ./tests/test_config_parser.c)
