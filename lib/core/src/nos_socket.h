@@ -3,8 +3,8 @@
 
 #include <stdint.h>
 
-int nos_tcp_server_init(const char *ipaddr, int port, int n_conn);
-int nos_tcp_client_init(const char *ipaddr, int port);
+int nos_tcp_server_init(const char *ipaddr, uint32_t port, uint32_t n_conn);
+int nos_tcp_client_init(const char *ipaddr, uint32_t port);
 int nos_tcp_server_accept(int fd, char *client_ipaddr, int *client_port);
 int nos_tcp_socket_read(int fd, uint8_t *data, uint32_t data_len);
 int nos_tcp_socket_write(int fd, uint8_t *data, uint32_t data_len);
