@@ -41,7 +41,7 @@ static int mbedtls_hash_sha2_256_file(crypto_hash_in_t *hash_in,
     while (1) {
         uint8_t buf[1024];
 
-        ret = nos_fileio_read(fd, (char *)buf, sizeof(buf));
+        ret = nos_fileio_read(fd, buf, sizeof(buf));
         if (ret <= 0) {
             break;
         }

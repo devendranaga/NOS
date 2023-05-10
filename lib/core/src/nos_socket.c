@@ -125,7 +125,7 @@ int nos_udp_server_init(const char *ipaddr, int port)
     return fd;
 }
 
-int nos_udp_client_init(int fd)
+int nos_udp_client_init(void)
 {
     return socket(AF_INET, SOCK_DGRAM, 0);
 }

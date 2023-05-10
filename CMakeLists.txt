@@ -6,5 +6,6 @@ include(./build_args.cmake)
 
 add_subdirectory(./lib/core/)
 add_subdirectory(./services/firewall/)
+add_subdirectory(./services/logger/)
 add_subdirectory(./lib/crypto/)
 
