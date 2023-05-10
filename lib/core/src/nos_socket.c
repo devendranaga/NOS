@@ -1,3 +1,4 @@
+#include <string.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -65,10 +66,41 @@ int nos_tcp_client_init(const char *ipaddr, uint32_t port)
     return fd;
 }
 
-int nos_tcp_server_accept(int fd, char *client_ipaddr, int *client_port);
-int nos_tcp_socket_read(int fd, uint8_t *data, uint32_t data_len);
-int nos_tcp_socket_write(int fd, uint8_t *data, uint32_t data_len);
-int nos_tcp_close(int fd);
+int nos_tcp_server_accept(int fd, char *client_ipaddr, int *client_port)
+{
+    struct sockaddr_in conn;
+    socklen_t len = sizeof(struct sockaddr_in);
+    char *conn_addr;
+    int client_fd;
+
+    client_fd = accept(fd, (struct sockaddr *)&conn, &len);
+    ERR_RET_SOCKET(client_fd);
+
+    conn_addr = inet_ntoa(conn.sin_addr);
+    if (conn_addr)
+        strcpy(client_ipaddr, conn_addr);
+
+    *client_port = htons(conn.sin_port);
+
+    return client_fd;
+}
+
+int nos_tcp_socket_read(int fd, uint8_t *data, uint32_t data_len)
+{
+    return recv(fd, data, data_len, 0);
+}
+
+int nos_tcp_socket_write(int fd, uint8_t *data, uint32_t data_len)
+{
+    return send(fd, data, data_len, 0);
+}
+
+void nos_tcp_close(int fd)
+{
+    if (fd > 0) {
+        close(fd);
+    }
+}
 
 int nos_udp_server_init(const char *ipaddr, int port);
 int nos_udp_client_init(int fd);
