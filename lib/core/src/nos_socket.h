@@ -11,7 +11,7 @@ int nos_tcp_socket_write(int fd, uint8_t *data, uint32_t data_len);
 void nos_tcp_close(int fd);
 
 int nos_udp_server_init(const char *ipaddr, int port);
-int nos_udp_client_init(int fd);
+int nos_udp_client_init(void);
 int nos_udp_socket_read(int fd, uint8_t *data, uint32_t data_len,
                         char *dest_addr, uint32_t *dest_port);
 int nos_udp_socket_write(int fd, uint8_t *data, uint32_t data_len,
