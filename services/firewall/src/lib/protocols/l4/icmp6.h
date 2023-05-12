@@ -13,6 +13,7 @@
 #define ICMP6_TYPE_ECHO_REPLY               0x81
 #define ICMP6_TYPE_NEIGHBOR_ADVERTISEMENT   0x88
 #define ICMP6_TYPE_NEIGHBOR_SOLICITATION    0x87
+#define ICMP6_TYPE_ROUTER_SOLICITATION      0x85
 
 typedef struct icmp6_ping_req_hdr {
     uint16_t id;
@@ -33,6 +34,10 @@ typedef struct icmp6_neighbor_solicitation {
     icmp6_options_t opt;
 } icmp6_neighbor_solicitation_t;
 
+typedef struct icmp6_router_solicitation {
+    uint32_t reserved;
+} icmp6_router_solicitation_t;
+
 typedef struct icmp6_header {
     uint8_t type;
     uint8_t code;
@@ -40,6 +45,7 @@ typedef struct icmp6_header {
     icmp6_ping_req_hdr_t ping_req;
     icmp6_ping_req_hdr_t ping_reply;
     icmp6_neighbor_solicitation_t ns;
+    icmp6_router_solicitation_t rs;
 } icmp6_header_t;
 
 #endif

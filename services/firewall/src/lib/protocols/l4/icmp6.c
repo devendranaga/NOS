@@ -44,6 +44,11 @@ STATIC void icmp6_deserialize_neighbor_solicitation(fw_packet_t *pkt)
     }
 }
 
+STATIC void icmp6_deserialize_router_solicitation(fw_packet_t *pkt)
+{
+    fw_pkt_copy_4_bytes(pkt, &pkt->icmp6_h.rs.reserved);
+}
+
 fw_event_details_t icmp6_deserialize(fw_packet_t *pkt)
 {
     fw_event_details_t ret = FW_EVENT_DESCR_ALLOW;
@@ -61,6 +66,8 @@ fw_event_details_t icmp6_deserialize(fw_packet_t *pkt)
         icmp6_deserialize_echo_reply(pkt);
     } else if (pkt->icmp6_h.type == ICMP6_TYPE_NEIGHBOR_SOLICITATION) {
         icmp6_deserialize_neighbor_solicitation(pkt);
+    } else if (pkt->icmp6_h.type == ICMP6_TYPE_ROUTER_SOLICITATION) {
+        icmp6_deserialize_router_solicitation(pkt);
     } else {
         ret = FW_EVENT_DESCR_ICMP6_UNSUPPORTED_TYPE;
     }
