@@ -70,15 +70,15 @@ static int nos_log_console(nos_log_level_t log_level,
                                 (tp.tv_nsec / 1000000U),
                                 log_level_str);
     vsnprintf(buff + ret, sizeof(buff) - ret, fmt, ap);
-    ret = fprintf(stderr, "%s", buff);
 
     return ret;
 }
 
-static int nos_logger_fill_log_data(nos_logger_msg_t *msg,
+static int nos_logger_fill_log_data(uint8_t *log_msg,
                                     nos_logger_log_lvl_t log_lvl,
                                     char *data, uint32_t data_len)
 {
+    nos_logger_msg_t *msg = (nos_logger_msg_t *)log_msg;
     nos_logger_log_data_t *log_data;
 
     msg->type = NOS_LOGGER_MSG_TYPE_LOG_DATA;
@@ -88,13 +88,12 @@ static int nos_logger_fill_log_data(nos_logger_msg_t *msg,
     log_data->log_lvl = log_lvl;
     memcpy(log_data->data, data, data_len);
 
-    return sizeof(nos_logger_log_data_t) + msg->len;
+    return sizeof(nos_logger_msg_t) + sizeof(log_data->log_lvl) + msg->len;
 }
 
 static int nos_log_logger(nos_log_level_t log_level,
                           const char *fmt, va_list ap)
 {
-    nos_logger_msg_t *log_msg;
     char data[4096];
     uint8_t msg[4096];
     time_t now;
@@ -104,7 +103,8 @@ static int nos_log_logger(nos_log_level_t log_level,
     int len;
     const char *log_level_str;
 
-    log_msg = (nos_logger_msg_t *)msg;
+    memset(data, 0, sizeof(data));
+    memset(msg, 0, sizeof(msg));
 
     if (log_fd < 0) {
         log_fd = nos_udp_client_init();
@@ -127,9 +127,8 @@ static int nos_log_logger(nos_log_level_t log_level,
                         t->tm_sec,
                         (tp.tv_nsec / 1000000U),
                         log_level_str);
-        ret += vsnprintf(data - ret, sizeof(data) - ret, fmt, ap);
-
-        len = nos_logger_fill_log_data(log_msg, log_level, data, ret);
+        ret += vsnprintf(data + ret, sizeof(data) - ret, fmt, ap);
+        len = nos_logger_fill_log_data(msg, log_level, data, ret);
         ret = nos_udp_socket_write(log_fd, msg, len,
                                    NOS_LOG_SERVICE_IP,
                                    NOS_LOG_SERVICE_PORT);

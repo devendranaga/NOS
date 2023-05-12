@@ -18,6 +18,19 @@ int test_nos_logger()
             NOS_LOG_LEVEL_ERROR, "test log message %d\n", var);
     nos_log(NOS_LOG_SINK_CONSOLE,
             NOS_LOG_LEVEL_FATAL, "test log message %d\n", var);
+
+    nos_log(NOS_LOG_SINK_LOGGER,
+            NOS_LOG_LEVEL_VERBOSE, "test log message %d\n", var);
+    nos_log(NOS_LOG_SINK_LOGGER,
+            NOS_LOG_LEVEL_DEBUG, "test log message %d\n", var);
+    nos_log(NOS_LOG_SINK_LOGGER,
+            NOS_LOG_LEVEL_INFO, "test log message %d\n", var);
+    nos_log(NOS_LOG_SINK_LOGGER,
+            NOS_LOG_LEVEL_WARNING, "test log message %d\n", var);
+    nos_log(NOS_LOG_SINK_LOGGER,
+            NOS_LOG_LEVEL_ERROR, "test log message %d\n", var);
+    nos_log(NOS_LOG_SINK_LOGGER,
+            NOS_LOG_LEVEL_FATAL, "test log message %d\n", var);
     return 0;
 }
 

@@ -21,7 +21,6 @@
 namespace nos::logger {
 
 struct nos_log_serv_command_args {
-    char        *filename;
     char        *log_file_prefix;
     uint32_t    log_file_size_bytes;
 
