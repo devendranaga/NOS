@@ -235,6 +235,11 @@ int main(int argc, char **argv)
         goto free_fw_ctx;
     }
 
+    fw_ctx->rule_config = fw_rule_init(fw_ctx->base_conf.rule_file);
+    if (!fw_ctx->rule_config) {
+        goto free_fw_ctx;
+    }
+
     /* Initialize all interfaces. */
     ret = fw_init_all_interfaces(fw_ctx);
     if (ret < 0) {
