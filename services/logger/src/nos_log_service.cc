@@ -67,7 +67,7 @@ static void nos_log_serv_write_msg(int file_fd, nos_log_rx_msg *rx_msg)
     log_msg = (nos_logger_msg_t *)(rx_msg->msg);
     log_data = (nos_logger_log_data_t *)(log_msg->val);
 
-    len = log_msg->len - sizeof(nos_logger_log_data_t);
+    len = log_msg->len - sizeof(log_data->log_lvl);
 
     if (len <= 0) {
         return;
@@ -84,26 +84,28 @@ void nos_log_serv_context::write_log_pkt()
 
     cmd_args = nos_log_serv_command_args::instance();
 
-    file_fd_ = nos_log_serv_open_file(cmd_args->filename,
-                                      strlen(cmd_args->filename),
+    file_fd_ = nos_log_serv_open_file(log_file_name_,
+                                      sizeof(log_file_name_),
                                       cmd_args->log_file_prefix);
     while (1) {
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
         {
             std::unique_lock<std::mutex> lock(rx_msg_q_lock_);
             int q_len = rx_msg_q_.size();
-            do {
+            while (q_len > 0) {
                 nos_log_rx_msg msg = rx_msg_q_.front();
                 nos_log_serv_write_msg(file_fd_, &msg);
+                rx_msg_q_.pop();
                 q_len = rx_msg_q_.size();
-            } while (q_len > 0);
+            }
+            nos_fileio_sync(file_fd_);
         }
     }
 }
 
 static void usage(const char *progname)
 {
-    fprintf(stderr, "<%s>  [-f filename] "
+    fprintf(stderr, "<%s> "
                     "\t [-L log file prefix] "
                     "\t [-s file size in bytes]\n",
                     progname);
@@ -113,11 +115,8 @@ int nos_log_serv_command_args::parse(int argc, char **argv)
 {
     int ret;
 
-    while ((ret = getopt(argc, argv, "f:L:s:")) != -1) {
+    while ((ret = getopt(argc, argv, "L:s:")) != -1) {
         switch (ret) {
-            case 'f':
-                filename = strdup(optarg);
-            break;
             case 'L':
                 log_file_prefix = strdup(optarg);
             break;

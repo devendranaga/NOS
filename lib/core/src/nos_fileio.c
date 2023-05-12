@@ -12,10 +12,15 @@ int nos_fileio_open(const char *filename, const char *mode)
     if (strcmp(mode, "rb") == 0) {
         fd = open(filename, O_RDONLY);
     } else if (strcmp(mode, "wb") == 0) {
-        fd = open(filename, O_CREAT, O_RDWR | S_IRWXU);
+        fd = open(filename, O_CREAT | O_RDWR, S_IRWXU);
     }
 
     return fd;
+}
+
+int nos_fileio_sync(int fd)
+{
+    return fsync(fd);
 }
 
 int nos_fileio_read(int fd, uint8_t *msg_out, uint32_t msg_size)
