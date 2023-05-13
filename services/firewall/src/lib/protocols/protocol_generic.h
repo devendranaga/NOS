@@ -71,6 +71,14 @@ fw_event_details_t udp_deserialize(fw_packet_t *hdr);
 fw_event_details_t tcp_deserialize(fw_packet_t *pkt);
 fw_event_details_t doip_deserialize(fw_packet_t *pkt);
 void doip_free_header(nos_doip_header_t *doip_h);
+/**
+ * @brief - Deserialize the DNS packet.
+ *
+ * @param[in] pkt : Fw packet structure.
+ *
+ * @return enum of type fw_event_details_t.
+*/
+fw_event_details_t dns_deserialize(fw_packet_t *pkt);
 
 fw_event_details_t parse_protocol(struct fw_packet *pkt);
 

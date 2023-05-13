@@ -26,6 +26,7 @@
 #include <tcp.h>
 #include <someip.h>
 #include <dhcp.h>
+#include <dns.h>
 #include <ntp_v4.h>
 #include <doip.h>
 #include <firewall_common.h>
@@ -86,6 +87,9 @@ struct fw_packet {
 
     /* DoIP Header. */
     struct nos_doip_header doip_h;
+
+    /* DNS Header. */
+    struct dns_header dns_h;
 
     /*
      * Matching rule for this packet.

@@ -9,6 +9,7 @@
 #include <protocol_generic.h>
 #include <fw_pkt.h>
 #include <debug.h>
+#include <fw_ports.h>
 #include <firewall_common.h>
 
 STATIC fw_event_details_t parse_l2_protocol(fw_packet_t *pkt,
@@ -128,9 +129,28 @@ STATIC fw_event_details_t parse_l4_protocol(fw_packet_t *pkt)
 STATIC fw_event_details_t parse_app_protocol(fw_packet_t *pkt)
 {
     fw_event_details_t type = FW_EVENT_DESCR_DENY;
+    uint32_t port = 0;
 
     if (protocol_has_udp(pkt)) {
-        type = dhcp_deserialize(pkt);
+        port = pkt->udp_h.dst_port;
+    } else if (protocol_has_tcp(pkt)) {
+        port = pkt->tcp_h.dst_port;
+    } else {
+        return FW_EVENT_DESCR_DENY;
+    }
+
+    switch (port) {
+        case FW_PORT_DHCP_DST_PORT:
+            type = dhcp_deserialize(pkt);
+        break;
+        case FW_PORT_NTP_V4_PORT:
+            type = ntp_v4_deserialize(pkt);
+        break;
+        case FW_PORT_DNS:
+            type = dns_deserialize(pkt);
+        break;
+        default:
+            type = FW_EVENT_DESCR_DENY;
     }
 
     return type;
