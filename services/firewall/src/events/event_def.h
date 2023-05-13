@@ -53,6 +53,10 @@ enum fw_event_details {
 
     FW_EVENT_DESCR_ICMP6_HDRLEN_TOO_SMALL, /* ICMP6 Header length too small. */
     FW_EVENT_DESCR_ICMP6_UNSUPPORTED_TYPE, /* ICMP6 Unsupported type. */
+    FW_EVENT_DESCR_ICMP6_RA_OPT_SOURCE_LLADDR_LEN_INVAL, /* ICMP6 RA option source LLADDR length is invalid. */
+    FW_EVENT_DESCR_ICMP6_RA_OPT_MTU_LEN_INVAL, /* ICMP6 RA option MTU length is invalid. */
+    FW_EVENT_DESCR_ICMP6_RA_OPT_PREFIX_INFO_LEN_INVAL, /* ICMP6 RA option Prefix length is invalid. */
+    FW_EVENT_DESCR_ICMP6_OPT_UNSUPPORTED, /* ICMP6 option unsupported. */
 
     FW_EVENT_DESCR_8021X_MKA_CKN_TOO_LARGE, /* 802.1x MKA CKN length too large. */
     FW_EVENT_DESCR_8021X_MKA_ALG_AGILITY_INVALID, /* 802.1x MKA Algorithm Agility unknown. */
