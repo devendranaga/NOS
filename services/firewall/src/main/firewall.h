@@ -27,6 +27,7 @@
 #include <fw_config.h>
 #include <nos_fw_stats.h>
 #include <fw_rules.h>
+#include <fw_filter.h>
 
 /* Firewall interface context. */
 struct firewall_interface_context {
@@ -53,6 +54,8 @@ struct firewall_interface_context {
 
     struct os_mutex pkt_rx_evt_lock;
     struct os_cond pkt_rx_evt_cond;
+
+    fw_rule_config_data_t *rule_config;
 
     /* Firewall stats. */
     nos_fw_stats_intf_t stats;

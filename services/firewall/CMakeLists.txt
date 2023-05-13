@@ -63,6 +63,9 @@ set(CONFIG_SRC
 set(RULES_SRC
     ./src/rules/fw_rules.c)
 
+set(FILTERS_SRC
+    ./src/filters/fw_filter.c)
+
 set(SRC
     ${DRV_SRC}
     ${MAIN_SRC}
@@ -71,7 +74,8 @@ set(SRC
     ${DEBUG_SRC}
     ${EVENT_SRC}
     ${CONFIG_SRC}
-    ${RULES_SRC})
+    ${RULES_SRC}
+    ${FILTERS_SRC})
 
 set(TOOL_SRC
     ./tools/packet_gen/packet_gen.c
@@ -111,6 +115,7 @@ include_directories(./src/
                     ./src/config/
                     ./src/rules/
                     ./src/lib/pcap/
+                    ./src/filters/
                     ./tools/packet_gen/
                     ./server/event_server/)
 

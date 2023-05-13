@@ -69,6 +69,9 @@ STATIC void * fw_process_packet(void *usr_ptr)
                                                     pkt->total_len);
             /* Parse the protocol. */
             evt_descr = parse_protocol(pkt);
+            if (evt_descr == FW_EVENT_DESCR_ALLOW) {
+                evt_descr = fw_filter_run(fw_if_ptr->rule_config, pkt);
+            }
 
             /* Queue the generated event. */
             fw_queue_event(fw_if_ptr, pkt, evt_descr);
@@ -144,6 +147,7 @@ STATIC int fw_init_all_interfaces(struct firewall_context *fw_ctx)
         strcpy(fw_ctx->if_list[i].ifname, fw_ctx->args.if_list[i]);
 
         fw_ctx->if_list[i].nw_drv = &fw_ctx->nw_drv;
+        fw_ctx->if_list[i].rule_config = fw_ctx->rule_config;
 
         /* Create receive thread to read packets. */
         fw_ctx->if_list[i].rx_thr = os_thread_create(MAX_THR_PRIO,
@@ -243,7 +247,7 @@ int main(int argc, char **argv)
     /* Initialize all interfaces. */
     ret = fw_init_all_interfaces(fw_ctx);
     if (ret < 0) {
-        goto deinit_fw;
+        goto deinit_rules;
     }
 
     /* Register termination handlers. */
@@ -264,7 +268,9 @@ int main(int argc, char **argv)
 
     return 0;
 
-deinit_fw:
+deinit_rules:
+    fw_rule_deinit(fw_ctx->rule_config);
+
     fw_debug(FW_DEBUG_LEVEL_ERROR, "Stopping firewall\n");
     fw_deinit_all_interfaces(fw_ctx);
 
