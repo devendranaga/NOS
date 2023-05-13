@@ -26,6 +26,7 @@
 #include <events.h>
 #include <fw_config.h>
 #include <nos_fw_stats.h>
+#include <fw_rules.h>
 
 /* Firewall interface context. */
 struct firewall_interface_context {
@@ -72,6 +73,9 @@ struct firewall_context {
 
     /* Base configuration info. */
     fw_base_conf_t base_conf;
+
+    /* Fw rules. */
+    fw_rule_config_data_t *rule_config;
 };
 
 typedef struct firewall_context firewall_context_t;

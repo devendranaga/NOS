@@ -79,7 +79,7 @@ STATIC int fw_get_rule_file(const char *var, const char *val,
 }
 
 /* configuration callbacks. */
-struct fw_config_params {
+static const struct fw_config_params {
     const char *var;
     int (*callback)(const char *var,
                     const char *val,
