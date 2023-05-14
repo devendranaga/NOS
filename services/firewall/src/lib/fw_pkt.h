@@ -60,6 +60,7 @@ struct fw_packet {
     uint32_t total_len;
     uint32_t off;
     struct os_mutex lock;
+    bool macsec_encrypted;
 
     /*
      * Rank of the packet after all the data is parsed.

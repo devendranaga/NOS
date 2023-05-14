@@ -45,6 +45,7 @@ STATIC fw_event_details_t parse_l2_protocol(fw_packet_t *pkt,
         break;
         case FW_ETHERTYPE_MACSEC:
             type = ieee8021ae_deserialize(pkt);
+            pkt->macsec_encrypted = ieee8021ae_has_encrypt_on(&pkt->macsec_h);
             *more_headers = 1;
             FW_SET_PKT_RANK(pkt, FW_PROTO_MACSEC_H);
         break;
@@ -79,6 +80,15 @@ STATIC fw_event_details_t __parse_l4_protocol(fw_packet_t *pkt, bool is_ipv6, ui
     }
 
     return type;
+}
+
+STATIC INLINE bool protocol_has_macsec(fw_packet_t *pkt)
+{
+    if (pkt->eh.ethertype == FW_ETHERTYPE_MACSEC) {
+        return true;
+    }
+
+    return false;
 }
 
 STATIC INLINE bool protocol_has_ethertype_ipv4(fw_packet_t *pkt)
@@ -179,6 +189,7 @@ fw_event_details_t parse_protocol(fw_packet_t *pkt)
     uint8_t more_headers = 0;
     uint16_t ethertype;
 
+    pkt->macsec_encrypted = false;
     type = ethernet_deserialize(pkt);
     if (type == FW_EVENT_DESCR_ALLOW) {
 
@@ -191,6 +202,11 @@ fw_event_details_t parse_protocol(fw_packet_t *pkt)
         type = parse_l2_protocol(pkt, ethertype, &more_headers);
         /* L3 is covered in ipv4. */
         if ((type == FW_EVENT_DESCR_ALLOW) && more_headers) {
+            if (protocol_has_macsec(pkt) && pkt->macsec_encrypted) {
+                /* If packet is MACsec and is encrypted.. we can't parse anymore. */
+                return FW_EVENT_DESCR_ALLOW;
+            }
+
             type = parse_l4_protocol(pkt);
             /* Parse Application specific data. */
             if (type == FW_EVENT_DESCR_ALLOW) {
