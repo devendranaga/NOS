@@ -10,6 +10,8 @@ STATIC void icmp_print(struct icmp_header *icmp_h)
     fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t type: %d\n", icmp_h->type);
     fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t code: %d\n", icmp_h->code);
     fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t checksum: 0x%04x\n", icmp_h->checksum);
+    fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t checksum: %s\n",
+                        icmp_h->checksum_ok ? "Ok": "Not Ok");
     if (icmp_h->type == ICMP_ECHO_REQ) {
         fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t echo_req: {\n");
         fw_debug(FW_DEBUG_LEVEL_VERBOSE, "\t\t 0x%04x\n", icmp_h->ping_req.identifier);
@@ -49,9 +51,44 @@ STATIC uint32_t icmp_get_min_hdrlen(icmp_header_t *icmp_h)
            sizeof(icmp_h->ping_req);
 }
 
+STATIC bool icmp_validate_checksum(fw_packet_t *pkt, uint32_t hdr_off)
+{
+    uint32_t total_len = pkt->total_len;
+    uint32_t carry = 0;
+    uint32_t data = 0;
+    uint32_t i = 0;
+
+    /* Round to nearest even number. */
+    if (pkt->total_len % 2 != 0) {
+        total_len += 1;
+    }
+
+    /*
+     * Checksum is calculated as value checked from
+     * icmp->header till the last byte of the payload.
+     *
+     * Each two bytes are added up to reach the final checksum.
+     */
+    for (i = hdr_off; i < total_len; i += 2) {
+        data += ((pkt->msg[i + 1] << 8) | pkt->msg[i]);
+    }
+
+    carry = (data & 0xFF0000) >> 16;
+    data = data & 0xFFFF;
+
+    if (data + carry == 0xFFFF) {
+        return true;
+    }
+
+    return false;
+}
+
 fw_event_details_t icmp_deserialize(fw_packet_t *pkt)
 {
+    uint32_t start_off = 0;
     fw_event_details_t type = FW_EVENT_DESCR_ICMP_INVAL;
+
+    start_off = pkt->off;
 
     /* Validate and drop if ICMP header length is too small. could be a
      * bad formed packet or test from a sender.
@@ -74,6 +111,11 @@ fw_event_details_t icmp_deserialize(fw_packet_t *pkt)
 
     if (type == FW_EVENT_DESCR_ALLOW) {
         pkt->icmp_h.pkt_len = fw_packet_get_remaining_len(pkt);
+    }
+
+    pkt->icmp_h.checksum_ok = icmp_validate_checksum(pkt, start_off);
+    if (pkt->icmp_h.checksum_ok == false) {
+        type = FW_EVENT_DESCR_ICMP_HDR_CHECKSUM_FAILED;
     }
 
     icmp_print(&pkt->icmp_h);

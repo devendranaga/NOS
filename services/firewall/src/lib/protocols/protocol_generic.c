@@ -9,10 +9,14 @@
 #include <protocol_generic.h>
 #include <fw_pkt.h>
 #include <debug.h>
+#include <fw_ports.h>
 #include <firewall_common.h>
 
+#define FW_SET_PKT_RANK(__pkt, __rank) ((__pkt)->pkt_rank = __rank)
+
 STATIC fw_event_details_t parse_l2_protocol(fw_packet_t *pkt,
-                                            uint16_t ethertype)
+                                            uint16_t ethertype,
+                                            uint8_t *more_headers)
 {
     fw_event_details_t type = FW_EVENT_DESCR_DENY;
 
@@ -23,18 +27,27 @@ STATIC fw_event_details_t parse_l2_protocol(fw_packet_t *pkt,
     switch (ethertype) {
         case FW_ETHERTYPE_ARP:
             type = arp_deserialize(pkt);
+            FW_SET_PKT_RANK(pkt, FW_PROTO_ARP_H);
         break;
         case FW_ETHERTYPE_IPV4:
             type = ipv4_deserialize(pkt);
+            *more_headers = 1;
+            FW_SET_PKT_RANK(pkt, FW_PROTO_IPV4_H);
         break;
         case FW_ETHERTYPE_IPV6:
             type = ipv6_deserialize(pkt);
+            *more_headers = 1;
+            FW_SET_PKT_RANK(pkt, FW_PROTO_IPV6_H);
         break;
         case FW_ETHERTYPE_PTP:
             type = ptp_deserialize(pkt);
+            FW_SET_PKT_RANK(pkt, FW_PROTO_PTP_H);
         break;
         case FW_ETHERTYPE_MACSEC:
             type = ieee8021ae_deserialize(pkt);
+            pkt->macsec_encrypted = ieee8021ae_has_encrypt_on(&pkt->macsec_h);
+            *more_headers = 1;
+            FW_SET_PKT_RANK(pkt, FW_PROTO_MACSEC_H);
         break;
         default:
             type = FW_EVENT_DESCR_ETH_UNSPPORTED_ETHERTYPE;
@@ -51,12 +64,15 @@ STATIC fw_event_details_t __parse_l4_protocol(fw_packet_t *pkt, bool is_ipv6, ui
     switch (protocol) {
         case FW_L3_PROTOCOL_ICMP:
             type = icmp_deserialize(pkt);
+            FW_SET_PKT_RANK(pkt, FW_PROTO_ICMP_H);
         break;
         case FW_L3_PROTOCOL_UDP:
             type = udp_deserialize(pkt);
+            FW_SET_PKT_RANK(pkt, FW_PROTO_UDP_H);
         break;
         case FW_L3_PROTOCOL_TCP:
             type = tcp_deserialize(pkt);
+            FW_SET_PKT_RANK(pkt, FW_PROTO_TCP_H);
         break;
         default:
             type = FW_EVENT_DESCR_IPV4_UNSUPPORTED_PROTOCOL;
@@ -64,6 +80,15 @@ STATIC fw_event_details_t __parse_l4_protocol(fw_packet_t *pkt, bool is_ipv6, ui
     }
 
     return type;
+}
+
+STATIC INLINE bool protocol_has_macsec(fw_packet_t *pkt)
+{
+    if (pkt->eh.ethertype == FW_ETHERTYPE_MACSEC) {
+        return true;
+    }
+
+    return false;
 }
 
 STATIC INLINE bool protocol_has_ethertype_ipv4(fw_packet_t *pkt)
@@ -128,9 +153,31 @@ STATIC fw_event_details_t parse_l4_protocol(fw_packet_t *pkt)
 STATIC fw_event_details_t parse_app_protocol(fw_packet_t *pkt)
 {
     fw_event_details_t type = FW_EVENT_DESCR_DENY;
+    uint32_t port = 0;
 
     if (protocol_has_udp(pkt)) {
-        type = dhcp_deserialize(pkt);
+        port = pkt->udp_h.dst_port;
+    } else if (protocol_has_tcp(pkt)) {
+        port = pkt->tcp_h.dst_port;
+    } else {
+        return FW_EVENT_DESCR_DENY;
+    }
+
+    switch (port) {
+        case FW_PORT_DHCP_DST_PORT:
+            type = dhcp_deserialize(pkt);
+            FW_SET_PKT_RANK(pkt, FW_PROTO_DHCP_H);
+        break;
+        case FW_PORT_NTP_V4_PORT:
+            type = ntp_v4_deserialize(pkt);
+            FW_SET_PKT_RANK(pkt, FW_PROTO_NTPV4_H);
+        break;
+        case FW_PORT_DNS:
+            type = dns_deserialize(pkt);
+            FW_SET_PKT_RANK(pkt, FW_PROTO_DNS_H);
+        break;
+        default:
+            type = FW_EVENT_DESCR_DENY;
     }
 
     return type;
@@ -139,19 +186,27 @@ STATIC fw_event_details_t parse_app_protocol(fw_packet_t *pkt)
 fw_event_details_t parse_protocol(fw_packet_t *pkt)
 {
     fw_event_details_t type;
+    uint8_t more_headers = 0;
     uint16_t ethertype;
 
+    pkt->macsec_encrypted = false;
     type = ethernet_deserialize(pkt);
     if (type == FW_EVENT_DESCR_ALLOW) {
 
         ethertype = pkt->eh.ethertype;
         if (pkt->eh.ethertype == FW_ETHERTYPE_VLAN) {
             vlan_deserialize(pkt);
+            FW_SET_PKT_RANK(pkt, FW_PROTO_VLAN_H);
             ethertype = pkt->vlan_h.ethertype;
         }
-        type = parse_l2_protocol(pkt, ethertype);
+        type = parse_l2_protocol(pkt, ethertype, &more_headers);
         /* L3 is covered in ipv4. */
-        if (type == FW_EVENT_DESCR_ALLOW) {
+        if ((type == FW_EVENT_DESCR_ALLOW) && more_headers) {
+            if (protocol_has_macsec(pkt) && pkt->macsec_encrypted) {
+                /* If packet is MACsec and is encrypted.. we can't parse anymore. */
+                return FW_EVENT_DESCR_ALLOW;
+            }
+
             type = parse_l4_protocol(pkt);
             /* Parse Application specific data. */
             if (type == FW_EVENT_DESCR_ALLOW) {

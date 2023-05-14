@@ -15,6 +15,7 @@ struct icmp_header {
     uint8_t type;
     uint8_t code;
     uint16_t checksum;
+    bool checksum_ok;
     icmp_header_ping_t ping_req;
     icmp_header_ping_t ping_reply;
     uint32_t pkt_len;

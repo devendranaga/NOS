@@ -26,6 +26,7 @@
 #include <tcp.h>
 #include <someip.h>
 #include <dhcp.h>
+#include <dns.h>
 #include <ntp_v4.h>
 #include <doip.h>
 #include <firewall_common.h>
@@ -33,12 +34,40 @@
 #define FW_PACKET_LEN_MAX 8192
 #define FW_RULE_NOT_MATCHED 0xDEADBEEF
 
+typedef enum fw_highest_protocol {
+    FW_PROTO_EH,
+    FW_PROTO_VLAN_H,
+    FW_PROTO_PTP_H,
+    FW_PROTO_ARP_H,
+    FW_PROTO_MACSEC_H,
+    FW_PROTO_8021X_H,
+    FW_PROTO_IPV4_H,
+    FW_PROTO_IPV6_H,
+    FW_PROTO_ICMP_H,
+    FW_PROTO_ICMP6_H,
+    FW_PROTO_UDP_H,
+    FW_PROTO_TCP_H,
+    FW_PROTO_SOMEIP_H,
+    FW_PROTO_DHCP_H,
+    FW_PROTO_NTPV4_H,
+    FW_PROTO_DOIP_H,
+    FW_PROTO_DNS_H,
+} fw_highest_protocol_t;
+
 /* Define firewall packet. */
 struct fw_packet {
     uint8_t msg[FW_PACKET_LEN_MAX];
     uint32_t total_len;
     uint32_t off;
     struct os_mutex lock;
+    bool macsec_encrypted;
+
+    /*
+     * Rank of the packet after all the data is parsed.
+     * Set this rank, so the filter can sort / apply the
+     * rules based on the packet rank.
+     */
+    fw_highest_protocol_t pkt_rank;
 
     /* Ethernet Header. */
     struct ethernet_header eh;
@@ -86,6 +115,9 @@ struct fw_packet {
 
     /* DoIP Header. */
     struct nos_doip_header doip_h;
+
+    /* DNS Header. */
+    struct dns_header dns_h;
 
     /*
      * Matching rule for this packet.

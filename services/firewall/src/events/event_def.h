@@ -37,6 +37,7 @@ enum fw_event_details {
     FW_EVENT_DESCR_ICMP_INVAL,
     FW_EVENT_DESCR_ICMP_UNSUPPORTED_TYPE, /* Unsupported ICMP Type. */
     FW_EVENT_DESCR_ICMP_HDR_TOO_SMALL, /* Too small ICMP Header Length. */
+    FW_EVENT_DESCR_ICMP_HDR_CHECKSUM_FAILED, /* Checksum failure. */
 
     FW_EVENT_DESCR_TCP_HDR_FLAGS_NULL, /* TCP Flags are 0. */
     FW_EVENT_DESCR_TCP_RESERVED_FLAGS_SET, /* TCP Reserved flags are set. */

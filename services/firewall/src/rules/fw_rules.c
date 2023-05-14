@@ -25,8 +25,10 @@ static const struct rule_layer_list {
     rule_layer_t layer;
     const char *layer_str;
 } rule_layer_list[] = {
-    {RULE_LAYER_MAC, "from_mac"},
-    {RULE_LAYER_IPV4, "from_ipv4"},
+    {RULE_LAYER_MAC,    "from_mac"},
+    {RULE_LAYER_IPV4,   "from_ipv4"},
+    {RULE_LAYER_MAC,    "to_mac"},
+    {RULE_LAYER_IPV4,   "to_ipv4"},
 };
 
 STATIC rule_action_t fw_rule_get_rule_action(const char *data)
@@ -96,7 +98,6 @@ STATIC int fw_rule_parse_mac_pair(const char *data,
 
     *any_from_mac = 0;
 
-        printf("parsed\n");
     if (!strcmp(data, "any")) {
         *any_from_mac = 1;
         ret = 0;
@@ -126,6 +127,10 @@ STATIC int fw_rule_parse_ipv4_port(const char *data,
     int ret = -1;
 
     if (!strcmp(data, "any:any")) {
+        *any_from_ip = 1;
+        ret = 0;
+    } else if (!strcmp(data, "$HOME:any")) {
+        /* Skip this for now. */
         *any_from_ip = 1;
         ret = 0;
     } else {
@@ -159,6 +164,71 @@ STATIC int fw_rule_parse_ipv4_port(const char *data,
     }
 
     return 0;
+}
+
+static int fw_rule_parse_var_val(const char *data,
+                                 char *var, char *val)
+{
+    int i = 0;
+    int j = 0;
+
+    i ++; /* Skip (. */
+
+    while (data[i] != ':') {
+        var[j] = data[i];
+        j ++;
+        i ++;
+    }
+    var[j] = '\0';
+    j = 0;
+    i ++;
+
+    /* Skip spaces in between. */
+    while (data[i] == ' ') { i ++; }
+
+    if (data[i] == '"') {
+        i ++;
+    }
+
+    while (data[i] != ';') {
+        if ((data[i] == '"') || (data[i] == ')')) {
+            i ++;
+            break;
+        }
+        val[j] = data[i];
+        j ++;
+        i ++;
+    }
+    i ++;
+    val[j] = '\0';
+
+    return i;
+}
+
+STATIC int fw_rule_parse_msg_rule_id(const char *data,
+                                     fw_rule_config_item_t *rule)
+{
+    char val[512] = {0};
+    char var[10] = {0};
+    int off = 0;
+    int ret;
+
+    off = fw_rule_parse_var_val(&data[off], var, val);
+    if (off <= 0) {
+        return -1;
+    }
+
+    rule->msg = strdup(val);
+    rule->msg_len = strlen(val);
+
+    off = fw_rule_parse_var_val(&data[off], var, val);
+    if (off <= 0) {
+        return -1;
+    }
+
+    ret = fw_rule_parse_uint32(val, &rule->rule_id);
+
+    return ret;
 }
 
 STATIC int fw_rule_read(const char *data, int len,
@@ -197,15 +267,12 @@ STATIC int fw_rule_read(const char *data, int len,
         switch (i) {
             case 0:
                 rule->rule_action = fw_rule_get_rule_action(tokens[i]);
-                printf("rule action %d\n", rule->rule_action);
             break;
             case 1:
                 rule->proto_type = fw_rule_get_rule_protocol_type(tokens[i]);
-                printf("rule protocol %d\n", rule->proto_type);
             break;
             case 2:
                 rule->from_rule = fw_rule_get_rule_layer(tokens[i]);
-                printf("from rule %d\n", rule->from_rule);
             break;
             case 3: {
                 switch (rule->from_rule) {
@@ -216,16 +283,6 @@ STATIC int fw_rule_read(const char *data, int len,
                         if (ret < 0) {
                             return -1;
                         }
-                        printf("any %d\n", rule->any_from_mac);
-                        if (rule->any_from_mac == 0) {
-                            printf("mac: %02x:%02x:%02x:%02x:%02x:%02x\n",
-                                        rule->from_mac[0],
-                                        rule->from_mac[1],
-                                        rule->from_mac[2],
-                                        rule->from_mac[3],
-                                        rule->from_mac[4],
-                                        rule->from_mac[5]);
-                        }
                     break;
                     case RULE_LAYER_IPV4:
                         ret = fw_rule_parse_ipv4_port(tokens[i],
@@ -235,10 +292,6 @@ STATIC int fw_rule_read(const char *data, int len,
                         if (ret < 0) {
                             return -1;
                         }
-                        printf("any ip %d\n", rule->any_from_ip);
-                        if (rule->any_from_ip == 0) {
-                            printf("ip: %u\n", rule->from_ipv4);
-                        }
                     break;
                     default:
                         return -1;
@@ -246,8 +299,33 @@ STATIC int fw_rule_read(const char *data, int len,
             } break;
             case 4:
                 rule->to_rule = fw_rule_get_rule_layer(tokens[i]);
-                printf("to rule %d\n", rule->to_rule);
             break;
+            case 5: {
+                switch (rule->to_rule) {
+                    case RULE_LAYER_MAC:
+                        ret = fw_rule_parse_mac_pair(tokens[i],
+                                                     &rule->any_to_mac,
+                                                     rule->to_mac);
+                        if (ret < 0) {
+                            return -1;
+                        }
+                    break;
+                    case RULE_LAYER_IPV4:
+                        ret = fw_rule_parse_ipv4_port(tokens[i],
+                                                      &rule->any_to_ipv4,
+                                                      &rule->to_ipv4,
+                                                      &rule->to_port);
+                        if (ret < 0) {
+                            return -1;
+                        }
+                    break;
+                    default:
+                        return -1;
+                }
+            } break;
+            case 6: {
+                ret = fw_rule_parse_msg_rule_id(tokens[i], rule);
+            } break;
         }
     }
 
@@ -296,6 +374,8 @@ void *fw_rule_init(const char *rule_file)
         }
     }
 
+    fclose(fp);
+
     return rule_data;
 
 err:
@@ -304,5 +384,18 @@ err:
     }
 
     return NULL;
+}
+
+void fw_rule_deinit(void *ptr)
+{
+    fw_rule_config_data_t *rules = ptr;
+    fw_rule_config_item_t *rule = rules->head;
+    fw_rule_config_item_t *tmp = rule;
+
+    while (rule) {
+        tmp = rule;
+        rule = rule->next;
+        free(tmp);
+    }
 }
 
