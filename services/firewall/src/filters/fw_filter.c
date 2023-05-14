@@ -11,7 +11,22 @@ static fw_event_details_t fw_filter_arp_run(
                         fw_rule_config_item_t *rule,
                         fw_packet_t *pkt)
 {
-    return FW_EVENT_DESCR_DENY;
+    fw_event_details_t outcome = FW_EVENT_DESCR_DENY;
+    /* ARP frames are not allowed by the firewall. */
+    if (rule->rule_action == RULE_ACTION_DROP) {
+        return outcome;
+    }
+
+    if (!rule->any_from_mac) {
+        /* Sender matches the ARP query. */
+        if (memcmp(rule->from_mac, pkt->eh.src, 6) == 0) {
+            return FW_EVENT_DESCR_ALLOW;
+        }
+    } else {
+        outcome = FW_EVENT_DESCR_ALLOW;
+    }
+
+    return outcome;
 }
 
 static const struct fw_filter {
