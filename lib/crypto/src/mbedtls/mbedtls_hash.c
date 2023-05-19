@@ -1,10 +1,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <mbedtls/sha256.h>
+#include <mbedtls/sha512.h>
 #include <crypto_intf.h>
 #include <nos_core.h>
 
-#define LIBACORE_MBEDTSL_RET_CHECK(__res) { \
+#define LIBNOS_MBEDTSL_RET_CHECK(__res) { \
     if (__res != 0) { \
         return -1; \
     } \
@@ -15,11 +16,42 @@ static int mbedtls_hash_sha2_256_buf(crypto_hash_in_t *hash_in,
 {
     int ret;
 
+    /* Is_224 = 0. */
     ret = mbedtls_sha256_ret(hash_in->buf,
                              hash_in->buf_size, hash_out->hash, 0);
-    LIBACORE_MBEDTSL_RET_CHECK(ret);
+    LIBNOS_MBEDTSL_RET_CHECK(ret);
 
     hash_out->hash_len = 32;
+
+    return ret;
+}
+
+static int mbedtls_hash_sha2_384_buf(crypto_hash_in_t *hash_in,
+                                     crypto_hash_out_t *hash_out)
+{
+    int ret;
+
+    /* Is_384 = 1. */
+    ret = mbedtls_sha512_ret(hash_in->buf,
+                             hash_in->buf_size, hash_out->hash, 1);
+    LIBNOS_MBEDTSL_RET_CHECK(ret);
+
+    hash_out->hash_len = 48;
+
+    return ret;
+}
+
+static int mbedtls_hash_sha2_512_buf(crypto_hash_in_t *hash_in,
+                                     crypto_hash_out_t *hash_out)
+{
+    int ret;
+
+    /* Is_512 = 1. */
+    ret = mbedtls_sha512_ret(hash_in->buf,
+                             hash_in->buf_size, hash_out->hash, 0);
+    LIBNOS_MBEDTSL_RET_CHECK(ret);
+
+    hash_out->hash_len = 64;
 
     return ret;
 }
@@ -64,6 +96,8 @@ static struct mbedtls_hash_info {
 } hash_list[] = {
     {CRYPTO_HASH_SHA2_256, mbedtls_hash_sha2_256_buf, NULL},
     {CRYPTO_HASH_SHA2_256, NULL, mbedtls_hash_sha2_256_file},
+    {CRYPTO_HASH_SHA2_384, mbedtls_hash_sha2_384_buf, NULL},
+    {CRYPTO_HASH_SHA2_512, mbedtls_hash_sha2_512_buf, NULL},
 };
 
 int mbedtls_hash(crypto_hash_in_t *hash_in,
@@ -90,3 +124,4 @@ int mbedtls_hash(crypto_hash_in_t *hash_in,
 
     return ret;
 }
+
