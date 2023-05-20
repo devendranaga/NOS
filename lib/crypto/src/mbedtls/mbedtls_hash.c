@@ -104,7 +104,7 @@ int mbedtls_hash(crypto_hash_in_t *hash_in,
                  crypto_hash_out_t *hash_out)
 {
     uint32_t i;
-    int ret;
+    int ret = -1;
 
     if (!hash_in || !hash_out) {
         return -1;
