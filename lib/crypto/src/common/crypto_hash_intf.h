@@ -86,3 +86,4 @@ int crypto_hash(crypto_hash_in_t *hash_in,
 const char *crypto_hash_get_hash_type_string(crypto_hash_type_t type);
 
 #endif
+
