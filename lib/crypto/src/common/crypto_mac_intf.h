@@ -25,13 +25,13 @@ typedef struct crypto_mac_data_in {
     crypto_mac_type_t   mac_type;
     crypto_lib_type_t   lib_type;
     const char          *keyfile;
-    const char          *buf_in;
+    const uint8_t       *buf_in;
     uint32_t            buf_size;
     const char          *filename;
 } crypto_mac_params_in_t;
 
 typedef struct crypto_mac_data_out {
-    uint8_t             data[32];
+    uint8_t             data[64];
     uint32_t            data_len;
 } crypto_mac_params_out_t;
 

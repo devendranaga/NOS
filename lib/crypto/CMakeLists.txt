@@ -8,7 +8,8 @@ set(COMMON_SRC
 
 set(OPENSSL_SRC
     ./src/openssl/openssl_crypto_intf.c
-    ./src/openssl/openssl_hash.c)
+    ./src/openssl/openssl_hash.c
+    ./src/openssl/openssl_mac.c)
 
 set(MBEDTLS_SRC
     ./src/mbedtls/mbedtls_crypto_intf.c

@@ -2,6 +2,7 @@
 #include <crypto_lib_types.h>
 #include <crypto_common.h>
 #include <crypto_hash_intf.h>
+#include <nos_fileio.h>
 
 static struct crypto_lib_type_msg {
     crypto_lib_type_t type;
@@ -31,4 +32,37 @@ const char *crypto_get_lib_type_str(crypto_lib_type_t type)
 {
     return crypto_lib_types_str[type].str;
 }
+
+int crypto_get_key(const char *key_file, uint8_t *key)
+{
+    int filesize;
+    int fd;
+    int ret;
+
+    filesize = nos_fileio_get_filesize(key_file);
+    if (filesize < 0) {
+        return -1;
+    }
+
+    fd = nos_fileio_open(key_file, "rb");
+    if (fd < 0) {
+        return -1;
+    }
+
+    ret = nos_fileio_read(fd, key, filesize);
+    if (ret < 0) {
+        ret = -1;
+        goto fd_err;
+    }
+
+    return filesize;
+
+fd_err:
+    if (fd > 0) {
+        nos_fileio_close(fd);
+    }
+
+    return -1;
+}
+
 
