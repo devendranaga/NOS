@@ -4,6 +4,6 @@
 
 namespace nos::crypto::crypto_factory {
 
-std::unique_ptr<hash> get_hash_intf(crypto_support &support);
+std::unique_ptr<hash> get_hash_intf(const crypto_support &support);
 
 }

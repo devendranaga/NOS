@@ -1,3 +1,6 @@
+#ifndef __NOS_CRYPTO_INTF_HASH_H__
+#define __NOS_CRYPTO_INTF_HASH_H__
+
 #include <cstring>
 #include <stdint.h>
 #include <string>
@@ -10,8 +13,8 @@ struct hash_input_buf {
     uint32_t buf_size;
 
     explicit hash_input_buf() { }
-    explicit hash_input_buf(const uint8_t *buf, uint32_t buf_size): 
-                    buf(buf), buf_size(buf_size) { }
+    explicit hash_input_buf(const uint8_t *buf_in, uint32_t buf_size_in): 
+                    buf(buf_in), buf_size(buf_size_in) { }
     ~hash_input_buf() { }
 };
 
@@ -63,6 +66,10 @@ class hash {
                                       hash_output &out) = 0;
         virtual crypto_error ripemd160(hash_input_buf &in,
                                        hash_output &out) = 0;
+        virtual crypto_error ripemd160(const std::string &in_file,
+                                       hash_output &out) = 0;
 };
 
 }
+
+#endif
