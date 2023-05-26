@@ -2,47 +2,43 @@ project(crypto)
 
 cmake_minimum_required(VERSION 3.9)
 
-set(COMMON_SRC
-    ./src/common/crypto_intf.c
-    ./src/common/crypto_common.c)
+set(CORE_SRC
+    ./src/core/crypto_factory.cc)
 
 set(OPENSSL_SRC
-    ./src/openssl/openssl_crypto_intf.c
-    ./src/openssl/openssl_hash.c)
+    ./src/openssl/openssl_intf_hash.cc)
 
-set(MBEDTLS_SRC
-    ./src/mbedtls/mbedtls_crypto_intf.c
-    ./src/mbedtls/mbedtls_hash.c)
+set(TEST_SRC
+    ./src/tests/test_main.cc
+    ./src/tests/test_hash_functions.cc)
 
 set(SRC
-    ${COMMON_SRC}
-    ${OPENSSL_SRC}
-    ${MBEDTLS_SRC})
+    ${CORE_SRC}
+    ${OPENSSL_SRC})
 
 set(PKI_SRC
     ./pki/src/x509_parser.c)
-
-set(TEST_SRC
-    ./tests/crypto_main.c)
 
 set(PKI_TEST_SRC
     ./pki/test/x509_test.c)
 
 include_directories(./src/
-                    ./src/common/
+                    ./src/core/
+                    ./src/core/interface/
+                    ./src/tests/
                     ./src/openssl/
                     ./src/mbedtls/
                     ./pki/src/
                     ../core/src/)
 
-add_library(auto_crypto ${SRC})
-target_link_libraries(auto_crypto ssl crypto mbedcrypto)
+add_library(nos_crypto ${SRC})
+target_link_libraries(nos_crypto ssl crypto mbedcrypto)
 
 add_library(nos_x509 ${PKI_SRC})
 target_link_libraries(nos_x509 aos_core)
 
-add_executable(crypto_tests ${TEST_SRC})
-target_link_libraries(crypto_tests auto_crypto aos_core)
-
 add_executable(x509_tests ${PKI_TEST_SRC})
 target_link_libraries(x509_tests aos_core nos_x509)
+
+add_executable(crypto_tests ${TEST_SRC})
+target_link_libraries(crypto_tests nos_crypto)

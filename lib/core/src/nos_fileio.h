@@ -12,6 +12,7 @@ int nos_fileio_read(int fd, uint8_t *msg_out, uint32_t msg_size);
 int nos_fileio_sync(int fd);
 int nos_fileio_write(int fd, uint8_t *msg_out, uint32_t msg_size);
 void nos_fileio_close(int fd);
+int nos_fileio_get_filesize(const char *filename);
 
 #ifdef __cplusplus
 }

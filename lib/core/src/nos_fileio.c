@@ -39,3 +39,16 @@ void nos_fileio_close(int fd)
         close(fd);
     }
 }
+
+int nos_fileio_get_filesize(const char *filename)
+{
+    struct stat t;
+    int ret;
+
+    ret = stat(filename, &t);
+    if (ret < 0) {
+        return -1;
+    }
+
+    return t.st_size;
+}
