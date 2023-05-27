@@ -1,3 +1,9 @@
+/**
+ * @brief Implements interface to Hash functions.
+ * 
+ * @author Devendra Naga (devendra.aaru@outlook.com).
+ * @copyright 2023-present All rights reserved.
+*/
 #ifndef __NOS_CRYPTO_INTF_HASH_H__
 #define __NOS_CRYPTO_INTF_HASH_H__
 
