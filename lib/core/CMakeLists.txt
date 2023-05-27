@@ -10,6 +10,9 @@ set(SRC
     ./src/nos_logger.c
     ./src/nos_socket.c)
 
+set(CPP_SRC
+    ./src/cpp/nos_evt_mgr.cc)
+
 set(TEST_SRC
     ./tests/test_config_parser.c)
 
@@ -17,11 +20,14 @@ set(TEST_NOS_LOGGER_SRC
     ./tests/test_nos_logger.c)
 
 include_directories(./src/
-                    ./src/config_parser/)
+                    ./src/config_parser/
+                    ./src/cpp/)
 
 set(CMAKE_C_FLAGS "-Wall -g -ggdb")
 
 add_library(aos_core ${SRC})
+
+add_library(nos_core_cpp ${CPP_SRC} ${SRC})
 
 add_executable(test_config_parser ${TEST_SRC})
 add_executable(test_nos_logger ${TEST_NOS_LOGGER_SRC})
