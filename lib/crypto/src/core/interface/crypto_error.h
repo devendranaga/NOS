@@ -9,6 +9,7 @@ enum class crypto_error {
     SHA2_512_FAILURE,
     RIPEMD160_FAILURE,
     INVALID_INPUT,
+    ALLOC_FAILURE,
     NO_ERROR,
 };
 
