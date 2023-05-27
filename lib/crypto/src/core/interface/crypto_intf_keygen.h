@@ -22,6 +22,7 @@ class crypto_keygen {
 
         virtual crypto_error get_aes_key(uint8_t *buf_out, uint32_t buf_out_len) = 0;
         virtual crypto_error get_aes_key(const std::string &key, uint32_t key_len) = 0;
+        virtual crypto_error get_rsa_key(const std::string &priv, const std::string &pub) = 0;
 };
 
 }
