@@ -1,3 +1,0 @@
-log icmp from any:any to $HOME:any (msg: "ICMP"; rule_id : 100001)
-drop arp from any:any to $HOME:any (msg: "ARP message communication blocked"; rule_id: 100002)
-alert arp from any:any to $HOME:any (msg: "ARP message communication blocked"; rule_id: 100003)
