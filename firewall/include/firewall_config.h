@@ -77,6 +77,8 @@ struct firewall_config {
     std::vector<firewall_intf_config> intf_list_;
     event_config evt_conf_;
 
+    int parse(const std::string &conf);
+
     public:
         explicit firewall_config() { }
 };

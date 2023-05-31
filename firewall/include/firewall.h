@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include <jsoncpp/json/json.h>
 #include <firewall_config.h>
 #include <firewall_intf.h>
 
@@ -13,7 +14,7 @@ class firewall_ctx {
         explicit firewall_ctx();
         ~firewall_ctx();
 
-        int init();
+        int init(const std::string &conf_file);
 
         void run();
 

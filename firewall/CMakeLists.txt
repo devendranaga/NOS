@@ -10,4 +10,4 @@ include_directories(./src/
                     ../core/include/)
 
 add_executable(nos_firewall ${SRC})
-target_link_libraries(nos_firewall nos_core pthread)
+target_link_libraries(nos_firewall nos_core pthread jsoncpp)
