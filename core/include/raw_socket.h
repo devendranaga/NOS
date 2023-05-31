@@ -1,11 +1,20 @@
+/**
+ * @brief - Defines raw socket.
+ *
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+ */
+#ifndef __NOS_CORE_RAW_SOCKET_H__
+#define __NOS_CORE_RAW_SOCKET_H__
+
 #include <cstdint>
 #include <string>
 
 namespace nos::core {
 
-/** 
+/**
  * @brief - Implements raw socket
- */     
+ */
 class raw_socket {
     public:
         /**
@@ -59,3 +68,5 @@ class raw_socket {
 };
 
 }
+
+#endif
