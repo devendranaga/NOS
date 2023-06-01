@@ -10,3 +10,4 @@ include_directories(./src/
                     ./include/)
 
 add_library(nos_core ${SRC})
+add_subdirectory(crypto)
