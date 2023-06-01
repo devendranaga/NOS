@@ -4,7 +4,8 @@ project(core)
 
 set(SRC
     ./src/evt_mgr.cc
-    ./src/raw_socket.cc)
+    ./src/raw_socket.cc
+    ./src/file_intf.cc)
 
 include_directories(./src/
                     ./include/)
