@@ -1,7 +1,14 @@
+/**
+ * @brief - Implements nos timestamp interface.
+ * 
+ * @copyright - 2023-present All rights reserved.
+ * @author - Devendra Naga.
+*/
 #ifndef __NOS_TIME_INTF_H__
 #define __NOS_TIME_INTF_H__
 
 #include <stdint.h>
+#include <string>
 
 namespace nos::core {
 
@@ -30,6 +37,7 @@ class time_intf {
         int sub(const timestamp_ns &new_ns,
                 const timestamp_ns &old_ns,
                 timestamp_ns &res);
+        int make_timestamp(std::string &ts_fmt);
 };
 
 }
