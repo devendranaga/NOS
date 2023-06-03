@@ -1,0 +1,37 @@
+{
+    "intf_list": [
+        {
+            "interface_name": "dummy0",
+            "rules_file": "./dummy0.rules"
+        },
+        {
+            "interface_name": "dummy1",
+            "rules_file": "./dummy1.rules"
+        }
+    ],
+    "events": {
+        "event_format": "light",
+        "event_msg_format": "v1",
+        "event_uploads": {
+            "binary": {
+                "enable": 1,
+                "protocol": "tcp",
+                "server_ip": "127.0.0.1",
+                "server_port": 2144
+            },
+            "protobuf": {
+                "enable": 1,
+                "protocol": "tcp",
+                "server_ip": "127.0.0.1",
+                "server_port": 2145
+            },
+            "mqtt": {
+                "enable": 1,
+                "protocol": "udp",
+                "server_ip": "127.0.0.1",
+                "server_port": 2146,
+                "event_topic": "./nos/firewall/events"
+            }
+        }
+    }
+}
