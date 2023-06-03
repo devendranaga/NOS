@@ -5,7 +5,8 @@ project(firewall)
 set(SRC
     ./src/firewall.cc
     ./src/packet.cc
-    ./src/packet-eth.cc)
+    ./src/packet-eth.cc
+    ./src/packet-arp.cc)
 
 include_directories(./src/
                     ./include/

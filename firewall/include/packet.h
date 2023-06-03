@@ -33,9 +33,9 @@ struct packet_buf {
 };
 
 struct ether_header {
-    uint8_t srcmac[MACADDR_LEN];
-    uint8_t dstmac[MACADDR_LEN];
-    uint16_t ethertype;
+    uint8_t         srcmac[MACADDR_LEN];
+    uint8_t         dstmac[MACADDR_LEN];
+    uint16_t        ethertype;
 
     event_type deserialize(packet_buf &buf);
     void free_hdr() { }
@@ -56,7 +56,29 @@ struct ieee8021x_header {
     void free_hdr() { }
 };
 
+#define ARP_OP_ARP_REQ          1
+#define ARP_OP_ARP_REPLY        2
+#define ARP_OP_RARP_REQ         3
+#define ARP_OP_RARP_REPLY       4
+#define ARP_OP_DRARP_REQ        5
+#define ARP_OP_DRARP_REPLY      6
+#define ARP_OP_DRARP_ERROR      7
+#define ARP_OP_INARP_REQ        8
+#define ARP_OP_INARP_REPLY      9
+
+#define ARP_HEADER_LEN          28
+
 struct arp_header {
+    uint16_t        header_type;
+    uint16_t        protocol_type;
+    uint8_t         hwaddr_len;
+    uint8_t         protoaddr_len;
+    uint16_t        operation;
+    uint8_t         sender_hwaddr[MACADDR_LEN];
+    uint32_t        sender_proto_addr;
+    uint8_t         target_hwaddr[MACADDR_LEN];
+    uint32_t        target_proto_addr;
+
     event_type deserialize(packet_buf &buf);
     void free_hdr() { }
 };
