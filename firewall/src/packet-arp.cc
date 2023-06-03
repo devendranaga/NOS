@@ -25,6 +25,10 @@ event_type arp_header::deserialize(packet_buf &buf)
     type = buf.deserialize_byte(&hwaddr_len);
     VALIDATE_AND_FAIL(type);
 
+    if (hwaddr_len != MACADDR_LEN) {
+        return event_type::ARP_HWADDR_LEN_INVAL;
+    }
+
     type = buf.deserialize_byte(&protoaddr_len);
     VALIDATE_AND_FAIL(type);
 
