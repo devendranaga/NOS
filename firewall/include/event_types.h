@@ -1,3 +1,5 @@
+#ifndef __NOS_EVENT_TYPES_H__
+#define __NOS_EVENT_TYPES_H__
 
 namespace nos::firewall {
 
@@ -12,3 +14,5 @@ enum event_type {
 };
 
 }
+
+#endif

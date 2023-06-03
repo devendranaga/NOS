@@ -2,10 +2,12 @@
 #define __NOS_FIREWALL_INTF_H__
 
 #include <memory>
+#include <queue>
 #include <thread>
 #include <mutex>
 #include <condition_variable>
 #include <raw_socket.h>
+#include <packet.h>
 
 namespace nos::firewall {
 
@@ -18,9 +20,15 @@ class firewall_intf {
 
     private:
         void receive_callback();
+        void parser_callback();
+        void filter_callback();
 
         std::unique_ptr<nos::core::raw_socket> raw_;
         std::unique_ptr<std::thread> rx_thr_;
+        std::unique_ptr<std::thread> parser_thr_;
+        std::unique_ptr<std::thread> filter_thr_;
+        std::queue<packet_buf> pkt_queue_;
+        std::mutex pkt_queue_lock_;
 };
 
 }

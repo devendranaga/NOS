@@ -68,7 +68,9 @@ struct event_config {
 struct firewall_config {
     ~firewall_config() { }
     firewall_config(const firewall_config &) = delete;
+    firewall_config(const firewall_config &&) = delete;
     const firewall_config &operator=(const firewall_config &) = delete;
+    const firewall_config &&operator=(const firewall_config &&) = delete;
 
     static firewall_config *instance() {
         static firewall_config conf;

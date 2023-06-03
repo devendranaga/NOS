@@ -1,3 +1,6 @@
+#ifndef __NOS_PACKET_H__
+#define __NOS_PACKET_H__
+
 #include <stdlib.h>
 #include <stdint.h>
 #include <vector>
@@ -155,3 +158,5 @@ struct packet {
 };
 
 }
+
+#endif

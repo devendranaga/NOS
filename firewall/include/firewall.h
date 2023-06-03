@@ -6,6 +6,8 @@
 #include <jsoncpp/json/json.h>
 #include <firewall_config.h>
 #include <firewall_intf.h>
+#include <firewall_event_mgr.h>
+#include <evt_mgr_intf.h>
 
 namespace nos::firewall {
 
@@ -20,6 +22,7 @@ class firewall_ctx {
 
     private:
         std::vector<std::shared_ptr<firewall_intf>> intf_list_;
+        nos::core::evt_mgr_intf *evt_mgr_;
 };
 
 }
