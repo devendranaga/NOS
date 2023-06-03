@@ -4,3 +4,4 @@ project(nos)
 
 add_subdirectory(./core/)
 add_subdirectory(./firewall/)
+add_subdirectory(./logger)
