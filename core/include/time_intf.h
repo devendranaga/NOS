@@ -1,5 +1,5 @@
 /**
- * @brief - Implements nos timestamp interface.
+ * @brief - Implements nos timestamp interface class.
  * 
  * @copyright - 2023-present All rights reserved.
  * @author - Devendra Naga.

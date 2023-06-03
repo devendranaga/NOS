@@ -53,4 +53,48 @@ int file_intf::create(const std::string &filename, const file_mode &mode)
     return fd_;
 }
 
+int file_intf::open(const std::string &filename, const file_ops &ops)
+{
+    uint32_t fileops = 0;
+
+    if (ops& file_ops::READ) {
+        fileops |= O_RDONLY;
+    } else if (ops == file_ops::WRITE) {
+        fileops |= O_WRONLY;
+    } else if (ops == file_ops::APPEND) {
+        fileops |= O_RDWR | O_APPEND;
+    } else {
+        return -1;
+    }
+
+    fd_ = ::open(filename.c_str(), fileops);
+    if (fd_ < 0) {
+        return -1;
+    }
+
+    return fd_;
+}
+
+int file_intf::read(uint8_t *buf, uint32_t buf_len)
+{
+    return ::read(fd_, buf, buf_len);
+}
+
+int file_intf::write(uint8_t *buf, uint32_t buf_len)
+{
+    return ::write(fd_, buf, buf_len);
+}
+
+file_intf::file_intf()
+{
+    fd_ = -1;
+}
+
+file_intf::~file_intf()
+{
+    if (fd_ > 0) {
+        close(fd_);
+    }
+}
+
 }

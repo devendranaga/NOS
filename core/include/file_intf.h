@@ -36,8 +36,8 @@ enum file_ops {
 
 class file_intf {
     public:
-        explicit file_intf() = default;
-        ~file_intf() = default;
+        explicit file_intf();
+        ~file_intf();
 
         int create(const std::string &filename, const file_mode &mode);
         int open(const std::string &filename, const file_ops &ops);
