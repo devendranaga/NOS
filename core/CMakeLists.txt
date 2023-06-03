@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.8)
 project(core)
 
 set(SRC
-    ./src/evt_mgr.cc
+    ./src/evt_mgr_intf.cc
     ./src/raw_socket.cc
     ./src/file_intf.cc
     ./src/time_intf.cc)
