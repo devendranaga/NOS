@@ -15,6 +15,7 @@
 namespace nos::firewall {
 
 struct packet_buf {
+    char intf[15];
     uint8_t *data;
     uint32_t data_len;
     uint32_t off;
@@ -86,7 +87,30 @@ struct arp_header {
     void free_hdr() { }
 };
 
+#define IPV4_VERSION 4
+#define IPV4_IHL_LEN_MIN 5
+#define IPV4_IHL_LEN_MAX 15
+
+/**
+ * @brief - Implements ipv4 header.
+ */
 struct ipv4_header {
+    uint8_t         version;
+    uint8_t         ihl;
+    uint8_t         dscp;
+    uint8_t         ecn;
+    uint16_t        total_len;
+    uint16_t        id;
+    uint8_t         flags_reserved:1;
+    uint8_t         flags_dont_fragment:1;
+    uint8_t         flags_more_fragment:1;
+    uint16_t        frag_off;
+    uint8_t         ttl;
+    uint8_t         protocol;
+    uint16_t        hdr_chksum;
+    uint32_t        source_ipaddr;
+    uint32_t        dest_ipaddr;
+
     event_type deserialize(packet_buf &buf);
     void free_hdr() { }
 };
@@ -130,31 +154,27 @@ enum tunnel_type {
 };
 
 struct packet {
-    packet_buf *buf;
-
     tunnel_type tun_type;
-    ether_header *eth_h;
-    vlan_header *vlan_h;
-    arp_header *arp_h;
-    ipv4_header *ipv4_h;
-    ipv6_header *ipv6_h;
-    tcp_header *tcp_h;
-    udp_header *udp_h;
-    icmp_header *icmp_h;
-    icmp6_header *icmp6_h;
-    ppp_header *ppp_h;
+    ether_header eth_h;
+    vlan_header vlan_h;
+    arp_header arp_h;
+    ipv4_header ipv4_h;
+    ipv6_header ipv6_h;
+    tcp_header tcp_h;
+    udp_header udp_h;
+    icmp_header icmp_h;
+    icmp6_header icmp6_h;
+    ppp_header ppp_h;
 
     std::vector<packet> tunneled_packets_;
 
     explicit packet() : tun_type(tunnel_type::None) { }
-    ~packet() {
-        if (eth_h) {
-            eth_h->free_hdr();
-            free(eth_h);
-        }
-    }
+    ~packet() { }
+};
 
-    bool has_vlan() { return vlan_h ? true : false; }
+struct packet_parser_state {
+    packet_buf pkt_buf;
+    packet pkt;
 };
 
 }

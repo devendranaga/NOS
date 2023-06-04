@@ -32,6 +32,11 @@ struct firewall_event {
     uint16_t        dst_port;
 
     packet_buf      pkt;
+
+    int make(packet_parser_state &state,
+             event_result res,
+             event_type descr,
+             uint32_t rule_id);
 };
 
 }
