@@ -45,7 +45,7 @@ void console_logging::warn(const char *fmt, ...)
     va_list ap;
 
     va_start(ap, fmt);
-    log_msg_console(fmt, "Info", ap);
+    log_msg_console(fmt, "Warn", ap);
     va_end(ap);
 }
 
@@ -54,7 +54,7 @@ void console_logging::err(const char *fmt, ...)
     va_list ap;
 
     va_start(ap, fmt);
-    log_msg_console(fmt, "Info", ap);
+    log_msg_console(fmt, "Error", ap);
     va_end(ap);
 }
 
@@ -63,7 +63,7 @@ void console_logging::fatal(const char *fmt, ...)
     va_list ap;
 
     va_start(ap, fmt);
-    log_msg_console(fmt, "Info", ap);
+    log_msg_console(fmt, "Fatal", ap);
     va_end(ap);
 }
 
@@ -72,7 +72,7 @@ void console_logging::verbose(const char *fmt, ...)
     va_list ap;
 
     va_start(ap, fmt);
-    log_msg_console(fmt, "Info", ap);
+    log_msg_console(fmt, "Verbose", ap);
     va_end(ap);
 }
 
@@ -81,7 +81,7 @@ void console_logging::debug(const char *fmt, ...)
     va_list ap;
 
     va_start(ap, fmt);
-    log_msg_console(fmt, "Info", ap);
+    log_msg_console(fmt, "Debug", ap);
     va_end(ap);
 }
 
