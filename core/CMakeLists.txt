@@ -6,7 +6,8 @@ set(SRC
     ./src/evt_mgr_intf.cc
     ./src/raw_socket.cc
     ./src/file_intf.cc
-    ./src/time_intf.cc)
+    ./src/time_intf.cc 
+    ./src/nos_logging_console.cc)
 
 include_directories(./src/
                     ./include/)
