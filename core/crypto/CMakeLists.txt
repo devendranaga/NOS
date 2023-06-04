@@ -3,7 +3,8 @@ cmake_minimum_required(VERSION 3.8)
 project(crypto)
 
 set(MBEDTLS_SRC
-    ./mbedtls/mbedtls_keywraps.cc)
+    ./mbedtls/mbedtls_keywraps.cc
+    ./mbedtls/mbedtls_hmac.cc)
 
 set(COMMON_SRC
     ./common/crypto_factory.cc)
@@ -13,7 +14,9 @@ set(SRC
     ${COMMON_SRC})
 
 set(TEST_SRC
-    ./test/test_keywrap.cc)
+    ./test/test_keywrap.cc
+    ./test/test_hmac.cc
+    ./test/test_main.cc)
 
 set(MBEDTLS_INCL
     ./mbedtls)

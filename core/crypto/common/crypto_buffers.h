@@ -66,6 +66,21 @@ struct crypto_hash_buffer {
     }
 };
 
+struct crypto_mac_buffer {
+    uint8_t signature[128];
+    uint32_t signature_len;
+
+    explicit crypto_mac_buffer() {
+        memset(signature, 0, sizeof(signature));
+        signature_len = 0;
+    }
+    ~crypto_mac_buffer() { }
+    explicit crypto_mac_buffer(uint8_t *mac_in, uint32_t mac_len) {
+        memcpy(signature, mac_in, mac_len);
+        signature_len = mac_len;
+    }
+};
+
 }
 
 #endif
