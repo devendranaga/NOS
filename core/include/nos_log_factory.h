@@ -1,8 +1,11 @@
+/**
+ * @brief - Implements nos Log factory.
+ */
 #ifndef __NOS_LOG_FACTORY_H__
 #define __NOS_LOG_FACTORY_H__
 
 #include <memory>
-#include <logger.h>
+#include <nos_logging.h>
 #include <nos_logging_console.h>
 
 namespace nos::core {
@@ -28,7 +31,7 @@ class log_factory {
 
         std::shared_ptr<logging> create(logger_type type)
         {
-            if (logger_type::Console) {
+            if (type == logger_type::Console) {
                 return std::make_shared<console_logging>();
             }
 
