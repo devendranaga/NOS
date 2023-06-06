@@ -2,6 +2,7 @@
 #include <string.h>
 #include <memory>
 #include <crypto_factory.h>
+#include <nos_log_factory.h>
 
 int test_hmac()
 {

@@ -4,7 +4,8 @@ project(crypto)
 
 set(MBEDTLS_SRC
     ./mbedtls/mbedtls_keywraps.cc
-    ./mbedtls/mbedtls_hmac.cc)
+    ./mbedtls/mbedtls_hmac.cc
+    ./mbedtls/mbedtls_hkdf.cc)
 
 set(COMMON_SRC
     ./common/crypto_factory.cc)
@@ -16,6 +17,7 @@ set(SRC
 set(TEST_SRC
     ./test/test_keywrap.cc
     ./test/test_hmac.cc
+    ./test/test_hkdf.cc
     ./test/test_main.cc)
 
 set(MBEDTLS_INCL

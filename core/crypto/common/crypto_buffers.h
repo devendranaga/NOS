@@ -81,6 +81,21 @@ struct crypto_mac_buffer {
     }
 };
 
+struct crypto_context_buffer {
+    uint8_t context[128];
+    uint32_t context_len;
+
+    explicit crypto_context_buffer() {
+        memset(context, 0, sizeof(context));
+        context_len = 0;
+    }
+    ~crypto_context_buffer() { }
+    explicit crypto_context_buffer(uint8_t *ctx, uint32_t ctx_len) {
+        memcpy(context, ctx, ctx_len);
+        context_len = ctx_len;
+    }
+};
+
 }
 
 #endif

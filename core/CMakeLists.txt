@@ -12,5 +12,13 @@ set(SRC
 include_directories(./src/
                     ./include/)
 
+set(TEST_SRC
+    ./test/test_logger.cc
+    ./test/test_main.cc)
+
 add_library(nos_core ${SRC})
+
+add_executable(nos_core_test ${TEST_SRC})
+target_link_libraries(nos_core_test nos_core pthread)
+
 add_subdirectory(crypto)

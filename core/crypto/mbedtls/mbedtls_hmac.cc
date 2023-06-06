@@ -53,6 +53,8 @@ int mbedtls_hmac_intf::generate(hash_function_types hash_type,
         return -1;
     }
 
+    mbedtls_md_free(&ctx);
+
     return 0;
 }
 
@@ -104,6 +106,8 @@ int mbedtls_hmac_intf::verify(hash_function_types hash_type,
     }
 
     ret = memcmp(mac_out.signature, signature, mac_out.signature_len);
+
+    mbedtls_md_free(&ctx);
 
     return (ret == 0) ? 0 : -1;
 }
