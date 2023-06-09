@@ -5,45 +5,16 @@
 #include <stdint.h>
 #include <vector>
 #include <event_types.h>
+#include <packet-buf.h>
+#include <packet-eth.h>
+#include <packet-icmp.h>
 
 #define PACKET_BUF_MAX_DATA_LEN 8192
-#define MACADDR_LEN 6
 
 #define ETHERTYPE_ARP       0x0806
 #define ETHERTYPE_IPV4      0x0800
 
 namespace nos::firewall {
-
-struct packet_buf {
-    char intf[15];
-    uint8_t *data;
-    uint32_t data_len;
-    uint32_t off;
-
-    explicit packet_buf(uint16_t data_len) {
-    }
-    explicit packet_buf() : data(NULL), data_len(0), off(0) { }
-    ~packet_buf() { }
-
-    event_type deserialize_byte(uint8_t *byte);
-    event_type deserialize_2_bytes(uint16_t *bytes);
-    event_type deserialize_4_bytes(uint32_t *bytes);
-    event_type deserialize_8_bytes(uint64_t *bytes);
-    event_type deserilaize_mac(uint8_t *macaddr);
-    event_type deserialize_ipaddr(uint32_t *ipaddr);
-    event_type deserialize_ip6addr(uint8_t *ip6addr, uint16_t *len);
-    event_type deserialize_bytes(uint8_t *bytes, uint32_t len);
-    event_type skip_bytes(uint32_t len);
-};
-
-struct ether_header {
-    uint8_t         srcmac[MACADDR_LEN];
-    uint8_t         dstmac[MACADDR_LEN];
-    uint16_t        ethertype;
-
-    event_type deserialize(packet_buf &buf);
-    void free_hdr() { }
-};
 
 struct vlan_header {
     event_type deserialize(packet_buf &buf);
@@ -72,6 +43,9 @@ struct ieee8021x_header {
 
 #define ARP_HEADER_LEN          28
 
+/**
+ * @brief - Implements ARP header.
+ */
 struct arp_header {
     uint16_t        header_type;
     uint16_t        protocol_type;
@@ -82,6 +56,10 @@ struct arp_header {
     uint32_t        sender_proto_addr;
     uint8_t         target_hwaddr[MACADDR_LEN];
     uint32_t        target_proto_addr;
+
+    inline bool is_arp_req() { return operation == ARP_OP_ARP_REQ; }
+    inline bool is_arp_reply() { return operation == ARP_OP_ARP_REPLY; }
+    inline bool is_proto_ipv4() { return protocol_type == UNSUPPORTED_ETHERTYPE; }
 
     event_type deserialize(packet_buf &buf);
     void free_hdr() { }
@@ -110,17 +88,16 @@ struct ipv4_header {
     uint16_t        hdr_chksum;
     uint32_t        source_ipaddr;
     uint32_t        dest_ipaddr;
+    bool            header_parsed_ok;
 
     event_type deserialize(packet_buf &buf);
     void free_hdr() { }
+
+    inline bool has_fragment()
+    { return (flags_more_fragment == 1) || (frag_off != 0); }
 };
 
 struct ipv6_header {
-    event_type deserialize(packet_buf &buf);
-    void free_hdr() { }
-};
-
-struct icmp_header {
     event_type deserialize(packet_buf &buf);
     void free_hdr() { }
 };

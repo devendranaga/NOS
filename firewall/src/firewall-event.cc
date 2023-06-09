@@ -10,7 +10,7 @@ int firewall_event::make(packet_parser_state &state,
                          event_type descr,
                          uint32_t rule_id)
 {
-    strcpy(intf, state.pkt_buf.intf);
+    strcpy(intf, state.pkt_buf.intf.c_str());
     this->res = res;
     this->descr = descr;
     this->rule_id = rule_id;

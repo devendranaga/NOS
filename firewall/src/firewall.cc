@@ -99,7 +99,7 @@ int firewall_config::parse(const std::string &conf)
 
 void firewall_intf::receive_callback()
 {
-    packet_buf pkt_buf;
+    packet_buf pkt_buf(ifname_);
     uint8_t mac[6];
     int ret;
 
@@ -123,6 +123,8 @@ void firewall_intf::filter_callback()
 int firewall_intf::create_raw(const std::string &ifname)
 {
     int ret;
+
+    ifname_ = ifname;
 
     raw_ = std::make_unique<nos::core::raw_socket>(ifname, 0x0);
 

@@ -8,6 +8,13 @@ namespace nos::firewall {
     }\
 }
 
+event_type firewall_intf::parse_protocol(packet_parser_state &state)
+{
+    event_type type = event_type::UNSUPPORTED_PROTOCOL;
+
+    return type;
+}
+
 event_type firewall_intf::parse_packet(packet_parser_state &state)
 {
     event_type type;
@@ -15,10 +22,16 @@ event_type firewall_intf::parse_packet(packet_parser_state &state)
     type = state.pkt.eth_h.deserialize(state.pkt_buf);
     VALIDATE_AND_FAIL(type);
 
+    /* Parse the next header after the ethertype. */
     switch (state.pkt.eth_h.ethertype) {
         case ETHERTYPE_ARP:
+            type = state.pkt.arp_h.deserialize(state.pkt_buf);
         break;
         case ETHERTYPE_IPV4:
+            type = state.pkt.ipv4_h.deserialize(state.pkt_buf);
+            if (type == event_type::NO_ERROR) {
+                type = parse_protocol(state);
+            }
         break;
         default:
             return event_type::UNSUPPORTED_ETHERTYPE;
