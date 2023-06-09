@@ -7,7 +7,8 @@ set(SRC
     ./src/raw_socket.cc
     ./src/file_intf.cc
     ./src/time_intf.cc 
-    ./src/nos_logging_console.cc)
+    ./src/nos_logging_console.cc
+    ./src/udp_socket_intf.cc)
 
 include_directories(./src/
                     ./include/)
