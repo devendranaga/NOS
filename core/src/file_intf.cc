@@ -2,7 +2,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h>
-#include <file_intf.h>
+#include <nos_file_intf.h>
 
 namespace nos::core {
 

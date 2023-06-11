@@ -9,7 +9,7 @@
 
 #include <stdarg.h>
 #include <memory>
-#include <udp_socket_intf.h>
+#include <nos_udp_socket_intf.h>
 #include <nos_logging.h>
 
 namespace nos::core

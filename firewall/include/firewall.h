@@ -7,7 +7,7 @@
 #include <firewall_config.h>
 #include <firewall_intf.h>
 #include <firewall_event_mgr.h>
-#include <evt_mgr_intf.h>
+#include <nos_evt_mgr_intf.h>
 
 namespace nos::firewall {
 

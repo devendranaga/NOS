@@ -7,7 +7,7 @@
 #include <stdint.h>
 #include <time.h>
 #include <sys/time.h>
-#include <time_intf.h>
+#include <nos_time_intf.h>
 
 namespace nos::core {
 
