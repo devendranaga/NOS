@@ -48,4 +48,13 @@ event_type packet_buf::deserilaize_mac(uint8_t *mac)
     return event_type::NO_ERROR;
 }
 
+event_type packet_buf::deserialize_ip6addr(uint8_t *ip6addr)
+{
+    BOUNDS_CHECK_AND_FAIL(off, 16, data_len);
+    std::memcpy(ip6addr, data + off, 16);
+
+    off += 16;
+    return event_type::NO_ERROR;
+}
+
 }

@@ -26,7 +26,7 @@ struct packet_buf {
     event_type deserialize_8_bytes(uint64_t *bytes);
     event_type deserilaize_mac(uint8_t *macaddr);
     event_type deserialize_ipaddr(uint32_t *ipaddr);
-    event_type deserialize_ip6addr(uint8_t *ip6addr, uint16_t *len);
+    event_type deserialize_ip6addr(uint8_t *ip6addr);
     event_type deserialize_bytes(uint8_t *bytes, uint32_t len);
     event_type skip_bytes(uint32_t len);
 };
