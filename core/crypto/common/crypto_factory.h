@@ -5,6 +5,8 @@
 
 #include <crypto_impl.h>
 #include <crypto_keywraps.h>
+#include <nos_crypto_hmac_intf.h>
+#include <nos_crypto_hkdf_intf.h>
 
 namespace nos::crypto {
 
@@ -17,6 +19,8 @@ class crypto_factory {
         }
 
         std::shared_ptr<keywrap> create_keywrap(const crypto_impl &impl);
+        std::shared_ptr<hmac_intf> create_hmac(const crypto_impl &impl);
+        std::shared_ptr<hkdf_intf> create_hkdf(const crypto_impl &impl);
     private:
         explicit crypto_factory() { }
 };

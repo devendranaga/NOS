@@ -99,7 +99,7 @@ int firewall_config::parse(const std::string &conf)
 
 void firewall_intf::receive_callback()
 {
-    packet_buf pkt_buf;
+    packet_buf pkt_buf(ifname_);
     uint8_t mac[6];
     int ret;
 
@@ -115,11 +115,6 @@ void firewall_intf::receive_callback()
     }
 }
 
-void firewall_intf::parser_callback()
-{
-
-}
-
 void firewall_intf::filter_callback()
 {
 
@@ -128,6 +123,8 @@ void firewall_intf::filter_callback()
 int firewall_intf::create_raw(const std::string &ifname)
 {
     int ret;
+
+    ifname_ = ifname;
 
     raw_ = std::make_unique<nos::core::raw_socket>(ifname, 0x0);
 
@@ -140,6 +137,7 @@ int firewall_intf::create_raw(const std::string &ifname)
     filter_thr_ = std::make_unique<std::thread>(&firewall_intf::filter_callback, this);
     filter_thr_->detach();
 
+    /* Initialize the event manager interface. */
     ret = firewall_event_mgr::instance()->init();
     if (ret < 0) {
         return -1;

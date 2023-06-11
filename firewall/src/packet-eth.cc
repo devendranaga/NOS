@@ -22,4 +22,9 @@ event_type ether_header::deserialize(packet_buf &buf)
     return type;
 }
 
+void ether_header::print()
+{
+    
+}
+
 }

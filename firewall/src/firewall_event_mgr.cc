@@ -4,6 +4,14 @@
 
 namespace nos::firewall {
 
+void firewall_event_mgr::queue_event(firewall_event &event, packet_buf &pkt)
+{
+    {
+        std::unique_lock<std::mutex> lock(event_list_lock_);
+        event_list_.push(event);
+    }
+}
+
 void firewall_event_mgr::event_upload_callback()
 {
     while (1) {

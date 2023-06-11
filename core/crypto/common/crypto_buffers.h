@@ -66,6 +66,36 @@ struct crypto_hash_buffer {
     }
 };
 
+struct crypto_mac_buffer {
+    uint8_t signature[128];
+    uint32_t signature_len;
+
+    explicit crypto_mac_buffer() {
+        memset(signature, 0, sizeof(signature));
+        signature_len = 0;
+    }
+    ~crypto_mac_buffer() { }
+    explicit crypto_mac_buffer(uint8_t *mac_in, uint32_t mac_len) {
+        memcpy(signature, mac_in, mac_len);
+        signature_len = mac_len;
+    }
+};
+
+struct crypto_context_buffer {
+    uint8_t context[128];
+    uint32_t context_len;
+
+    explicit crypto_context_buffer() {
+        memset(context, 0, sizeof(context));
+        context_len = 0;
+    }
+    ~crypto_context_buffer() { }
+    explicit crypto_context_buffer(uint8_t *ctx, uint32_t ctx_len) {
+        memcpy(context, ctx, ctx_len);
+        context_len = ctx_len;
+    }
+};
+
 }
 
 #endif

@@ -11,9 +11,18 @@
 
 namespace nos::logger {
 
+enum log_service_type {
+    Log_To_File     = 0x0001,
+    Log_To_Syslog   = 0x0002,
+    Log_To_Dlt      = 0x0004,
+};
+
 struct logger_config {
+    std::string server_ipaddr;
+    int server_port;
     std::string file_prefix;
     uint32_t rotate_size_bytes;
+    log_service_type service_type;
 };
 
 struct log_msg {
@@ -26,6 +35,30 @@ struct log_msg {
     }
 };
 
+/**
+ * Implements file i/o logging interface.
+*/
+class log_fileio {
+    public:
+        explicit log_fileio(logger_config &conf) {
+            conf_ = conf;
+            file_off_ = 0;
+        }
+        ~log_fileio() = default;
+
+        void new_filename();
+        void write(const log_msg &msg);
+
+    private:
+        logger_config conf_;
+        std::string file_name_;
+        nos::core::file_intf fi_;
+        uint32_t file_off_;
+};
+
+/**
+ * Implements base log service class that holds the logger context.
+*/
 class log_service {
     public:
         explicit log_service(int argc, char **argv);
@@ -34,15 +67,31 @@ class log_service {
         void run();
 
     private:
+        /**
+         * @brief - Parse command line configuration data.
+        */
         int read_cmdline(int argc, char **argv);
+
+        /**
+         * @brief - Write log data to a file. given Log file or syslog or dlt
+        */
+        void write_log_data(const log_msg &msg);
+
+        /**
+         * @brief - Receive a logging message over udp.
+        */
         void receive_logger_msg(int fd);
+
+        /**
+         * @brief - Writer thread handles the logging of received log data.
+        */
         void writer_thread();
+        std::unique_ptr<nos::core::udp_server> udp_server_;
         std::unique_ptr<std::thread> wr_thr_;
         nos::core::evt_mgr_intf *evt_mgr_;
         std::queue<log_msg> msg_q_;
-        nos::core::file_intf file_;
+        std::shared_ptr<log_fileio> file_io_;
         std::mutex msg_q_lock_;
-        std::string file_name_;
         logger_config conf_;
 };
 

@@ -42,7 +42,7 @@ class file_intf {
         int create(const std::string &filename, const file_mode &mode);
         int open(const std::string &filename, const file_ops &ops);
         int read(uint8_t *buf, uint32_t buf_len);
-        int write(uint8_t *buf, uint32_t buf_len);
+        int write(const uint8_t *buf, uint32_t buf_len);
         int copy(const std::string &source_file,
                  const std::string &target_file);
         int move(const std::string &source_file,
@@ -50,6 +50,8 @@ class file_intf {
         int get_filesize(const std::string &filename, uint32_t &filesize_bytes);
         bool is_socket(const std::string &filename);
         bool is_fifo(const std::string &filename);
+        bool is_file_opened() { return fd_ >= 0; }
+        void close();
 
     private:
         int fd_;
