@@ -20,6 +20,7 @@ class udp_server {
         explicit udp_server(const std::string &ipaddr, int port);
         ~udp_server();
 
+        inline int get_socket() { return fd_; }
         int send(const uint8_t *msg, uint32_t msg_len,
                  const std::string &dest_ip, int dest_port);
         int recv(uint8_t *msg, uint32_t msg_len,
@@ -37,6 +38,7 @@ class udp_client {
         explicit udp_client();
         ~udp_client();
 
+        inline int get_socket() { return fd_; }
         int send(const uint8_t *msg, uint32_t msg_len,
                  const std::string &dest_ip, int dest_port);
         int recv(uint8_t *msg, uint32_t msg_len,
@@ -54,6 +56,7 @@ class udp_unix_server {
         explicit udp_unix_server(const std::string &self_path);
         ~udp_unix_server();
 
+        inline int get_socket() { return fd_; }
         int send(const uint8_t *msg, uint32_t msg_len,
                  const std::string &dest_path);
         int recv(uint8_t *msg, uint32_t msg_len,
@@ -70,6 +73,7 @@ class udp_unix_client {
         explicit udp_unix_client(const std::string &self_path);
         ~udp_unix_client();
 
+        inline int get_socket() { return fd_; }
         int send(const uint8_t *msg, uint32_t msg_len,
                  const std::string &dest_path);
         int recv(uint8_t *msg, uint32_t msg_len,

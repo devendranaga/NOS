@@ -45,7 +45,7 @@ int file_intf::create(const std::string &filename, const file_mode &mode)
 {
     uint32_t mode_val = get_filemode(mode);
 
-    fd_ = ::open(filename.c_str(), O_CREAT, O_RDWR | mode);
+    fd_ = ::open(filename.c_str(), O_CREAT | O_RDWR, mode_val);
     if (fd_ < 0) {
         return -1;
     }
@@ -80,9 +80,18 @@ int file_intf::read(uint8_t *buf, uint32_t buf_len)
     return ::read(fd_, buf, buf_len);
 }
 
-int file_intf::write(uint8_t *buf, uint32_t buf_len)
+int file_intf::write(const uint8_t *buf, uint32_t buf_len)
 {
     return ::write(fd_, buf, buf_len);
+}
+
+void file_intf::close()
+{
+    if (fd_ > 0) {
+        fsync(fd_);
+        ::close(fd_);
+        fd_ = -1;
+    }
 }
 
 file_intf::file_intf()
@@ -93,7 +102,9 @@ file_intf::file_intf()
 file_intf::~file_intf()
 {
     if (fd_ > 0) {
-        close(fd_);
+        fsync(fd_);
+        ::close(fd_);
+        fd_ = -1;
     }
 }
 
