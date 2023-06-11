@@ -1,12 +1,7 @@
 #include <nos_core.h>
 
-int test_logger()
+static void log_data(std::shared_ptr<nos::core::logging> &logger)
 {
-    std::shared_ptr<nos::core::logging> logger;
-
-    logger = nos::core::log_factory::instance()->create(
-                       nos::core::logger_type::Console);
-
     if (logger) {
         logger->info("info log\n");
         logger->warn("warn log\n");
@@ -15,6 +10,19 @@ int test_logger()
         logger->fatal("fatal log\n");
         logger->verbose("verbose log\n");
     }
+}
+
+int test_logger()
+{
+    std::shared_ptr<nos::core::logging> logger;
+
+    logger = nos::core::log_factory::instance()->create(
+                       nos::core::logger_type::Console);
+    log_data(logger);
+
+    logger = nos::core::log_factory::instance()->create(
+                       nos::core::logger_type::File);
+    log_data(logger);
 
     return 0;
 }

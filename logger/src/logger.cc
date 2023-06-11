@@ -74,6 +74,9 @@ log_service::log_service(int argc, char **argv)
         throw std::runtime_error("failed to create udp server");
     }
 
+    log->info("Created udp server %s:%d\n", conf_.server_ipaddr.c_str(),
+                                            conf_.server_port);
+
     auto rx_cb = std::bind(&log_service::receive_logger_msg, this, std::placeholders::_1);
     evt_mgr_->register_socket(udp_server_->get_socket(), rx_cb);
 
@@ -154,6 +157,7 @@ void log_service::writer_thread()
 
                 msg = msg_q_.front();
                 file_io_->write(msg);
+                msg_q_.pop();
                 q_len = msg_q_.size();
             }
         }

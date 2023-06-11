@@ -36,12 +36,12 @@ void nos_logging_file::log_message(const char *fmt, log_level log_lvl, const cha
     now = time(0);
     t = gmtime(&now);
     clock_gettime(CLOCK_REALTIME, &tp);
-    ret = snprintf((char *)log_data->data, sizeof(msg), "[%04d-%02d-%02d %02d:%02d:%02d.%04lu ] <%s> ",
+    ret = snprintf((char *)log_data->data, remaining_len, "[%04d-%02d-%02d %02d:%02d:%02d.%04lu ] <%s> ",
                                      t->tm_year + 1900, t->tm_mon + 1,
                                      t->tm_mday, t->tm_hour,
                                      t->tm_min, t->tm_sec,
                                      tp.tv_nsec / 1000000UL, log_format);
-    ret += vsnprintf(msg + ret, sizeof(msg) + ret, fmt, ap);
+    ret += vsnprintf((char *)log_data->data + ret, remaining_len - ret, fmt, ap);
 
     log_data->len = ret;
     log_intf->len = ret + sizeof(nos_log_intf) +

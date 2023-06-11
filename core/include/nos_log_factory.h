@@ -7,6 +7,7 @@
 #include <memory>
 #include <nos_logging.h>
 #include <nos_logging_console.h>
+#include <nos_logging_file.h>
 
 namespace nos::core {
 
@@ -33,6 +34,8 @@ class log_factory {
         {
             if (type == logger_type::Console) {
                 return std::make_shared<console_logging>();
+            } else if (type == logger_type::File) {
+                return std::make_shared<nos_logging_file>();
             }
 
             return nullptr;

@@ -39,6 +39,8 @@ int evt_mgr_intf::register_timer(uint32_t sec, uint64_t nsec, timer_cb cb, bool 
         return -1;
     }
 
+    FD_SET(timer.fd_, &allfd_);
+
     timer_list_.emplace_back(timer);
 
     return timer_id_;
@@ -56,6 +58,7 @@ void evt_mgr_intf::unregister_timer(int id)
 
     if (it != timer_list_.end()) {
         timer_list_.erase(it);
+        FD_CLR(it->fd_, &allfd_);
     }
 }
 
@@ -69,6 +72,8 @@ int evt_mgr_intf::register_socket(int fd, socket_cb cb)
     socket_id_ ++;
 
     sock.id_ = socket_id_;
+
+    FD_SET(fd, &allfd_);
 
     socket_list_.emplace_back(sock);
 
@@ -87,6 +92,7 @@ void evt_mgr_intf::unregister_socket(int id)
 
     if (it != socket_list_.end()) {
         socket_list_.erase(it);
+        FD_CLR(it->fd_, &allfd_);
     }
 }
 
