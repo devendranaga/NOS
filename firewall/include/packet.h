@@ -1,3 +1,9 @@
+/**
+ * @brief - implements packet header.
+ * 
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+*/
 #ifndef __NOS_PACKET_H__
 #define __NOS_PACKET_H__
 
@@ -10,6 +16,7 @@
 #include <packet-arp.h>
 #include <packet-ipv4.h>
 #include <packet-icmp.h>
+#include <packet-udp.h>
 
 #define PACKET_BUF_MAX_DATA_LEN 8192
 
@@ -45,11 +52,6 @@ struct icmp6_header {
 };
 
 struct tcp_header {
-    event_type deserialize(packet_buf &buf);
-    void free_hdr() { }
-};
-
-struct udp_header {
     event_type deserialize(packet_buf &buf);
     void free_hdr() { }
 };
