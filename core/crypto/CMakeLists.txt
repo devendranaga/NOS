@@ -5,7 +5,8 @@ project(crypto)
 set(MBEDTLS_SRC
     ./mbedtls/mbedtls_keywraps.cc
     ./mbedtls/mbedtls_hmac.cc
-    ./mbedtls/mbedtls_hkdf.cc)
+    ./mbedtls/mbedtls_hkdf.cc
+    ./mbedtls/mbedtls_hash.cc)
 
 set(COMMON_SRC
     ./common/crypto_factory.cc)

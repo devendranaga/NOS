@@ -9,6 +9,7 @@
 #include <mbedtls_keywraps.h>
 #include <mbedtls_hmac.h>
 #include <mbedtls_hkdf.h>
+#include <mbedtls_hash.h>
 
 namespace nos::crypto {
 
@@ -46,6 +47,19 @@ std::shared_ptr<hkdf_intf> crypto_factory::create_hkdf(const crypto_impl &impl)
         return nullptr;
     } else if (impl == crypto_impl::mbedtls) {
         return std::make_shared<mbedtls_hkdf_intf>();
+    }
+
+    return nullptr;
+}
+
+std::shared_ptr<hash_function> crypto_factory::create_hash(const crypto_impl &impl)
+{
+    if (impl == crypto_impl::openssl) {
+        return nullptr;
+    } else if (impl == crypto_impl::wolfssl) {
+        return nullptr;
+    } else if (impl == crypto_impl::mbedtls) {
+        return std::make_shared<mbedtls_hash_function>();
     }
 
     return nullptr;
