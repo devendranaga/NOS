@@ -154,6 +154,47 @@ int file_intf::move(const std::string &src,
     return ret;
 }
 
+int file_intf::get_filesize(const std::string &filename,
+                            uint32_t &filesize_bytes)
+{
+    struct stat t;
+    int ret;
+
+    ret = stat(filename.c_str(), &t);
+    if (ret != 0) {
+        return -1;
+    }
+
+    filesize_bytes = t.st_size;
+    return 0;
+}
+
+bool file_intf::is_socket(const std::string &filename)
+{
+    struct stat mode;
+    int ret;
+
+    ret = stat(filename.c_str(), &mode);
+    if (ret != 0) {
+        return -1;
+    }
+
+    return ((mode.st_mode & S_IFMT) == S_IFSOCK);
+}
+
+bool file_intf::is_fifo(const std::string &filename)
+{
+    struct stat mode;
+    int ret;
+
+    ret = stat(filename.c_str(), &mode);
+    if (ret != 0) {
+        return -1;
+    }
+
+    return ((mode.st_mode & S_IFMT) == S_IFIFO);
+}
+
 void file_intf::flush()
 {
     if (fd_ > 0) {
