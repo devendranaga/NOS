@@ -51,6 +51,7 @@ class file_intf {
         bool is_socket(const std::string &filename);
         bool is_fifo(const std::string &filename);
         bool is_file_opened() { return fd_ >= 0; }
+        void flush();
         void close();
 
     private:

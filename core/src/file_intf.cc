@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements File interface.
+ * 
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+*/
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -91,6 +97,67 @@ void file_intf::close()
         fsync(fd_);
         ::close(fd_);
         fd_ = -1;
+    }
+}
+
+static int copy_file(const std::string &src,
+                     const std::string &dst)
+{
+    int src_fd;
+    int dst_fd;
+
+    src_fd = ::open(src.c_str(), O_RDONLY);
+    if (src_fd < 0) {
+        return -1;
+    }
+
+    dst_fd = ::open(dst.c_str(), O_CREAT | O_RDWR, S_IRWXU);
+    if (dst_fd < 0) {
+        return -1;
+    }
+
+    while (1) {
+        uint8_t data[8192];
+        int ret;
+
+        ret = read(src_fd, data, sizeof(data));
+        if (ret > 0) {
+            write(dst_fd, data, ret);
+        } else {
+            break;
+        }
+    }
+
+    close(src_fd);
+    fsync(dst_fd);
+    close(dst_fd);
+
+    return 0;
+}
+
+int file_intf::copy(const std::string &src,
+                    const std::string &dst)
+{
+    return copy_file(src, dst);
+}
+
+int file_intf::move(const std::string &src,
+                    const std::string &dst)
+{
+    int ret;
+
+    ret = copy_file(src, dst);
+    if (ret == 0) {
+        ret = remove(src.c_str());
+    }
+
+    return ret;
+}
+
+void file_intf::flush()
+{
+    if (fd_ > 0) {
+        fsync(fd_);
     }
 }
 
