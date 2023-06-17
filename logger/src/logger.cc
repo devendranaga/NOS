@@ -93,11 +93,6 @@ log_service::~log_service()
 
 }
 
-void log_service::write_log_data(const log_msg &msg)
-{
-
-}
-
 void log_fileio::new_filename()
 {
     char filename_str[256];
@@ -142,10 +137,63 @@ void log_fileio::write(const log_msg &msg)
     }
 }
 
+void log_fileio::init_kernel_log()
+{
+    /**
+     * Initialize the kernel log.
+    */
+    kern_log_ = std::make_shared<log_kernel>();
+    kern_log_->init_kernel_log(fi_);
+}
+
+/**
+ * Initialize the kernel ring buffer fd
+*/
+log_kernel::log_kernel()
+{
+    int ret;
+
+    ret = kernel_fi_.open(dev_kmsg_, nos::core::file_ops::READ_WRITE);
+    if (ret < 0) {
+        throw std::runtime_error("failed to open " + dev_kmsg_);
+    }
+}
+
+void log_kernel::init_kernel_log(nos::core::file_intf &fi)
+{
+    char msg[4096] = {0};
+    char *ptr;
+    uint32_t off = 0;
+    int ret = 0;
+
+    fi_ = fi;
+
+    /**
+     * Write all  messages to the log.
+    */
+    while (1) {
+        std::memset(msg, 0, sizeof(msg));
+        ret = kernel_fi_.read((uint8_t *)msg, sizeof(msg));
+        if (ret <= 0) {
+            break;
+        }
+        ptr = strstr(msg, "-;");
+        if (ptr) {
+            off = ptr - msg + 2;
+            fi_.write((const uint8_t *)(msg + off), ret - off);
+        }
+    }
+}
+
 void log_service::writer_thread()
 {
     file_io_ = std::make_shared<log_fileio>(conf_);
     file_io_->new_filename();
+
+    /**
+     * initialize kernel log buffer.
+    */
+    file_io_->init_kernel_log();
 
     while (1) {
         std::this_thread::sleep_for(std::chrono::milliseconds(100));

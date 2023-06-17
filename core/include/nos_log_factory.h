@@ -25,11 +25,17 @@ class log_factory {
         const log_factory &operator=(const log_factory &) = delete;
         const log_factory &&operator=(const log_factory &&) = delete;
 
+        /**
+         * @brief - Get an instance of log_factory.
+        */
         static log_factory *instance() {
             static log_factory f;
             return &f;
         }
 
+        /**
+         * @brief - Create logger interface.
+        */
         std::shared_ptr<logging> create(logger_type type)
         {
             if (type == logger_type::Console) {

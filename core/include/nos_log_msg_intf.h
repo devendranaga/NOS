@@ -4,8 +4,9 @@
 #include <stdint.h>
 
 enum log_msg_type {
-    LOG_MSG_TYPE_LOGDATA,
-    LOG_MSG_TYPE_CTRL,
+    LOG_MSG_TYPE_LOGDATA    = 0x0001,
+    LOG_MSG_TYPE_KERNEL     = 0x0002,
+    LOG_MSG_TYPE_CTRL       = 0x0004,
 };
 
 enum log_msg_level {

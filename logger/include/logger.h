@@ -36,6 +36,23 @@ struct log_msg {
 };
 
 /**
+ * @brief - Log kernel message.
+ */
+class log_kernel {
+    public:
+        explicit log_kernel();
+        ~log_kernel() { fi_.close(); }
+
+        void init_kernel_log(nos::core::file_intf &fi);
+        int write(const log_msg &msg);
+
+    private:
+        const std::string dev_kmsg_ = "/dev/kmsg";
+        nos::core::file_intf kernel_fi_;
+        nos::core::file_intf fi_;
+};
+
+/**
  * Implements file i/o logging interface.
 */
 class log_fileio {
@@ -47,9 +64,12 @@ class log_fileio {
         ~log_fileio() = default;
 
         void new_filename();
+        void init_kernel_log();
         void write(const log_msg &msg);
+        void write_kernel_log(const log_msg &msg);
 
     private:
+        std::shared_ptr<log_kernel> kern_log_;
         logger_config conf_;
         std::string file_name_;
         nos::core::file_intf fi_;
@@ -71,11 +91,6 @@ class log_service {
          * @brief - Parse command line configuration data.
         */
         int read_cmdline(int argc, char **argv);
-
-        /**
-         * @brief - Write log data to a file. given Log file or syslog or dlt
-        */
-        void write_log_data(const log_msg &msg);
 
         /**
          * @brief - Receive a logging message over udp.

@@ -1,10 +1,17 @@
+/**
+ * @brief - Implements File Interface.
+ *
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+*/
 #ifndef __NOS_FILE_INTF_H__
 #define __NOS_FILE_INTF_H__
 
 #include <stdint.h>
 #include <string>
 
-namespace nos::core {
+namespace nos::core
+{
 
 enum file_mode {
     USR_READ        = 0x00000001,
@@ -31,6 +38,7 @@ enum file_mode {
 enum file_ops {
     READ            = 0x00000001,
     WRITE           = 0x00000002,
+    READ_WRITE      = READ | WRITE,
     APPEND          = 0x00000004,
 };
 
@@ -42,6 +50,8 @@ class file_intf {
         int create(const std::string &filename, const file_mode &mode);
         int open(const std::string &filename, const file_ops &ops);
         int read(uint8_t *buf, uint32_t buf_len);
+        int read_byte(uint8_t &byte);
+        int read_new_line(uint8_t *buf, uint32_t buf_len);
         int write(const uint8_t *buf, uint32_t buf_len);
         int copy(const std::string &source_file,
                  const std::string &target_file);

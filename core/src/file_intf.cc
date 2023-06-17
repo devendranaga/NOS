@@ -69,6 +69,8 @@ int file_intf::open(const std::string &filename, const file_ops &ops)
         fileops |= O_WRONLY;
     } else if (ops == file_ops::APPEND) {
         fileops |= O_RDWR | O_APPEND;
+    } else if (ops == file_ops::READ_WRITE) {
+        fileops |= O_RDWR;
     } else {
         return -1;
     }
@@ -84,6 +86,37 @@ int file_intf::open(const std::string &filename, const file_ops &ops)
 int file_intf::read(uint8_t *buf, uint32_t buf_len)
 {
     return ::read(fd_, buf, buf_len);
+}
+
+int file_intf::read_byte(uint8_t &byte)
+{
+    return ::read(fd_, &byte, sizeof(byte));
+}
+
+int file_intf::read_new_line(uint8_t *buf, uint32_t buf_size)
+{
+    int len = 0;
+    int ret;
+
+    while (1) {
+        uint8_t byte;
+        ret = ::read(fd_, &byte, sizeof(byte));
+        if (ret < 0) {
+            break;
+        }
+
+        printf("ret %d\n", ret);
+
+        if (byte == '\n') {
+            break;
+        }
+
+        buf[len] = byte;
+        len ++;
+    }
+
+    buf[len] = '\0';
+    return len;
 }
 
 int file_intf::write(const uint8_t *buf, uint32_t buf_len)
