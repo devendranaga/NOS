@@ -36,10 +36,12 @@ enum file_mode {
 };
 
 enum file_ops {
-    READ            = 0x00000001,
-    WRITE           = 0x00000002,
-    READ_WRITE      = READ | WRITE,
-    APPEND          = 0x00000004,
+    READ                = 0x00000001,
+    WRITE               = 0x00000002,
+    APPEND              = 0x00000004,
+    NON_BLOCK           = 0x00000008,
+    READ_WRITE          = READ | WRITE,
+    READ_NOBLOCK        = READ | NON_BLOCK,
 };
 
 class file_intf {
@@ -62,6 +64,9 @@ class file_intf {
         bool is_fifo(const std::string &filename);
         bool is_file_opened() { return fd_ >= 0; }
         int remove(const std::string &filename);
+        int readlink(const std::string &link,
+                     std::string &real_filename);
+        int get_fd() { return fd_; }
         void flush();
         void close();
 

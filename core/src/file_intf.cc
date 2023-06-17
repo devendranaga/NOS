@@ -63,15 +63,23 @@ int file_intf::open(const std::string &filename, const file_ops &ops)
 {
     uint32_t fileops = 0;
 
-    if (ops& file_ops::READ) {
-        fileops |= O_RDONLY;
-    } else if (ops == file_ops::WRITE) {
-        fileops |= O_WRONLY;
-    } else if (ops == file_ops::APPEND) {
-        fileops |= O_RDWR | O_APPEND;
-    } else if (ops == file_ops::READ_WRITE) {
-        fileops |= O_RDWR;
-    } else {
+    if (ops & file_ops::READ) {
+        fileops = O_RDONLY;
+    }
+    if (ops & file_ops::WRITE) {
+        fileops = O_WRONLY;
+    }
+    if (ops & file_ops::APPEND) {
+        fileops = O_RDWR | O_APPEND;
+    }
+    if (ops & file_ops::READ_WRITE) {
+        fileops = O_RDWR;
+    }
+    if (ops & file_ops::READ_NOBLOCK) {
+        fileops = O_RDONLY | O_NONBLOCK;
+    }
+
+    if (fileops == 0) {
         return -1;
     }
 
@@ -229,6 +237,23 @@ bool file_intf::is_fifo(const std::string &filename)
 int file_intf::remove(const std::string &filename)
 {
     return ::remove(filename.c_str());
+}
+
+int file_intf::readlink(const std::string &link,
+                        std::string &real_filename)
+{
+    char realname[1024];
+    ssize_t ret;
+
+    ret = ::readlink(link.c_str(), realname, sizeof(realname));
+    if (ret <= 0) {
+        return -1;
+    }
+
+    realname[ret] = '\0';
+
+    real_filename = std::string(realname);
+    return 0;
 }
 
 void file_intf::flush()
