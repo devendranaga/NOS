@@ -45,6 +45,23 @@ class log_factory {
         explicit log_factory() { }
 };
 
+#define NOS_LOG_INTF_NEW(__type) \
+    nos::core::log_factory::instance()->create(__type)
+#define NOS_LOG_INTF_CONSOLE() \
+    nos::core::log_factory::instance()->create(nos::core::logger_type::Console)
+#define NOS_LOG_INTF_FILE() \
+    nos::core::log_factory::instance()->create(nos::core::logger_type::File)
+
+#define NOS_LOG_INFO(__log, __fmt, ...) __log->info(__fmt, ##__VA_ARGS__)
+#define NOS_LOG_WARN(__log, __fmt, ...) __log->warn(__fmt, ##__VA_ARGS__)
+#define NOS_LOG_ERR(__log, __fmt, ...) __log->err(__fmt, ##__VA_ARGS__)
+#define NOS_LOG_FATAL(__log, __fmt, ...) __log->fatal(__fmt, ##__VA_ARGS__)
+#define NOS_LOG_VERBOSE(__log, __fmt, ...) __log->verbose(__fmt, ##__VA_ARGS__)
+#define NOS_LOG_DEBUG(__log, __fmt, ...) __log->debug(__fmt, ##__VA_ARGS__)
+
+#define NOS_LOG_TRACE_START(__log, __fmt)\
+    __log->verbose("%s: %s:%u\n", __fmt, __func__, __LINE__)
+
 }
 
 #endif
