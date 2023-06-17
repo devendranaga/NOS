@@ -1,3 +1,6 @@
+/**
+ * @brief - Implements NOS logging interface.
+*/
 #ifndef __NOS_LOGGING_H__
 #define __NOS_LOGGING_H__
 

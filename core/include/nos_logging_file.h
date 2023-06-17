@@ -17,7 +17,13 @@ namespace nos::core
 
 class nos_logging_file : public logging {
     public:
-        explicit nos_logging_file() = default;
+        explicit nos_logging_file() {
+            /**
+             * Set default log levels.
+            */
+            lvl_ = (log_level)(log_level::LOG_INFO | log_level::LOG_WARN |
+                               log_level::LOG_ERR | log_level::LOG_FATAL);
+        }
         ~nos_logging_file() = default;
 
         void info(const char *msg, ...);

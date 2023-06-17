@@ -1,3 +1,9 @@
+/**
+ * @brief - implements the event manager.
+ * 
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+*/
 #include <time.h>
 #include <sys/time.h>
 #include <sys/timerfd.h>
@@ -24,7 +30,10 @@ int evt_mgr_intf::register_timer(uint32_t sec, uint64_t nsec, timer_cb cb, bool 
 
     ispec.it_value.tv_sec = sec;
     ispec.it_value.tv_nsec = nsec;
-    if (oneshot) {
+    /**
+     * if its not oneshot, then register repeat.
+    */
+    if (oneshot == false) {
         ispec.it_interval.tv_sec = sec;
         ispec.it_interval.tv_nsec = nsec;
     }
@@ -41,6 +50,9 @@ int evt_mgr_intf::register_timer(uint32_t sec, uint64_t nsec, timer_cb cb, bool 
 
     FD_SET(timer.fd_, &allfd_);
 
+    /**
+     * Queue and organize the timers.
+    */
     timer_list_.emplace_back(timer);
 
     return timer_id_;
@@ -57,6 +69,7 @@ void evt_mgr_intf::unregister_timer(int id)
     }
 
     if (it != timer_list_.end()) {
+        close(it->fd_);
         timer_list_.erase(it);
         FD_CLR(it->fd_, &allfd_);
     }
@@ -93,6 +106,84 @@ void evt_mgr_intf::unregister_socket(int id)
     if (it != socket_list_.end()) {
         socket_list_.erase(it);
         FD_CLR(it->fd_, &allfd_);
+    }
+}
+
+void evt_thread::thread_func()
+{
+    while (1) {
+        {
+            /**
+             * Wait for the event via the queue_work call and if some work
+             * is available, deque and execute.
+            */
+            std::unique_lock<std::mutex> lock(lock_);
+            cond_.wait(lock);
+            int q_len = exec_cbs_.size();
+            while (q_len > 0) {
+                exec_cb cb;
+
+                cb = exec_cbs_.front();
+                cb();
+
+                exec_cbs_.pop();
+                q_len = exec_cbs_.size();
+            }
+        }
+    }
+}
+
+evt_thread::evt_thread()
+{
+    thread_ = std::make_shared<std::thread>(&evt_thread::thread_func, this);
+    thread_->detach();
+}
+
+evt_thread::~evt_thread()
+{
+
+}
+
+int evt_mgr_intf::init(const evt_mgr_config &conf)
+{
+    conf_ = conf;
+
+    thr_pool_.n_threads_ = conf_.n_threads;
+    for (uint32_t i = 0; i < thr_pool_.n_threads_; i ++) {
+        std::shared_ptr<evt_thread> t;
+
+        t = std::make_shared<evt_thread>();
+
+        thr_pool_.thread_list_.emplace_back(t);
+    }
+
+    return 0;
+}
+
+void evt_mgr_intf::queue_work(const exec_cb &cb)
+{
+    int min_work = 0;
+    int thread_pool_index = 0;
+
+    /**
+     * Find a minimum queue size and queue the exec_cb to that thread queue and
+     * signal the thread.
+    */
+    for (uint32_t id = 0; id < thr_pool_.n_threads_; id ++) {
+        int n_cbs = 0;
+
+        n_cbs = thr_pool_.thread_list_[id]->exec_cbs_.size();
+        if (min_work > n_cbs) {
+            min_work = n_cbs;
+            thread_pool_index = id;
+        }
+    }
+
+    {
+        std::unique_lock<std::mutex> lock(thr_pool_.thread_list_[thread_pool_index]->lock_);
+
+        thr_pool_.thread_list_[thread_pool_index]->exec_cbs_.push(cb);
+        thr_pool_.thread_list_[thread_pool_index]->cond_.notify_all();
     }
 }
 
@@ -149,6 +240,10 @@ void evt_mgr_intf::run()
                 }
             }
         } else {
+            /**
+             * We do not handle ret == 0 case because our timer pointer is
+             * 0 and never happen to timeout.
+            */
             break;
         }
     }
