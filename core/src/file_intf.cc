@@ -105,8 +105,6 @@ int file_intf::read_new_line(uint8_t *buf, uint32_t buf_size)
             break;
         }
 
-        printf("ret %d\n", ret);
-
         if (byte == '\n') {
             break;
         }
@@ -181,7 +179,7 @@ int file_intf::move(const std::string &src,
 
     ret = copy_file(src, dst);
     if (ret == 0) {
-        ret = remove(src.c_str());
+        ret = ::remove(src.c_str());
     }
 
     return ret;
@@ -226,6 +224,11 @@ bool file_intf::is_fifo(const std::string &filename)
     }
 
     return ((mode.st_mode & S_IFMT) == S_IFIFO);
+}
+
+int file_intf::remove(const std::string &filename)
+{
+    return ::remove(filename.c_str());
 }
 
 void file_intf::flush()
