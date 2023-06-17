@@ -23,6 +23,16 @@ struct logger_config {
     std::string file_prefix;
     uint32_t rotate_size_bytes;
     log_service_type service_type;
+    bool dump_on_console;
+
+    explicit logger_config() {
+        server_ipaddr = "127.0.0.1";
+        server_port = 1441;
+        file_prefix = "logger";
+        rotate_size_bytes = 1024 * 1024 * 100; // 100MB
+        service_type = log_service_type::Log_To_File;
+        dump_on_console = true;
+    }
 };
 
 struct log_msg {
@@ -40,16 +50,18 @@ struct log_msg {
  */
 class log_kernel {
     public:
-        explicit log_kernel();
+        explicit log_kernel(nos::core::evt_mgr_intf *evt_mgr);
         ~log_kernel() { fi_.close(); }
 
         void init_kernel_log(nos::core::file_intf &fi);
         int write(const log_msg &msg);
 
     private:
+        void read_kernel_ring(int fd);
         const std::string dev_kmsg_ = "/dev/kmsg";
         nos::core::file_intf kernel_fi_;
         nos::core::file_intf fi_;
+        nos::core::evt_mgr_intf *evt_mgr_;
 };
 
 /**
@@ -57,14 +69,16 @@ class log_kernel {
 */
 class log_fileio {
     public:
-        explicit log_fileio(logger_config &conf) {
+        explicit log_fileio(logger_config &conf,
+                            nos::core::evt_mgr_intf *evt_mgr) {
             conf_ = conf;
             file_off_ = 0;
+            evt_mgr_ = evt_mgr;
         }
         ~log_fileio() = default;
 
         void new_filename();
-        void init_kernel_log();
+        void init_kernel_log(nos::core::evt_mgr_intf *evt_mgr);
         void write(const log_msg &msg);
         void write_kernel_log(const log_msg &msg);
 
@@ -74,6 +88,7 @@ class log_fileio {
         std::string file_name_;
         nos::core::file_intf fi_;
         uint32_t file_off_;
+        nos::core::evt_mgr_intf *evt_mgr_;
 };
 
 /**
