@@ -15,7 +15,7 @@
 #include <net/if.h>
 #include <netinet/ether.h>
 #include <linux/if_packet.h>
-#include <raw_socket.h>
+#include <nos_raw_socket.h>
 
 #define ERR_ON_SYSCALL(__res, __match, __str) { \
     if (__res < __match) { \

@@ -1,10 +1,17 @@
+/**
+ * @brief - Implements File Interface.
+ *
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+*/
 #ifndef __NOS_FILE_INTF_H__
 #define __NOS_FILE_INTF_H__
 
 #include <stdint.h>
 #include <string>
 
-namespace nos::core {
+namespace nos::core
+{
 
 enum file_mode {
     USR_READ        = 0x00000001,
@@ -29,9 +36,12 @@ enum file_mode {
 };
 
 enum file_ops {
-    READ            = 0x00000001,
-    WRITE           = 0x00000002,
-    APPEND          = 0x00000004,
+    READ                = 0x00000001,
+    WRITE               = 0x00000002,
+    APPEND              = 0x00000004,
+    NON_BLOCK           = 0x00000008,
+    READ_WRITE          = READ | WRITE,
+    READ_NOBLOCK        = READ | NON_BLOCK,
 };
 
 class file_intf {
@@ -42,6 +52,8 @@ class file_intf {
         int create(const std::string &filename, const file_mode &mode);
         int open(const std::string &filename, const file_ops &ops);
         int read(uint8_t *buf, uint32_t buf_len);
+        int read_byte(uint8_t &byte);
+        int read_new_line(uint8_t *buf, uint32_t buf_len);
         int write(const uint8_t *buf, uint32_t buf_len);
         int copy(const std::string &source_file,
                  const std::string &target_file);
@@ -51,6 +63,11 @@ class file_intf {
         bool is_socket(const std::string &filename);
         bool is_fifo(const std::string &filename);
         bool is_file_opened() { return fd_ >= 0; }
+        int remove(const std::string &filename);
+        int readlink(const std::string &link,
+                     std::string &real_filename);
+        int get_fd() { return fd_; }
+        void flush();
         void close();
 
     private:

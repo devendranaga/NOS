@@ -6,7 +6,7 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
-#include <raw_socket.h>
+#include <nos_raw_socket.h>
 #include <packet.h>
 
 namespace nos::firewall {

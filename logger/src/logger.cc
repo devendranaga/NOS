@@ -17,8 +17,9 @@ namespace nos::logger {
 static void usage(const char *progname)
 {
     fprintf(stderr, "<%s> <-p fileprefix> <-r rotate size in bytes>\n"
-                    "\t <-t type <0x01 - file, 0x02 - syslog, 0x04 - Dlt>\n"
-                    "\t <-i ip address> <-P port>\n",
+                    "\t\t <-t type <0x01 - file, 0x02 - syslog, 0x04 - Dlt>\n"
+                    "\t\t <-i ip address> <-P port>\n"
+                    "\t\t <-a dump on console>\n",
                     progname);
 }
 
@@ -26,7 +27,7 @@ int log_service::read_cmdline(int argc, char **argv)
 {
     int ret;
 
-    while ((ret = getopt(argc, argv, "t:i:P:p:r:")) != -1) {
+    while ((ret = getopt(argc, argv, "t:i:P:p:r:a")) != -1) {
         switch (ret) {
             case 't':
                 conf_.service_type = (log_service_type)std::atoi(optarg);
@@ -42,6 +43,9 @@ int log_service::read_cmdline(int argc, char **argv)
             break;
             case 'r':
                 conf_.rotate_size_bytes = std::atoi(optarg);
+            break;
+            case 'a':
+                conf_.dump_on_console = true;
             break;
             default:
                 usage(argv[0]);
@@ -74,6 +78,9 @@ log_service::log_service(int argc, char **argv)
         throw std::runtime_error("failed to create udp server");
     }
 
+    log->info("Created udp server %s:%d\n", conf_.server_ipaddr.c_str(),
+                                            conf_.server_port);
+
     auto rx_cb = std::bind(&log_service::receive_logger_msg, this, std::placeholders::_1);
     evt_mgr_->register_socket(udp_server_->get_socket(), rx_cb);
 
@@ -86,11 +93,6 @@ log_service::log_service(int argc, char **argv)
 }
 
 log_service::~log_service()
-{
-
-}
-
-void log_service::write_log_data(const log_msg &msg)
 {
 
 }
@@ -130,19 +132,109 @@ void log_fileio::write(const log_msg &msg)
                 return;
             }
 
-            if (file_off_ > conf_.rotate_size_bytes) {
+            if (file_off_ >= conf_.rotate_size_bytes) {
                 file_off_ = 0;
                 new_filename();
             }
             file_off_ += fi_.write(log_data->data, log_data->len);
+
+            if (conf_.dump_on_console) {
+                fprintf(stderr, "%s", log_data->data);
+            }
         }
     }
 }
 
+void log_fileio::init_kernel_log(nos::core::evt_mgr_intf *evt_mgr)
+{
+    /**
+     * Initialize the kernel log.
+    */
+    kern_log_ = std::make_shared<log_kernel>(evt_mgr);
+    kern_log_->init_kernel_log(fi_);
+}
+
+/**
+ * Initialize the kernel ring buffer fd
+*/
+log_kernel::log_kernel(nos::core::evt_mgr_intf *evt_mgr) : evt_mgr_(evt_mgr)
+{
+    int ret;
+
+    ret = kernel_fi_.open(dev_kmsg_, nos::core::file_ops::READ_WRITE);
+    if (ret < 0) {
+        throw std::runtime_error("failed to open " + dev_kmsg_);
+    }
+}
+
+void log_kernel::read_kernel_ring(int fd)
+{
+    char msg[4096] = {0};
+    char *ptr;
+    uint32_t off = 0;
+    int ret = 0;
+
+    /**
+     * Write all  messages to the log.
+    */
+    std::memset(msg, 0, sizeof(msg));
+    ret = kernel_fi_.read((uint8_t *)msg, sizeof(msg));
+    if (ret <= 0) {
+        return;
+    }
+    ptr = strstr(msg, "-;");
+    if (ptr) {
+        off = ptr - msg + 2;
+        fi_.write((const uint8_t *)(msg + off), ret - off);
+    }
+}
+
+void log_kernel::init_kernel_log(nos::core::file_intf &fi)
+{
+    nos::core::file_intf tmp_fi;
+    char msg[4096] = {0};
+    char *ptr;
+    uint32_t off = 0;
+    int ret = 0;
+
+    fi_ = fi;
+
+    ret = tmp_fi.open(dev_kmsg_, nos::core::file_ops::READ_NOBLOCK);
+    if (ret < 0) {
+        return;
+    }
+
+    while (1) {
+        std::memset(msg, 0, sizeof(msg));
+
+        ret = tmp_fi.read((uint8_t *)msg, sizeof(msg));
+        if (ret <= 0) {
+            break;
+        }
+
+        ptr = strstr(msg, "-;");
+        if (ptr) {
+            off = ptr - msg + 2;
+            fi_.write((const uint8_t *)(msg + off), ret - off);
+        }
+    }
+
+    tmp_fi.close();
+
+    auto callback = std::bind(&log_kernel::read_kernel_ring,
+                              this, std::placeholders::_1);
+    evt_mgr_->register_socket(kernel_fi_.get_fd(), callback);
+}
+
 void log_service::writer_thread()
 {
-    file_io_ = std::make_shared<log_fileio>(conf_);
+    file_io_ = std::make_shared<log_fileio>(conf_, evt_mgr_);
     file_io_->new_filename();
+
+    /**
+     * initialize kernel log buffer.
+    */
+    file_io_->init_kernel_log(evt_mgr_);
 
     while (1) {
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -154,6 +246,7 @@ void log_service::writer_thread()
 
                 msg = msg_q_.front();
                 file_io_->write(msg);
+                msg_q_.pop();
                 q_len = msg_q_.size();
             }
         }

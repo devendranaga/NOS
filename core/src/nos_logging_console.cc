@@ -1,3 +1,6 @@
+/**
+ * @brief - Implements NOS Console Logger.
+*/
 #include <stdio.h>
 #include <stdarg.h>
 #include <time.h>
@@ -35,54 +38,66 @@ void console_logging::info(const char *fmt, ...)
 {
     va_list ap;
 
-    va_start(ap, fmt);
-    log_msg_console(fmt, "Info", ap);
-    va_end(ap);
+    if (log_lvl_ & log_level::LOG_INFO) {
+        va_start(ap, fmt);
+        log_msg_console(fmt, "Info", ap);
+        va_end(ap);
+    }
 }
 
 void console_logging::warn(const char *fmt, ...)
 {
     va_list ap;
 
-    va_start(ap, fmt);
-    log_msg_console(fmt, "Warn", ap);
-    va_end(ap);
+    if (log_lvl_ & log_level::LOG_WARN) {
+        va_start(ap, fmt);
+        log_msg_console(fmt, "Warn", ap);
+        va_end(ap);
+    }
 }
 
 void console_logging::err(const char *fmt, ...)
 {
     va_list ap;
 
-    va_start(ap, fmt);
-    log_msg_console(fmt, "Error", ap);
-    va_end(ap);
+    if (log_lvl_ & log_level::LOG_ERR) {
+        va_start(ap, fmt);
+        log_msg_console(fmt, "Error", ap);
+        va_end(ap);
+    }
 }
 
 void console_logging::fatal(const char *fmt, ...)
 {
     va_list ap;
 
-    va_start(ap, fmt);
-    log_msg_console(fmt, "Fatal", ap);
-    va_end(ap);
+    if (log_lvl_ & log_level::LOG_FATAL) {
+        va_start(ap, fmt);
+        log_msg_console(fmt, "Fatal", ap);
+        va_end(ap);
+    }
 }
 
 void console_logging::verbose(const char *fmt, ...)
 {
     va_list ap;
 
-    va_start(ap, fmt);
-    log_msg_console(fmt, "Verbose", ap);
-    va_end(ap);
+    if (log_lvl_ & log_level::LOG_VERBOSE) {
+        va_start(ap, fmt);
+        log_msg_console(fmt, "Verbose", ap);
+        va_end(ap);
+    }
 }
 
 void console_logging::debug(const char *fmt, ...)
 {
     va_list ap;
 
-    va_start(ap, fmt);
-    log_msg_console(fmt, "Debug", ap);
-    va_end(ap);
+    if (log_lvl_ & log_level::LOG_DEBUG) {
+        va_start(ap, fmt);
+        log_msg_console(fmt, "Debug", ap);
+        va_end(ap);
+    }
 }
 
 void console_logging::set_level(log_level log_lvl)

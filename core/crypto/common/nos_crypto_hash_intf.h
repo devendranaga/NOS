@@ -1,7 +1,10 @@
 #ifndef __NOS_CRYPTO_HASH_INTF_H__
 #define __NOS_CRYPTO_HASH_INTF_H__
 
-namespace nos::crypto {
+#include <crypto_buffers.h>
+
+namespace nos::crypto
+{
 
 enum hash_function_types {
     SHA2_256,
@@ -13,6 +16,16 @@ enum hash_function_types {
     RIPEMD160,
     SHAKE128,
     SHAKE256,
+};
+
+class hash_function {
+    public:
+        explicit hash_function() = default;
+        ~hash_function() = default;
+
+        virtual int hash(hash_function_types &hf_type,
+                         const uint8_t *buf, uint32_t buf_size,
+                         crypto_hash_buffer &hash) = 0;
 };
 
 }

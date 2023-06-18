@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements log to a file via socket.
+ * 
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+*/
 #include <stdio.h>
 #include <stdarg.h>
 #include <time.h>
@@ -36,75 +42,89 @@ void nos_logging_file::log_message(const char *fmt, log_level log_lvl, const cha
     now = time(0);
     t = gmtime(&now);
     clock_gettime(CLOCK_REALTIME, &tp);
-    ret = snprintf((char *)log_data->data, sizeof(msg), "[%04d-%02d-%02d %02d:%02d:%02d.%04lu ] <%s> ",
+    ret = snprintf((char *)log_data->data, remaining_len, "[%04d-%02d-%02d %02d:%02d:%02d.%04lu ] <%s> ",
                                      t->tm_year + 1900, t->tm_mon + 1,
                                      t->tm_mday, t->tm_hour,
                                      t->tm_min, t->tm_sec,
                                      tp.tv_nsec / 1000000UL, log_format);
-    ret += vsnprintf(msg + ret, sizeof(msg) + ret, fmt, ap);
+    ret += vsnprintf((char *)log_data->data + ret, remaining_len - ret, fmt, ap);
 
     log_data->len = ret;
     log_intf->len = ret + sizeof(nos_log_intf) +
                     sizeof(log_data->level) +
                     sizeof(log_data->len);
 
-    client_->send((const uint8_t *)msg,
-                  log_intf->len + sizeof(nos_log_intf),
-                  SERVER_IP_ADDR, SERVER_PORT);
+    if (client_) {
+        client_->send((const uint8_t *)msg,
+                      log_intf->len + sizeof(nos_log_intf),
+                      SERVER_IP_ADDR, SERVER_PORT);
+    }
 }
 
 void nos_logging_file::info(const char *fmt, ...)
 {
     va_list ap;
 
-    va_start(ap, fmt);
-    log_message(fmt, log_level::LOG_INFO, "Info", ap);
-    va_end(ap);
+    if (lvl_ & log_level::LOG_INFO) {
+        va_start(ap, fmt);
+        log_message(fmt, log_level::LOG_INFO, "Info", ap);
+        va_end(ap);
+    }
 }
 
 void nos_logging_file::warn(const char *fmt, ...)
 {
     va_list ap;
 
-    va_start(ap, fmt);
-    log_message(fmt, log_level::LOG_WARN, "Warn", ap);
-    va_end(ap);
+    if (lvl_ & log_level::LOG_WARN) {
+        va_start(ap, fmt);
+        log_message(fmt, log_level::LOG_WARN, "Warn", ap);
+        va_end(ap);
+    }
 }
 
 void nos_logging_file::err(const char *fmt, ...)
 {
     va_list ap;
 
-    va_start(ap, fmt);
-    log_message(fmt, log_level::LOG_ERR, "Err", ap);
-    va_end(ap);
+    if (lvl_ & log_level::LOG_ERR) {
+        va_start(ap, fmt);
+        log_message(fmt, log_level::LOG_ERR, "Err", ap);
+        va_end(ap);
+    }
 }
 
 void nos_logging_file::fatal(const char *fmt, ...)
 {
     va_list ap;
 
-    va_start(ap, fmt);
-    log_message(fmt, log_level::LOG_FATAL, "Fatal", ap);
-    va_end(ap);
+    if (lvl_ & log_level::LOG_FATAL) {
+        va_start(ap, fmt);
+        log_message(fmt, log_level::LOG_FATAL, "Fatal", ap);
+        va_end(ap);
+    }
 }
 
 void nos_logging_file::verbose(const char *fmt, ...)
 {
     va_list ap;
 
-    va_start(ap, fmt);
-    log_message(fmt, log_level::LOG_VERBOSE, "Verbose", ap);
-    va_end(ap);
+    if (lvl_ & log_level::LOG_VERBOSE) {
+        va_start(ap, fmt);
+        log_message(fmt, log_level::LOG_VERBOSE, "Verbose", ap);
+        va_end(ap);
+    }
 }
 
 void nos_logging_file::debug(const char *fmt, ...)
 {
     va_list ap;
 
-    va_start(ap, fmt);
-    log_message(fmt, log_level::LOG_DEBUG, "Debug", ap);
-    va_end(ap);
+    if (lvl_ & log_level::LOG_DEBUG) {
+        va_start(ap, fmt);
+        log_message(fmt, log_level::LOG_DEBUG, "Debug", ap);
+        va_end(ap);
+    }
 }
 
 void nos_logging_file::set_level(log_level log_lvl)
