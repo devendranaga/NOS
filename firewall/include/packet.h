@@ -14,6 +14,7 @@
 #include <packet-buf.h>
 #include <packet-eth.h>
 #include <packet-arp.h>
+#include <packet-ieee8021ae.h>
 #include <packet-ipv4.h>
 #include <packet-ipv6.h>
 #include <packet-icmp.h>
@@ -25,15 +26,11 @@
 #define ETHERTYPE_ARP       0x0806
 #define ETHERTYPE_IPV4      0x0800
 #define ETHERTYPE_IPV6      0x86DD
+#define ETHERTYPE_MACSEC    0x88E5
 
 namespace nos::firewall {
 
 struct vlan_header {
-    event_type deserialize(packet_buf &buf);
-    void free_hdr() { }
-};
-
-struct ieee8021ae_header {
     event_type deserialize(packet_buf &buf);
     void free_hdr() { }
 };
@@ -120,6 +117,7 @@ struct packet {
     ether_header eth_h;
     vlan_header vlan_h;
     arp_header arp_h;
+    ieee8021ae_header macsec_h;
     ipv4_header ipv4_h;
     ipv6_header ipv6_h;
     tcp_header tcp_h;
@@ -132,6 +130,8 @@ struct packet {
 
     explicit packet() : tun_type(tunnel_type::None) { }
     ~packet() { }
+
+    uint32_t get_tunnel_size() { return tunneled_packets_.size(); }
 };
 
 struct packet_parser_state {
