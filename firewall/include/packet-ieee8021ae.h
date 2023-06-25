@@ -31,6 +31,7 @@ struct ieee8021ae_header {
     uint32_t        pkt_no;
     ieee8021ae_sci  sci;
     uint8_t         icv[MACSEC_ICV_LEN];
+    uint16_t        ethertype;
 
     bool is_secured() { return tci.e && tci.c; }
     event_type deserialize(packet_buf &buf);

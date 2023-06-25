@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements Firewall parser.
+ *
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+*/
 #include <firewall.h>
 
 namespace nos::firewall {
@@ -22,6 +28,7 @@ event_type firewall_intf::parse_packet(packet_parser_state &state)
     type = state.pkt.eth_h.deserialize(state.pkt_buf);
     VALIDATE_AND_FAIL(type);
 
+l2_parse:
     /* Parse the next header after the ethertype. */
     switch (state.pkt.eth_h.ethertype) {
         case ETHERTYPE_ARP:
@@ -42,8 +49,11 @@ event_type firewall_intf::parse_packet(packet_parser_state &state)
         case ETHERTYPE_MACSEC:
             type = state.pkt.macsec_h.deserialize(state.pkt_buf);
             if (type == event_type::NO_ERROR) {
+                /**
+                 * If the packet is authenticated only, then lets parse it.
+                */
                 if (!state.pkt.macsec_h.is_secured()) {
-                    type = parse_protocol(state);
+                    goto l2_parse;
                 }
             }
         break;

@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements IEEE 802.1AE parsing.
+ *
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+*/
 #include <cstdint>
 #include <cstring>
 #include <packet.h>
@@ -29,8 +35,14 @@ event_type ieee8021ae_header::deserialize(packet_buf &buf)
 
     buf.deserialize_byte(&short_len);
     buf.deserialize_4_bytes(&pkt_no);
-    buf.deserilaize_mac(sci.mac);
-    buf.deserialize_2_bytes(&sci.port_id);
+    if (tci.sc) {
+        buf.deserilaize_mac(sci.mac);
+        buf.deserialize_2_bytes(&sci.port_id);
+    }
+
+    if ((tci.e == false) && (tci.c == false)) {
+        buf.deserialize_2_bytes(&ethertype);
+    }
 
     std::memcpy(icv,
                 buf.data + buf.data_len - MACSEC_ICV_LEN, MACSEC_ICV_LEN);
