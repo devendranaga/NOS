@@ -1,3 +1,6 @@
+/**
+ * @brief - defines a packet buffer interface.
+*/
 #ifndef __NOS_PACKET_BUF_H__
 #define __NOS_PACKET_BUF_H__
 
@@ -14,7 +17,10 @@ struct packet_buf {
     uint32_t data_len;
     uint32_t off;
 
-    explicit packet_buf(uint16_t data_len) {
+    explicit packet_buf(uint16_t data_length): data_len(data_length) {
+        data = nullptr;
+        off = 0;
+        intf = "";
     }
     explicit packet_buf(std::string if_name): intf(if_name) { }
     explicit packet_buf() : data(nullptr), data_len(0), off(0) { }

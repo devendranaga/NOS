@@ -1,3 +1,6 @@
+/**
+ * @brief - Defines NOS Logger service header.
+*/
 #ifndef __NOS_LOGGER_H__
 #define __NOS_LOGGER_H__
 
@@ -9,7 +12,8 @@
 #include <mutex>
 #include <nos_core.h>
 
-namespace nos::logger {
+namespace nos::logger
+{
 
 enum log_service_type {
     Log_To_File     = 0x0001,

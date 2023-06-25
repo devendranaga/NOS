@@ -9,6 +9,7 @@ set(SRC
     ./src/packet.cc
     ./src/packet-eth.cc
     ./src/packet-arp.cc
+    ./src/packet-ieee8021ae.cc
     ./src/packet-ipv4.cc
     ./src/packet-ipv6.cc
     ./src/packet-icmp.cc

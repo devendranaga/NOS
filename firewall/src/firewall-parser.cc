@@ -39,6 +39,14 @@ event_type firewall_intf::parse_packet(packet_parser_state &state)
                 type = parse_protocol(state);
             }
         break;
+        case ETHERTYPE_MACSEC:
+            type = state.pkt.macsec_h.deserialize(state.pkt_buf);
+            if (type == event_type::NO_ERROR) {
+                if (!state.pkt.macsec_h.is_secured()) {
+                    type = parse_protocol(state);
+                }
+            }
+        break;
         default:
             return event_type::UNSUPPORTED_ETHERTYPE;
     }
