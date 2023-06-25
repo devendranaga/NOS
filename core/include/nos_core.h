@@ -9,5 +9,6 @@
 #include <nos_log_factory.h>
 #include <nos_udp_socket_intf.h>
 #include <nos_log_msg_intf.h>
+#include <nos_signal_intf.h>
 
 #endif
