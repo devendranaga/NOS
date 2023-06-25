@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements Signal interface.
+ * 
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+*/
 #include <nos_signal_intf.h>
 
 namespace nos::core

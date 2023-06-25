@@ -10,7 +10,7 @@ set(SRC
     ./src/nos_logging_console.cc
     ./src/udp_socket_intf.cc
     ./src/nos_logging_file.cc
-    ./src/tcp_socket_intf.cc
+    ./src/nos_tcp_socket_intf.cc
     ./src/nos_signal_intf.cc)
 
 include_directories(./src/

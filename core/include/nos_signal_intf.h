@@ -1,3 +1,9 @@
+/**
+ * @brief -  Implements Signal interface.
+ * 
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+*/
 #ifndef __NOS_SIGNAL_INTF_H__
 #define __NOS_SIGNAL_INTF_H__
 

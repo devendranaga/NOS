@@ -1,5 +1,8 @@
 /**
  * @brief - Defines TCP socket interface.
+ * 
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
 */
 #ifndef __NOS_TCP_SOCKET_INTF_H__
 #define __NOS_TCP_SOCKET_INTF_H__
@@ -20,7 +23,10 @@ class tcp_conn {
         explicit tcp_conn();
         ~tcp_conn();
 
-        int get_socket() { return sock_; }
+        int get_socket() noexcept { return sock_; }
+        std::string get_ipaddr() noexcept { return ipaddr_; }
+        int get_port() noexcept { return port_; }
+        std::string get_path() noexcept { return ipaddr_; }
 
         int send(const uint8_t *data, uint32_t data_len);
         int recv(uint8_t *data, uint32_t data_size);
@@ -39,7 +45,7 @@ class tcp_server {
         explicit tcp_server(const std::string &ipaddr, int port, int n_conn);
         ~tcp_server();
 
-        int get_socket() { return sock_; }
+        int get_socket() noexcept { return sock_; }
 
         std::shared_ptr<tcp_conn> accept();
     private:
@@ -57,10 +63,10 @@ class tcp_client {
         explicit tcp_client(const std::string &ipaddr, int port);
         ~tcp_client();
 
-        int get_socket() { return sock_; }
+        int get_socket() noexcept { return sock_; }
 
         int send(const uint8_t *data, uint32_t data_len);
-        int recv(uint8_t *data, uint32_t data_size);
+        int recv(uint8_t *data, uint32_t data_len);
 
     private:
         int sock_;
@@ -73,17 +79,17 @@ class tcp_client {
 */
 class tcp_unix_server {
     public:
-        explicit tcp_unix_server(const std::string &path);
+        explicit tcp_unix_server(const std::string &path, int n_conn);
         ~tcp_unix_server();
 
-        int get_socket() { return sock_; }
+        int get_socket() noexcept { return sock_; }
 
-        int send(const uint8_t *data, uint32_t data_len);
-        int recv(uint8_t *data, uint32_t data_size);
+        std::shared_ptr<tcp_conn> accept();
 
     private:
         int sock_;
         std::string path_;
+        int n_conn_;
 };
 
 /**
@@ -94,10 +100,10 @@ class tcp_unix_client {
         explicit tcp_unix_client(const std::string &path);
         ~tcp_unix_client();
 
-        int get_socket() { return sock_; }
+        int get_socket() noexcept { return sock_; }
 
         int send(const uint8_t *data, uint32_t data_len);
-        int recv(uint8_t *data, uint32_t data_size);
+        int recv(uint8_t *data, uint32_t data_len);
 
     private:
         int sock_;
