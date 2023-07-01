@@ -1,6 +1,6 @@
 /**
  * @brief - defines a core header file that contains all other headers.
- * 
+ *
  * @author - Devendra Naga.
  * @copyright - 2023-present All rights reserved.
 */
@@ -18,5 +18,6 @@
 #include <nos_log_msg_intf.h>
 #include <nos_signal_intf.h>
 #include <nos_utils.h>
+#include <nos_pcap_intf.h>
 
 #endif
