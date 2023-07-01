@@ -128,6 +128,8 @@ int raw_socket::send_msg(uint8_t *mac, uint16_t ethertype, uint8_t *data, size_t
     char txbuf[1500];
     int txlen = sizeof(*eth);
 
+    memset(txbuf, 0, sizeof(txbuf));
+
     eth = (struct ether_header *) txbuf;
     eth->ether_shost[0] = devmac_[0];
     eth->ether_shost[1] = devmac_[1];
@@ -154,6 +156,11 @@ int raw_socket::send_msg(uint8_t *mac, uint16_t ethertype, uint8_t *data, size_t
     lladdr.sll_addr[3] = mac[3];
     lladdr.sll_addr[4] = mac[4];
     lladdr.sll_addr[5] = mac[5];
+
+    /* Out of bounds check. */
+    if (data_len > (sizeof(txbuf) - sizeof(*eth))) {
+        return -1;
+    }
 
     memcpy(txbuf + txlen, data, data_len);
 

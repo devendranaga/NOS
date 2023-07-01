@@ -18,10 +18,11 @@ class packet_gen {
         bool pcap_replay_;
         std::string pcap_replay_file_;
         uint32_t replay_intvl_ms_;
+        bool repeat_;
         std::shared_ptr<nos::core::raw_socket> raw_;
         nos::core::evt_mgr_intf *evt_mgr_;
 
-        void pcap_replay_callback_fn();
+        void pcap_replay_fn();
 };
 
 }

@@ -94,6 +94,14 @@ nos_pcap_reader::nos_pcap_reader(std::string filename)
     }
 
     ret = fread(&glob_hdr, sizeof(glob_hdr), 1, fp);
+    if (ret != 1) {
+        throw std::runtime_error("failed to read pcap global header");
+    }
+
+    /* Magic number. */
+    if (glob_hdr.magic_number != 0xa1b2c3d4) {
+        throw std::runtime_error("invalid pcap magic");
+    }
 }
 
 nos_pcap_reader::~nos_pcap_reader()
@@ -117,9 +125,13 @@ int nos_pcap_reader::read_packet(pcaprec_hdr_t *rec_hdr, uint8_t *buf, size_t bu
         return -1;
     }
 
+    if (feof(fp)) {
+        return -1;
+    }
+
     count ++;
 
-    return 0;
+    return rec_hdr->incl_len;
 }
 
 }
