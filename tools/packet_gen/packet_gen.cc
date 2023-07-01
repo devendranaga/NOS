@@ -53,7 +53,7 @@ packet_gen::packet_gen(int argc, char **argv) :
     evt_mgr_ = nos::core::evt_mgr_intf::instance();
 }
 
-void packet_gen::pcap_replay_fn()
+int packet_gen::pcap_replay_fn()
 {
     nos::core::nos_pcap_reader rd(pcap_replay_file_);
     uint8_t dummy_mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xBE, 0xEF};
@@ -69,11 +69,13 @@ void packet_gen::pcap_replay_fn()
         std::memset(&hdr, 0, sizeof(hdr));
         ret = rd.read_packet(&hdr, pkt, sizeof(pkt));
         if (ret < 0) {
-            break;
+            return -1;
         }
 
         raw_->send_msg(dummy_mac, pkt, hdr.incl_len);
     }
+
+    return 0;
 }
 
 packet_gen::~packet_gen()
@@ -83,8 +85,12 @@ packet_gen::~packet_gen()
 
 void packet_gen::run()
 {
+    int ret;
+
     if (pcap_replay_) {
-        pcap_replay_fn();
+        do {
+            ret = pcap_replay_fn();
+        } while (repeat_);
     } else {
         evt_mgr_->run();
     }

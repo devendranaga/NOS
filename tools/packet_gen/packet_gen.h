@@ -22,7 +22,7 @@ class packet_gen {
         std::shared_ptr<nos::core::raw_socket> raw_;
         nos::core::evt_mgr_intf *evt_mgr_;
 
-        void pcap_replay_fn();
+        int pcap_replay_fn();
 };
 
 }

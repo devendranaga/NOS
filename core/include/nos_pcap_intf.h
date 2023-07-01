@@ -34,8 +34,9 @@ typedef struct pcaprec_hdr_s {
 /* writer interface */
 class nos_pcap_writer {
     public:
-        nos_pcap_writer(std::string filename);
+        nos_pcap_writer(const std::string &filename);
         ~nos_pcap_writer();
+
         pcaprec_hdr_t format_pcap_pkthdr(size_t pktsize);
         int write_packet(pcaprec_hdr_t *rec, uint8_t *buf);
 
@@ -47,15 +48,15 @@ class nos_pcap_writer {
 /* reader interface */
 class nos_pcap_reader {
     public:
-        nos_pcap_reader(std::string filename);
+        nos_pcap_reader(const std::string &filename);
         ~nos_pcap_reader();
+
         int read_packet(pcaprec_hdr_t *rec_hdr, uint8_t *buf, size_t buflen);
     private:
         FILE *fp;
         pcap_hdr_t glob_hdr;
-        int count = 0;
 };
 
-};
+}
 
 #endif

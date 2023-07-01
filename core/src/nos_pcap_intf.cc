@@ -13,7 +13,7 @@
 namespace nos::core
 {
 
-nos_pcap_writer::nos_pcap_writer(std::string filename)
+nos_pcap_writer::nos_pcap_writer(const std::string &filename)
 {
     pcap_hdr_t glob_hdr;
 
@@ -83,7 +83,7 @@ pcap_hdr_t nos_pcap_writer::format_default_glob_header()
     return glob_hdr;
 }
 
-nos_pcap_reader::nos_pcap_reader(std::string filename)
+nos_pcap_reader::nos_pcap_reader(const std::string &filename)
 {
     int ret;
 
@@ -128,8 +128,6 @@ int nos_pcap_reader::read_packet(pcaprec_hdr_t *rec_hdr, uint8_t *buf, size_t bu
     if (feof(fp)) {
         return -1;
     }
-
-    count ++;
 
     return rec_hdr->incl_len;
 }
