@@ -11,7 +11,8 @@ set(SRC
     ./src/udp_socket_intf.cc
     ./src/nos_logging_file.cc
     ./src/nos_tcp_socket_intf.cc
-    ./src/nos_signal_intf.cc)
+    ./src/nos_signal_intf.cc
+    ./src/nos_utils.cc)
 
 include_directories(./src/
                     ./include/)

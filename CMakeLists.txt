@@ -4,4 +4,5 @@ project(nos)
 
 add_subdirectory(./core/)
 add_subdirectory(./firewall/)
-add_subdirectory(./logger)
+add_subdirectory(./logger/)
+add_subdirectory(./tools/packet_gen/)

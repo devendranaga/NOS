@@ -17,5 +17,6 @@
 #include <nos_tcp_socket_intf.h>
 #include <nos_log_msg_intf.h>
 #include <nos_signal_intf.h>
+#include <nos_utils.h>
 
 #endif
