@@ -25,7 +25,7 @@ class firewall_intf {
         void parser_callback();
         void filter_callback();
         event_type parse_packet(packet_parser_state &parser_state);
-        event_type parse_protocol(packet_parser_state &parser_state);
+        event_type parse_protocol(uint8_t protocol, packet_parser_state &parser_state);
 
         std::queue<packet_parser_state> parser_state_queue_;
         std::unique_ptr<nos::core::raw_socket> raw_;

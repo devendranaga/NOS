@@ -29,6 +29,11 @@
 #define ETHERTYPE_IPV6      0x86DD
 #define ETHERTYPE_MACSEC    0x88E5
 
+#define PROTOCOL_UDP        0x11
+#define PROTOCOL_ICMP       0x01
+#define PROTOCOL_TCP        0x06
+#define PROTOCOL_ICMP6      0x3A
+
 namespace nos::firewall {
 
 struct vlan_header {
