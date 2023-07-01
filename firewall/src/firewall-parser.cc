@@ -25,7 +25,7 @@ event_type firewall_intf::parse_packet(packet_parser_state &state)
 {
     event_type type;
 
-    type = state.pkt.eth_h.deserialize(state.pkt_buf);
+    type = state.pkt.eth_h.deserialize(state.pkt_buf, log_);
     VALIDATE_AND_FAIL(type);
 
 l2_parse:

@@ -20,6 +20,7 @@
 #include <packet-icmp.h>
 #include <packet-icmp6.h>
 #include <packet-udp.h>
+#include <packet-doip.h>
 
 #define PACKET_BUF_MAX_DATA_LEN 8192
 
@@ -125,6 +126,7 @@ struct packet {
     icmp_header icmp_h;
     icmp6_header icmp6_h;
     ppp_header ppp_h;
+    doip_header doip_h;
 
     std::vector<packet> tunneled_packets_;
 

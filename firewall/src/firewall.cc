@@ -166,6 +166,7 @@ int firewall_ctx::init(const std::string &conf_file)
         return -1;
     }
 
+    log_ = NOS_LOG_INTF_CONSOLE();
     evt_mgr_ = nos::core::evt_mgr_intf::instance();
 
     conf = firewall_config::instance();
@@ -173,7 +174,7 @@ int firewall_ctx::init(const std::string &conf_file)
     for (auto it : conf->intf_list_) {
         std::shared_ptr<firewall_intf> intf;
 
-        intf = std::make_shared<firewall_intf>();
+        intf = std::make_shared<firewall_intf>(log_);
         ret = intf->create_raw(it.ifname);
         if (ret < 0) {
             return -1;
