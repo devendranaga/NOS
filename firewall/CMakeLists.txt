@@ -17,6 +17,7 @@ set(SRC
     ./src/packet-udp.cc
     ./src/packet-tcp.cc
     ./src/packet-doip.cc
+    ./src/packet-ntp.cc
     ./src/firewall_event_mgr.cc)
 
 include_directories(./src/

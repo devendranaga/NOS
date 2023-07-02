@@ -22,6 +22,7 @@
 #include <packet-udp.h>
 #include <packet-doip.h>
 #include <packet-tcp.h>
+#include <packet-ntp.h>
 
 #define PACKET_BUF_MAX_DATA_LEN 8192
 

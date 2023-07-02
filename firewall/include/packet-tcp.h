@@ -85,6 +85,7 @@ struct tcp_header {
                            const std::shared_ptr<nos::core::logging> &log);
     inline bool has_options()
     { return contains_options == true; }
+
     void free_hdr() { }
 };
 
