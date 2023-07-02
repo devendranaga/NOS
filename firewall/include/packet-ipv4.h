@@ -39,6 +39,9 @@ struct ipv4_header {
 
     inline bool has_fragment()
     { return (flags_more_fragment == 1) || (frag_off != 0); }
+
+    inline bool ipv4_has_options()
+    { return (ihl > IPV4_IHL_LEN_MAX); }
 };
 
 }

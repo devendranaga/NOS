@@ -21,6 +21,7 @@
 #include <packet-icmp6.h>
 #include <packet-udp.h>
 #include <packet-doip.h>
+#include <packet-tcp.h>
 
 #define PACKET_BUF_MAX_DATA_LEN 8192
 
@@ -96,11 +97,6 @@ struct ieee8021x_mka {
 struct ieee8021x_header {
     ieee8021x_mka mka;
 
-    event_type deserialize(packet_buf &buf);
-    void free_hdr() { }
-};
-
-struct tcp_header {
     event_type deserialize(packet_buf &buf);
     void free_hdr() { }
 };
