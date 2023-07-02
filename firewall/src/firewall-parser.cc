@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements Firewall parser.
+ *
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+*/
 #include <firewall.h>
 
 namespace nos::firewall {
@@ -8,9 +14,23 @@ namespace nos::firewall {
     }\
 }
 
-event_type firewall_intf::parse_protocol(packet_parser_state &state)
+event_type firewall_intf::parse_protocol(uint8_t protocol, packet_parser_state &state)
 {
     event_type type = event_type::UNSUPPORTED_PROTOCOL;
+
+    switch (protocol) {
+        case PROTOCOL_UDP: {
+            type = state.pkt.udp_h.deserialize(state.pkt_buf);
+        } break;
+        case PROTOCOL_ICMP: {
+            type = state.pkt.icmp_h.deserialize(state.pkt_buf);
+        } break;
+        case PROTOCOL_ICMP6: {
+            type = state.pkt.icmp6_h.deserialize(state.pkt_buf);
+        } break;
+        default:
+            return event_type::UNSUPPORTED_PROTOCOL;
+    }
 
     return type;
 }
@@ -19,9 +39,11 @@ event_type firewall_intf::parse_packet(packet_parser_state &state)
 {
     event_type type;
 
-    type = state.pkt.eth_h.deserialize(state.pkt_buf);
+    /* Find the ethertype to parse the next header. */
+    type = state.pkt.eth_h.deserialize(state.pkt_buf, log_);
     VALIDATE_AND_FAIL(type);
 
+l2_parse:
     /* Parse the next header after the ethertype. */
     switch (state.pkt.eth_h.ethertype) {
         case ETHERTYPE_ARP:
@@ -30,20 +52,23 @@ event_type firewall_intf::parse_packet(packet_parser_state &state)
         case ETHERTYPE_IPV4:
             type = state.pkt.ipv4_h.deserialize(state.pkt_buf);
             if (type == event_type::NO_ERROR) {
-                type = parse_protocol(state);
+                type = parse_protocol(state.pkt.ipv4_h.protocol, state);
             }
         break;
         case ETHERTYPE_IPV6:
             type = state.pkt.ipv6_h.deserialize(state.pkt_buf);
             if (type == event_type::NO_ERROR) {
-                type = parse_protocol(state);
+                type = parse_protocol(state.pkt.ipv6_h.next_header, state);
             }
         break;
         case ETHERTYPE_MACSEC:
             type = state.pkt.macsec_h.deserialize(state.pkt_buf);
             if (type == event_type::NO_ERROR) {
+                /**
+                 * If the packet is authenticated only, then lets parse it.
+                */
                 if (!state.pkt.macsec_h.is_secured()) {
-                    type = parse_protocol(state);
+                    goto l2_parse;
                 }
             }
         break;

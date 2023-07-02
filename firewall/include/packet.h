@@ -20,6 +20,7 @@
 #include <packet-icmp.h>
 #include <packet-icmp6.h>
 #include <packet-udp.h>
+#include <packet-doip.h>
 
 #define PACKET_BUF_MAX_DATA_LEN 8192
 
@@ -27,6 +28,11 @@
 #define ETHERTYPE_IPV4      0x0800
 #define ETHERTYPE_IPV6      0x86DD
 #define ETHERTYPE_MACSEC    0x88E5
+
+#define PROTOCOL_UDP        0x11
+#define PROTOCOL_ICMP       0x01
+#define PROTOCOL_TCP        0x06
+#define PROTOCOL_ICMP6      0x3A
 
 namespace nos::firewall {
 
@@ -125,6 +131,7 @@ struct packet {
     icmp_header icmp_h;
     icmp6_header icmp6_h;
     ppp_header ppp_h;
+    doip_header doip_h;
 
     std::vector<packet> tunneled_packets_;
 

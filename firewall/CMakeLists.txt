@@ -15,6 +15,7 @@ set(SRC
     ./src/packet-icmp.cc
     ./src/packet-icmp6.cc
     ./src/packet-udp.cc
+    ./src/packet-doip.cc
     ./src/firewall_event_mgr.cc)
 
 include_directories(./src/

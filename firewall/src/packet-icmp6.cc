@@ -15,6 +15,7 @@ event_type icmp6_multicast_address::deserialize(packet_buf &buf)
 
 event_type icmp6_header::deserialize(packet_buf &buf)
 {
+    event_type res;
     uint16_t reserved;
 
     buf.deserialize_byte(&type);
@@ -42,9 +43,36 @@ event_type icmp6_header::deserialize(packet_buf &buf)
                 mcast_listener.addr_list.emplace_back(addr);
             }
         } break;
+        case ICMP6_ROUTER_ADVERTISEMENT: {
+        } break;
+        case ICMP6_NEIGHBOR_SOLICITATION: {
+            buf.deserialize_4_bytes(&ns.reserved);
+            buf.deserilaize_mac(ns.target_addr);
+            while (buf.off < buf.data_len) {
+                switch (buf.data[buf.off]) {
+                    case ICMP6_OPT_SOURCE_LINK_LAYER: {
+                        res = ns.source_link_layer.deserialize(buf);
+                        if (res != event_type::NO_ERROR) {
+                            return res;
+                        }
+                    } break;
+                    default:
+                        return event_type::ICMP6_TYPE_UNSUPPORTED_OPTION;
+                }
+            }
+        } break;
         default:
             return event_type::ICMP6_TYPE_UNSUPPORTED;
     }
+
+    return event_type::NO_ERROR;
+}
+
+event_type icmp6_option_source_link_layer::deserialize(packet_buf &buf)
+{
+    buf.deserialize_byte(&type);
+    buf.deserialize_byte(&len);
+    buf.deserilaize_mac(link_layer_addr);
 
     return event_type::NO_ERROR;
 }
