@@ -3,9 +3,15 @@
 namespace nos::firewall
 {
 
+#define NTP_V4_HDR_LEN 48
+
 event_type ntp_v4_header::deserialize(packet_buf &buf,
                                       const std::shared_ptr<nos::core::logging> &log)
 {
+    uint32_t off = 0;
+
+    off = buf.off;
+
     leap_indicator = (buf.data[buf.off] & 0xC0) >> 6;
     version = (buf.data[buf.off] & 0x38) >> 3;
     mode = (buf.data[buf.off] & 0x07);
@@ -19,8 +25,13 @@ event_type ntp_v4_header::deserialize(packet_buf &buf,
     buf.deserialize_8_bytes(&origin_timestamp);
     buf.deserialize_8_bytes(&receive_timestamp);
     buf.deserialize_8_bytes(&transmit_timestamp);
-    buf.deserialize_4_bytes(&keyid);
-    buf.deserialize_bytes(mac, sizeof(mac));
+
+    if (buf.off - off > 0) {
+        buf.deserialize_4_bytes(&keyid);
+        if (keyid != 0) {
+            buf.deserialize_bytes(mac, sizeof(mac));
+        }
+    }
 
     return event_type::NO_ERROR;
 }
