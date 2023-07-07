@@ -5,7 +5,8 @@
 #include <crypto_buffers.h>
 #include <nos_crypto_hash_intf.h>
 
-namespace nos::crypto {
+namespace nos::crypto
+{
 
 class hmac_intf {
     public:

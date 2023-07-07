@@ -13,6 +13,7 @@
 #include <mbedtls_aes_cmac.h>
 
 #include <openssl_hash.h>
+#include <openssl_hmac.h>
 
 namespace nos::crypto {
 
@@ -31,7 +32,7 @@ std::shared_ptr<keywrap> crypto_factory::create_keywrap(const crypto_impl &impl)
 std::shared_ptr<hmac_intf> crypto_factory::create_hmac(const crypto_impl &impl)
 {
     if (impl == crypto_impl::openssl) {
-        return nullptr;
+        return std::make_shared<openssl_hmac_intf>();
     } else if (impl == crypto_impl::wolfssl) {
         return nullptr;
     } else if (impl == crypto_impl::mbedtls) {

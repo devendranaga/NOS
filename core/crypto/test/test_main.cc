@@ -5,7 +5,7 @@
 
 int test_keywrap();
 
-int test_hmac();
+int test_hmac(nos::crypto::crypto_impl impl);
 
 int test_hkdf();
 
@@ -15,6 +15,10 @@ int test_aes_cmac();
 
 int main()
 {
+    nos::crypto::crypto_impl impl[] = {
+        nos::crypto::crypto_impl::mbedtls,
+        nos::crypto::crypto_impl::openssl,
+    };
     int ret;
 
     ret = test_hash();
@@ -27,9 +31,11 @@ int main()
         return -1;
     }
 
-    ret = test_hmac();
-    if (ret != 0) {
-        return -1;
+    for (uint32_t i = 0; i < sizeof(impl) / sizeof(impl[0]); i ++) {
+        ret = test_hmac(impl[i]);
+        if (ret != 0) {
+            return -1;
+        }
     }
 
     ret = test_hkdf();

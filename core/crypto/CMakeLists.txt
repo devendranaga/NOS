@@ -11,7 +11,8 @@ set(MBEDTLS_SRC
     ./mbedtls/mbedtls_aes_cmac.cc)
 
 set(OPENSSL_SRC
-    ./openssl/openssl_hash.cc)
+    ./openssl/openssl_hash.cc
+    ./openssl/openssl_hmac.cc)
 
 set(COMMON_SRC
     ./common/crypto_factory.cc)
