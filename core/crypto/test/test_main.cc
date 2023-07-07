@@ -9,9 +9,16 @@ int test_hmac();
 
 int test_hkdf();
 
+int test_hash();
+
 int main()
 {
     int ret;
+
+    ret = test_hash();
+    if (ret != 0) {
+        return -1;
+    }
 
     ret = test_keywrap();
     if (ret != 0) {

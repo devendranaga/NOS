@@ -23,7 +23,7 @@ class hash_function {
         explicit hash_function() = default;
         ~hash_function() = default;
 
-        virtual int hash(hash_function_types &hf_type,
+        virtual int hash(const hash_function_types hf_type,
                          const uint8_t *buf, uint32_t buf_size,
                          crypto_hash_buffer &hash) = 0;
 };

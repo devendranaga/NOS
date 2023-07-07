@@ -5,7 +5,8 @@
 
 namespace nos::firewall {
 
-int firewall_config::parse(const std::string &conf)
+int firewall_config::parse(const std::string &conf,
+                           std::shared_ptr<nos::core::logging> &log)
 {
     Json::Value root;
     std::ifstream config(conf, std::ifstream::binary);
@@ -32,6 +33,7 @@ int firewall_config::parse(const std::string &conf)
     } else if (evt_fmt == "full") {
         evt_conf_.evt_fmt = event_format::Full;
     } else {
+        log->err("firewall: invalid event_format %s\n", evt_fmt);
         return -1;
     }
 
@@ -40,6 +42,7 @@ int firewall_config::parse(const std::string &conf)
     if (evt_msg_fmt == "v1") {
         evt_conf_.evt_msg_fmt = event_msg_format::v1;
     } else {
+        log->err("firewall: invalid msg format %s\n", evt_msg_fmt);
         return -1;
     }
 
@@ -51,6 +54,7 @@ int firewall_config::parse(const std::string &conf)
         evt_conf_.evt_upload_cfg.binary_cfg.protocol =
                 event_protocol::tcp;
     } else {
+        log->err("firewall: invalid event_upload binary protocol %s\n", evt_proto);
         return -1;
     }
 
@@ -68,6 +72,7 @@ int firewall_config::parse(const std::string &conf)
         evt_conf_.evt_upload_cfg.protobuf_cfg.protocol =
                 event_protocol::tcp;
     } else {
+        log->err("firewall: invalid evt_upload protobuf protocol %s\n", evt_proto);
         return -1;
     }
 
@@ -85,6 +90,7 @@ int firewall_config::parse(const std::string &conf)
         evt_conf_.evt_upload_cfg.mqtt_cfg.protocol =
                 event_protocol::tcp;
     } else {
+        log->err("firewall: invalid event_uploads config protocol %s\n", evt_proto);
         return -1;
     }
     evt_conf_.evt_upload_cfg.mqtt_cfg.server_ip =
@@ -161,12 +167,13 @@ int firewall_ctx::init(const std::string &conf_file)
     firewall_config *conf;
     int ret;
 
-    ret = firewall_config::instance()->parse(conf_file);
+    log_ = NOS_LOG_INTF_CONSOLE();
+
+    ret = firewall_config::instance()->parse(conf_file, log_);
     if (ret < 0) {
         return -1;
     }
 
-    log_ = NOS_LOG_INTF_CONSOLE();
     evt_mgr_ = nos::core::evt_mgr_intf::instance();
 
     conf = firewall_config::instance();

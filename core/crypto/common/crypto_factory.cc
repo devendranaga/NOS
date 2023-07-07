@@ -11,12 +11,13 @@
 #include <mbedtls_hkdf.h>
 #include <mbedtls_hash.h>
 
+#include <openssl_hash.h>
+
 namespace nos::crypto {
 
 std::shared_ptr<keywrap> crypto_factory::create_keywrap(const crypto_impl &impl)
 {
     if (impl == crypto_impl::openssl) {
-        return nullptr;
     } else if (impl == crypto_impl::wolfssl) {
         return nullptr;
     } else if (impl == crypto_impl::mbedtls) {
@@ -55,7 +56,7 @@ std::shared_ptr<hkdf_intf> crypto_factory::create_hkdf(const crypto_impl &impl)
 std::shared_ptr<hash_function> crypto_factory::create_hash(const crypto_impl &impl)
 {
     if (impl == crypto_impl::openssl) {
-        return nullptr;
+        return std::make_shared<openssl_hash_function>();
     } else if (impl == crypto_impl::wolfssl) {
         return nullptr;
     } else if (impl == crypto_impl::mbedtls) {

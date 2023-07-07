@@ -53,7 +53,7 @@ struct crypto_tag {
 
 struct crypto_hash_buffer {
     uint8_t hash[64];
-    uint8_t hash_len;
+    uint32_t hash_len;
 
     explicit crypto_hash_buffer() {
         memset(hash, 0, sizeof(hash));

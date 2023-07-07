@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements NTP V4 header parsing.
+ *
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+*/
 #ifndef __NOS_PACKET_NTP_H__
 #define __NOS_PACKET_NTP_H__
 

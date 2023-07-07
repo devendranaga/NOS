@@ -23,6 +23,7 @@
 #include <packet-doip.h>
 #include <packet-tcp.h>
 #include <packet-ntp.h>
+#include <packet-ptp.h>
 
 #define PACKET_BUF_MAX_DATA_LEN 8192
 
@@ -35,6 +36,8 @@
 #define PROTOCOL_ICMP       0x01
 #define PROTOCOL_TCP        0x06
 #define PROTOCOL_ICMP6      0x3A
+
+#define PORT_PTP            319
 
 namespace nos::firewall {
 
