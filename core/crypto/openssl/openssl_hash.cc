@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements OpenSSL hash function.
+ * 
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+*/
 #include <openssl/evp.h>
 #include <openssl_hash.h>
 
@@ -14,6 +20,9 @@ const static struct hash_str_map {
     {hash_function_types::SHA3_256, "SHA3-256"},
     {hash_function_types::SHA3_384, "SHA3-384"},
     {hash_function_types::SHA3_512, "SHA3-512"},
+    {hash_function_types::RIPEMD160, "RIPEMD160"},
+    {hash_function_types::SHAKE128, "SHAKE128"},
+    {hash_function_types::SHAKE256, "SHAKE256"},
 };
 
 static const char *get_hash_str(hash_function_types type)
@@ -53,19 +62,20 @@ int openssl_hash_function::hash(const hash_function_types hf_type,
 
     ret = EVP_DigestInit_ex2(md_ctx, md, nullptr);
     if (ret == 0) {
-        return -1;
+        goto free_ctx;
     }
 
     ret = EVP_DigestUpdate(md_ctx, buf, buf_size);
     if (ret == 0) {
-        return -1;
+        goto free_ctx;
     }
 
     ret = EVP_DigestFinal_ex(md_ctx, hash.hash, &hash.hash_len);
     if (ret == 0) {
-        return -1;
+        goto free_ctx;
     }
 
+free_ctx:
     EVP_MD_CTX_free(md_ctx);
 
     return 0;

@@ -11,6 +11,8 @@ int test_hkdf();
 
 int test_hash();
 
+int test_aes_cmac();
+
 int main()
 {
     int ret;
@@ -31,6 +33,11 @@ int main()
     }
 
     ret = test_hkdf();
+    if (ret != 0) {
+        return -1;
+    }
+
+    ret = test_aes_cmac();
     if (ret != 0) {
         return -1;
     }

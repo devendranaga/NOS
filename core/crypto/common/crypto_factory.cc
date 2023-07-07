@@ -10,6 +10,7 @@
 #include <mbedtls_hmac.h>
 #include <mbedtls_hkdf.h>
 #include <mbedtls_hash.h>
+#include <mbedtls_aes_cmac.h>
 
 #include <openssl_hash.h>
 
@@ -61,6 +62,15 @@ std::shared_ptr<hash_function> crypto_factory::create_hash(const crypto_impl &im
         return nullptr;
     } else if (impl == crypto_impl::mbedtls) {
         return std::make_shared<mbedtls_hash_function>();
+    }
+
+    return nullptr;
+}
+
+std::shared_ptr<aes_cmac> crypto_factory::create_aes_cmac(const crypto_impl &impl)
+{
+    if (impl == crypto_impl::mbedtls) {
+        return std::make_shared<mbedtls_aes_cmac>();
     }
 
     return nullptr;

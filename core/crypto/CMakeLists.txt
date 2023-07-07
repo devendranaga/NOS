@@ -7,7 +7,8 @@ set(MBEDTLS_SRC
     ./mbedtls/mbedtls_hmac.cc
     ./mbedtls/mbedtls_hkdf.cc
     ./mbedtls/mbedtls_hash.cc
-    ./mbedtls/mbedtls_crypto_random.cc)
+    ./mbedtls/mbedtls_crypto_random.cc
+    ./mbedtls/mbedtls_aes_cmac.cc)
 
 set(OPENSSL_SRC
     ./openssl/openssl_hash.cc)
@@ -25,6 +26,7 @@ set(TEST_SRC
     ./test/test_hmac.cc
     ./test/test_hkdf.cc
     ./test/test_hash.cc
+    ./test/test_aes_cmac.cc
     ./test/test_main.cc)
 
 set(MBEDTLS_INCL

@@ -1,6 +1,7 @@
 #ifndef __CRYPTO_BUFFERS_H__
 #define __CRYPTO_BUFFERS_H__
 
+#include <cstring>
 #include <stdint.h>
 #include <string.h>
 #include <string>
@@ -17,6 +18,10 @@ struct crypto_symmetric_key {
     }
     ~crypto_symmetric_key() { }
     explicit crypto_symmetric_key(const std::string &key_f);
+    explicit crypto_symmetric_key(uint8_t *key_buf, uint32_t key_buf_len) {
+        std::memcpy(key, key_buf, key_buf_len);
+        key_len = key_buf_len;
+    }
 
     int write_key(const std::string &key_f);
 };
