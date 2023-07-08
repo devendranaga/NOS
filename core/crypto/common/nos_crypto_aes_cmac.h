@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements AES-CMAC.
+ *
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+ */
 #ifndef __NOS_CRYPTO_AES_CMAC_H__
 #define __NOS_CRYPTO_AES_CMAC_H__
 
@@ -17,7 +23,7 @@ class aes_cmac {
         virtual int verify_128(const uint8_t *buf, uint32_t buf_size,
                                const crypto_symmetric_key &key,
                                crypto_mac_buffer &mac) = 0;
-        
+
         virtual int sign_192(const uint8_t *buf, uint32_t buf_size,
                              const crypto_symmetric_key &key,
                              crypto_mac_buffer &mac) = 0;
