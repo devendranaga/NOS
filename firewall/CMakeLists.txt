@@ -10,6 +10,7 @@ set(SRC
     ./src/packet-eth.cc
     ./src/packet-arp.cc
     ./src/packet-ieee8021ae.cc
+    ./src/packet-ieee8021x.cc
     ./src/packet-ipv4.cc
     ./src/packet-ipv6.cc
     ./src/packet-icmp.cc
@@ -18,7 +19,8 @@ set(SRC
     ./src/packet-tcp.cc
     ./src/packet-doip.cc
     ./src/packet-ntp.cc
-    ./src/firewall_event_mgr.cc)
+    ./src/firewall_event_mgr.cc
+    ./src/firewall-rules.cc)
 
 include_directories(./src/
                     ./include/

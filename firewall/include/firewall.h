@@ -7,9 +7,12 @@
 #include <firewall_config.h>
 #include <firewall_intf.h>
 #include <firewall_event_mgr.h>
+#include <firewall-rules.h>
 #include <nos_core.h>
 
 namespace nos::firewall {
+
+#define FIREWALL_RULES_FILE "./firewall_rule_config.json"
 
 class firewall_ctx {
     public:

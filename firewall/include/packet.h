@@ -15,6 +15,7 @@
 #include <packet-eth.h>
 #include <packet-arp.h>
 #include <packet-ieee8021ae.h>
+#include <packet-ieee8021x.h>
 #include <packet-ipv4.h>
 #include <packet-ipv6.h>
 #include <packet-icmp.h>
@@ -46,65 +47,6 @@ struct vlan_header {
     void free_hdr() { }
 };
 
-struct ieee8021x_mka_basic_parameters {
-
-    event_type deserialize(packet_buf &buf);
-};
-
-struct ieee8021x_mka_live_parameters {
-
-    event_type deserialize(packet_buf &buf);
-};
-
-struct ieee8021x_mka_potential_parameters {
-
-    event_type deserialize(packet_buf &buf);
-};
-
-struct ieee8021x_mka_distr_sak {
-
-    event_type deserialize(packet_buf &buf);
-};
-
-struct ieee8021x_mka_sak_use {
-
-    event_type deserialize(packet_buf &buf);
-};
-
-struct ieee8021x_mka_icv {
-
-    event_type deserialize(packet_buf &buf);
-};
-
-struct ieee8021x_mka_announcement {
-
-    event_type deserialize(packet_buf &buf);
-};
-
-struct ieee8021x_mka_xpn {
-    event_type deserialize(packet_buf &buf);
-};
-
-struct ieee8021x_mka {
-    ieee8021x_mka_basic_parameters bp;
-    ieee8021x_mka_live_parameters lp;
-    ieee8021x_mka_potential_parameters pp;
-    ieee8021x_mka_distr_sak distr_sak;
-    ieee8021x_mka_sak_use sak_use;
-    ieee8021x_mka_icv icv;
-    ieee8021x_mka_announcement announcement;
-    ieee8021x_mka_xpn xpn;
-
-    event_type deserialize(packet_buf &buf);
-};
-
-struct ieee8021x_header {
-    ieee8021x_mka mka;
-
-    event_type deserialize(packet_buf &buf);
-    void free_hdr() { }
-};
-
 struct ppp_header {
     event_type deserialize(packet_buf &buf);
     void free_hdr() { }
@@ -124,6 +66,7 @@ struct packet {
     vlan_header vlan_h;
     arp_header arp_h;
     ieee8021ae_header macsec_h;
+    ieee8021x_header dot1x_h;
     ipv4_header ipv4_h;
     ipv6_header ipv6_h;
     tcp_header tcp_h;

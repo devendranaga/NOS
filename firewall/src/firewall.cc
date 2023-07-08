@@ -165,6 +165,7 @@ firewall_ctx::~firewall_ctx()
 int firewall_ctx::init(const std::string &conf_file)
 {
     firewall_config *conf;
+    firewall_rules rules;
     int ret;
 
     log_ = NOS_LOG_INTF_CONSOLE();
@@ -174,9 +175,18 @@ int firewall_ctx::init(const std::string &conf_file)
         return -1;
     }
 
+    log_->info("firewall: parsing rules file ok\n");
+
     evt_mgr_ = nos::core::evt_mgr_intf::instance();
 
     conf = firewall_config::instance();
+
+    ret = rules.parse(FIREWALL_RULES_FILE, log_);
+    if (ret < 0) {
+        log_->err("firewall: failed to parse rules file [%s]\n",
+                                           FIREWALL_RULES_FILE);
+        return ret;
+    }
 
     for (auto it : conf->intf_list_) {
         std::shared_ptr<firewall_intf> intf;
@@ -184,6 +194,8 @@ int firewall_ctx::init(const std::string &conf_file)
         intf = std::make_shared<firewall_intf>(log_);
         ret = intf->create_raw(it.ifname);
         if (ret < 0) {
+            log_->err("firewall: failed to init socket on [%s]\n",
+                                    it.ifname.c_str());
             return -1;
         }
         intf_list_.emplace_back(intf);

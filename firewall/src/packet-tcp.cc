@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements TCP header parsing.
+ *
+ * @author - Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+*/
 #include <packet.h>
 
 namespace nos::firewall
@@ -10,10 +16,23 @@ event_type tcp_header::deserialize(packet_buf &buf,
     uint16_t opt_len;
 
     buf.deserialize_2_bytes(&source_port);
+    if (source_port == 0) {
+        return event_type::TCP_SOURCE_PORT_ZERO;
+    }
+
     buf.deserialize_2_bytes(&dest_port);
+    if (dest_port == 0) {
+        return event_type::TCP_DEST_PORT_ZERO;
+    }
+
     buf.deserialize_4_bytes(&seq_no);
     buf.deserialize_4_bytes(&ack_no);
     hdr_len = (buf.data[buf.off] & 0xF0) >> 4;
+    if (((hdr_len * 4) < TCP_HDR_LEN_MIN) ||
+        ((hdr_len * 4) > TCP_HDR_LEN_MAX)) {
+        return event_type::TCP_HDR_LEN_TOO_SMALL;
+    }
+
     flags.reserved = (buf.data[buf.off] & 0x0E) >> 1;
     flags.ecn = !!(buf.data[buf.off] & 0x01);
     buf.off ++;

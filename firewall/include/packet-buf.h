@@ -26,6 +26,7 @@ struct packet_buf {
     explicit packet_buf() : data(nullptr), data_len(0), off(0) { }
     ~packet_buf() { }
 
+    uint32_t remaining_bytes() { return data_len - off; }
     event_type deserialize_byte(uint8_t *byte);
     event_type deserialize_2_bytes(uint16_t *bytes);
     event_type deserialize_4_bytes(uint32_t *bytes);

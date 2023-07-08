@@ -15,9 +15,15 @@
 namespace nos::firewall
 {
 
+#define UDP_HDR_LEN_DEFAULT 8
+
 event_type udp_header::deserialize(packet_buf &buf)
 {
     event_type type;
+
+    if (buf.remaining_bytes() < 8) {
+        return event_type::UDP_INVALID_HDR_LEN;
+    }
 
     type = buf.deserialize_2_bytes(&source_port);
     RETURN_ON_ERR(type);
