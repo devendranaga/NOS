@@ -109,15 +109,20 @@ void firewall_intf::receive_callback()
     uint8_t mac[6];
     int ret;
 
-    ret = raw_->recv_msg(mac, pkt_buf.data, sizeof(pkt_buf.data));
-    if (ret < 0) {
-        return;
-    }
 
-    pkt_buf.data_len = ret;
-    {
-        std::unique_lock<std::mutex> lock(pkt_queue_lock_);
-        pkt_queue_.emplace(pkt_buf);
+    while (1) {
+        ret = raw_->recv_msg(mac, pkt_buf.data, sizeof(pkt_buf.data));
+        if (ret < 0) {
+            perror("");
+            return;
+        }
+
+        pkt_buf.data_len = ret;
+        {
+            std::unique_lock<std::mutex> lock(pkt_queue_lock_);
+            pkt_queue_.emplace(pkt_buf);
+            pkt_queue_cond_.notify_one();
+        }
     }
 }
 

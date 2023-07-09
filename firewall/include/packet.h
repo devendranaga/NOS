@@ -82,6 +82,7 @@ struct packet {
     ~packet() { }
 
     uint32_t get_tunnel_size() { return tunneled_packets_.size(); }
+    bool has_ipv4() { return eth_h.ethertype == ETHERTYPE_IPV4; }
 };
 
 struct packet_parser_state {

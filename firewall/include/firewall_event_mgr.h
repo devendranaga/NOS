@@ -23,6 +23,19 @@ class firewall_event_mgr {
         }
 
         int init();
+
+        /**
+         * @brief - make the event and queue it.
+         *
+         * @param[in] state : parser state including pkt buffer and parsed pkt.
+         * @param[in] res : event result.
+         * @param[in] descr : event description.
+         * @param[in] rule_id : rule id that triggered this event.
+         */
+        void make(packet_parser_state &state,
+                  event_result res,
+                  event_type descr,
+                  uint32_t rule_id);
         void queue_event(firewall_event &event, packet_buf &pkt);
 
     private:
