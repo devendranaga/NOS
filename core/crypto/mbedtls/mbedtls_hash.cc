@@ -47,7 +47,7 @@ static int sha2_512(const uint8_t *buf, uint32_t buf_size,
     return 0;
 }
 
-int mbedtls_hash_function::hash(hash_function_types &hf_type,
+int mbedtls_hash_function::hash(const hash_function_types hf_type,
                                 const uint8_t *buf, uint32_t buf_size,
                                 crypto_hash_buffer &hash)
 {

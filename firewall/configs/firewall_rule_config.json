@@ -5,13 +5,15 @@
             "rule_name": "deny_arps",
             "rule_id": 1000001,
             "from_src_mac": "00:01:00:00:01:01",
-            "to_dst_mac": "00:02:03:04:01:02"
+            "to_dst_mac": "00:02:03:04:01:02",
+            "ethertype": "0x0806"
         },
         {
             "rule_name": "allow_ipv4_from_ecu1",
             "rule_id": 1000002,
             "from_src_ipv4": "192.168.1.1",
-            "to_dst_ipv4": "192.168.1.2"
+            "to_dst_ipv4": "192.168.1.2",
+            "protocol": "tcp"
         }
     ]
 }

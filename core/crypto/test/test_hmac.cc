@@ -4,7 +4,7 @@
 #include <crypto_factory.h>
 #include <nos_log_factory.h>
 
-int test_hmac()
+int test_hmac(nos::crypto::crypto_impl impl)
 {
     uint8_t kek[] = {
         0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
@@ -21,17 +21,16 @@ int test_hmac()
 
     memcpy(key.key, kek, sizeof(kek));
     key.key_len = sizeof(kek);
-
-    hmac = nos::crypto::crypto_factory::instance()->create_hmac(
-                              nos::crypto::crypto_impl::mbedtls);
+    hmac = nos::crypto::crypto_factory::instance()->create_hmac(impl);
     ret = hmac->generate(nos::crypto::hash_function_types::SHA2_256,
                          key, data, sizeof(data),
                          mac);
     if (ret < 0) {
+        printf("failed to hmac with [%d]\n", impl);
         return -1;
     }
 
-    printf("hmac-sha256 : ");
+    printf("hmac-sha256 [%d] : ", impl);
     for (uint32_t i = 0; i < mac.signature_len; i ++) {
         printf("%02x", mac.signature[i]);
     }

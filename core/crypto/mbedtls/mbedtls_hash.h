@@ -11,7 +11,7 @@ class mbedtls_hash_function : public hash_function {
         explicit mbedtls_hash_function() = default;
         ~mbedtls_hash_function() = default;
 
-        int hash(hash_function_types &hf_type,
+        int hash(const hash_function_types hf_type,
                  const uint8_t *buf, uint32_t buf_size,
                  crypto_hash_buffer &hash);
 };

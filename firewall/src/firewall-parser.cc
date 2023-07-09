@@ -28,6 +28,9 @@ event_type firewall_intf::parse_protocol(uint8_t protocol, packet_parser_state &
         case PROTOCOL_ICMP6: {
             type = state.pkt.icmp6_h.deserialize(state.pkt_buf);
         } break;
+        case PROTOCOL_TCP: {
+            type = state.pkt.tcp_h.deserialize(state.pkt_buf, log_);
+        } break;
         default:
             return event_type::UNSUPPORTED_PROTOCOL;
     }
