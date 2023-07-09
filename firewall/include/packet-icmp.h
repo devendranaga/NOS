@@ -67,14 +67,48 @@ struct icmp_redirect {
     void print();
 };
 
+struct icmp_time_exceeded {
+    uint32_t unused;
+    ipv4_header ipv4_hdr;
+    uint8_t datagram_data[8];
+
+    event_type deserialize(packet_buf &buf);
+    void print();
+};
+
+struct icmp_timestamp {
+    uint16_t identifier;
+    uint16_t seq_no;
+    uint32_t origin_timestamp;
+    uint32_t receive_timestamp;
+    uint32_t transmit_timestamp;
+
+    event_type deserialize(packet_buf &buf);
+    void print();
+};
+
+struct icmp_timestamp_reply {
+    uint16_t identifier;
+    uint16_t seq_no;
+    uint32_t origin_timestamp;
+    uint32_t receive_timestamp;
+    uint32_t transmit_timestamp;
+
+    event_type deserialize(packet_buf &buf);
+    void print();
+}
+
 struct icmp_header {
     uint8_t type;
     uint8_t code;
     uint16_t checksum;
 
-    icmp_ping_request   ping_req;
-    icmp_ping_reply     ping_reply;
-    icmp_redirect       redir;
+    icmp_ping_request       ping_req;
+    icmp_ping_reply         ping_reply;
+    icmp_redirect           redir;
+    icmp_time_exceeded      time_exc;
+    icmp_timestamp          timestamp;
+    icmp_timestamp_reply    timestamp_reply;
 
     event_type deserialize(packet_buf &buf);
     void print();
