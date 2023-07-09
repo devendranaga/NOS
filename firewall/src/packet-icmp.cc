@@ -44,6 +44,17 @@ event_type icmp_timestamp::deserialize(packet_buf &buf)
     return event_type::NO_ERROR;
 }
 
+event_type icmp_timestamp_reply::deserialize(packet_buf &buf)
+{
+    buf.deserialize_2_bytes(&identifier);
+    buf.deserialize_2_bytes(&seq_no);
+    buf.deserialize_4_bytes(&origin_timestamp);
+    buf.deserialize_4_bytes(&receive_timestamp);
+    buf.deserialize_4_bytes(&transmit_timestamp);
+
+    return event_type::NO_ERROR;
+}
+
 event_type icmp_header::deserialize(packet_buf &buf)
 {
     event_type evt_type;
@@ -53,9 +64,21 @@ event_type icmp_header::deserialize(packet_buf &buf)
     buf.deserialize_2_bytes(&checksum);
 
     if (type == ICMP_REQ) {
+        /*
+         * Malformed Echo Request frame.
+         */
+        if (buf.remaining_bytes() < 4) {
+            return event_type::ICMP_ECHO_REQ_TOO_SHORT;
+        }
         buf.deserialize_2_bytes(&ping_req.id);
         buf.deserialize_2_bytes(&ping_req.seq_no);
     } else if (type == ICMP_REPLY) {
+        /*
+         * Malformed Echo Reply frame.
+         */
+        if (buf.remaining_bytes() < 4) {
+            return event_type::ICMP_ECHO_REPLY_TOO_SHORT;
+        }
         buf.deserialize_2_bytes(&ping_reply.id);
         buf.deserialize_2_bytes(&ping_reply.seq_no);
     } else if (type == ICMP_REDIRECT) {
@@ -80,6 +103,7 @@ event_type icmp_header::deserialize(packet_buf &buf)
         }
     }
 
+    remaining_len = buf.remaining_bytes();
     return event_type::NO_ERROR;
 }
 

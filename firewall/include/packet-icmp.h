@@ -96,7 +96,7 @@ struct icmp_timestamp_reply {
 
     event_type deserialize(packet_buf &buf);
     void print();
-}
+};
 
 struct icmp_header {
     uint8_t type;
@@ -109,6 +109,8 @@ struct icmp_header {
     icmp_time_exceeded      time_exc;
     icmp_timestamp          timestamp;
     icmp_timestamp_reply    timestamp_reply;
+
+    uint32_t                remaining_len;
 
     event_type deserialize(packet_buf &buf);
     void print();
