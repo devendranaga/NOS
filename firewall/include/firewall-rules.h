@@ -61,8 +61,16 @@ struct rule_config {
  */
 class firewall_rules {
     public:
-        explicit firewall_rules();
         ~firewall_rules();
+        firewall_rules(const firewall_rules &) = delete;
+        const firewall_rules &operator=(const firewall_rules &) = delete;
+        firewall_rules(const firewall_rules &&) = delete;
+        const firewall_rules &&operator=(const firewall_rules &&) = delete;
+
+        static firewall_rules *instance() {
+            static firewall_rules rules;
+            return &rules;
+        }
 
         /**
          * @brief - Parse the rules file.
@@ -89,6 +97,7 @@ class firewall_rules {
 
     private:
         std::vector<rule_config> ruleset_;
+        explicit firewall_rules();
 };
 
 }

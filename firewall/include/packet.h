@@ -25,6 +25,7 @@
 #include <packet-tcp.h>
 #include <packet-ntp.h>
 #include <packet-ptp.h>
+#include <packet-mqtt.h>
 
 #define PACKET_BUF_MAX_DATA_LEN 8192
 
@@ -75,6 +76,7 @@ struct packet {
     icmp6_header icmp6_h;
     ppp_header ppp_h;
     doip_header doip_h;
+    mqtt_header mqtt_h;
 
     std::vector<packet> tunneled_packets_;
 

@@ -170,7 +170,6 @@ firewall_ctx::~firewall_ctx()
 int firewall_ctx::init(const std::string &conf_file)
 {
     firewall_config *conf;
-    firewall_rules rules;
     int ret;
 
     log_ = NOS_LOG_INTF_CONSOLE();
@@ -186,7 +185,7 @@ int firewall_ctx::init(const std::string &conf_file)
 
     conf = firewall_config::instance();
 
-    ret = rules.parse(FIREWALL_RULES_FILE, log_);
+    ret = firewall_rules::instance()->parse(FIREWALL_RULES_FILE, log_);
     if (ret < 0) {
         log_->err("firewall: failed to parse rules file [%s]\n",
                                            FIREWALL_RULES_FILE);

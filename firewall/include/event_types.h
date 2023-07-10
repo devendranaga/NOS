@@ -36,9 +36,11 @@ enum event_type {
 
     /* Malformed TCP packet. */
     TCP_HDR_LEN_TOO_SMALL,
+    MQTT_UKNOWN_MSG_TYPE,
     UNSUPPORTED_ETHERTYPE,
     UNSUPPORTED_PROTOCOL,
     PACKET_LEN_TOO_SHORT,
+    UNKNOWN_ERROR,
 };
 
 }

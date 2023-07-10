@@ -18,9 +18,12 @@ set(SRC
     ./src/packet-udp.cc
     ./src/packet-tcp.cc
     ./src/packet-doip.cc
+    ./src/packet-mqtt.cc
     ./src/packet-ntp.cc
     ./src/firewall_event_mgr.cc
-    ./src/firewall-rules.cc)
+    ./src/firewall-rules.cc
+    ./src/firewall-filter.cc
+    ./src/firewall-eth-filter.cc)
 
 include_directories(./src/
                     ./include/
