@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements MQTT parsing.
+ *
+ * @author Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+*/
 #include <packet.h>
 
 namespace nos::firewall
@@ -101,7 +107,7 @@ event_type mqtt_disconn_req_header::deserialize(packet_buf &buf,
 event_type mqtt_header::deserialize(packet_buf &buf,
                                     const std::shared_ptr<nos::core::logging> &log)
 {
-    event_type type;
+    event_type type = event_type::MQTT_UKNOWN_MSG_TYPE;
 
     msg_type = (buf.data[buf.off] & 0xF0) >> 4;
     reserved = buf.data[buf.off] & 0x0F;

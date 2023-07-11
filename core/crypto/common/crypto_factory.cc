@@ -11,9 +11,11 @@
 #include <mbedtls_hkdf.h>
 #include <mbedtls_hash.h>
 #include <mbedtls_aes_cmac.h>
+#include <mbedtls_aes_cbc.h>
 
 #include <openssl_hash.h>
 #include <openssl_hmac.h>
+#include <openssl_aes_cbc.h>
 
 namespace nos::crypto {
 
@@ -72,6 +74,17 @@ std::shared_ptr<aes_cmac> crypto_factory::create_aes_cmac(const crypto_impl &imp
 {
     if (impl == crypto_impl::mbedtls) {
         return std::make_shared<mbedtls_aes_cmac>();
+    }
+
+    return nullptr;
+}
+
+std::shared_ptr<aes_cbc> crypto_factory::create_aes_cbc(const crypto_impl &impl)
+{
+    if (impl == crypto_impl::mbedtls) {
+        return std::make_shared<mbedtls_aes_cbc>();
+    } else if (impl == crypto_impl::openssl) {
+        return nullptr;
     }
 
     return nullptr;

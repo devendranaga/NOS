@@ -30,13 +30,13 @@ struct crypto_iv {
     uint8_t iv[16];
     uint8_t iv_len;
 
-    explicit crypto_iv() { 
-        memset(iv, 0, sizeof(iv));
+    explicit crypto_iv() {
+        std::memset(iv, 0, sizeof(iv));
         iv_len = 0;
     }
     ~crypto_iv() { }
     explicit crypto_iv(uint8_t *iv_in, uint8_t iv_in_len) {
-        memcpy(iv, iv_in, iv_in_len);
+        std::memcpy(iv, iv_in, iv_in_len);
         iv_len = iv_in_len;
     }
 };

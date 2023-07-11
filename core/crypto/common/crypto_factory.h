@@ -9,6 +9,7 @@
 #include <nos_crypto_hkdf_intf.h>
 #include <nos_crypto_hash_intf.h>
 #include <nos_crypto_aes_cmac.h>
+#include <nos_crypto_aes_cbc.h>
 
 namespace nos::crypto {
 
@@ -25,6 +26,7 @@ class crypto_factory {
         std::shared_ptr<hkdf_intf> create_hkdf(const crypto_impl &impl);
         std::shared_ptr<hash_function> create_hash(const crypto_impl &impl);
         std::shared_ptr<aes_cmac> create_aes_cmac(const crypto_impl &impl);
+        std::shared_ptr<aes_cbc> create_aes_cbc(const crypto_impl &impl);
     private:
         explicit crypto_factory() { }
 };

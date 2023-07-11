@@ -1,3 +1,9 @@
+/**
+ * @brief - Implements MQTT parsing.
+ *
+ * @author Devendra Naga.
+ * @copyright - 2023-present All rights reserved.
+*/
 #ifndef __NOS_FIREWALL_PACKET_MQTT_H__
 #define __NOS_FIREWALL_PACKET_MQTT_H__
 
