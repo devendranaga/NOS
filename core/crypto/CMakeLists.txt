@@ -9,7 +9,8 @@ set(MBEDTLS_SRC
     ./mbedtls/mbedtls_hash.cc
     ./mbedtls/mbedtls_crypto_random.cc
     ./mbedtls/mbedtls_aes_cmac.cc
-    ./mbedtls/mbedtls_aes_cbc.cc)
+    ./mbedtls/mbedtls_aes_cbc.cc
+    ./mbedtls/mbedtls_aes_xts.cc)
 
 set(OPENSSL_SRC
     ./openssl/openssl_hash.cc
