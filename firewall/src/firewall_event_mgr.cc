@@ -29,6 +29,17 @@ int firewall_event_mgr::init()
     return 0;
 }
 
+void firewall_event_mgr::make(packet_parser_state &state,
+                              event_result res,
+                              event_type descr,
+                              uint32_t rule_id)
+{
+    firewall_event evt;
+
+    evt.make(state, res, descr, rule_id);
+    queue_event(evt, state.pkt_buf);
+}
+
 firewall_event_mgr::~firewall_event_mgr()
 {
 }

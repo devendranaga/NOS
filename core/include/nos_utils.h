@@ -63,6 +63,8 @@ int convert_to_hex(const std::string &val_str, uint32_t *val_hex);
  */
 int convert_to_ipv4(const std::string &val_str, uint32_t *ipv4);
 
+void hexdump(const char *name, const uint8_t *buf, uint32_t buf_len);
+
 }
 
 #endif

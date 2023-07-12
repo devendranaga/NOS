@@ -5,6 +5,7 @@
 #define __NOS_PACKET_BUF_H__
 
 #include <stdint.h>
+#include <cstring>
 #include <event_types.h>
 #include <string>
 
@@ -13,17 +14,18 @@ namespace nos::firewall
 
 struct packet_buf {
     std::string intf;
-    uint8_t *data;
+    uint8_t data[4096];
     uint32_t data_len;
     uint32_t off;
 
     explicit packet_buf(uint16_t data_length): data_len(data_length) {
-        data = nullptr;
         off = 0;
         intf = "";
     }
     explicit packet_buf(std::string if_name): intf(if_name) { }
-    explicit packet_buf() : data(nullptr), data_len(0), off(0) { }
+    explicit packet_buf() : data_len(0), off(0) {
+        std::memset(data, 0, sizeof(data));
+    }
     ~packet_buf() { }
 
     uint32_t remaining_bytes() { return data_len - off; }

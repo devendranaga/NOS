@@ -13,6 +13,8 @@ int test_hash();
 
 int test_aes_cmac();
 
+int test_aes_cbc(nos::crypto::crypto_impl impl);
+
 int main()
 {
     nos::crypto::crypto_impl impl[] = {
@@ -44,6 +46,11 @@ int main()
     }
 
     ret = test_aes_cmac();
+    if (ret != 0) {
+        return -1;
+    }
+
+    ret = test_aes_cbc(nos::crypto::crypto_impl::mbedtls);
     if (ret != 0) {
         return -1;
     }

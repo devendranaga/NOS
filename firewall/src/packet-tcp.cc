@@ -59,6 +59,7 @@ event_type tcp_header::deserialize(packet_buf &buf,
         uint8_t opt_type = buf.data[buf.off];
 
         buf.off ++;
+        opt_len --;
 
         contains_options = true;
 
@@ -66,6 +67,16 @@ event_type tcp_header::deserialize(packet_buf &buf,
             case TCP_OPT_MSS: {
                 buf.deserialize_byte(&opt.mss.len);
                 buf.deserialize_2_bytes(&opt.mss.mss);
+                opt_len -= 3;
+            } break;
+            case TCP_OPT_NOOP: {
+                /* Ignore and bypass noop. */
+            } break;
+            case TCP_OPT_TS: {
+                buf.deserialize_byte(&opt.ts.length);
+                buf.deserialize_4_bytes(&opt.ts.ts_val);
+                buf.deserialize_4_bytes(&opt.ts.ts_echo_reply);
+                opt_len -= 9;
             } break;
             default:
                 return event_type::TCP_OPT_UNSUPPORTED;

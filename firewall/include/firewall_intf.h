@@ -35,6 +35,7 @@ class firewall_intf {
         std::unique_ptr<std::thread> rx_thr_;
         std::queue<packet_buf> pkt_queue_;
         std::mutex pkt_queue_lock_;
+        std::condition_variable pkt_queue_cond_;
         std::string ifname_;
 };
 

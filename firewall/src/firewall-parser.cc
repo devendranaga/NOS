@@ -87,23 +87,34 @@ void firewall_intf::parser_callback()
     event_type type;
     int q_len;
 
-    {
-        std::unique_lock<std::mutex> lock(pkt_queue_lock_);
-        q_len = pkt_queue_.size();
-        while (q_len > 0) {
-            packet_parser_state state;
+    while (1) {
+        {
+            std::unique_lock<std::mutex> lock(pkt_queue_lock_);
+            pkt_queue_cond_.wait(lock);
 
-            state.pkt_buf = pkt_queue_.front();
-            pkt_queue_.pop();
-
-            type = parse_packet(state);
-            if (type != event_type::NO_ERROR) {
-                firewall_event evt;
-                evt.make(state, event_result::Deny, type, 0);
-            } else {
-
-            }
             q_len = pkt_queue_.size();
+            while (q_len > 0) {
+                packet_parser_state state;
+
+                state.pkt_buf = pkt_queue_.front();
+                pkt_queue_.pop();
+
+                type = parse_packet(state);
+
+                /*
+                 * Parsing has failed.
+                 */
+                if (type != event_type::NO_ERROR) {
+                    /* Make and queue the event. */
+                    firewall_event_mgr::instance()->make(state,
+                                                   event_result::Deny,
+                                                   type,
+                                                   0);
+                } else {
+
+                }
+                q_len = pkt_queue_.size();
+            }
         }
     }
 }

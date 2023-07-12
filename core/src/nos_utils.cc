@@ -101,4 +101,13 @@ int convert_to_ipv4(const std::string &val_str, uint32_t *ipv4)
     return ret;
 }
 
+void hexdump(const char *name, const uint8_t *buf, uint32_t buf_len)
+{
+    fprintf(stderr, "%s: ", name);
+    for (uint32_t i = 0; i < buf_len; i ++) {
+        fprintf(stderr, "%02x", buf[i]);
+    }
+    fprintf(stderr, "\n");
+}
+
 }

@@ -13,7 +13,9 @@ namespace nos::firewall
 #define TCP_HDR_LEN_MIN 20
 #define TCP_HDR_LEN_MAX 60
 
+#define TCP_OPT_NOOP    1
 #define TCP_OPT_MSS     2
+#define TCP_OPT_TS      8
 
 struct tcp_flags {
     uint8_t reserved:3;
@@ -59,6 +61,16 @@ struct tcp_flags {
     { return rst == true; }
 };
 
+struct tcp_options_timestamp {
+    uint8_t length;
+    uint32_t ts_val;
+    uint32_t ts_echo_reply;
+};
+
+struct tcp_options_noop {
+    uint8_t noop;
+};
+
 struct tcp_options_mss {
     uint8_t len;
     uint16_t mss;
@@ -66,6 +78,8 @@ struct tcp_options_mss {
 
 struct tcp_options {
     tcp_options_mss mss;
+    tcp_options_noop noop;
+    tcp_options_timestamp ts;
 };
 
 struct tcp_header {
